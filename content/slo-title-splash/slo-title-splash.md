@@ -22,5 +22,5 @@ Today we are going to talk about service metrics, different types of swans and a
 
 {::pagebreak /}
 
-
-[SLO-SWAN-4]: (./SLO-SWAN-4.png)
+<!-- Reference definitions at bottom -->
+[SLO-SWAN-4]: SLO-SWAN-4.png
