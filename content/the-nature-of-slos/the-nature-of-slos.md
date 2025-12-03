@@ -670,6 +670,7 @@ This isn't a failure of SLOs. It's a limitation of the paradigm. You can't measu
 
 Hidalgo, Alex. Implementing Service Level Objectives. O'Reilly Media, 5 Aug. 2020.
 
+<!-- Reference definitions at bottom -->
 [levelofeffortforeach9]: levelofeffortforeach9.png
 
 [slo-vs-sla-vs-sli-1]: slo-vs-sla-vs-sli-1.jpg width=407px height=220px
