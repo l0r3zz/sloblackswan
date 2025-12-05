@@ -34,7 +34,7 @@ The following diagram better illustrates this workflow:
 
 The AI functioned as a research assistant and copywriter. It startles me sometimes how well it knows (or emulates) my intent.
 
-When I got the document to a stage of being complete, I placed it into a GitHub repo for public distribution. As changes are made, GitHub Actions trigger to always have a current copy of the markdown master. One can download the markdown and either drop this into some AI agent for continued processing or evaluation, or render it to a PDF for a more human-readable version.
+When I got the document to a stage of being complete, I placed it into a [GitHub repo](https://https://github.com/l0r3zz/sloblackswan) for public distribution. As changes are made, GitHub Actions trigger to always have a current copy of the markdown master. One can download the markdown and either drop this into some AI agent for continued processing or evaluation, or render it to a PDF for a more human-readable version.
 
 I invite all readers to submit PRs to the document if you find any inaccuracies. If you take exceptions to some of the assertions or conclusions, please use GitHub issues so that we can hash this out.
 
