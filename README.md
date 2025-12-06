@@ -62,6 +62,14 @@ I invite you to clone the repo, and submit PRs if you find an error. Use the Git
 4. **Update `MANIFEST.md`** if you're adding new sections
 5. **Submit a Pull Request** with a clear description of your changes
 
+### EXTRA BONUS !!!
+There is a notebookLM notebook that has a version of the book loaded in that you can interact with. 
+
+Find it here: 
+https://tinyurl.com/sloblackswan
+
+I'm updating it manually for now so I may not have the most recent changes in the content.
+
 ---
 
 Geoff White
