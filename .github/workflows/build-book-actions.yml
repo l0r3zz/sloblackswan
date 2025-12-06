@@ -10,9 +10,9 @@ on:
 #      - 'requirements.txt'
 #  workflow_dispatch:
   pull_request:
-     types: [closed]
-     branches:
-       - main  # adjust if your main branch is named differently
+    types: [closed]
+    branches:
+      - main  # adjust if your main branch is named differently
 
 permissions:
   contents: write
@@ -24,34 +24,40 @@ jobs:
     if: github.event.pull_request.merged == true
 
     steps:
-    - name: Check out repository
-      uses: actions/checkout@v4
-      with:
-        persistant-credentials: true
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          persistant-credentials: true
 
-    - name: Set up Python
-      uses: actions/setup-python@v5
-      with:
-        python-version: '3.14'
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.14'
 
-    - name: Install System Dependencies (WeasyPrint)
-      run: |
-        sudo apt-get update
-        sudo apt-get install -y libpango-1.0-0 libpangoft2-1.0-0 libharfbuzz-subset0 libjpeg-dev libopenjp2-7-dev libffi-dev
+      - name: Install System Dependencies (WeasyPrint)
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y \
+            libpango-1.0-0 libpangoft2-1.0-0 \
+            libharfbuzz-subset0 libjpeg-dev \
+            libopenjp2-7-dev libffi-dev
 
-    - name: Install Python Dependencies, venv
-      run: |
-        python -m venv .venv
-        source .venv/bin/activate
-        pip install --upgrade pip
-        pip install -r requirements.txt
+      - name: Install Python Dependencies, venv
+        run: |
+          python -m venv .venv
+          source .venv/bin/activate
+          pip install --upgrade pip
+          pip install -r requirements.txt
 
-    - name: Build Book (Markdown & PDF)
-      env:
-        PR_NUMBER: ${{ github.event.pull_request.number }}
-      run: |
-        source .venv/bin/activate
-        python scripts/build_book.py -s content -d SLOBLACKSWAN -v "v0.${{ github.run_number }}" -m MANIFEST.md -P
+      - name: Build Book (Markdown & PDF)
+        env:
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+        run: |
+          source .venv/bin/activate
+          python scripts/build_book.py \
+            -s content \
+            -d SLOBLACKSWAN \
+            -v "v0.${{ github.run_number }}" -m MANIFEST.md -P
 
 #    - name: Upload Artifacts
 #      uses: actions/upload-artifact@v4
@@ -74,5 +80,5 @@ jobs:
             exit 0
           fi
 
-          git commit -m "Add compiled docs for PR #${PR_NUMBER}"
-          git push
+           git commit -m "Add compiled docs for PR #${PR_NUMBER}"
+           git push
