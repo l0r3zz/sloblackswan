@@ -3,7 +3,7 @@
 ![][SLO-SWAN-4]
 
 ### Geoff White (geoffw@nexsys.net)
-### Copyright November 2025 (v0.44) 
+### Copyright __$DATE__ (v__$VERSION__) 
 
 Black Swans are all the rage in the chat rooms of our remote conferences these days. They loom large in the psyche of SRE. But do we really know a Black Swan when we see one? If you think you do, did you really see a Black Swan? Or some other animal? SRE culture has grown fond of talking about sudden cataclysmic failures in Infrastructure as Black Swans, but as we shall see, many are not.
 
