@@ -48,7 +48,7 @@ The output will be in a directory named `SLOBLACKSWAN-<version>` containing the 
 
 ### Automated Builds
 
-This repository uses GitHub Actions to automatically build the book on every push to `main`. Check the [Actions tab](https://github.com/yourusername/sloblackswan-repo/actions) to download the latest build artifacts.
+This repository uses GitHub Actions to automatically build the book on every push to `main`. Check the [Actions tab](https://github.com/l0r3zz/sloblackswan-repo/actions) to download the latest build artifacts.
 
 ## Contributing
 
