@@ -75,18 +75,18 @@ Black Swans are genuinely unprecedented. There's no historical basis for predict
 
 The test: Could you have predicted this event by analyzing historical data, even if you'd been very clever and very paranoid? If yes, it's not a Black Swan.
 
-**Examples:**
-- Apollo 13 Moonshot (catastrophic failure, not in any playbook or simulation)
+**Examples (true Black Swans are rare):**
 - The 1980 ARPANET collapse (first major network cascade)
 - The Morris Worm (first internet worm, new category of threat)
-- September 11th attacks (for infrastructure impact, not the event itself)
-- The 2008 financial crisis (for its specific tech infrastructure effects)
-- COVID-19's digital transformation acceleration (pandemic was predictable, specific tech impacts weren't)
+- Spectre/Meltdown-class CPU vulnerabilities (a practical, globally-relevant failure mode most ops teams weren't modeling)
+- COVID-19's digital transformation acceleration (pandemics were modeled; the specific dependency and behavior shifts weren't, for many orgs)
 
 **Why They Matter:**
 Black Swans remind us that our models are always incomplete. They force intellectual humility. They teach us that the biggest risks aren't always the ones we can measure.
 
 But here's the critical insight: most events that get labeled "Black Swans" in SRE incident reviews aren't actually Black Swans. They're Grey Swans that we didn't want to think about, or Grey Rhinos we chose to ignore, or Black Jellyfish we thought we understood.
+
+Apollo 13 is a classic example of that mislabeling. It was a catastrophic, high-uncertainty failure--but still within known physics and engineering failure modes, and it was resolved through deep system knowledge, practiced contingency thinking, and excellent incident command. It's a masterclass in crisis response, not "no-model-possible" unpredictability.
 
 True Black Swans are rare. That's what makes them Black Swans.
 

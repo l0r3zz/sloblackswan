@@ -935,7 +935,7 @@ The framework developed in this essay builds on the work of many thinkers and pr
 
 And the countless SREs, platform engineers, and incident commanders who've lived through these animals and shared their hard-won lessons.
 
-And lastly, to **Gene Kranz**, arguably the patron saint of Incident Commanders everywhere. He caught a Black Swan and made sure it didn't claim any lives. And immortalized the phrase "Failure is not an option" (even if he really didn't say it as dramatically as it was said in the movie Apollo 13)
+And lastly, to **Gene Kranz**, arguably the patron saint of Incident Commanders everywhere. He led one of the best real-world demonstrations of incident command under extreme uncertainty and made sure it didn't claim any lives. And he helped immortalize the phrase "Failure is not an option" (even if he really didn't say it as dramatically as it was said in the movie Apollo 13)
 
 
 ---

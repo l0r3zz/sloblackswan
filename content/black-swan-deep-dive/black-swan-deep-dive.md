@@ -2153,8 +2153,8 @@ class BlackSwanTraining:
     
     def the_apollo_13_model(self):
         """
-        They didn't have a runbook for oxygen tank explosion.
-        But they had people trained to adapt.
+        They didn't have a runbook for *that exact* failure sequence.
+        But they had people trained to adapt within known physics/engineering constraints.
         """
         return {
             "preparation": "Deep system knowledge, not just procedures",
@@ -2165,7 +2165,7 @@ class BlackSwanTraining:
         }
 ```
 
-The Apollo 13 mission is the perfect example. They didn't have a runbook for an oxygen tank explosion in deep space. What they had was a team trained to think, not just follow procedures. They had deep system knowledge that let them understand how to jury-rig a solution. They had practiced responding to novel scenarios, even if they hadn't practiced this specific one. Most importantly, they had a culture where "failure is not an option" meant finding a way, not following a script.
+The Apollo 13 mission is a great example of crisis response under extreme uncertainty. They didn't have a runbook for an oxygen tank explosion in deep space. What they had was a team trained to think, not just follow procedures. They had deep system knowledge that let them understand how to jury-rig a solution. They had practiced responding to novel scenarios, even if they hadn't practiced this specific one. Most importantly, they had a culture where "failure is not an option" meant finding a way, not following a script.
 
 That's what adaptability training builds: teams that can think their way through problems they've never seen before. Novel scenario drills force teams to respond without runbooks. Cross-training builds the broad understanding that lets engineers see connections others miss. Tabletop exercises practice decision-making under uncertainty. Blameless learning creates the psychological safety to admit ignorance and learn rapidly.
 
