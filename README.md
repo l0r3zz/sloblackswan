@@ -1,6 +1,6 @@
 # SLOs can't catch a Black Swan
 
-![][SLO-SWAN-4]
+![][SLO-SWAN-ANIMATED]
 
 Black Swans are all the rage in the chat rooms of our remote conferences these days. They loom large in the psyche of SRE. But do we really know a Black Swan when we see one? If you think you do, did you really see a Black Swan? Or some other animal? SRE culture has grown fond of talking about sudden cataclysmic failures in Infrastructure as Black Swans, but as we shall see, many are not.
 
@@ -79,3 +79,4 @@ I'm updating it manually for now so I may not have the most recent changes in th
 Geoff White
 
 [SLO-SWAN-4]: content/slo-title-splash/SLO-SWAN-4.png
+[SLO-SWAN-ANIMATED]: images/cant-catch-animated.gif
