@@ -6,7 +6,7 @@ Think of this as a field guide for infrastructure reliability. Each animal repre
 
 Understanding which animal you're dealing with isn't just academic classification. It determines your response strategy. The tools you use to address a Grey Rhino (organizational courage and priority alignment) are completely different from the tools you need for a Black Swan (antifragility and rapid adaptation). Misidentify the animal, and you'll prepare for the wrong disaster.
 
-![][animal-matrix-improved-small]
+![][animal-matrix-nano]
 
 
 Throughout this section, we'll use a consistent framework for each animal:
@@ -76,6 +76,7 @@ Black Swans are genuinely unprecedented. There's no historical basis for predict
 The test: Could you have predicted this event by analyzing historical data, even if you'd been very clever and very paranoid? If yes, it's not a Black Swan.
 
 **Examples:**
+- Apollo 13 Moonshot (catastrophic failure, not in any playbook or simulation)
 - The 1980 ARPANET collapse (first major network cascade)
 - The Morris Worm (first internet worm, new category of threat)
 - September 11th attacks (for infrastructure impact, not the event itself)
@@ -188,9 +189,9 @@ If the answer is yes, even theoretically, it wasn't a Black Swan. It was somethi
 
 With our swan taxonomy established, we're ready to meet the rest of the animals. Each one exploits different weaknesses in how we think about and measure reliability.
 
-We'll start with the star of the show, the event that gives this essay its title: the Black Swan. The genuinely unpredictable, the truly unprecedented, the failure mode that exists outside all our models and measurements.
+We'll start with the star of the show, the event that gives this book its title: the Black Swan. The genuinely unpredictable, the truly unprecedented, the failure mode that exists outside all our models and measurements.
 
 Because if you can't catch a Black Swan with an SLO, you need to understand exactly what that means and what you can do instead.
 
 
-[animal-matrix-improved-small]: animal-matrix-improved-small.png
+[animal-matrix-nano]: animal_matrix_nano.jpg
