@@ -1,54 +1,49 @@
 ## The Nature of SLOs
-
 Before we dive into why SLOs can't catch Black Swans, we need to establish exactly what SLOs are, where they came from, and why they work so well for normal operations. If you're already deep into SRE practice, some of this will be review. But bear with me, because understanding the foundations helps us see the limitations.
-
 ### The Telecom Roots: Where the "Nines" Came From
-
 Service Level Objectives didn't spring fully formed from Google's SRE organization. They have roots stretching back to the telephone era, when AT&T engineers were trying to figure out what "reliable enough" meant for voice networks.
 
 In the 1970s, AT&T established "five nines" (99.999% availability) as the gold standard for telecommunications reliability. This wasn't arbitrary. It was based on what human psychology could tolerate for phone service and what was technically achievable with the switching equipment of the era.
 
 That standard stuck. It became the aspirational target for any critical communications infrastructure. And when the internet age arrived, we inherited that framework. The "nines" became our common language for discussing reliability, even as the systems we built became vastly more complex than circuit-switched phone networks.
-
+{::pagebreak /}
 ### The Nines: What They Actually Mean
-
 Here's the brutal math behind availability percentages. The table shows how much downtime you're allowed at different availability levels:
 
-| Availability | Downtime per Day | Downtime per Month | Downtime per Year |
-|--------------|------------------|--------------------|-------------------|
-| 90%          | 2.4 hours        | 72 hours           | 36.5 days         |
-| 95%          | 1.2 hours        | 36 hours           | 18.25 days        |
-| 99%          | 14.4 minutes     | 7.2 hours          | 3.65 days         |
-| 99.9%        | 1.44 minutes     | 43.2 minutes       | 8.76 hours        |
-| 99.95%       | 43.2 seconds     | 21.6 minutes       | 4.38 hours        |
-| 99.99%       | 8.64 seconds     | 4.32 minutes       | 52.56 minutes     |
-| 99.999%      | 0.864 seconds    | 25.9 seconds       | 5.26 minutes      |
+| Availability | Downtime per Day | Downtime per Month | Downtime per Year | Level of nines   |
+|--------------|------------------|--------------------|-------------------|------------------|
+| 90%          | 2.4 hours        | 72 hours           | 36.5 days         | one              |
+| 95%          | 1.2 hours        | 36 hours           | 18.25 days        | one point five   |
+| 99%          | 14.4 minutes     | 7.2 hours          | 3.65 days         | two              |
+| 99.9%        | 1.44 minutes     | 43.2 minutes       | 8.76 hours        | three            |
+| 99.95%       | 43.2 seconds     | 21.6 minutes       | 4.38 hours        | three point five |
+| 99.99%       | 8.64 seconds     | 4.32 minutes       | 52.56 minutes     | four             |
+| 99.999%      | 0.864 seconds    | 25.9 seconds       | 5.26 minutes      | five             |
 
 Look at that table carefully, because it contains a lesson that's easy to miss: the difference between each nine is roughly an order of magnitude in effort.
 
 Getting from 99% to 99.9% is hard. Getting from 99.9% to 99.99% is ten times harder. Getting to 99.999% is heroic. Five nines means you have less than one second of downtime per day. That's 26 seconds per month. A single deployment that takes 30 seconds of downtime blows your entire month's budget.
-
+{::pagebreak /}
 So here's the first question you should ask when someone declares they're targeting "five nines": Does your service actually need that?
 
 If you're running air traffic control systems, maybe. If you're running a dating site, probably not. The difference in engineering cost between 99.9% and 99.99% is enormous. Make sure you're solving the right problem.
+
 ![][levelofeffortforeach9]
-
-
 For reference: 40.32 minutes of downtime in a 28-day period puts you at about "three nines" (99.9%) availability. That's actually pretty good for most services. It gives you enough breathing room for planned maintenance, unexpected issues, and the occasional incident that takes more than a few minutes to resolve.
-
+{::pagebreak /}
 ### The Service Level Family: SLAs, SLIs, and SLOs
 ![][slo-vs-sla-vs-sli-1]
 These three acronyms get thrown around interchangeably, but they mean different things and serve different purposes. Let's clarify:
 {::pagebreak /}
 #### Service Level Agreements (SLAs)
 ![][new-sla-graphic-small]
+
 An SLA is a contract. It's your legal promise to customers about what level of service you'll provide. If you violate your SLA, there are usually consequences spelled out in that contract: refunds, service credits, penalty payments, or in extreme cases, customers walking away.
 
 SLAs are customer-facing and legally binding. They're often negotiated by sales and legal teams, not by SREs. And they should always be more conservative (easier to meet) than your internal targets, because missing an SLA has real business consequences.
 
 Example SLA: "We guarantee 99.9% uptime per calendar month. If we fail to meet this, you'll receive a 10% service credit for that month."
-
-
+{::pagebreak /}
 #### Service Level Indicators (SLIs)
 
 SLIs are the actual measurements you use to determine if you're meeting your objectives. They're the raw metrics that tell you how your system is performing from the user's perspective.
@@ -65,7 +60,7 @@ SLI = (Good Events / Total Events) × 100%
 
 This gives you a percentage between 0 and 100%. The consistency makes building common tooling easier and makes it simple to compare different services.
 
-Good SLIs have a predictable relationship with user happiness. When your SLI goes down, users should be having a worse experience. When it goes up, they should be happier. If your SLI is moving but user satisfaction isn't changing, you're measuring the wrong thing. I can't emphasize this point enough. SLOs should **always** be crafted in a way that their value tracks *user happiness*. Not management happiness, not storage team's happiness, not dev team's happiness (unless the dev teams are the users being served), **user happiness**. Too often we are tempted to craft SLOs from a sys admin mindset, but that is what monitoring and dashboards are for.
+Good SLIs have a predictable relationship with user happiness. When your SLI goes down, users should be having a worse experience. When it goes up, they should be happier. If your SLI is moving but user satisfaction isn't changing, you're measuring the wrong thing. I can't emphasize this point enough. **SLOs should **always** be crafted in a way that their value tracks *user happiness*. Not management happiness, not storage team's happiness, not dev team's happiness (unless the dev teams are the users being served), *user happiness*.** Too often we are tempted to craft SLOs from a sys admin mindset, but that is what monitoring and dashboards are for.
 
 Here's a practical example:
 - Bad SLI: "Network packet loss on backup segment"
@@ -73,8 +68,7 @@ Here's a practical example:
 - Good SLI: "Percentage of API requests that complete in under 500ms"
   - This directly affects user experience for every request
 
-Here is a table of SLI types and a brief description of what type of metrics they should incorporate into crafted SLOs.
-
+{::pagebreak /}
 #### Table of SLI Types
 
 | Type of Service | Type of SLI | Description |
@@ -93,6 +87,7 @@ SLIs should be aggregated over a meaningful time horizon. A common choice is 28 
 #### Service Level Objectives (SLOs)
 
 ![][slo-new-illustration-small]
+
 SLOs are your internal targets. They're what your engineering team commits to achieving, and they should be stricter than your SLAs. Think of them as your early warning system: if you're violating SLOs, you know you're heading toward SLA violations.
 
 An SLO answers the question: "What does good service look like for this system?"
@@ -135,7 +130,7 @@ Here's where SLOs get really powerful. Once you set an SLO, you automatically cr
 
 If your SLO says 99.9% of requests should succeed, your error budget is the remaining 0.1% that's allowed to fail. This is your budget for unreliability. You can spend it on:
 - Risky deployments
-- Aggressive experiments
+- Aggressive (chaos) experiments
 - Planned maintenance
 - Hardware failures
 - The occasional incident you didn't see coming
@@ -256,6 +251,13 @@ slos:
     burn_rate_threshold: 2
     alert_threshold: 10%
 ```
+This is a snippet of YAML code that defines two SLOs: availability and latency. For the payment-processor service. There are Two SLOs described here:
+1. Availability at 99.5%
+2. Latency at 95%, commonly referred to as p95
+
+For Availability, we target 3.5 nines. This gives us a comfortable target of 43 seconds of downtime per day. Probably just fine for a dating site.
+
+For Latency, we are often interested in whether 95% of the requests fall within 200ms. Why? Because using the average can actually hide pain that an individual user might experience. Individual users experience individual requests, not averages.
 {::pagebreak /}
 #### Aspirational SLOs
 
@@ -298,6 +300,7 @@ class AspirationalSLO:
 ```
 
 The key to aspirational SLOs is tracking them alongside your standard SLOs but making it explicit in your policy that they don't require the same level of urgency. They force conversation about reliability priorities without triggering false alarms.
+
 {::pagebreak /}
 #### Bucketing / Tiered SLOs
 
@@ -430,6 +433,7 @@ alert = should_alert_single_window(burn_rate, '1h')
 ```
 
 The problem with single-window alerting is that it doesn't account for different failure patterns. A brief spike looks the same as sustained degradation to a stateless threshold alert. You either alert on everything (alert fatigue) or alert on nothing (missed incidents).
+
 {::pagebreak /}
 #### Multi-Window, Multi-Burn-Rate Alerts
 
@@ -521,6 +525,7 @@ This multi-window approach prevents two common problems:
 2. **Alert fatigue**: A single blip across many systems doesn't trigger page-worthy alerts, but a sustained trend does.
 
 The key insight: different time windows catch different failure modes. You need them all.
+
 {::pagebreak /}
 #### Adaptive Thresholds
 
@@ -584,6 +589,45 @@ threshold_month2 = latency_monitor.calculate_threshold(150)
 
 This pattern helps your monitoring evolve with your system. As traffic grows, thresholds adjust. As performance improves, the new baseline becomes the norm. You're always measuring against recent reality, not stale assumptions.
 {::pagebreak /}
+
+### The Fundamental Limitation: SLOs Live in Mediocristan
+
+Now we come to the core issue: everything we've discussed so far works beautifully in Mediocristan. When your system behaves predictably, when failures are independent, when distributions are normal, SLOs are phenomenal tools.
+
+But remember Taleb's distinction: SLOs assume the future will look like the past. They're built on historical data. They expect normal distributions. They quantify known risks.
+
+**What SLOs Can Do:**
+- Measure normal system behavior
+- Track known failure modes
+- Guide capacity planning
+- Set customer expectations
+- Provide early warning for degrading systems
+
+**What SLOs Can't Do:**
+- Predict unprecedented events
+- Protect against unknown failure modes
+- Account for systemic cascade risks
+- Handle correlated failures across systems
+- Capture complex second-order effects
+
+When Extremistan intrudes, when the Black Swan arrives, when your Grey Rhino finally charges, when your Black Jellyfish triggers a cascade, your SLOs don't save you. They might not even alert you.
+
+{::pagebreak /}
+
+### The Paradox of SLO Success
+
+Here's the uncomfortable truth: the better your SLOs look, the more dangerous your position might be.
+
+Remember the Turkey Problem? Every day that your SLOs are green, every week without an incident, every month of perfect availability... all of that can breed exactly the kind of overconfidence that makes you vulnerable to catastrophic failure.
+
+Your dashboards say everything's fine. Your error budget is healthy. Your percentiles are beautiful. And then something completely outside your model destroys everything, and you realize that "fine" was just "fine within the narrow band of scenarios we thought to measure."
+
+This doesn't mean SLOs are bad. They're essential for day-to-day operations. But they need to be complemented with:
+- Chaos engineering that tests beyond known scenarios
+- Architecture that assumes components will fail in novel ways
+- Organizations that maintain healthy paranoia even during success
+- Teams that remember the turkey's fate
+{::pagebreak /}
 ### Beyond Traditional Monitoring: Holistic Health Assessment
 
 Modern systems need more than just SLO monitoring. Here's a more comprehensive approach:
@@ -619,43 +663,8 @@ class SystemHealth:
 ```
 
 This approach recognizes that SLOs measure current performance, but systemic health requires looking at architecture, dependencies, and how the system responds to stress.
+
 {::pagebreak /}
-### The Fundamental Limitation: SLOs Live in Mediocristan
-
-Now we come to the core issue: everything we've discussed so far works beautifully in Mediocristan. When your system behaves predictably, when failures are independent, when distributions are normal, SLOs are phenomenal tools.
-
-But remember Taleb's distinction: SLOs assume the future will look like the past. They're built on historical data. They expect normal distributions. They quantify known risks.
-
-**What SLOs Can Do:**
-- Measure normal system behavior
-- Track known failure modes
-- Guide capacity planning
-- Set customer expectations
-- Provide early warning for degrading systems
-
-**What SLOs Can't Do:**
-- Predict unprecedented events
-- Protect against unknown failure modes
-- Account for systemic cascade risks
-- Handle correlated failures across systems
-- Capture complex second-order effects
-
-When Extremistan intrudes, when the Black Swan arrives, when your Grey Rhino finally charges, when your Black Jellyfish triggers a cascade, your SLOs don't save you. They might not even alert you.
-{::pagebreak /}
-### The Paradox of SLO Success
-
-Here's the uncomfortable truth: the better your SLOs look, the more dangerous your position might be.
-
-Remember the Turkey Problem? Every day that your SLOs are green, every week without an incident, every month of perfect availability... all of that can breed exactly the kind of overconfidence that makes you vulnerable to catastrophic failure.
-
-Your dashboards say everything's fine. Your error budget is healthy. Your percentiles are beautiful. And then something completely outside your model destroys everything, and you realize that "fine" was just "fine within the narrow band of scenarios we thought to measure."
-
-This doesn't mean SLOs are bad. They're essential for day-to-day operations. But they need to be complemented with:
-- Chaos engineering that tests beyond known scenarios
-- Architecture that assumes components will fail in novel ways
-- Organizations that maintain healthy paranoia even during success
-- Teams that remember the turkey's fate
-
 ### Moving Forward
 
 We've established what SLOs are, how they work, and why they're powerful tools for managing reliability in normal conditions. We've also identified their fundamental limitation: they're built on the assumption that the future will resemble the past.
