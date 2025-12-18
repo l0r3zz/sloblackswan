@@ -34,7 +34,7 @@ Most events called Black Swans are actually something else:
 **True Black Swans are rare.** That's what makes them Black Swans.
 
 The danger of mislabeling events is that it leads to the wrong lessons. If you call something a Black Swan when it was actually a Grey Rhino, you'll focus on building adaptability when you should have been addressing obvious problems. You'll prepare for the unpredictable when you should have acted on the predictable.
-{::pagebreak /}
+
 ### The Question That Changes Everything
 
 After every major incident, ask this question:
@@ -108,7 +108,7 @@ The fundamental distinction:
 **Black Swans:** "We couldn't have known this was possible"  
 **Grey Swans:** "We knew it was possible, just not likely to happen to *us*"
 
-Black Swans require building antifragile systems that can handle complete novelty. Grey Swans require intellectual honesty about low-probability risks and the organizational courage to prepare for events you hope never happen.
+**Black Swans require building antifragile systems that can handle complete novelty.** Grey Swans require intellectual honesty about low-probability risks and the organizational courage to prepare for events you hope never happen.
 
 With Black Swans, the problem is epistemological - we can't know what we don't know.  
 With Grey Swans, the problem is psychological - we dismiss what we do know.
