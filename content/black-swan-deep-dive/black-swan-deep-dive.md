@@ -3,9 +3,9 @@
 ![][black-swan]
 We've established what Black Swans are in theory. Now let's explore what they mean in practice for infrastructure reliability, why your SLOs fundamentally can't catch them, and what you can actually do about events that are, by definition, impossible to predict.
 
-This is the star of our show, the animal that gives this essay its title. Understanding Black Swans isn't just about rare catastrophic failures. It's about confronting the limits of knowledge, measurement, and control in complex systems.
 {::pagebreak /}
 ### The True Nature of Black Swans
+This is the star of our show, the animal that gives this book its title. Understanding Black Swans isn't just about rare catastrophic failures. It's about confronting the limits of knowledge, measurement, and control in complex systems.
 
 Let's be precise about what makes an event a genuine Black Swan, because in SRE culture, we've become far too casual about applying this label to any big incident we didn't see coming.
 
@@ -35,7 +35,7 @@ The impact can be:
 Here's the most insidious aspect: after a Black Swan, everyone becomes an expert on why it was "obvious" and "inevitable." The post-incident review confidently explains the chain of events. The timeline makes perfect sense. The root cause is clear.
 
 This creates a dangerous illusion: if it's so obvious in hindsight, we should be able to predict the next one, right? Wrong. The retrospective explanation is a narrative we construct, not a prediction we could have made.
-
+{::pagebreak /}
 #### The Classification Challenge
 
 ```python
@@ -518,7 +518,7 @@ The incident didn't just change how networks were designed. It changed how netwo
 
 The 1980 ARPANET collapse is ancient history. But the pattern it revealed isn't. Resilience mechanisms can amplify failures. Garbage collection can fail on corrupted data. Error detection gaps can allow problems to persist. Your SLOs assume you can measure what matters. But some failure modes aren't in the model.
 
-Here's what you can do:
+#### Here's what you can do:
 
 **1. Monitor the Mechanisms, Not Just the Outcomes**
 
@@ -891,7 +891,7 @@ The Morris Worm created cybersecurity as we know it. It established malware as a
 
 The 1988 Morris Worm is ancient history. But the pattern it revealed isn't. Novel attack vectors can emerge from existing vulnerabilities. Availability metrics can miss critical problems. The metric you need might not exist yet. Your SLOs assume you can measure what matters. But some threats aren't in the model.
 
-Here's what you can do:
+#### Here's what you can do:
 
 **1. Measure Integrity, Not Just Availability**
 
@@ -1150,9 +1150,9 @@ class SLOFailure:
 
 ##### What This Means for You
 
-The 2008 financial crisis is history. But the pattern it revealed isn't. Black swan events don't announce themselves. They cascade. A predictable economic crisis created unpredictable infrastructure impacts. Your SLOs and capacity planning models assume continuity. Black swans break continuity. Here's what you can do:
+The 2008 financial crisis is history. But the pattern it revealed isn't. Black swan events don't announce themselves. They cascade. A predictable economic crisis created unpredictable infrastructure impacts. Your SLOs and capacity planning models assume continuity. Black swans break continuity.
 
-—
+####  Here's what you can do:
 
 
 ***1. Model Contradictory Scenarios***
@@ -1412,7 +1412,7 @@ def sustained_load_analysis():
     #### Unlike temporary spikes, sustained load requires sustained capacity
     return sustained_resilience(load_characteristics, infrastructure_response)
 ```
-
+{::pagebreak /}
 ##### Why Your SLOs Couldn't Prepare You
 
 This is the core problem: your SLOs assume gradual changes. They're built on historical patterns. They expect normal growth curves. The COVID-19 shift created scenarios that broke those assumptions -- but unlike 1980 and 1988, infrastructure adapted rather than collapsed.
@@ -1554,7 +1554,7 @@ def outage_analysis():
 
 The COVID-19 infrastructure response is history. But the pattern it revealed isn't. Well-designed infrastructure can handle unprecedented loads. Grey Swans can have Black Swan-like infrastructure effects. But unlike 1980 and 1988, infrastructure can adapt rather than collapse.
 
-Here's what you can do:
+#### Here's what you can do:
 
 **1. Build Distributed Architecture**
 
@@ -2883,7 +2883,7 @@ class BlackSwanSynthesis:
             "reminds_us": "The biggest risks are often the ones we can't measure"
         }
 ```
-
+{::pagebreak /}
 #### The Practice of Black Swan Readiness
 
 Being ready for Black Swans isn't about prediction. It's about building the organizational and technical capabilities to adapt when the genuinely unprecedented arrives.
