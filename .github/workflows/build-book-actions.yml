@@ -60,13 +60,12 @@ jobs:
           # Name of the release that holds the major version tag. This should correspond to the
           # release you created (e.g., "sloblackswan_release"). The tag attached to this
           # release determines the major version number (e.g., v5.0 -> major is 5).
-          MAJOR_TAG_NAME: sloblackswan_release
+          MAJOR_TAG_TITLE: sloblackswan_release
           GH_TOKEN: ${{ github.token }}
         run: |
-          # Get the tag name from the specified release. If the release doesn't exist, default to v0.0.
-          TAG_NAME=$(gh release view "$MAJOR_TAG_NAME" --json tagName -q '.tagName' || echo 'v0.0')
+          
           # Extract the numeric major version from the tag (strip the leading v and anything after the dot).
-          MAJOR=$(echo "$TAG_NAME" | sed -E 's/^v([0-9]+).*/\1/')
+          MAJOR=$(gh release list --json name,tagName --jq '.[] | select(.name=="$MAJOR_TAG_TITLE") | .tagName' | cut -d. -f1 | tr -d 'v')
           # Find the highest existing minor number for this major version.
           LAST_MINOR=$(git tag --list "v${MAJOR}.*" | sed -E "s/^v${MAJOR}\.//" | sort -n | tail -1)
           if [ -z "$LAST_MINOR" ]; then
