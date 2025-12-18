@@ -54,18 +54,6 @@ The output will be in a directory named `SLOBLACKSWAN-<version>` containing the 
 
 This repository uses GitHub Actions to automatically build the book on every push to `main`. Check the [Actions tab](https://github.com/l0r3zz/sloblackswan/actions) to download the latest build artifacts.
 
-## Contributing
-
-I invite you to clone the repo, and submit PRs if you find an error. Use the GitHub Issues feature, and start or participate in a discussion. I'd like this to become a community resource for the SRE community. Yes I have opinions that are reflected in the beginning stages of this book, but I am not so arrogant as to assume that I "know all" or that my opinions are the only correct ones. I'd like this to be a resource so that we can make our systems not only resilient but anti-fragile. That will take a community to bring that about.
-
-### How to Contribute
-
-1. **Fork the repository**
-2. **Create a branch** for your changes
-3. **Make your edits** to the content in the `content/` directory
-4. **Update `MANIFEST.md`** if you're adding new sections
-5. **Submit a Pull Request** with a clear description of your changes
-
 ### EXTRA BONUS !!!
 There is a notebookLM notebook that has a version of the book loaded in that you can interact with. 
 
