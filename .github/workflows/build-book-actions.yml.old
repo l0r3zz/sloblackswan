@@ -17,11 +17,6 @@ on:
 permissions:
   contents: write
 
-# Prevent concurrent merged-PR runs from computing/pushing the same next tag.
-concurrency:
-  group: sloblackswan-versioning
-  cancel-in-progress: false
-
 
 jobs:
   build:
@@ -101,7 +96,6 @@ jobs:
 #        name: slo-black-swan-book
 #        path: SLOBLACKSWAN-*/
       - name: Commit and push generated docs
-        id: commit_docs
         env:
           PR_NUMBER: ${{ github.event.pull_request.number }}
         run: |
@@ -115,17 +109,8 @@ jobs:
           # If nothing changed, exit quietly
           if git diff --cached --quiet; then
             echo "No changes to commit"
-            echo "committed=false" >> "$GITHUB_OUTPUT"
-          else
-            git commit -m "Add compiled docs for PR #${PR_NUMBER}"
-            git push
-            echo "committed=true" >> "$GITHUB_OUTPUT"
+            exit 0
           fi
 
-      - name: Tag and push version
-        env:
-          VERSION: ${{ steps.version.outputs.version }}
-        run: |
-          git fetch --tags
-          git tag "$VERSION"
-          git push origin "$VERSION"
+          git commit -m "Add compiled docs for PR #${PR_NUMBER}"
+          git push
