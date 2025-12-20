@@ -89,7 +89,6 @@ To understand Grey Swans, we need to understand where they live in our probabili
 Here's the math that breaks human intuition:
 
 **The Cumulative Probability Trap:**
-
 A 2% annual probability sounds negligible. "Only 2% chance per year? That's basically never."
 
 But run the numbers over time:
@@ -102,9 +101,7 @@ But run the numbers over time:
 That "basically never" event becomes "more likely than not" over a career. Yet we make infrastructure decisions as if 2% means it won't happen to us.
 
 **The System-Level Amplification:**
-
 Component-level "rare" becomes system-level "expected":
-
 ```python
 # Simple but devastating math
 def system_probability(component_prob, num_components):
@@ -168,7 +165,8 @@ class GreySwanRiskAmplification:
     
     def current_risk(self):
         """Risk increases exponentially with degradation."""
-        multiplier = math.exp(self.degradation * 0.2)
+        # NOTE: Coefficient tuned so the demo severities below move 2% -> ~10%.
+        multiplier = math.exp(self.degradation * 11.0)
         return min(0.95, self.baseline * multiplier)
 ```
 
