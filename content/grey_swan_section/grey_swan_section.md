@@ -165,7 +165,7 @@ class GreySwanRiskAmplification:
     
     def current_risk(self):
         """Risk increases exponentially with degradation."""
-        # NOTE: Coefficient tuned so the demo severities below move 2% -> ~10%.
+        # NOTE: Coefficient tuned so the demo severities below move ~2% -> ~10% (about 10.4% with these inputs).
         multiplier = math.exp(self.degradation * 11.0)
         return min(0.95, self.baseline * multiplier)
 ```
@@ -192,7 +192,7 @@ for month, severity in warnings:
     print(f"{month}: {risk.current_risk():.1%} risk (was {risk.baseline:.1%})")
 
 # After 6 months of ignoring warnings:
-# Risk has climbed from 2% to 8-12% - you've made the Grey Swan 4-6x more likely
+# Risk has climbed from 2% to ~10% (in the 8-12% band) -- you've made the Grey Swan ~5x more likely
 ```
 
 **The Feedback Loop:**
@@ -923,7 +923,7 @@ detector = GreySwanEnsembleDetector()
 # Week of weak signals
 detector.add_signal("capacity_trending", 0.4)
 detector.add_signal("external_supply_warning", 0.5)
-detector.add_signal("error_budget_acceleration", 0.3)
+detector.add_signal("error_budget_acceleration", 0.4)
 detector.add_signal("correlation_breakdown", 0.6)
 detector.add_signal("peer_outages", 0.7)
 
