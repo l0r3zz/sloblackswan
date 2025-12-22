@@ -24,7 +24,7 @@ Sometimes a single risk event—a Grey Swan or Black Swan—doesn't just cause d
 Think of it like a stampede in the wild: one swan (Grey or Black) appears, and suddenly you realize the savannah is full of animals you didn't know were there. Grey Rhinos that were grazing peacefully start charging. Elephants in the Room become impossible to ignore. Jellyfish that were floating dormant suddenly bloom and sting everything.
 
 The system was always full of these risks. The swan just revealed them.
-
+{::pagebreak /}
 #### Example: COVID-19 as a Stampede Trigger
 
 COVID-19 itself was a Grey Swan (predictable category—pandemics are known risks—but dismissed probability), though it appeared as a Black Swan to many who hadn't prepared. Its appearance triggered a stampede that revealed countless other risks.
