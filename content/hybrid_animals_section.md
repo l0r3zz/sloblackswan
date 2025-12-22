@@ -963,54 +963,28 @@ The amplification sequence shows how each phase made the next worse:
 
 ```python
 amplification_sequence = {
-    """
-    How Elephants, Rhinos, and Jellyfish combined
-    """
-    def analyze_interactions(self):
-        # The amplification cascade
-        amplification_sequence = {
-            'Initial_state': {
-                'Elephant': 'Organizational memory eroding for 3 years',
-                'Rhino': 'DNS race condition accumulating risk for 2 years',
-                'Jellyfish': 'Dependency web growing denser',
-                'combined_risk': 'HIGH but invisible to SLOs'
-            },
-            
-            'Trigger_event': {
-                'what': 'DNS Planner/Enactor race condition triggers (rhino stampede)',
-                'technical_detail': 'Two automated systems update same DNS entry’, 				   ‘simultaneously, empty DNS record results',
-                'why_critical': 'No one left who remembered this latent defect could happen (elephant)',
-                'immediate_cascade': 'Empty DNS record → DynamoDB unreachable →’, 				  ‘Cascades through 1,000+ services (jellyfish bloom)'
-            },
-            
-            'Detection_phase': {
-                'delay': '75 minutes',
-                'why_delayed': 'Monitoring system depends on DynamoDB (jellyfish)',
-                'why_worse': 'Engineers who built DNS system gone (elephant)',
-                'root_cause_identification': 'Took 90 minutes',
-                'why_took_long': 'Tribal knowledge evaporated (elephant)'
-            },
-            
-            'Response_phase': {
-                'mitigation_attempts': 'Multiple parallel paths',
-                'why_necessary': 'No one sure what would work (elephant)',
-                'secondary_cascades': 'Fixes trigger new cascades (jellyfish)',
-                'state_inconsistencies': 'EC2 DWFM state reconciliation required',
-                'automation_conflicts': 'Automated recovery routines created conflicting states',
-                'duration': '15+ hours (full recovery over a day)',
-                'why_so_long': 'Retry storms, state inconsistencies, automation conflicts (jellyfish)',
-                'compounded_by': 'Knowledge gaps in response team (elephant), unfamiliar with DWFM state management'
-            }
-        }
-        
-        return {
-            'classification': 'HYBRID STAMPEDE',
-            'primary_animals': ['Elephant', 'Grey Rhino', 'Black Jellyfish'],
-            'interaction_pattern': 'Elephant enables Rhino enables Jellyfish',
-            'amplification': 'Each animal makes the others worse',
-            'single_point_of_failure': 'Organizational memory',
-            'critical_insight': 'SLOs measured services, not organization'
-        }
+    'Initial_state': {
+        'Elephant': 'Organizational memory eroding for 3 years',
+        'Rhino': 'DNS race condition accumulating risk for 2 years',
+        'Jellyfish': 'Dependency web growing denser',
+        'combined_risk': 'HIGH but invisible to SLOs'
+    },
+    'Trigger_event': {
+        'what': 'DNS Planner/Enactor race condition triggers (rhino stampede)',
+        'why_critical': 'No one left who remembered this latent defect could happen (elephant)',
+        'immediate_cascade': 'Empty DNS record → DynamoDB unreachable → Cascades through 1,000+ services (jellyfish bloom)'
+    },
+    'Detection_phase': {
+        'delay': '75 minutes',
+        'why_delayed': 'Monitoring system depends on DynamoDB (jellyfish)',
+        'why_worse': 'Engineers who built DNS system gone (elephant)'
+    },
+    'Response_phase': {
+        'duration': '15+ hours (full recovery over a day)',
+        'why_so_long': 'Retry storms, state inconsistencies, automation conflicts (jellyfish)',
+        'compounded_by': 'Knowledge gaps in response team (elephant)'
+    }
+}
 ```
 
 Classification: **HYBRID STAMPEDE**. Primary animals: Elephant, Grey Rhino, Black Jellyfish. Interaction pattern: Elephant enables Rhino enables Jellyfish. Each animal makes the others worse. Single point of failure: organizational memory. Critical insight: SLOs measured services, not organization.
