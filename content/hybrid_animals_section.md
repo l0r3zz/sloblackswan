@@ -1055,7 +1055,7 @@ Both are catastrophic. But the AWS pattern is more insidious because the risk is
 
 #### SLOs and Hybrid Events: Completely Blind
 
-Both events demonstrate a fundamental truth: **SLOs cannot detect hybrid risks**:
+The AWS outage demonstrates a fundamental truth that applies to both events: **SLOs cannot detect hybrid risks**. Let's examine why using the AWS outage as a detailed example:
 
 ```python
 class SLOBlindnessToHybrids:
@@ -1316,7 +1316,7 @@ But the root cause was treating people as replaceable, knowledge as documentatio
 
 ### SLOs and Hybrid Events: Completely Blind
 
-As we've seen in both case studies, SLOs cannot detect hybrid risks. The previous section demonstrated this with specific examples from the AWS outage. But the problem is even broader: if SLOs struggle with individual risk types (as we explored in each animal's section), they're completely blind to hybrid events and stampedes where multiple risk types interact.
+As we've seen in the AWS outage case study (and as would be true for the crypto crash), SLOs cannot detect hybrid risks. The AWS outage analysis demonstrated this with specific examples showing how SLOs remained green even as cascading failures spread. The crypto crash would show similar blindness: exchange SLOs measuring uptime wouldn't capture the leverage exposure, market structure fragility, or interaction effects that amplified the crash. The problem is even broader: if SLOs struggle with individual risk types (as we explored in each animal's section), they're completely blind to hybrid events and stampedes where multiple risk types interact.
 
 The fundamental issue is that SLOs measure component health, while hybrid events are systemic failures. It's like trying to predict weather by measuring the temperature of individual air molecules—you're measuring real things, but you're missing the emergent behavior.
 
