@@ -1004,7 +1004,7 @@ class ContrastAnalysis:
                 'primary_trigger': 'External (Trump tweet - Grey Swan)',
                 'secondary_trigger': 'Infrastructure capacity (Grey Rhino)',
                 'cascade_mechanism': 'Market structure (Black Jellyfish)',
-                'elephant': 'Exchange fragility (acknowledged but ignored)',
+                'elephant': 'Leverage culture (everyone knows, no one discusses)',
                 'duration': '5 hours',
                 'impact': 'Nearly $1T market cap destroyed, $19.13B liquidations, $50B+ real losses',
                 'recovery': 'Relatively fast once exchanges restored',
