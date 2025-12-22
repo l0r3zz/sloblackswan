@@ -342,63 +342,63 @@ class CryptoCascadeJellyfish:
     """
     How the Binance issue became a systemic crisis
     """
-    def model_cascade_propagation(self):
-        # Stage 1: Binance degradation (T+23 minutes from tweet)
-        stage_1 = {
-            'trigger': 'Binance sees 5x normal volume from Bitcoin drop',
-            'effect': 'API latency 200ms -> 2000ms, order placement failing',
-            'direct_impact': 'Binance users can\'t trade effectively'
-        }
-        
-        # Stage 2: Arbitrage breakdown (T+30 minutes)
-        stage_2 = {
-            'mechanism': 'Arbitrage bots can\'t execute on Binance',
-            'effect': 'Price divergence between exchanges widens',
-            'Binance_BTC_price': '$58,200 (system lagging)',
-            'Coinbase_BTC_price': '$57,400 (real-time)',
-            'Kraken_BTC_price': '$57,600 (real-time)',
-            'cascade_amplification': 'Bots try to exploit divergence, '
-                                   'overwhelming other exchanges'
-        }
-        
-        # Stage 3: Deleveraging cascade (T+45 minutes)
-        stage_3 = {
-            'mechanism': 'Leveraged positions can\'t be managed on Binance',
-            'effect': 'Forced liquidations as margin calls hit',
-            'feedback_loop': 'Liquidations -> price drops -> more liquidations',
-            'cross_exchange': 'Liquidations on all exchanges, not just Binance',
-            'impact': 'Bitcoin drops another 5% from liquidation cascade'
-        }
-        
-        # Stage 4: Contagion to other exchanges (T+60 minutes)
-        stage_4 = {
-            'mechanism': 'Traffic from Binance migrates to competitors',
-            'Coinbase': 'Experiencing 3x normal volume, degrading',
-            'Kraken': 'API errors increasing',
-            'smaller_exchanges': 'Complete failures, not designed for this load',
-            'positive_feedback': 'Each exchange failure drives traffic to others'
-        }
-        
-        # Stage 5: Systematic trading halt (T+120 minutes)
-        stage_5 = {
-            'Binance': 'Trading halted for "emergency maintenance"',
-            'Coinbase': 'Trading halted due to "unprecedented volatility"',
-            'Kraken': 'Partial trading halt',
-            'market_state': 'No major exchange accepting orders reliably',
-            'impact': 'Complete market breakdown, nearly $1T market cap drop, $19.13B liquidations (market data, October 10, 2025)'
-        }
-        
-        return {
-            'classification': 'BLACK JELLYFISH CASCADE',
-            'characteristics': [
-                'Known components (exchange capacity limits)',
-                'Rapid escalation (2 hours from degradation to systemic)',
-                'Positive feedback (failures drive load to other exchanges)',
-                'Unexpected pathways (arbitrage bots amplified cascade)',
-                'Scale transformation (one exchange issue -> market crisis)'
-            ],
-            'jellyfish_bloom': 'Single exchange degradation became industry crisis'
-        }
+    def model_cascade_propagation():
+    # Stage 1: Binance degradation (T+23 minutes from tweet)
+    stage_1 = {
+    'trigger': 'Binance sees 5x normal volume from Bitcoin drop',
+    'effect': 'API latency 200ms -> 2000ms, order placement failing',
+    'direct_impact': 'Binance users can\'t trade effectively'
+    }
+    
+    # Stage 2: Arbitrage breakdown (T+30 minutes)
+    stage_2 = {
+    'mechanism': 'Arbitrage bots can\'t execute on Binance',
+    'effect': 'Price divergence between exchanges widens',
+    'Binance_BTC_price': '$58,200 (system lagging)',
+    'Coinbase_BTC_price': '$57,400 (real-time)',
+    'Kraken_BTC_price': '$57,600 (real-time)',
+    'cascade_amplification': 'Bots try to exploit divergence, '
+                       'overwhelming other exchanges'
+    }
+    
+    # Stage 3: Deleveraging cascade (T+45 minutes)
+    stage_3 = {
+    'mechanism': 'Leveraged positions can\'t be managed on Binance',
+    'effect': 'Forced liquidations as margin calls hit',
+    'feedback_loop': 'Liquidations -> price drops -> more liquidations',
+    'cross_exchange': 'Liquidations on all exchanges, not just Binance',
+    'impact': 'Bitcoin drops another 5% from liquidation cascade'
+    }
+    
+    # Stage 4: Contagion to other exchanges (T+60 minutes)
+    stage_4 = {
+    'mechanism': 'Traffic from Binance migrates to competitors',
+    'Coinbase': 'Experiencing 3x normal volume, degrading',
+    'Kraken': 'API errors increasing',
+    'smaller_exchanges': 'Complete failures, not designed for this load',
+    'positive_feedback': 'Each exchange failure drives traffic to others'
+    }
+    
+    # Stage 5: Systematic trading halt (T+120 minutes)
+    stage_5 = {
+    'Binance': 'Trading halted for "emergency maintenance"',
+    'Coinbase': 'Trading halted due to "unprecedented volatility"',
+    'Kraken': 'Partial trading halt',
+    'market_state': 'No major exchange accepting orders reliably',
+    'impact': 'Complete market breakdown, nearly $1T market cap drop, $19.13B liquidations (market data, October 10, 2025)'
+    }
+    
+    return {
+    'classification': 'BLACK JELLYFISH CASCADE',
+    'characteristics': [
+    'Known components (exchange capacity limits)',
+    'Rapid escalation (2 hours from degradation to systemic)',
+    'Positive feedback (failures drive load to other exchanges)',
+    'Unexpected pathways (arbitrage bots amplified cascade)',
+    'Scale transformation (one exchange issue -> market crisis)'
+    ],
+    'jellyfish_bloom': 'Single exchange degradation became industry crisis'
+    }
 ```
 
 This is textbook Jellyfish behavior:
@@ -552,7 +552,7 @@ The real amplification wasn't in the Bitcoin price drop (18% was within the pred
 
 The interaction effects are what made October 10 so destructive:
 
-1. **Tweet (Swan-ish) triggered the Rhino**: Normal volatility would be manageable, but the specific timing hit Binance's known weakness
+1. **Tweet (Grey Swan) triggered the Rhino**: Normal volatility would be manageable, but the specific timing hit Binance's known weakness
 2. **Rhino enabled the Jellyfish**: If Binance had adequate capacity, cascade wouldn't propagate
 3. **Jellyfish triggered the Elephant**: Exchange failures hit leveraged positions all at once
 4. **Elephant amplified the Jellyfish**: Liquidations created more exchange load, worsening the cascade
@@ -694,11 +694,9 @@ class DNSRaceConditionRhino:
                     'DNS_Planner': 'Monitors load balancer health, creates DNS plans',
                     'DNS_Enactor': 'Applies changes via Route 53'
                 },
-                'known_weakness': 'Race condition between components’, 
-			  ‘when updating same DNS entry simultaneously',
+                'known_weakness': 'Race condition between components when updating same DNS entry simultaneously',
                 'documentation': 'Latent defect in automated DNS management',
-                'oct_20_trigger': 'Coordination glitch led to deletion of valid DNS’,
-			  ‘ records, empty DNS record resulted'
+                'oct_20_trigger': 'Coordination glitch led to deletion of valid DNS records, empty DNS record resulted'
             },
             
             'previous_incidents': [
@@ -832,101 +830,101 @@ The dependency map shows the problem: DynamoDB is central to AWS's operation. Wh
 Now let's trace how this dependency web created an exponential cascade once the DNS failure hit:
 
 ```python
-    def model_cascade_propagation(self):
-        # The cascade timeline shows exponential growth
-        cascade_sequence = {
-            'T+0_minutes': {
-                'event': 'DNS race condition leaves empty record',
-                'immediate_impact': 'DynamoDB API unreachable',
-                'services_affected': ['DynamoDB clients'],
-                'error_rate': '5%'
-            },
+def model_cascade_propagation():
+    # The cascade timeline shows exponential growth
+    cascade_sequence = {
+        'T+0_minutes': {
+            'event': 'DNS race condition leaves empty record',
+            'immediate_impact': 'DynamoDB API unreachable',
+            'services_affected': ['DynamoDB clients'],
+            'error_rate': '5%'
+        },
             
-            'T+5_minutes': {
-                'event': 'DynamoDB clients implement retry logic',
-                'amplification': 'Retry storm overwhelms DNS system',
-                'services_affected': ['All DynamoDB dependents'],
-                'error_rate': '25%'
-            },
+        'T+5_minutes': {
+            'event': 'DynamoDB clients implement retry logic',
+            'amplification': 'Retry storm overwhelms DNS system',
+            'services_affected': ['All DynamoDB dependents'],
+            'error_rate': '25%'
+        },
             
-            'T+15_minutes': {
-                'event': 'EC2 Droplet Workflow Manager (DWFM) cannot complete state checks',
-                'cascade_1': 'Lease management failures, cannot launch new EC2 instances',
-                'cascade_2': 'Auto-scaling paralyzed',
-                'cascade_3': 'State inconsistencies begin accumulating',
-                'services_affected': ['EC2', 'ECS', 'Lambda', 'Fargate'],
-                'error_rate': '40%',
-                'note': 'State inconsistencies will extend recovery beyond DNS restoration'
-            },
+        'T+15_minutes': {
+            'event': 'EC2 Droplet Workflow Manager (DWFM) cannot complete state checks',
+            'cascade_1': 'Lease management failures, cannot launch new EC2 instances',
+            'cascade_2': 'Auto-scaling paralyzed',
+            'cascade_3': 'State inconsistencies begin accumulating',
+            'services_affected': ['EC2', 'ECS', 'Lambda', 'Fargate'],
+            'error_rate': '40%',
+            'note': 'State inconsistencies will extend recovery beyond DNS restoration'
+        },
             
-            'T+30_minutes': {
-                'event': 'Network Load Balancer health checks fail',
-                'cascade_3': 'Healthy instances marked unhealthy',
-                'cascade_4': 'Traffic routing breaks',
-                'services_affected': ['50+ services using NLB'],
-                'error_rate': '60%'
-            },
+        'T+30_minutes': {
+            'event': 'Network Load Balancer health checks fail',
+            'cascade_3': 'Healthy instances marked unhealthy',
+            'cascade_4': 'Traffic routing breaks',
+            'services_affected': ['50+ services using NLB'],
+            'error_rate': '60%'
+        },
             
-            'T+60_minutes': {
-                'event': 'IAM policy distribution stalls',
-                'cascade_5': 'Cannot validate credentials',
-                'cascade_6': 'Cross-region replication breaks',
-                'services_affected': ['Global: all services needing auth'],
-                'error_rate': '80%',
-                'geographic_spread': 'US-EAST-1 failure now affecting global services'
-            },
+        'T+60_minutes': {
+            'event': 'IAM policy distribution stalls',
+            'cascade_5': 'Cannot validate credentials',
+            'cascade_6': 'Cross-region replication breaks',
+            'services_affected': ['Global: all services needing auth'],
+            'error_rate': '80%',
+            'geographic_spread': 'US-EAST-1 failure now affecting global services'
+        },
             
-            'T+90_minutes': {
-                'event': 'AWS Console degraded',
-                'cascade_7': 'Cannot update status page',
-                'cascade_8': 'Cannot communicate with customers',
-                'irony': 'AWS could not tell customers AWS was down',
-                'services_affected': ['1000+ services in total'],
-                'error_rate': '85%'
-            }
+        'T+90_minutes': {
+            'event': 'AWS Console degraded',
+            'cascade_7': 'Cannot update status page',
+            'cascade_8': 'Cannot communicate with customers',
+            'irony': 'AWS could not tell customers AWS was down',
+            'services_affected': ['1000+ services in total'],
+            'error_rate': '85%'
         }
+    }
         
-        return cascade_sequence
+    return cascade_sequence
 ```
 
 The cascade timeline shows the signature Black Jellyfish pattern: exponential growth in impact. A 5% error rate at T+0 becomes 85% failure at T+90. This happens through positive feedback loops that amplify the initial failure:
 
 ```python
-    def identify_feedback_loops(self):
-        # Positive feedback loops accelerate the cascade
-        feedback_loops = {
-            'retry_amplification': {
-                'mechanism': 'Clients retry failed DynamoDB calls',
-                'amplification_factor': '10-50x',
-                'result': 'Even after DNS fixed, retry storm prevents recovery'
-            },
-            
-            'cascade_cascade': {
-                'mechanism': 'Failure in A causes B to fail, which causes C to fail',
-                'amplification_factor': 'Exponential',
-                'result': 'By T+60, failures creating more failures faster than fixes'
-            },
-            
-            'monitoring_blindness': {
-                'mechanism': 'CloudWatch depends on DynamoDB',
-                'amplification_factor': 'Infinite (cannot observe problem)',
-                'result': 'Extended detection and diagnosis time'
-            },
-            
-            'state_inconsistency_accumulation': {
-                'mechanism': 'EC2 DWFM cannot complete state checks, inconsistent states accumulate',
-                'amplification_factor': 'Compounding over time',
-                'result': 'Even after DNS restored, state reconciliation required, extending recovery'
-            },
-            
-            'automation_conflict': {
-                'mechanism': 'Automated recovery routines create conflicting state changes',
-                'amplification_factor': 'Automation fighting itself',
-                'result': 'Complicated manual remediation, extended downtime'
-            }
-        }
+def identify_feedback_loops():
+    # Positive feedback loops accelerate the cascade
+    feedback_loops = {
+        'retry_amplification': {
+            'mechanism': 'Clients retry failed DynamoDB calls',
+            'amplification_factor': '10-50x',
+            'result': 'Even after DNS fixed, retry storm prevents recovery'
+    },
         
-        return {
+        'cascade_cascade': {
+            'mechanism': 'Failure in A causes B to fail, which causes C to fail',
+            'amplification_factor': 'Exponential',
+            'result': 'By T+60, failures creating more failures faster than fixes'
+    },
+        
+        'monitoring_blindness': {
+            'mechanism': 'CloudWatch depends on DynamoDB',
+            'amplification_factor': 'Infinite (cannot observe problem)',
+            'result': 'Extended detection and diagnosis time'
+    },
+        
+        'state_inconsistency_accumulation': {
+            'mechanism': 'EC2 DWFM cannot complete state checks, inconsistent states accumulate',
+            'amplification_factor': 'Compounding over time',
+            'result': 'Even after DNS restored, state reconciliation required, extending recovery'
+    },
+        
+        'automation_conflict': {
+            'mechanism': 'Automated recovery routines create conflicting state changes',
+            'amplification_factor': 'Automation fighting itself',
+            'result': 'Complicated manual remediation, extended downtime'
+    }
+    }
+    
+    return {
             'classification': 'BLACK JELLYFISH',
             'trigger': 'DNS race condition (Grey Rhino) - DNS Planner/Enactor coordination glitch',
             'amplification': 'Cascading dependencies with positive feedback + state inconsistencies',
@@ -935,14 +933,14 @@ The cascade timeline shows the signature Black Jellyfish pattern: exponential gr
             'recovery': 'Required throttling EC2 launches to stop retry storm, state reconciliation',
             'duration': '15+ hours from first symptoms, full recovery taking over a day',
             'jellyfish_characteristics': [
-                'Known components (DynamoDB, DNS)',
-                'Unknown interactions (cascade paths, state inconsistencies)',
-                'Positive feedback (retry amplification, automation conflicts)',
-                'Rapid propagation (minutes to global failure)',
-                'Nonlinear impact (5% DNS errors -> 85% total failure)',
-                'Extended recovery (state reconciliation beyond DNS fix)'
-            ]
-        }
+        'Known components (DynamoDB, DNS)',
+        'Unknown interactions (cascade paths, state inconsistencies)',
+        'Positive feedback (retry amplification, automation conflicts)',
+        'Rapid propagation (minutes to global failure)',
+        'Nonlinear impact (5% DNS errors -> 85% total failure)',
+        'Extended recovery (state reconciliation beyond DNS fix)'
+    ]
+    }
 ```
 
 This is the Black Jellyfish pattern in its purest form: **every component was well-understood, but their interaction created emergent behavior no one predicted**. The DNS race condition was bad enough, but the state inconsistencies that accumulated—especially in EC2's Droplet Workflow Manager—meant that even after DNS was restored, the system couldn't recover quickly. Automated recovery routines, designed to help, instead created conflicting state changes that complicated manual remediation. Full recovery took over a day, not because of the initial DNS fault, but because of the accumulated state inconsistencies and automation conflicts that the cascade created.
