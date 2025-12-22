@@ -522,33 +522,33 @@ If each risk type had occurred alone, the impacts would have been manageable:
 
 A simple linear model would predict 18-25% total drop over 3-4 hours, with about $500B in market cap lost.
 
-But the actual impact was far worse:
+But the actual impact showed amplification in ways the linear model missed:
 
 ```python
 actual_impact = {
     'bitcoin_drop': 'Bitcoin dropped from $126,000 to $103,300 (18% decline)',
-    'market_cap_drop': 'Nearly $1 trillion in one hour',
+    'market_cap_drop': 'Nearly $1 trillion in one hour (2x the predicted $500B)',
     'liquidations': '$19.13 billion in 24 hours',
     'real_losses': 'Potentially exceeding $50 billion',
     'duration': '5+ hours of acute crisis',
-    'BUT': 'Recovery took DAYS, not hours',
+    'BUT': 'Recovery took DAYS, not hours (the real amplification)',
     'leverage_reset': 'Systemic leverage exposure reduced from 7% to below 4%'
 }
 ```
 
-The amplification came from interaction effects. Each risk type made the others worse:
+The amplification came from interaction effects. Each risk type made the others worse, creating cascading feedback loops:
 
 ```python
-interaction_multipliers = {
-    'swan_triggers_rhino': 1.5,      # Tweet created volume that exposed capacity issue
-    'rhino_enables_jellyfish': 2.0,  # Capacity failure created cascade conditions
-    'jellyfish_triggers_elephant': 2.5,  # Cascade hit leveraged positions
-    'elephant_feeds_back_to_jellyfish': 3.0,  # Liquidations created more exchange load
-    'total_amplification': '1.5 * 2.0 * 2.5 * 3.0 = 22.5x'
+interaction_patterns = {
+    'swan_triggers_rhino': 'Tweet created volume that exposed capacity issue',
+    'rhino_enables_jellyfish': 'Capacity failure created cascade conditions',
+    'jellyfish_triggers_elephant': 'Cascade hit leveraged positions simultaneously',
+    'elephant_feeds_back_to_jellyfish': 'Liquidations created more exchange load, worsening cascade',
+    'key_insight': 'Each interaction amplifies the next, creating exponential feedback loops'
 }
 ```
 
-Total amplification: 22.5x—far beyond what a simple sum would predict. Hybrid events are emergent phenomena, not sums.
+The real amplification wasn't in the Bitcoin price drop (18% was within the predicted range), but in the **market cap destruction** ($1T vs $500B predicted = 2x), **recovery time** (DAYS vs hours), and **real losses** ($50B+ vs what individual events would cause). The interaction effects created cascading failures that extended far beyond the initial trigger. Hybrid events are emergent phenomena, not sums.
 
 The interaction effects are what made October 10 so destructive:
 
