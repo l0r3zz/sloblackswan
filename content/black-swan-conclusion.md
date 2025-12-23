@@ -55,7 +55,7 @@ Characteristics:
 - Statistically predictable but complex (3-5 sigma events)
 - Historical precedent exists somewhere
 - Early warning signals detectable with right instrumentation
-- Large Scale, Large Impact, Rare Events (LSLIRE)
+- Large Scale, Large Impact, Rare Events (LSLIRE framework)
 
 What they teach:
 - Low probability ≠ impossible
@@ -171,9 +171,9 @@ SLOs are powerful tools for managing normal operations. But SLOs fundamentally c
 - Rapid learning capability
 
 **For Grey Swans:**
-- Advanced monitoring
-- Pattern recognition
-- Weak signal detection
+- Advanced monitoring using the LSLIRE (Large Scale, Large Impact, Rare Event) framework
+- Pattern recognition for 3-5 sigma events
+- Weak signal detection across multiple timescales
 
 **For Grey Rhinos:**
 - Organizational courage
@@ -204,10 +204,10 @@ Modern incident management integrates multiple frameworks to handle the complexi
 
 **The Incident Command System (ICS)** provides structure for coordination:
 - Incident Commander (IC): Single point of authority, strategic decisions
-- Operations Section Chief: Tactical execution, directing responders
-- Planning Section Chief: Documentation, prediction, resource tracking
-- Logistics Section Chief: Resource procurement, infrastructure support
-- Communications Lead: Internal and external messaging
+- Communications Lead (Comms): Internal and external messaging
+- Scribe: Documentation, prediction, resource tracking
+- Technical Lead: Manages and directs technical resolution effort
+- Subject Matter Expert (SME): In the weeds of the effort, bringing technical expertise to the situation
 
 **The NIST 800-61 lifecycle** provides phases for systematic response:
 - **Preparation**: Building capability before incidents (different for each animal type)
@@ -282,7 +282,7 @@ Every animal either creates or reveals information flow problems:
 - Elephants: Information exists but can't be spoken
 - Black Jellyfish: Information must flow faster than the cascade
 
-The Unwritten Laws apply across the bestiary:
+Per the Unwritten Laws [White, 2025], these principles apply across the bestiary:
 1. Information flows to where it's safe (psychological safety is technical infrastructure)
 2. Information flows through trust networks, not org charts (design for this, not against it)
 3. Information degrades crossing boundaries (minimize hops, maximize fidelity)
@@ -423,8 +423,8 @@ For unknowns (future animals):
 - Systems thinking capability
 
 For known complex risks (Grey Swans):
-- Advanced observability
-- Weak signal detection
+- Advanced observability using the LSLIRE framework
+- Weak signal detection for 3-5 sigma events
 - Pattern recognition expertise
 - Multi-timescale monitoring
 
@@ -940,7 +940,7 @@ And lastly, to **Gene Kranz**, arguably the patron saint of Incident Commanders 
 
 ---
 
-##Appendix: Quick Reference Materials
+## Appendix: Quick Reference Materials
 These are just a few collateral templates and you are feel free to use them any which way that you would like to. I would be interested in hearing from you if you either expand on them, correct them or add to the bundle. Just open a PR on the book’s github site.
 {::Pagebreak /}
 #### Animal Identification Card: Black Swan
@@ -1360,7 +1360,7 @@ Trivial (already visible)
 - Cross-team coordination efficiency (quality of coordination when incident spans multiple teams)
 - Psychological safety index (willingness to surface uncomfortable truths)
 
-####. KPI Relevance by Animal Type
+#### KPI Relevance by Animal Type
 
 | KPI | Black Swan | Grey Swan | Grey Rhino | Elephant | Black Jellyfish |
 |-----|-----------|-----------|-----------|----------|----------------|
@@ -1412,7 +1412,7 @@ Trivial (already visible)
 - Google's Project Aristotle research on team effectiveness
 
 **On Information Flow:**
-- The Unwritten Laws of Engineering (various authors, evolving document)
+- Geoff White, "The Unwritten Laws of Information Flow: Why Culture is the Hardest System to Scale" [White, 2025] - LinkedIn, October 23, 2025
 - James C. Scott, *Seeing Like a State* (1998) - on organizational blindness
 
 ---
@@ -1427,10 +1427,10 @@ Trivial (already visible)
 
 **ICS Structure (for larger incidents):**
 - **Incident Commander (IC)**: Overall incident management, strategic decisions
-- **Operations Section Chief**: Tactical execution, directing responders
-- **Planning Section Chief**: Documentation, prediction, resource tracking
-- **Logistics Section Chief**: Resource procurement, infrastructure support
-- **Communications Lead**: Internal and external messaging
+- **Communications Lead (Comms)**: Internal and external messaging
+- **Scribe**: Documentation, prediction, resource tracking
+- **Technical Lead**: Manages and directs technical resolution effort
+- **Subject Matter Expert (SME)**: In the weeds of the effort, bringing technical expertise to the situation
 
 **ICS Principles:**
 - Unity of Command: Every person reports to one person
