@@ -171,7 +171,7 @@ SLOs are powerful tools for managing normal operations. But SLOs fundamentally c
 - Rapid learning capability
 
 **For Grey Swans:**
-- Advanced monitoring using the LSLIRE (Large Scale, Large Impact, Rare Event) framework
+- Advanced monitoring using the LSLIRE (Large Scale, Large Impact, Rare Events) framework
 - Pattern recognition for 3-5 sigma events
 - Weak signal detection across multiple timescales
 
@@ -203,7 +203,7 @@ SLOs are powerful tools for managing normal operations. But SLOs fundamentally c
 Modern incident management integrates multiple frameworks to handle the complexity of the bestiary:
 
 **The Incident Command System (ICS)** provides structure for coordination:
-- Incident Commander (IC): Single point of authority, strategic decisions
+- Incident Commander (IC): Overall incident management, strategic decisions
 - Communications Lead (Comms): Internal and external messaging
 - Scribe: Documentation, prediction, resource tracking
 - Technical Lead: Manages and directs technical resolution effort
@@ -984,7 +984,7 @@ Impossible (that's the point)
 - Complex but not unprecedented
 - 3-5 sigma statistical position
 - Early warning signals exist
-- LSLIRE (Large Scale, Large Impact, Rare Event)
+- LSLIRE (Large Scale, Large Impact, Rare Events)
 
 **Detection:**
 - Weak signal monitoring

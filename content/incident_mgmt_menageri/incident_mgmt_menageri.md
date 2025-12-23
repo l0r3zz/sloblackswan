@@ -121,7 +121,7 @@ Good incident management adapts ICS principles to IT reality rather than forcing
 
 ![][incident-response-team]
 
-ICS provided a structure for coordinating complex responses. For IT incident management we modify them a little to reflect a structure more relevant to SRE teams:
+ICS provides a structure for coordinating complex responses. For IT incident management we modify them a little to reflect a structure more relevant to SRE teams:
 
 | Role | Primary Responsibility | Why It Matters |
 |------|----------------------|----------------|
