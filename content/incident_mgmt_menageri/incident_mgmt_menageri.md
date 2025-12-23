@@ -43,7 +43,7 @@ This isn't semantic. It's fundamental. If incidents are failures, you hide them.
 
 Google formalized what the best emergency responders already knew: blame destroys information flow.
 
-The Unwritten Laws of Information Flow apply brutally during incidents:
+As I've written elsewhere, the Unwritten Laws of Information Flow apply brutally during incidents [White, 2025]:
 - **First Law**: Information flows to where it's safe. If engineers fear blame, they hide problems during the incident ("I thought it might be my deploy, but I didn't want to say...") and lie in retrospectives.
 - **Second Law**: Information flows through trust networks. During incidents, you need information from the person who knows, not the person who's senior. Hierarchy kills speed.
 - **Third Law**: Information degrades crossing boundaries. Every "escalation" loses context. Direct communication between domain experts is faster and more accurate.
@@ -233,7 +233,7 @@ Containment strategies differ:
 
 **What This Means for Our Bestiary:**
 
-This is where information flow becomes critical. Per the Unwritten Laws:
+This is where information flow becomes critical. Per the Unwritten Laws [White, 2025]:
 
 **Information flows to where it's safe.** If your post-incident review is blameful, engineers will hide what they know. You'll get theater, not learning.
 
@@ -327,6 +327,8 @@ This isn't inspirational poster material. It's infrastructure engineering.
 
 #### The Unwritten Laws in Practice
 
+As described in my earlier work on information flow [White, 2025], these laws manifest during incidents:
+
 **First Law: Information Flows to Where It's Safe**
 
 During incidents, you need information from people who:
@@ -414,7 +416,7 @@ Building psychological safety:
 
 **Documentation as Time-Shifted Information Flow**
 
-The Unwritten Laws apply to documentation:
+The Unwritten Laws [White, 2025] apply to documentation:
 
 Information flows to where it's safe: If postmortems are used for performance reviews, they'll be sanitized fiction.
 
@@ -1827,7 +1829,121 @@ As you address components, they transition:
 - New components appearing (more animals revealed)
 - Interactions between components creating new domains
 
-#### Example: The October 10, 2025 Crypto Crash as a Stampede
+#### Example 1: The AWS DynamoDB Outage (October 20, 2025) as a Stampede
+
+**The Trigger:**
+At 12:11 AM PDT (07:11 UTC) on October 20, 2025, AWS engineers detected a rise in error rates and latency across multiple services in the US-EAST-1 region. By 1:26 AM (08:26 UTC), the problem had escalated into full DynamoDB endpoint failures. The root cause was traced to a DNS resolution error affecting DynamoDB's control layer—a misconfigured DNS propagation update that triggered recursive health checks and retry storms.
+
+**The Stampede Breakdown:**
+
+This incident revealed a classic stampede: multiple animals attacking simultaneously [White, 2025b]:
+
+**1. Black Jellyfish Component (Chaotic → Complex):**
+- A minor DNS misconfiguration rippled across opaque dependencies in unpredictable ways
+- DynamoDB's centrality in AWS's transaction and state management layers caused cascading dependency failures
+- The disruption was nonlinear, hidden, and widely felt by users unaware of their reliance on DynamoDB
+- **Cynefin Action:** Break feedback loops immediately (Chaotic), then understand cascade mechanics (Complex)
+
+**2. Grey Rhino Component (Complicated):**
+- The risks from talent loss and interdependencies were visible for years
+- Industry voices had warned that attrition was undermining cloud stability
+- Between 2022 and 2025, Amazon laid off over 27,000 employees, with attrition reaching 81% in key teams
+- **Cynefin Action:** Expert analysis can solve this - the barrier is organizational, not technical
+
+**3. Elephant in the Room Component (Confusion → Complex):**
+- Inside Amazon, discussions around staff loss and burnout were politically radioactive
+- The cultural silence prevented action, even as warning signs mounted
+- Institutional memory—often invisible and untracked—evaporated
+- Without that folklore, detection time ballooned to 75 minutes
+- **Cynefin Action:** Break down into technical (Complicated) and organizational (Complex) components. Create psychological safety for truth-telling.
+
+**Detailed Timeline (UTC):**
+
+- **06:45** - Early anomaly detection
+- **07:00** - DNS propagation failures begin
+- **07:11** - Cross-region impact initiates
+- **07:25** - First customer alerts (Reddit, Coinbase)
+- **07:45** - Retry amplification across EC2 and DNS
+- **08:10** - AWS status page acknowledges degradation
+- **08:26** - Full DynamoDB endpoint failures
+- **09:20** - Major global customer impact (Snapchat, Venmo, TikTok, Fortnite, Alexa)
+- **10:30** - Mitigation escalated
+- **11:15** - Cross-regional failover attempted
+- **12:00** - Partial restoration of DynamoDB
+- **14:00** - Stabilization phase begins
+- **16:30** - AWS publishes Health Dashboard update
+- **18:45** - Major customer backlog clearance
+- **22:00** - AWS declares incident resolved
+
+**Observed Impact:**
+- Duration: ~15 hours from onset to declared resolution
+- Scope: 113 AWS services across multiple regions
+- Notable Customers Affected: Reddit, Coinbase, Snapchat, Venmo, TikTok, Fortnite, Alexa
+- User Symptoms: Latency above 5s, authentication errors, session failures
+- Data Consequences: Delayed queue processing, minor corruption mitigated by replay
+
+**Why This Was a Stampede:**
+
+The incident wasn't just a technical failure—it was a crisis of forgotten knowledge. A generation of dashboards had nobody left who could interpret them under stress. The outage exposed a deeper form of technical debt: epistemic debt. When memory leaves, the system's ability to self-repair dies quietly.
+
+**The Coordination Challenge:**
+
+The IC had to simultaneously:
+- Break cascade loops (Chaotic action for Black Jellyfish)
+- Address infrastructure capacity issues (Complicated analysis for Grey Rhino)
+- Navigate organizational silence about talent loss (Complex experimentation for Elephant)
+
+All while coordinating across 113 affected services and multiple regions. This is why stampedes are so dangerous—they require multiple types of thinking at once, and the organizational context (the Elephant) makes technical response more difficult.
+
+**Cynefin Analysis:**
+
+**Initial State: Chaotic Domain**
+- Cascade spreading rapidly through DynamoDB dependencies
+- Immediate action required to break retry storms
+- No time for analysis or experimentation
+- **Action:** Break the feedback loop immediately
+
+**After Stabilization: Complex Domain**
+- Understanding cascade mechanics across 113 services
+- Experimenting with prevention strategies
+- Learning about dependency interactions
+- **Action:** Safe-to-fail probes to understand system behavior
+
+**Grey Rhino Component: Complicated Domain**
+- Known risks from talent loss and interdependencies
+- Expert analysis could have identified the organizational barriers
+- The barrier was organizational, not technical
+- **Action:** Systematic solutions for knowledge retention and redundancy
+
+**Elephant Component: Confusion → Complex**
+- Technical problem: Complicated (DNS misconfiguration)
+- Organizational problem: Complex (cultural silence preventing action)
+- Mixed together: Confusion (unclear which domain applies)
+- **Action:** Break down into components, apply appropriate strategy to each
+
+**Postmortem Insights:**
+
+**What was genuinely unpredictable:**
+- The specific interaction between DNS misconfiguration and DynamoDB's control layer
+- The speed and scope of cascade across 113 services
+- The extent of hidden dependencies
+
+**What could have been better:**
+- Institutional memory retention (Grey Rhino that became visible)
+- Cultural safety to discuss talent loss risks (Elephant that became visible)
+- Dependency mapping and cascade resistance (Black Jellyfish prevention)
+
+**The Meta-Learning:**
+This stampede revealed all three animals simultaneously. The DNS misconfiguration (Black Jellyfish trigger) exposed the Grey Rhino (known but ignored talent loss risks) and forced acknowledgment of the Elephant (cultural silence about organizational issues). The incident demonstrates that when multiple animals attack, you can't address them sequentially—you must coordinate multiple response strategies simultaneously.
+
+**Lessons for SREs:**
+- Institutional memory is part of your reliability stack
+- People need redundancy too—losing senior staff isn't just a headcount issue, it's a hazard amplifier
+- Observe the topology, not just the service—map secondary dependencies
+- Measure resilience by adaptability, not just uptime
+- Evolve incident protocols—local fixes don't work in globally entangled systems
+
+#### Example 2: The October 10, 2025 Crypto Crash as a Stampede
 
 **The Trigger:**
 President Trump's tweet about tariffs triggered a market crash that revealed multiple animals.
@@ -2015,6 +2131,12 @@ Now go manage some incidents. The animals are waiting.
 
 ---
 
+
+## References
+
+[White, 2025] White, Geoff. "The Unwritten Laws of Information Flow: Why Culture is the Hardest System to Scale." LinkedIn, October 23, 2025. https://www.linkedin.com/pulse/unwritten-laws-information-flow-why-culture-hardest-system-white-7jxvc/
+
+[White, 2025b] White, Geoff. "The Day the Cloud Forgot Itself." LinkedIn, October 21, 2025. https://www.linkedin.com/pulse/day-cloud-forgot-itself-geoff-white-gviqc/
 
 <!-- Reference definitions at bottom -->
 
