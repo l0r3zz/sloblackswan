@@ -15,15 +15,176 @@ Today we are going to talk about service metrics, different types of swans, a co
 
 
 
-<!-- START doctoc generated TOC please keep comment here to allow auto update —>
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
+- [Preface](#preface)
+- [About this Book](#about-this-book)
+- [Introduction: The Incident That Wasn't In Any Runbook](#introduction-the-incident-that-wasnt-in-any-runbook)
+  - [The False Comfort of Metrics](#the-false-comfort-of-metrics)
+  - [The Bestiary: Five Animals, Five Types of Risk](#the-bestiary-five-animals-five-types-of-risk)
+  - [Why This Matters for SRE](#why-this-matters-for-sre)
+  - [What You'll Learn](#what-youll-learn)
+  - [A Note on Technical Depth](#a-note-on-technical-depth)
+  - [The Journey Ahead](#the-journey-ahead)
+- [The Historical Journey of Black Swans](#the-historical-journey-of-black-swans)
+  - [Taleb's Modern Framework: Black Swans and Antifragility](#talebs-modern-framework-black-swans-and-antifragility)
+  - [Antifragile: Beyond Resilience](#antifragile-beyond-resilience)
+  - [Taleb's Key Insights for SRE](#talebs-key-insights-for-sre)
+  - [Mediocristan vs. Extremistan](#mediocristan-vs-extremistan)
+  - [The Challenge for SRE](#the-challenge-for-sre)
+- [The Nature of SLOs](#the-nature-of-slos)
+  - [The Telecom Roots: Where the "Nines" Came From](#the-telecom-roots-where-the-nines-came-from)
+  - [The Nines: What They Actually Mean](#the-nines-what-they-actually-mean)
+  - [The Service Level Family: SLAs, SLIs, and SLOs](#the-service-level-family-slas-slis-and-slos)
+  - [Error Budgets: The Math of Acceptable Failure](#error-budgets-the-math-of-acceptable-failure)
+  - [Setting Realistic SLOs](#setting-realistic-slos)
+  - [SLO Implementation: The Technical Details](#slo-implementation-the-technical-details)
+  - [The Fundamental Limitation: SLOs Live in Mediocristan](#the-fundamental-limitation-slos-live-in-mediocristan)
+  - [The Paradox of SLO Success](#the-paradox-of-slo-success)
+  - [Beyond Traditional Monitoring: Holistic Health Assessment](#beyond-traditional-monitoring-holistic-health-assessment)
+  - [Moving Forward](#moving-forward)
+- [The Bestiary of System Reliability](#the-bestiary-of-system-reliability)
+  - [Understanding Our Avian Risk Taxonomy (White Swans, Black Swans, Grey Swans)](#understanding-our-avian-risk-taxonomy-white-swans-black-swans-grey-swans)
+  - [Moving Into the Bestiary](#moving-into-the-bestiary)
+- [The Black Swan: The Truly Unpredictable](#the-black-swan-the-truly-unpredictable)
+  - [The True Nature of Black Swans](#the-true-nature-of-black-swans)
+  - [The Statistical Foundation: Why Black Swans Break Our Models](#the-statistical-foundation-why-black-swans-break-our-models)
+  - [Historical Black Swans in Computing Infrastructure](#historical-black-swans-in-computing-infrastructure)
+  - [Why SLOs Fundamentally Cannot Catch Black Swans](#why-slos-fundamentally-cannot-catch-black-swans)
+  - [Detection Strategies: What You CAN Do](#detection-strategies-what-you-can-do)
+  - [Organizational Preparation: Building Antifragile Teams](#organizational-preparation-building-antifragile-teams)
+  - [Building Antifragile Systems: Beyond Resilience](#building-antifragile-systems-beyond-resilience)
+  - [The Narrative Fallacy: Lessons from Post-Black Swan Analysis](#the-narrative-fallacy-lessons-from-post-black-swan-analysis)
+  - [The Philosophical Challenge: Living with Uncertainty](#the-philosophical-challenge-living-with-uncertainty)
+  - [Practical Guidance: What to Do Monday Morning](#practical-guidance-what-to-do-monday-morning)
+  - [The Black Swan's Final Lesson](#the-black-swans-final-lesson)
+- [From Black Swans to Grey Swans: The Spectrum of Unpredictability](#from-black-swans-to-grey-swans-the-spectrum-of-unpredictability)
+  - [Consolidating What We've Learned About Black Swans](#consolidating-what-weve-learned-about-black-swans)
+  - [The Black Swan in Summary](#the-black-swan-in-summary)
+  - [The Critical Insight: Most "Black Swans" Aren't](#the-critical-insight-most-black-swans-arent)
+  - [The Question That Changes Everything](#the-question-that-changes-everything)
+  - [Enter the Grey Swan: The Dangerous Middle Ground](#enter-the-grey-swan-the-dangerous-middle-ground)
+- [The Grey Swan: Large Scale, Large Impact, Rare Events (LSLIRE)](#the-grey-swan-large-scale-large-impact-rare-events-lslire)
+  - [Defining the Grey Swan: LSLIRE Framework](#defining-the-grey-swan-lslire-framework)
+  - [The Statistical Foundation: Living on the Edge](#the-statistical-foundation-living-on-the-edge)
+  - [The Grey Swan Paradox: Ignoring SLOs Makes Them More Likely](#the-grey-swan-paradox-ignoring-slos-makes-them-more-likely)
+  - [Is This a Grey Swan? The Classification Checklist](#is-this-a-grey-swan-the-classification-checklist)
+  - [Why SLOs Miss Grey Swans (But Don't Have To)](#why-slos-miss-grey-swans-but-dont-have-to)
+  - [Detection Strategies: Catching the Warning Signs](#detection-strategies-catching-the-warning-signs)
+  - [The Evolution: From Grey Swan to Grey Rhino](#the-evolution-from-grey-swan-to-grey-rhino)
+  - [Preparation and Response Strategies](#preparation-and-response-strategies)
+  - [Practical Monday Morning Actions](#practical-monday-morning-actions)
+  - [The Grey Swan's Final Message](#the-grey-swans-final-message)
+- [The Grey Rhino: The Obvious Threat We Choose to Ignore](#the-grey-rhino-the-obvious-threat-we-choose-to-ignore)
+  - [The Charging Beast in Plain Sight](#the-charging-beast-in-plain-sight)
+  - [What Makes a Rhino Grey](#what-makes-a-rhino-grey)
+  - [Why We Ignore the Charging Rhino](#why-we-ignore-the-charging-rhino)
+  - [SLOs and the Grey Rhino Problem](#slos-and-the-grey-rhino-problem)
+  - [Case Study: The COVID-19 Pandemic as a Global Grey Rhino](#case-study-the-covid-19-pandemic-as-a-global-grey-rhino)
+  - [Infrastructure Grey Rhinos: The Common Herd](#infrastructure-grey-rhinos-the-common-herd)
+  - [Detection vs. Action: The Grey Rhino Paradox](#detection-vs-action-the-grey-rhino-paradox)
+  - [What Actually Works: Organizational Antibodies Against Grey Rhinos](#what-actually-works-organizational-antibodies-against-grey-rhinos)
+  - [The COVID-19 Lesson: Slack Is Not Waste](#the-covid-19-lesson-slack-is-not-waste)
+  - [The Grey Rhino Playbook: From Recognition to Action](#the-grey-rhino-playbook-from-recognition-to-action)
+  - [Metrics That Matter for Grey Rhinos](#metrics-that-matter-for-grey-rhinos)
+  - [The Cultural Shift Required](#the-cultural-shift-required)
+  - [Conclusion: You Can See This One Coming](#conclusion-you-can-see-this-one-coming)
+  - [Practical Takeaways](#practical-takeaways)
+- [The Elephant in the Room: The Problem Everyone Sees But Won't Name](#the-elephant-in-the-room-the-problem-everyone-sees-but-wont-name)
+  - [The Silence Around the Obvious](#the-silence-around-the-obvious)
+  - [What Makes Something an Elephant in the Room](#what-makes-something-an-elephant-in-the-room)
+  - [Common Infrastructure Elephants](#common-infrastructure-elephants)
+  - [Why Elephants Persist: The Silence Mechanism](#why-elephants-persist-the-silence-mechanism)
+  - [The Special Danger of Infrastructure Elephants](#the-special-danger-of-infrastructure-elephants)
+  - [SLOs and Elephants: Complete Orthogonality](#slos-and-elephants-complete-orthogonality)
+  - [What Actually Works: Addressing Elephants](#what-actually-works-addressing-elephants)
+- [The Black Jellyfish: Cascading Failures Through Hidden Dependencies](#the-black-jellyfish-cascading-failures-through-hidden-dependencies)
+  - [The Sting That Spreads](#the-sting-that-spreads)
+  - [What Makes a Jellyfish Black](#what-makes-a-jellyfish-black)
+  - [The Anatomy of a Cascade](#the-anatomy-of-a-cascade)
+- [Real-World Example: AWS Outage, October 20, 2025](#real-world-example-aws-outage-october-20-2025)
+  - [The Jellyfish Characteristics](#the-jellyfish-characteristics)
+- [Why SLOs Miss Black Jellyfish](#why-slos-miss-black-jellyfish)
+- [Common Cascade Patterns](#common-cascade-patterns)
+- [Detection Strategies](#detection-strategies)
+  - [Rate of Change Monitoring](#rate-of-change-monitoring)
+  - [Dependency Health Aggregation](#dependency-health-aggregation)
+  - [Correlation Analysis](#correlation-analysis)
+- [Mitigation and Response](#mitigation-and-response)
+  - [Break the Feedback Loops](#break-the-feedback-loops)
+  - [Isolate Failure Domains](#isolate-failure-domains)
+  - [Design for Graceful Degradation](#design-for-graceful-degradation)
+  - [Design the Dependency Graph Itself](#design-the-dependency-graph-itself)
+  - [Practice Cascade Scenarios](#practice-cascade-scenarios)
+- [Organizational Factors](#organizational-factors)
+- [Practical Takeaways: Your Jellyfish Defense Checklist](#practical-takeaways-your-jellyfish-defense-checklist)
+- [Conclusion: The Jellyfish Always Finds the Pipes](#conclusion-the-jellyfish-always-finds-the-pipes)
+- [Hybrid Animals and Stampedes: When Risk Types Collide](#hybrid-animals-and-stampedes-when-risk-types-collide)
+  - [The Messy Reality of Real-World Failures](#the-messy-reality-of-real-world-failures)
+  - [The Stampede Pattern: When Swans Trigger the Herd](#the-stampede-pattern-when-swans-trigger-the-herd)
+  - [Case Study: October 10, 2025 - The Crypto Cascade](#case-study-october-10-2025---the-crypto-cascade)
+  - [Case Study: October 20, 2025 - The AWS Outage](#case-study-october-20-2025---the-aws-outage)
+  - [SLOs and Hybrid Events: Completely Blind](#slos-and-hybrid-events-completely-blind)
+  - [Defending Against Hybrids and Stampedes](#defending-against-hybrids-and-stampedes)
+  - [The 2008 Financial Crisis: The Ultimate Stampede](#the-2008-financial-crisis-the-ultimate-stampede)
+  - [Learning to See Hybrid Risks](#learning-to-see-hybrid-risks)
+  - [Mental Models for Hybrid Thinking](#mental-models-for-hybrid-thinking)
+  - [Practical Takeaways: Your Hybrid Risk Checklist](#practical-takeaways-your-hybrid-risk-checklist)
+  - [Conclusion: The Hybrid Reality](#conclusion-the-hybrid-reality)
+- [Comparative Analysis: Understanding the Full Bestiary](#comparative-analysis-understanding-the-full-bestiary)
+  - [The Master Reference Table](#the-master-reference-table)
+  - [Decision Tree: Identifying Your Risk Type](#decision-tree-identifying-your-risk-type)
+  - [Response Playbooks by Risk Type](#response-playbooks-by-risk-type)
+  - [Hybrid and Stampede Response](#hybrid-and-stampede-response)
+  - [The Limitations Matrix: What Each Approach Can't See](#the-limitations-matrix-what-each-approach-cant-see)
+  - [The Complete Defense Portfolio](#the-complete-defense-portfolio)
+  - [When to Use Which Framework](#when-to-use-which-framework)
+  - [The Meta-Framework: Thinking in Risk Portfolios](#the-meta-framework-thinking-in-risk-portfolios)
+  - [Practical Takeaways: Your Comparative Checklist](#practical-takeaways-your-comparative-checklist)
+  - [Conclusion: Beyond SLOs](#conclusion-beyond-slos)
+- [Incident Management for the Menagerie: When the Animals Attack](#incident-management-for-the-menagerie-when-the-animals-attack)
+  - [The Origins: From Forest Fires to Failing Servers](#the-origins-from-forest-fires-to-failing-servers)
+  - [The Google Model: SRE and the Incident Management Revolution](#the-google-model-sre-and-the-incident-management-revolution)
+  - [The Incident Command System: A Foundation, Not a Straitjacket](#the-incident-command-system-a-foundation-not-a-straitjacket)
+  - [Anatomy of an Incident](#anatomy-of-an-incident)
+  - [NIST 800-61: The Framework Integration](#nist-800-61-the-framework-integration)
+  - [Key Performance Indicators: Measuring What Customers Feel](#key-performance-indicators-measuring-what-customers-feel)
+  - [Culture as Incident Management Infrastructure](#culture-as-incident-management-infrastructure)
+- [The Cynefin Framework for Incident Response](#the-cynefin-framework-for-incident-response)
+  - [Why SREs Need This](#why-sres-need-this)
+  - [The Five Domains](#the-five-domains)
+  - [Applying Cynefin to Incident Response: Practical Framework](#applying-cynefin-to-incident-response-practical-framework)
+  - [Common Mistakes and How to Avoid Them](#common-mistakes-and-how-to-avoid-them)
+- [Incident Management by Animal Type](#incident-management-by-animal-type)
+  - [Black Swan Incidents: When the Unprecedented Strikes](#black-swan-incidents-when-the-unprecedented-strikes)
+  - [Grey Swan Incidents: The Complex and Monitorable](#grey-swan-incidents-the-complex-and-monitorable)
+  - [Grey Rhino Incidents: When Ignorance Ends Abruptly](#grey-rhino-incidents-when-ignorance-ends-abruptly)
+  - [Elephant in the Room Incidents: When Silence Breaks](#elephant-in-the-room-incidents-when-silence-breaks)
+  - [Black Jellyfish Incidents: When Cascades Bloom](#black-jellyfish-incidents-when-cascades-bloom)
+  - [Hybrid Animals and Stampedes: When Multiple Animals Attack](#hybrid-animals-and-stampedes-when-multiple-animals-attack)
+  - [Universal Incident Management Principles Across the Bestiary](#universal-incident-management-principles-across-the-bestiary)
+- [Conclusion: Incident Management for the Menagerie](#conclusion-incident-management-for-the-menagerie)
+- [References](#references)
+- [Closing Thoughts: Beyond the Bestiary](#closing-thoughts-beyond-the-bestiary)
+  - [The Map Is Not the Territory](#the-map-is-not-the-territory)
+  - [What We've Learned: The Bestiary in Review](#what-weve-learned-the-bestiary-in-review)
+  - [The Meta-Patterns Across Animals](#the-meta-patterns-across-animals)
+  - [Beyond the Bestiary: Preparing for Unknown Unknowns](#beyond-the-bestiary-preparing-for-unknown-unknowns)
+  - [The Hard Truths: What This Actually Requires](#the-hard-truths-what-this-actually-requires)
+  - [The Call to Action: What You Do Next](#the-call-to-action-what-you-do-next)
+  - [The Final Word: Humility and Vigilance](#the-final-word-humility-and-vigilance)
+- [Acknowledgments](#acknowledgments)
+- [Appendix: Quick Reference Materials](#appendix-quick-reference-materials)
+- [Final Thoughts: The Practice, Not the Project](#final-thoughts-the-practice-not-the-project)
 
-<!-- END doctoc generated TOC please keep comment here to allow auto update —>
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
 {::pagebreak /}
 
 <!-- Reference definitions at bottom -->
 
+{::pagebreak /}
 ## Preface
 
 Originally, I had intended this to be an essay, a blog post. I first conceived this work in 2019 when I was the CRE lead at Blameless. Delving deep into SLO implementations, I realized that creating good SLOs was not obvious or trivial. Indeed, just because you have SLOs, they can't predict the unpredictable—something so catastrophic that you just don't have indicators to know that it's coming.
@@ -45,6 +206,7 @@ Yule, 2025
 
 {::pagebreak /}
 
+{::pagebreak /}
 ## About this Book
 
 This revelation required a workflow as unique as the project itself. Fundamentally, I started developing all of my writing using Scrivener. Scrivener existed well before AI. It's great for organizing your thoughts, organizing your data, organizing your research, organizing your images, and then rendering documents in many different formats. For this work, it is the primary source of truth and the primary rendering engine for any of my working PDFs.
@@ -96,6 +258,7 @@ This has been a great project, and I think I've found a way to rapidly and accur
 
 
 
+{::pagebreak /}
 ## Introduction: The Incident That Wasn't In Any Runbook
 
 It's 2:47 AM on a Tuesday. PagerDuty on your phone is squawking at you ... "something's broken, something's broken, it's your fault, it's your fault..." . The primary on-call engineer is already on the bridge, and you can hear the tension in their voice during the first few seconds of the call. "We're seeing cascading failures across three regions. SLOs are green. Literally everything looks fine in the dashboards, but customers can't connect."
@@ -192,6 +355,7 @@ Let's begin.
 
 *"The Black Swan is what you see when you weren't looking for it. The Grey Rhino is what you didn't act on when you should have. The Elephant is what you knew but couldn't say. The Black Jellyfish is what you thought you understood but didn't. And your SLOs? They're what you measured in between."*
 
+{::pagebreak /}
 ## The Historical Journey of Black Swans
 
 The black swan metaphor has a rich history stretching back to ancient Rome. Juvenal's "Satire VI," written around 100 CE, uses "rara avis in terris nigroque simillima cygno" ("a rare bird in the lands, and very much like a black swan") to describe something presumed impossible. This metaphor persisted through medieval Europe and became a common expression in London by the 1500s.
@@ -377,6 +541,7 @@ Nassim Taleb, and David Chandler. The Black Swan. W.F. Howes, 2007.
 Nassim Nicholas Taleb. Antifragile : How to Live in a World We Don’t Understand. Random House, 27 Nov. 2012.
 
 
+{::pagebreak /}
 ## The Nature of SLOs
 Before we dive into why SLOs can't catch Black Swans, we need to establish exactly what SLOs are, where they came from, and why they work so well for normal operations. If you're already deep into SRE practice, some of this will be review. But bear with me, because understanding the foundations helps us see the limitations.
 ### The Telecom Roots: Where the "Nines" Came From
@@ -1064,6 +1229,7 @@ Hidalgo, Alex. Implementing Service Level Objectives. O'Reilly Media, 5 Aug. 202
 
 
 
+{::pagebreak /}
 ## The Bestiary of System Reliability
 
 Now that we understand what SLOs can do (manage Mediocristan reliability) and what they can't do (predict or prevent Extremistan events), it's time to meet the animals that live in the gaps.
@@ -1261,6 +1427,7 @@ Because if you can't catch a Black Swan with an SLO, you need to understand exac
 
 
 
+{::pagebreak /}
 ## The Black Swan: The Truly Unpredictable
 
 ![][black-swan]
@@ -4168,6 +4335,7 @@ But the Black Swan teaches the deepest lesson: **Build systems that can survive 
 
 
 
+{::pagebreak /}
 ## From Black Swans to Grey Swans: The Spectrum of Unpredictability
 
 ### Consolidating What We've Learned About Black Swans
@@ -4381,6 +4549,7 @@ Let's learn how to stop making that mistake.
 
 *"A Black Swan is what you couldn't have known. A Grey Swan is what you chose not to believe. The difference isn't in the statistics. It's in the honesty."*
 
+{::pagebreak /}
 ## The Grey Swan: Large Scale, Large Impact, Rare Events (LSLIRE)
 
 ![][grey_swan]
@@ -5867,6 +6036,7 @@ You can't catch a Black Swan with an SLO. But you absolutely can catch a Grey Sw
 
 
 
+{::pagebreak /}
 ## The Grey Rhino: The Obvious Threat We Choose to Ignore
 
 ![][grey-rhino]
@@ -6929,6 +7099,7 @@ But first, take a moment to audit your own grey rhinos. You know which ones they
 They're the ones you've been meaning to fix.
 
 
+{::pagebreak /}
 ## The Elephant in the Room: The Problem Everyone Sees But Won't Name
 
 ![][grey-elephant]
@@ -7718,6 +7889,7 @@ Elephants thrive in cultures where discomfort is avoided. Change the culture to 
 - Signal that this behavior is valued and safe -- no retaliation, no eye-rolling, no career penalty
 
 
+{::pagebreak /}
 ## The Black Jellyfish: Cascading Failures Through Hidden Dependencies
 ![][black-jellyfish]
 
@@ -7810,6 +7982,7 @@ The key insight: in a black jellyfish cascade, the system's own structure become
 
 {::pagebreak /}
 
+{::pagebreak /}
 ## Real-World Example: AWS Outage, October 20, 2025
 
 On October 20, 2025, a DNS race condition in DynamoDB's automated management system cascaded into a systemic failure affecting over 1,000 services and websites worldwide. This incident perfectly demonstrates the black jellyfish pattern: known components (DNS, DynamoDB), unexpected interactions (cascade paths, state inconsistencies), and rapid amplification (minutes to global failure).
@@ -7844,6 +8017,7 @@ On October 20, 2025, a DNS race condition in DynamoDB's automated management sys
 
 *Note: We'll revisit this incident as a multi-animal stampede in the Hybrid Animals section, where we examine how organizational decay (Elephant) enabled technical debt (Grey Rhino) to trigger this cascade (Black Jellyfish). For now, we focus on the cascade mechanics themselves. Industry analyst Corey Quinn noted the day of the outage: "When that tribal knowledge departs, you're left having to reinvent an awful lot of in-house expertise... This doesn't impact your service reliability—until one day it very much does, in spectacular fashion." [Source: Corey Quinn, DuckBill Group, October 20, 2025]*
 
+{::pagebreak /}
 ## Why SLOs Miss Black Jellyfish
 
 SLOs are fundamentally unsuited for detecting or preventing black jellyfish cascades. They measure the wrong things, at the wrong granularity, at the wrong time.
@@ -7862,6 +8036,7 @@ During the AWS Oct 20 outage, individual service SLOs might still have been gree
 
 This is why organizations with excellent SLO compliance still experience catastrophic cascades. The SLOs aren't measuring cascade risk.
 
+{::pagebreak /}
 ## Common Cascade Patterns
 
 Before diving into detection, let's examine the patterns that regularly sting infrastructure teams:
@@ -7876,6 +8051,7 @@ Before diving into detection, let's examine the patterns that regularly sting in
 
 Each pattern demonstrates the jellyfish characteristics: known components, unexpected interactions, rapid escalation, positive feedback. Component SLOs stay green until the cascade hits—then they all turn red simultaneously.
 
+{::pagebreak /}
 ## Detection Strategies
 
 Traditional monitoring looks at component health. Cascade monitoring looks at system dynamics: rate of change, dependency health propagation, and correlated failures.
@@ -7944,6 +8120,7 @@ Correlated failures across services indicate cascades. If multiple services fail
 
 **Alert threshold**: If three or more services fail within 60 seconds, that's likely a cascade, not independent failures.
 
+{::pagebreak /}
 ## Mitigation and Response
 
 If SLOs can't catch jellyfish, what can? The answer is designing systems that resist cascades. The techniques below break feedback loops, isolate failures, and monitor for cascade patterns rather than just component health.
@@ -8058,6 +8235,7 @@ Test your resilience to cascades before they happen in production. Chaos enginee
 
 **Recovery tests**: Verify services recover automatically, no thundering herd on recovery, full recovery within acceptable timeframes.
 
+{::pagebreak /}
 ## Organizational Factors
 
 Cascade prevention isn't just technical—it's organizational. Retry storms are often a product decision, not an engineering decision. Circuit breakers require organizational buy-in to fail fast. Dependency mapping requires cross-team coordination.
@@ -8070,6 +8248,7 @@ Cascade prevention isn't just technical—it's organizational. Retry storms are 
 
 **Product vs engineering**: Retry behavior is often a product decision ("users expect retries"). Engineering can't fix cascades if product won't accept "fail fast" as a feature.
 
+{::pagebreak /}
 ## Practical Takeaways: Your Jellyfish Defense Checklist
 
 **For System Design**:
@@ -8098,6 +8277,7 @@ Cascade prevention isn't just technical—it's organizational. Retry storms are 
 
 2. **Reject designs with obvious cascade vulnerabilities**: Circular dependencies. Dependency depth >5. No circuit breakers. No fallback mechanisms.
 
+{::pagebreak /}
 ## Conclusion: The Jellyfish Always Finds the Pipes
 
 Black jellyfish events teach us that the most dangerous failures aren't the ones we can't predict—they're the ones that arise from what we think we understand.
@@ -8131,6 +8311,7 @@ Because the jellyfish are blooming, and they know where your pipes are.
 
 
 
+{::pagebreak /}
 ## Hybrid Animals and Stampedes: When Risk Types Collide
 
 ### The Messy Reality of Real-World Failures
@@ -9956,6 +10137,7 @@ Prepare for mess.
 
 *This concludes the Hybrid Animals and Stampedes section. Next, we'll bring together all our learning into a unified comparative analysis and field guide: how to identify which animal (or animals) you're dealing with, and what to do about it.*
 
+{::pagebreak /}
 ## Comparative Analysis: Understanding the Full Bestiary
 
 ### The Master Reference Table
@@ -10502,6 +10684,7 @@ Build the complete portfolio.
 *Next: The Field Guide will provide quick-reference cards and practical identification tools for using this framework in the wild.*
 
 
+{::pagebreak /}
 ## Incident Management for the Menagerie: When the Animals Attack
 
 ![][Eugene_F_Kranz_at_his_console_at_the_NASA_Mission_Control_Center]
@@ -10939,6 +11122,7 @@ Now, with foundation established, let's examine how incident management differs 
 
 ---
 
+{::pagebreak /}
 ## The Cynefin Framework for Incident Response
 
 Before we dive into animal-specific incident management, we need one more tool: a way to think about how to think about incidents.
@@ -11324,6 +11508,7 @@ Now that we understand Cynefin, let's see how it applies to each animal in our b
 
 ---
 
+{::pagebreak /}
 ## Incident Management by Animal Type
 
 ### Black Swan Incidents: When the Unprecedented Strikes
@@ -12609,6 +12794,7 @@ The best postmortem is worthless if action items aren't completed.
 
 ---
 
+{::pagebreak /}
 ## Conclusion: Incident Management for the Menagerie
 
 We've covered a lot of ground. From forest fires to failing servers. From ICS to NIST to Google SRE. From the Cynefin Framework to animal-specific strategies.
@@ -12636,6 +12822,7 @@ Now go manage some incidents. The animals are waiting.
 ---
 
 
+{::pagebreak /}
 ## References
 
 [White, 2025] White, Geoff. "The Unwritten Laws of Information Flow: Why Culture is the Hardest System to Scale." LinkedIn, October 23, 2025. https://www.linkedin.com/pulse/unwritten-laws-information-flow-why-culture-hardest-system-white-7jxvc/
@@ -12646,6 +12833,7 @@ Now go manage some incidents. The animals are waiting.
 
 
 
+{::pagebreak /}
 ## Closing Thoughts: Beyond the Bestiary
 
 ### The Map Is Not the Territory
@@ -13561,6 +13749,7 @@ The swans you haven't seen are still swans.
 
 ---
 
+{::pagebreak /}
 ## Acknowledgments
 
 The framework developed in this essay builds on the work of many thinkers and practitioners:
@@ -13588,6 +13777,7 @@ And lastly, to **Gene Kranz**, arguably the patron saint of Incident Commanders 
 
 ---
 
+{::pagebreak /}
 ## Appendix: Quick Reference Materials
 These are just a few collateral templates and you are feel free to use them any which way that you would like to. I would be interested in hearing from you if you either expand on them, correct them or add to the bundle. Just open a PR on the book’s github site.
 {::Pagebreak /}
