@@ -105,16 +105,31 @@ This distinction matters for our bestiary:
 - A Black Jellyfish cascade can go from P3 to P0 in under five minutes
 
 ### The Incident Command System: A Foundation, Not a Straitjacket
+**Where ICS Breaks Down for IT:**
+
+ICS assumes:
+- Geographically bounded incidents (a fire, a building collapse)
+- Physical response teams
+- Clear roles based on agency (fire department, police, EMS)
+
+IT incidents are:
+- Geographically distributed (global services, remote teams)
+- Virtual teams assembled ad-hoc
+- Role boundaries based on technical domain, not organizational chart
+
+Good incident management adapts ICS principles to IT reality rather than forcing IT reality into ICS structure.
+
+![][incident-response-team]
 
 ICS provides a structure for coordinating complex responses. The roles are:
 
 | Role | Primary Responsibility | Why It Matters |
 |------|----------------------|----------------|
 | **Incident Commander (IC)** | Overall incident management, strategic decisions | Single point of authority prevents chaos |
-| **Operations Section Chief** | Tactical execution, directing responders | Separates doing from coordinating |
-| **Planning Section Chief** | Documentation, prediction, resource tracking | Ensures organizational memory and future planning |
-| **Logistics Section Chief** | Resource procurement, infrastructure support | Gets responders what they need to succeed |
-| **Communications Lead** | Internal and external messaging | Manages information flow to stakeholders |
+| **Communications Lead (Comms)** |Internal and external messaging | Manages information flow to stakeholders|
+| **Scribe** | Documentation, prediction, resource tracking | Ensures organizational memory and future planning |
+| **Technical Lead** | Manages and directs technical resolution effort | Focus on problem resolution, not politics |
+| **Subject Matter Expert (SME)** | In the weeds of the effort| Bringing to bear technical expertise to the situation |
 
 For small incidents, one person might wear multiple hats. For large incidents (especially Black Swans or stampedes), you need the full structure.
 
@@ -130,23 +145,11 @@ For small incidents, one person might wear multiple hats. For large incidents (e
 
 5. **Establishment of Command**: The IC is declared early and clearly. "I'm taking IC" is an explicit handoff.
 
-**Where ICS Breaks Down for IT:**
 
-ICS assumes:
-- Geographically bounded incidents (a fire, a building collapse)
-- Physical response teams
-- Clear roles based on agency (fire department, police, EMS)
-
-IT incidents are:
-- Geographically distributed (global services, remote teams)
-- Virtual teams assembled ad-hoc
-- Role boundaries based on technical domain, not organizational chart
-
-Good incident management adapts ICS principles to IT reality rather than forcing IT reality into ICS structure.
 ### Anatomy of an Incident
 ![][anatomy-of-an-incident]
 
-Before moving further, let's get closure on some important terms around incidents. 
+Before moving further, let's get closure on some important traditional  terms around incidents. 
 
 | Acronym | Name | Definition |
 |--------|------|------------|
@@ -439,6 +442,8 @@ ICS gives us structure. NIST gives us phases. Google SRE gives us practices. But
 That's where the Cynefin Framework comes in. Developed by Dave Snowden in the late 1990s, Cynefin (pronounced "kuh-NEV-in") is a sense-making framework that categorizes situations based on the relationship between cause and effect. The name is Welsh for "the place of your multiple belongings"—representing the multiple factors in our environment that influence us in ways we can never fully understand.
 
 For incident response, Cynefin provides something critical: **Different types of problems require different types of thinking.** Using the wrong approach wastes time, makes things worse, or both.
+
+![][cynefin-framework]
 
 ### Why SREs Need This
 
@@ -2016,3 +2021,5 @@ Now go manage some incidents. The animals are waiting.
 [Eugene_F_Kranz_at_his_console_at_the_NASA_Mission_Control_Center]: Eugene_F_Kranz_at_his_console_at_the_NASA_Mission_Control_Center.jpg
 
 [anatomy-of-an-incident]: anatomy-of-an-incident.png
+[incident-response-team]: incident-response-team.png
+[cynefin-framework]: Cynefin_framework_2022.jpg
