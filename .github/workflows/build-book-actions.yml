@@ -107,13 +107,9 @@ jobs:
           echo "md_path=$MD_PATH" >> "$GITHUB_OUTPUT"
           echo "output_dir=SLOBLACKSWAN-${VERSION}" >> "$GITHUB_OUTPUT"
 
-      - name: Insert Pagebreaks
-        run: |
-          source .venv/bin/activate
-          python scripts/insert_pagebreaks.py --overwrite "${{ steps.build_md.outputs.md_path }}"
-
       - name: Generate TOC with doctoc
         run: |
+<<<<<<< Updated upstream
           # doctoc adds a TOC to the top of the file
           doctoc "${{ steps.build_md.outputs.md_path }}" --title "## Table of Contents"
 
@@ -126,6 +122,12 @@ jobs:
           PDF_PATH="${MD_PATH%.md}.pdf"
           OUTPUT_DIR="${{ steps.build_md.outputs.output_dir }}"
           python scripts/generate_pdf.py "$MD_PATH" "$PDF_PATH" "$OUTPUT_DIR"
+=======
+          VERSION=${{ steps.version.outputs.version }}
+          MD_PATH="SLOBLACKSWAN-${VERSION}/SLOBLACKSWAN-${VERSION}.md"
+          # doctoc adds a TOC to the top of the file
+          doctoc "$MD_PATH" --title "## Table of Contents"
+>>>>>>> Stashed changes
 
 #    - name: Upload Artifacts
 #      uses: actions/upload-artifact@v4
