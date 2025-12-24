@@ -119,7 +119,7 @@ jobs:
           source .venv/bin/activate
           # FIX: Add current directory to PYTHONPATH so scripts.build_book works
           export PYTHONPATH=$PYTHONPATH:.
-          python << 'EOF'
+          python << EOF
 import sys
 import os
 from scripts.build_book import WEASYPRINT_AVAILABLE
@@ -139,6 +139,9 @@ except ImportError as e:
 md_path = '${{ steps.build_md.outputs.md_path }}'
 output_pdf_path = md_path.replace('.md', '.pdf')
 output_dir = '${{ steps.build_md.outputs.output_dir }}'
+
+# Convert output_dir to absolute path for base_url (consistent with build_book.py)
+output_dir_abs = os.path.abspath(output_dir)
 
 with open(md_path, 'r') as f:
     md_content = f.read()
@@ -163,7 +166,7 @@ table tr { background-color: #ffffff; border-top: 1px solid #d8dee4; }
 table tr:nth-child(2n) { background-color: #f6f8fa; }
 """
 
-HTML(string=html_content, base_url=output_dir).write_pdf(
+HTML(string=html_content, base_url=output_dir_abs).write_pdf(
     output_pdf_path,
     stylesheets=[CSS(string=css_string)]
 )

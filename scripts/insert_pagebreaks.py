@@ -32,22 +32,30 @@ def insert_pagebreaks(content: str) -> str:
             in_code_block = not in_code_block
             result.append(line)
             continue
-        # Check if line starts with ## at column 0 (not indented) and is not ###
-        if not in_code_block and line.startswith('##') and not line.startswith('###'):
+        # Check if line starts with exactly ## (level-2 header) at column 0
+        # Must start with ## followed by a space or end of line (not ### or deeper)
+        if not in_code_block and line.startswith('##') and (len(line) < 3 or line[2] != '#'):
             # Look back through blank lines to find the last non-blank line
             has_existing_pagebreak = False
+            has_prior_content = False
             for j in range(len(result) - 1, -1, -1):
                 last_line = result[j].strip()
                 if last_line == '{::pagebreak /}':
                     has_existing_pagebreak = True
                     break
                 elif last_line:  # Non-blank line that's not a pagebreak
+                    has_prior_content = True
                     break
             
+            # Skip pagebreak if this is the first header (no prior content)
             if has_existing_pagebreak:
                 result.append(line)
-            else:
+            elif has_prior_content:
+                # Insert pagebreak only if there's prior non-blank content
                 result.append(f'{{::pagebreak /}}{line_ending}')
+                result.append(line)
+            else:
+                # First header in document - no pagebreak needed
                 result.append(line)
         else:
             result.append(line)
