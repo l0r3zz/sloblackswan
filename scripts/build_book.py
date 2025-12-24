@@ -177,20 +177,22 @@ def main():
         # Actually, WeasyPrint base_url handles relative paths if set correctly.
         # We will set base_url to output_dir_path.
         
-        # CSS Styling - Updated for GitHub Style
+        # CSS Styling - Updated for GitHub Style (Linux-compatible fonts for GitHub Actions)
         css_string = """
         @page {
             size: Letter;
             margin: 1in;
         }
         body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+            font-family: "DejaVu Sans", "Liberation Sans", "Noto Sans", Helvetica, Arial, sans-serif;
+            font-variant-numeric: lining-nums tabular-nums;
             line-height: 1.5;
             color: #24292f;
             font-size: 16px;
         }
         h1, h2, h3, h4, h5, h6 {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+            font-family: "DejaVu Sans", "Liberation Sans", "Noto Sans", Helvetica, Arial, sans-serif;
+            font-variant-numeric: lining-nums tabular-nums;
             color: #1f2328;
             margin-top: 1.5em;
             margin-bottom: 0.5em;
@@ -207,7 +209,7 @@ def main():
             padding-bottom: 0.3em;
         }
         code, pre {
-            font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+            font-family: "DejaVu Sans Mono", "Liberation Mono", Consolas, monospace;
             font-size: 85%;
         }
         .pagebreak {
