@@ -20,7 +20,7 @@ After examining each animal in detail, let's bring them together for side-by-sid
 | **Who Coined** | Nassim Taleb (2007) | Informal/adapted from Taleb | Michele Wucker (2016) | Ancient idiom | Ziauddin Sardar & John Sweeney (2015) |
 | **Can It Be "Fixed"?** | No (must adapt to new reality) | Yes (with technical work) | Yes (with priority shift) | Yes (with cultural change) | Yes (with architecture change) |
 | **Stampede Role** | Can trigger stampedes (COVID) | Often triggers stampedes (Crypto Oct 10) | Revealed by stampedes | Prevents response to stampedes | Amplified by stampedes |
-{{::pagebreak /}}
+{::pagebreak /}
 ### Decision Tree: Identifying Your Risk Type
 
 When you encounter a problem, use this decision tree to classify it. The key is asking the right questions in the right order. Start with the most fundamental question: did anyone see this coming? Then work through visibility, timing, and complexity.

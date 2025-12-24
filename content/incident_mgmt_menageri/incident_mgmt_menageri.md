@@ -460,7 +460,7 @@ The key insight: **ordered domains** (right side of the framework) have discover
 ### The Five Domains
 ![][cynefin-framework]
 The framework divides all situations into five domains arranged around a central area:
-{{::pagebreak / }}
+{::pagebreak /}
 #### Domain 1: Clear (Simple/Obvious) - "The Recipe Domain"
 
 **Characteristics:**
@@ -500,7 +500,7 @@ Clear domains have a dangerous boundary with Chaotic. If you're following a "rec
 
 **For Incident Management:**
 Most routine incidents (P3, P4) live in the Clear domain. They're the "known knowns" - we know what they are, we know how to fix them. The danger is when teams treat Complex or Chaotic incidents as Clear, applying runbooks that don't fit.
-{{::pagebreak / }}
+{::pagebreak /}
 #### Domain 2: Complicated - "The Expert Domain"
 
 **Characteristics:**
@@ -548,7 +548,7 @@ In Complicated domains, experts can become entrenched in their viewpoints. Multi
 
 **For Incident Management:**
 Grey Swans often start in the Complicated domain - we know something is wrong, we can investigate, but the answer isn't immediately obvious. Grey Rhinos that finally charge often require Complicated-domain analysis to understand why they were ignored and how to prevent recurrence.
-{{::pagebreak / }}
+{::pagebreak /}
 #### Domain 3: Complex - "The Experimentation Domain"
 
 **Characteristics:**
@@ -609,7 +609,7 @@ As you run probes and learn, patterns emerge. The situation should transition fr
 
 **For Incident Management:**
 Black Swans almost always start in Complex or Chaotic domains. Grey Swans often transition from Complicated to Complex as you realize the problem is more emergent than analyzable. The framework provides a structured way to handle these situations without panicking or applying wrong strategies.
-{{::pagebreak / }}
+{::pagebreak /}
 #### Domain 4: Chaotic - "The Crisis Domain"
 
 **Characteristics:**
@@ -667,7 +667,7 @@ Once you've stabilized (Act), you can assess (Sense) and then make strategic dec
 
 **For Incident Management:**
 Black Swans often start in Chaotic. The framework provides permission to act without full understanding - critical for Black Swan response. Many teams waste precious minutes trying to understand a Chaotic situation when they should be stabilizing first.
-{{::pagebreak / }}
+{::pagebreak /}
 #### Domain 5: Confusion (Disorder) - "The Unknown Domain"
 
 **Characteristics:**
