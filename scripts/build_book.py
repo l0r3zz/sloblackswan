@@ -178,7 +178,6 @@ def main():
         # Actually, WeasyPrint base_url handles relative paths if set correctly.
         # We will set base_url to output_dir_path.
         
-<<<<<<< Updated upstream
         # CSS Styling - Updated for GitHub Style (Linux-compatible fonts for GitHub Actions)
         css_string = textwrap.dedent("""\
             @page {
@@ -254,81 +253,6 @@ def main():
                 background-color: #f6f8fa;
             }
         """).strip()
-=======
-        # CSS Styling - Updated for GitHub Style
-        css_string = """
-        @page {
-            size: Letter;
-            margin: 1in;
-        }
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
-            line-height: 1.5;
-            color: #24292f;
-            font-size: 16px;
-        }
-        h1, h2, h3, h4, h5, h6 {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
-            color: #1f2328;
-            margin-top: 1.5em;
-            margin-bottom: 0.5em;
-            font-weight: 600;
-        }
-        h1 {
-            font-size: 2em;
-            border-bottom: 1px solid #d0d7de;
-            padding-bottom: 0.3em;
-        }
-        h2 {
-            font-size: 1.5em;
-            border-bottom: 1px solid #d0d7de;
-            padding-bottom: 0.3em;
-        }
-        code, pre {
-            font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
-            font-size: 85%;
-        }
-        .pagebreak {
-            break-before: always;
-            page-break-before: always;
-        }
-        img {
-            max-width: 100%;
-            height: auto;
-        }
-        pre {
-            background-color: #f6f8fa;
-            padding: 16px;
-            overflow-x: auto;
-            border-radius: 6px;
-        }
-        blockquote {
-            border-left: 0.25em solid #d0d7de;
-            padding: 0 1em;
-            color: #656d76;
-            margin-left: 0;
-        }
-        table {
-            border-spacing: 0;
-            border-collapse: collapse;
-            display: block;
-            width: max-content;
-            max-width: 100%;
-            overflow: auto;
-        }
-        table th, table td {
-            padding: 6px 13px;
-            border: 1px solid #d0d7de;
-        }
-        table tr {
-            background-color: #ffffff;
-            border-top: 1px solid #d8dee4;
-        }
-        table tr:nth-child(2n) {
-            background-color: #f6f8fa;
-        }
-        """
->>>>>>> Stashed changes
         
         try:
             # Render PDF
