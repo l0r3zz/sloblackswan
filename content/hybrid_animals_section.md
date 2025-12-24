@@ -385,7 +385,8 @@ class CryptoCascadeJellyfish:
     'Coinbase': 'Trading halted due to "unprecedented volatility"',
     'Kraken': 'Partial trading halt',
     'market_state': 'No major exchange accepting orders reliably',
-    'impact': 'Complete market breakdown, nearly $1T market cap drop, $19.13B liquidations (market data, October 10, 2025)'
+    'impact': ('Complete market breakdown, nearly $1T market cap drop, '
+               '$19.13B liquidations (market data, October 10, 2025)')
     }
     
     return {
@@ -694,9 +695,11 @@ class DNSRaceConditionRhino:
                     'DNS_Planner': 'Monitors load balancer health, creates DNS plans',
                     'DNS_Enactor': 'Applies changes via Route 53'
                 },
-                'known_weakness': 'Race condition between components when updating same DNS entry simultaneously',
+                'known_weakness': ('Race condition between components when '
+                                   'updating same DNS entry simultaneously'),
                 'documentation': 'Latent defect in automated DNS management',
-                'oct_20_trigger': 'Coordination glitch led to deletion of valid DNS records, empty DNS record resulted'
+                'oct_20_trigger': ('Coordination glitch led to deletion of valid DNS records, '
+                                   'empty DNS record resulted')
             },
             
             'previous_incidents': [
@@ -970,7 +973,8 @@ amplification_sequence = {
     'Trigger_event': {
         'what': 'DNS Planner/Enactor race condition triggers (rhino stampede)',
         'why_critical': 'No one left who remembered this latent defect could happen (elephant)',
-        'immediate_cascade': 'Empty DNS record → DynamoDB unreachable → Cascades through 1,000+ services (jellyfish bloom)'
+        'immediate_cascade': ('Empty DNS record → DynamoDB unreachable → Cascades '
+                              'through 1,000+ services (jellyfish bloom)')
     },
     'Detection_phase': {
         'delay': '75 minutes',
@@ -1592,7 +1596,8 @@ class FinancialCrisisStampede:
                 'elephants': 'Leverage, derivatives, regulatory capture',
                 'jellyfish': 'Credit cascade, contagion',
                 'swans': 'Extent of correlation, speed of cascade',
-                'impact': 'Global recession, $10+ trillion wealth loss (Federal Reserve, IMF, 2008-2009)'
+                'impact': ('Global recession, $10+ trillion wealth loss '
+                           '(Federal Reserve, IMF, 2008-2009)')
             }
         }
         
@@ -1610,7 +1615,8 @@ class FinancialCrisisStampede:
             'classification': 'SUPER-STAMPEDE',
             'animals_involved': 6,
             'interaction_type': 'Every risk type amplifying every other',
-            'damage': '$10+ trillion wealth loss, global recession, millions unemployed (Federal Reserve, IMF, 2008-2009)',
+            'damage': ('$10+ trillion wealth loss, global recession, '
+                       'millions unemployed (Federal Reserve, IMF, 2008-2009)'),
             'lesson': 'Hybrid events at scale can break civilization',
             'what_didnt_help': 'SLO-equivalent metrics (VaR models) all green until cascade',
             'what_would_have_helped': [
@@ -1641,7 +1647,8 @@ class HybridRiskMindset:
             'systems_thinking': {
                 'principle': 'Nothing exists in isolation',
                 'practice': 'Always ask "what else does this interact with?"',
-                'example': 'Database capacity issue: what else depends on DB? What happens if those services fail?'
+                'example': ('Database capacity issue: what else depends on DB? '
+                            'What happens if those services fail?')
             },
             
             'second_order_effects': {

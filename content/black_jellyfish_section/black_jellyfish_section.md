@@ -122,7 +122,7 @@ On October 20, 2025, a DNS race condition in DynamoDB's automated management sys
 
 **Extended recovery**: Even after DNS was restored, state reconciliation required careful manual intervention. Full recovery took over a day, not because of the initial DNS fault, but because of the accumulated state inconsistencies and automation conflicts that the cascade created.
 
-*Note: We'll revisit this incident as a multi-animal stampede in the Hybrid Animals section, where we examine how organizational decay (Elephant) enabled technical debt (Grey Rhino) to trigger this cascade (Black Jellyfish). For now, we focus on the cascade mechanics themselves. Industry analyst Corey Quinn noted the day of the outage: "When that tribal knowledge departs, you're left having to reinvent an awful lot of in-house expertise... This doesn't impact your service reliability—until one day it very much does, in spectacular fashion." [Source: Corey Quinn, DuckBill Group, October 20, 2025]*
+*Note: We'll revisit this incident as a multi-animal stampede in the Hybrid Animals section, where we examine how organizational decay (Elephant) enabled technical debt (Grey Rhino) to trigger this cascade (Black Jellyfish). For now, we focus on the cascade mechanics themselves.*
 
 ## Why SLOs Miss Black Jellyfish
 
