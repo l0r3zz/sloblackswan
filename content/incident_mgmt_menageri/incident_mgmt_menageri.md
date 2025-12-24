@@ -291,7 +291,7 @@ These align with what customers experience and what organizations learn:
 | **Repeat Incident Rate** | Percentage of incidents that are similar to previous ones | Indicates failure to learn | Requires classification and memory |
 | **Cross-Team Coordination Efficiency** | Quality of coordination when incident spans multiple teams | Tests org structure and communication | Qualitative, based on participant feedback |
 | **Psychological Safety Index** | Willingness of team to surface uncomfortable truths in retrospectives | Foundation for all learning | Measured via surveys and retrospective quality |
-
+{::pagebreak /}
 #### KPI Relevance by Animal Type
 
 Different animals make different KPIs relevant:
@@ -445,7 +445,6 @@ That's where the Cynefin Framework comes in. Developed by Dave Snowden in the la
 
 For incident response, Cynefin provides something critical: **Different types of problems require different types of thinking.** Using the wrong approach wastes time, makes things worse, or both.
 
-![][cynefin-framework]
 
 ### Why SREs Need This
 
@@ -459,9 +458,9 @@ Modern distributed systems are inherently complex. Incidents don't follow predic
 The key insight: **ordered domains** (right side of the framework) have discoverable cause-and-effect relationships. **Unordered domains** (left side) have relationships that can only be understood in hindsight or not at all.
 
 ### The Five Domains
-
+![][cynefin-framework]
 The framework divides all situations into five domains arranged around a central area:
-
+{::pagebreak /}
 #### Domain 1: Clear (Simple/Obvious) - "The Recipe Domain"
 
 **Characteristics:**
@@ -501,7 +500,7 @@ Clear domains have a dangerous boundary with Chaotic. If you're following a "rec
 
 **For Incident Management:**
 Most routine incidents (P3, P4) live in the Clear domain. They're the "known knowns" - we know what they are, we know how to fix them. The danger is when teams treat Complex or Chaotic incidents as Clear, applying runbooks that don't fit.
-
+{::pagebreak /}
 #### Domain 2: Complicated - "The Expert Domain"
 
 **Characteristics:**
@@ -549,7 +548,7 @@ In Complicated domains, experts can become entrenched in their viewpoints. Multi
 
 **For Incident Management:**
 Grey Swans often start in the Complicated domain - we know something is wrong, we can investigate, but the answer isn't immediately obvious. Grey Rhinos that finally charge often require Complicated-domain analysis to understand why they were ignored and how to prevent recurrence.
-
+{::pagebreak /}
 #### Domain 3: Complex - "The Experimentation Domain"
 
 **Characteristics:**
@@ -610,7 +609,7 @@ As you run probes and learn, patterns emerge. The situation should transition fr
 
 **For Incident Management:**
 Black Swans almost always start in Complex or Chaotic domains. Grey Swans often transition from Complicated to Complex as you realize the problem is more emergent than analyzable. The framework provides a structured way to handle these situations without panicking or applying wrong strategies.
-
+{::pagebreak /}
 #### Domain 4: Chaotic - "The Crisis Domain"
 
 **Characteristics:**
@@ -668,7 +667,7 @@ Once you've stabilized (Act), you can assess (Sense) and then make strategic dec
 
 **For Incident Management:**
 Black Swans often start in Chaotic. The framework provides permission to act without full understanding - critical for Black Swan response. Many teams waste precious minutes trying to understand a Chaotic situation when they should be stabilizing first.
-
+{::pagebreak /}
 #### Domain 5: Confusion (Disorder) - "The Unknown Domain"
 
 **Characteristics:**

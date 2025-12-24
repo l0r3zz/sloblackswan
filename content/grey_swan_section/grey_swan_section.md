@@ -107,7 +107,6 @@ Component-level "rare" becomes system-level "expected":
 def system_probability(component_prob, num_components):
     """Probability that at least one component fails."""
     return 1 - (1 - component_prob) ** num_components
-
 # Each microservice has 2% annual chance of a rare failure mode
 print(f"50 services:  {system_probability(0.02, 50):.0%} annual probability")
 print(f"100 services: {system_probability(0.02, 100):.0%} annual probability")
@@ -131,7 +130,6 @@ But these assume normal distributions. Real-world systems have fat tails. That "
 The 2008 financial crisis was estimated as a 25-sigma event by models using normal distributions. But it happened. Your models don't dictate reality.
 
 This is where Grey Swans exploit human psychology:
-
 1. **Small percentages sound safe** - 2% feels like "basically zero" even when it's not
 2. **Recent history dominates** - "Hasn't happened in 5 years" feels like "won't happen"
 3. **Preparation costs are visible and immediate** - $1M now to prevent 2% risk
@@ -165,7 +163,8 @@ class GreySwanRiskAmplification:
     
     def current_risk(self):
         """Risk increases exponentially with degradation."""
-        # NOTE: Coefficient tuned so the demo severities below move ~2% -> ~10% (about 10.4% with these inputs).
+        # NOTE: Coefficient tuned so the demo severities below move ~2% -> ~10%
+        #  (about 10.4% with these inputs).
         multiplier = math.exp(self.degradation * 11.0)
         return min(0.95, self.baseline * multiplier)
 ```

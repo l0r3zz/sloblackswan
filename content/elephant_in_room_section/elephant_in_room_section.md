@@ -13,7 +13,7 @@ Unlike grey rhinos, which are external threats we choose to ignore, elephants in
 The metaphor is perfect: an elephant is impossible to miss. It takes up enormous space. It affects everything around it. And yet, through collective social agreement, everyone acts as if it isn't there. We route around it. We accommodate it. We develop elaborate workarounds. But we don't name it.
 
 In SRE and infrastructure organizations, elephants in the room are often more damaging than any technical debt. They destroy psychological safety, kill morale, cause the best engineers to leave, and create an environment where people spend more energy navigating politics than solving technical problems.
-
+{::pagebreak /}
 ### What Makes Something an Elephant in the Room
 
 Not every problem that people don't discuss is an elephant in the room. The characteristics are specific:
@@ -132,10 +132,12 @@ class ToxicPerformerImpact:
     """
     def calculate_impact(self, team_size, toxic_output_multiplier=2.0):
         # Direct productivity
-        toxic_engineer_output = 1.0 * toxic_output_multiplier  # They're 2x productive
+        toxic_engineer_output = 1.0 * toxic_output_multiplier  
+        # They're 2x productive
         
         # Team productivity reduction
-        # Each team member loses 20% productivity due to stress, fear, avoiding interaction
+        # Each team member loses 20% productivity due to stress,
+        # fear, avoiding interaction
         team_productivity_loss = (team_size - 1) * 0.20
         
         # Junior engineer development impact
@@ -153,7 +155,8 @@ class ToxicPerformerImpact:
         
         # Net calculation
         gain_from_toxic = toxic_output_multiplier - 1.0  # +1.0 engineer equivalent
-        loss_from_impact = team_productivity_loss + junior_development_delay  # Typically -3 to -5
+        loss_from_impact = team_productivity_loss + junior_development_delay  
+        # Typically -3 to -5
         
         net_impact = gain_from_toxic - loss_from_impact
         
