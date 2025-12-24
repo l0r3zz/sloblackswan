@@ -108,7 +108,7 @@ jobs:
       - name: Insert Pagebreaks
         run: |
           source .venv/bin/activate
-          python scripts/insert_pagebreaks.py --overwrite "${{ steps.build_md.outputs.md_path }}"
+          python scripts/insert_pagebreaks.py "${{ steps.build_md.outputs.md_path }}" --overwrite
 
       - name: Generate TOC with doctoc
         run: |
@@ -122,10 +122,18 @@ jobs:
           python -c "
 import sys
 import os
-from scripts.build_book import WEASYPRINT_AVAILABLE, HTML, CSS, markdown
+from scripts.build_book import WEASYPRINT_AVAILABLE
 
 if not WEASYPRINT_AVAILABLE:
     print('WeasyPrint not available')
+    sys.exit(1)
+
+# Import HTML, CSS, and markdown directly from their source packages
+try:
+    import markdown
+    from weasyprint import HTML, CSS
+except ImportError as e:
+    print(f'Error importing required packages: {e}')
     sys.exit(1)
 
 md_path = '${{ steps.build_md.outputs.md_path }}'

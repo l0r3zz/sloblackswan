@@ -11,16 +11,43 @@ def insert_pagebreaks(content: str) -> str:
     lines = content.splitlines(keepends=True)
     result = []
     in_code_block = False
+    
+    # Detect line ending style from the original content
+    # Check the first line that has a line ending, or default to \n
+    line_ending = '\n'
+    for line in lines:
+        if line.endswith('\r\n'):
+            line_ending = '\r\n'
+            break
+        elif line.endswith('\r'):
+            line_ending = '\r'
+            break
+        elif line.endswith('\n'):
+            line_ending = '\n'
+            break
+    
     for i, line in enumerate(lines):
-        if line.strip().startswith('```'):
+        # Check if line starts with ``` at column 0 (not indented)
+        if line.startswith('```'):
             in_code_block = not in_code_block
             result.append(line)
             continue
-        if not in_code_block and line.strip().startswith('##') and not line.strip().startswith('###'):
-            if result and result[-1].strip() == '{::pagebreak /}':
+        # Check if line starts with ## at column 0 (not indented) and is not ###
+        if not in_code_block and line.startswith('##') and not line.startswith('###'):
+            # Look back through blank lines to find the last non-blank line
+            has_existing_pagebreak = False
+            for j in range(len(result) - 1, -1, -1):
+                last_line = result[j].strip()
+                if last_line == '{::pagebreak /}':
+                    has_existing_pagebreak = True
+                    break
+                elif last_line:  # Non-blank line that's not a pagebreak
+                    break
+            
+            if has_existing_pagebreak:
                 result.append(line)
             else:
-                result.append('{::pagebreak /}\n')
+                result.append(f'{{::pagebreak /}}{line_ending}')
                 result.append(line)
         else:
             result.append(line)
