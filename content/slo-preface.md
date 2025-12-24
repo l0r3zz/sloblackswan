@@ -1,3 +1,4 @@
+<div class="preface"></div>
 ## Preface
 
 Originally, I had intended this to be an essay, a blog post. I first conceived this work in 2019 when I was the CRE lead at Blameless. Delving deep into SLO implementations, I realized that creating good SLOs was not obvious or trivial. Indeed, just because you have SLOs, they can't predict the unpredictable—something so catastrophic that you just don't have indicators to know that it's coming.
