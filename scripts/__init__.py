@@ -1,2 +1,2 @@
-# Mark as package
+# Mark scripts as a package
 

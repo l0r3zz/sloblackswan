@@ -96,11 +96,13 @@ jobs:
         run: |
           source .venv/bin/activate
           VERSION=${{ steps.version.outputs.version }}
+          # Run build script WITHOUT -P to just get the Markdown
           python scripts/build_book.py \
             -s content \
             -d SLOBLACKSWAN \
             -v "$VERSION" -m MANIFEST.md
           
+          # Define the path to the generated markdown file for subsequent steps
           MD_PATH="SLOBLACKSWAN-${VERSION}/SLOBLACKSWAN-${VERSION}.md"
           echo "md_path=$MD_PATH" >> "$GITHUB_OUTPUT"
           echo "output_dir=SLOBLACKSWAN-${VERSION}" >> "$GITHUB_OUTPUT"
@@ -112,66 +114,18 @@ jobs:
 
       - name: Generate TOC with doctoc
         run: |
+          # doctoc adds a TOC to the top of the file
           doctoc "${{ steps.build_md.outputs.md_path }}" --title "## Table of Contents"
 
       - name: Generate PDF from Modified Markdown
         run: |
           source .venv/bin/activate
-          # FIX: Add current directory to PYTHONPATH so scripts.build_book works
+          # Ensure scripts directory is in PYTHONPATH so imports work
           export PYTHONPATH=$PYTHONPATH:.
-          python << EOF
-import sys
-import os
-from scripts.build_book import WEASYPRINT_AVAILABLE
-
-if not WEASYPRINT_AVAILABLE:
-    print('WeasyPrint library not available')
-    sys.exit(1)
-
-# Import HTML, CSS, and markdown directly from their source packages
-try:
-    import markdown
-    from weasyprint import HTML, CSS
-except ImportError as e:
-    print(f'Error importing required packages: {e}')
-    sys.exit(1)
-
-md_path = '${{ steps.build_md.outputs.md_path }}'
-output_pdf_path = md_path.replace('.md', '.pdf')
-output_dir = '${{ steps.build_md.outputs.output_dir }}'
-
-# Convert output_dir to absolute path for base_url (consistent with build_book.py)
-output_dir_abs = os.path.abspath(output_dir)
-
-with open(md_path, 'r') as f:
-    md_content = f.read()
-
-html_ready_md = md_content.replace('{::pagebreak /}', '<div class="pagebreak"></div>')
-html_content = markdown.markdown(html_ready_md, extensions=['extra', 'codehilite', 'tables'])
-
-css_string = """
-@page { size: Letter; margin: 1in; }
-body { font-family: 'DejaVu Sans', 'Liberation Sans', 'Noto Sans', Helvetica, Arial, sans-serif; font-variant-numeric: lining-nums tabular-nums; line-height: 1.5; color: #24292f; font-size: 16px; }
-h1, h2, h3, h4, h5, h6 { font-family: 'DejaVu Sans', 'Liberation Sans', 'Noto Sans', Helvetica, Arial, sans-serif; font-variant-numeric: lining-nums tabular-nums; color: #1f2328; margin-top: 1.5em; margin-bottom: 0.5em; font-weight: 600; }
-h1 { font-size: 2em; border-bottom: 1px solid #d0d7de; padding-bottom: 0.3em; }
-h2 { font-size: 1.5em; border-bottom: 1px solid #d0d7de; padding-bottom: 0.3em; }
-code, pre { font-family: 'DejaVu Sans Mono', 'Liberation Mono', Consolas, monospace; font-size: 85%; }
-.pagebreak { break-before: always; page-break-before: always; }
-img { max-width: 100%; height: auto; }
-pre { background-color: #f6f8fa; padding: 16px; overflow-x: auto; border-radius: 6px; }
-blockquote { border-left: 0.25em solid #d0d7de; padding: 0 1em; color: #656d76; margin-left: 0; }
-table { border-spacing: 0; border-collapse: collapse; display: block; width: max-content; max-width: 100%; overflow: auto; }
-table th, table td { padding: 6px 13px; border: 1px solid #d0d7de; }
-table tr { background-color: #ffffff; border-top: 1px solid #d8dee4; }
-table tr:nth-child(2n) { background-color: #f6f8fa; }
-"""
-
-HTML(string=html_content, base_url=output_dir_abs).write_pdf(
-    output_pdf_path,
-    stylesheets=[CSS(string=css_string)]
-)
-print(f'PDF generated: {output_pdf_path}')
-EOF
+          MD_PATH="${{ steps.build_md.outputs.md_path }}"
+          PDF_PATH="${MD_PATH%.md}.pdf"
+          OUTPUT_DIR="${{ steps.build_md.outputs.output_dir }}"
+          python scripts/generate_pdf.py "$MD_PATH" "$PDF_PATH" "$OUTPUT_DIR"
 
 #    - name: Upload Artifacts
 #      uses: actions/upload-artifact@v4
