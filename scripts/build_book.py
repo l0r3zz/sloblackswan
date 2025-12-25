@@ -182,14 +182,14 @@ def main():
         css_string = textwrap.dedent("""\
             @page {
                 size: Letter;
-                margin: 1in;
+                margin: .75in;
             }
             body {
                 font-family: "DejaVu Sans", "Liberation Sans", "Noto Sans", Helvetica, Arial, sans-serif;
                 font-variant-numeric: lining-nums tabular-nums;
-                line-height: 1.5;
+                line-height: 1.55;
                 color: #24292f;
-                font-size: 16px;
+                font-size: 10pt;
             }
             h1, h2, h3, h4, h5, h6 {
                 font-family: "DejaVu Sans", "Liberation Sans", "Noto Sans", Helvetica, Arial, sans-serif;
@@ -205,7 +205,7 @@ def main():
                 padding-bottom: 0.3em;
             }
             h2 {
-                font-size: 1.5em;
+                font-size: 1.3em;
                 border-bottom: 1px solid #d0d7de;
                 padding-bottom: 0.3em;
             }
