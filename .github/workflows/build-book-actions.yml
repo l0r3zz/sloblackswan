@@ -123,9 +123,15 @@ jobs:
           # Ensure scripts directory is in PYTHONPATH so imports work
           export PYTHONPATH=$PYTHONPATH:.
           MD_PATH="${{ steps.build_md.outputs.md_path }}"
+          # Strip extension explicitly to avoid .md.pdf
           PDF_PATH="${MD_PATH%.md}.pdf"
           OUTPUT_DIR="${{ steps.build_md.outputs.output_dir }}"
           python scripts/generate_pdf.py "$MD_PATH" "$PDF_PATH" "$OUTPUT_DIR"
+
+      - name: Cleanup Markdown for GitHub Preview
+        run: |
+          source .venv/bin/activate
+          python scripts/cleanup_markdown.py "${{ steps.build_md.outputs.md_path }}"
 
 #    - name: Upload Artifacts
 #      uses: actions/upload-artifact@v4
