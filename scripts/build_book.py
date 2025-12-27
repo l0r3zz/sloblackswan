@@ -195,6 +195,15 @@ def main():
             @bottom-right { content: none; }
         }
 
+        /* Named page for TOC - no footer */
+        @page toc {
+            @bottom-right { content: none; }
+        }
+
+        .toc-container {
+            page: toc;
+        }
+
         /* Named page for Preface - resets page numbering */
         @page preface {
             counter-reset: page 1;

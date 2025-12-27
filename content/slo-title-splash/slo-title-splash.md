@@ -11,8 +11,10 @@ In the realm of system reliability, we often find ourselves trying to prepare fo
 
 Today we are going to talk about service metrics, different types of swans, a couple of pachyderms, and a jellyfish. And how proper ability to identify these animals when they cross our paths, along with appropriate observability and foresight, can keep our complex systems humming along.
 
+<div class="toc-container" markdown="1">
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
+</div>
 
 <!-- Reference definitions at bottom -->
 [SLO-SWAN-4]: SLO-SWAN-4.png

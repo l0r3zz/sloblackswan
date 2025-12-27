@@ -39,7 +39,7 @@ def generate_pdf(md_path, output_pdf_path, output_dir):
         /* Define Page Size and Footer Area */
         @page { 
             size: Letter; 
-            margin: 1in; 
+            margin: .75in; 
             @bottom-right {
                 content: "Page " counter(page);
                 font-family: 'Helvetica Neue', Helvetica, sans-serif;
@@ -51,6 +51,15 @@ def generate_pdf(md_path, output_pdf_path, output_dir):
         /* Define a 'Title' page type that has no footer */
         @page:first {
             @bottom-right { content: none; }
+        }
+
+        /* Named page for TOC - no footer */
+        @page toc {
+            @bottom-right { content: none; }
+        }
+
+        .toc-container {
+            page: toc;
         }
 
         /* Named page for Preface - resets page numbering */
@@ -73,7 +82,7 @@ def generate_pdf(md_path, output_pdf_path, output_dir):
             font-variant-numeric: lining-nums tabular-nums; 
             line-height: 1.55; 
             color: #333333; 
-            font-size: 13.5pt; 
+            font-size: 10pt; 
             -webkit-font-smoothing: antialiased;
         }
 
