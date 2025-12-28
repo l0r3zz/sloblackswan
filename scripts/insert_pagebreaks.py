@@ -11,13 +11,14 @@ import argparse
 import sys
 from pathlib import Path
 
-def insert_pagebreaks(content: str) -> str:
+def insert_pagebreaks(content: str, force_first: bool = False) -> str:
     """
     Insert pagebreaks before ## headers, but not inside code blocks.
     Preserves line ending style and avoids duplicate pagebreaks.
 
     Args:
         content: The markdown file content as a string
+        force_first: If True, insert pagebreak even before the first header
 
     Returns:
         Modified content with pagebreaks inserted
@@ -64,8 +65,8 @@ def insert_pagebreaks(content: str) -> str:
             # Skip pagebreak if this is the first header (no prior content)
             if has_existing_pagebreak:
                 result.append(line)
-            elif has_prior_content:
-                # Insert pagebreak only if there's prior non-blank content
+            elif has_prior_content or force_first:
+                # Insert pagebreak if there's prior content OR if force_first is requested
                 result.append(f'{{::pagebreak /}}{line_ending}')
                 result.append(line)
             else:
@@ -75,7 +76,7 @@ def insert_pagebreaks(content: str) -> str:
             result.append(line)
     return ''.join(result)
 
-def process_file(input_path: Path, output_path: Path = None, overwrite: bool = False) -> None:
+def process_file(input_path: Path, output_path: Path = None, overwrite: bool = False, force_first: bool = False) -> None:
     """
     Process a markdown file to insert pagebreaks.
 
@@ -83,6 +84,7 @@ def process_file(input_path: Path, output_path: Path = None, overwrite: bool = F
         input_path: Path to input markdown file
         output_path: Path to output file (optional)
         overwrite: If True, overwrite the original file
+        force_first: If True, insert pagebreak even before the first header
     """
     try:
         with open(input_path, 'r', encoding='utf-8') as f:
@@ -92,7 +94,7 @@ def process_file(input_path: Path, output_path: Path = None, overwrite: bool = F
         sys.exit(1)
 
     # Process the content
-    modified_content = insert_pagebreaks(content)
+    modified_content = insert_pagebreaks(content, force_first=force_first)
 
     # Determine output path
     if overwrite:
@@ -128,6 +130,7 @@ Examples:
     parser.add_argument('input_file', type=Path, help='Input markdown file')
     parser.add_argument('-o', '--output', type=Path, help='Output file path (default: input_processed.md)')
     parser.add_argument('--overwrite', action='store_true', help='Overwrite the input file')
+    parser.add_argument('--force-first', action='store_true', help='Force pagebreak before the first header even if it is at the start of the file')
 
     args = parser.parse_args()
 
@@ -142,7 +145,7 @@ Examples:
         sys.exit(1)
 
     # Process the file
-    process_file(args.input_file, args.output, args.overwrite)
+    process_file(args.input_file, args.output, args.overwrite, args.force_first)
 
 if __name__ == '__main__':
     main()
