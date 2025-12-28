@@ -24,6 +24,7 @@ Most of the research, the tables, the graphs, have been created under Cursor 2.0
    - Grab sections to put into Cursor
    - Cursor agents perform technical validation of claims
    - Validate soundness of code snippets involving actual computations or calculations
+   - Full disclosure, lots of iterations were accomplished inside of Cursor alone
 
 5. **Create and push a PR to github**
    - Any changes made in a forked source should be rolled into a PR against main if you want to contribute.
@@ -44,7 +45,7 @@ Now that the document is released, I've  placed it into a [GitHub repo](https://
 
 I invite all readers to submit PRs to the document if you find any inaccuracies. If you take exceptions to some of the assertions or conclusions, please use GitHub issues so that we can hash this out.
 
-This has been a great project, and I think I've found a way to rapidly and accurately transmit some of my insights and wisdom that I've accumulated over my close to 50 years in computing.
+This has been a great project, and I think I've found a way to rapidly and accurately transmit some of my insights and wisdom that I've accumulated over my 40+ years in computing.
 {::pagebreak /}
 
 
