@@ -23,7 +23,7 @@ Here's the brutal math behind availability percentages. The table shows how much
 Look at that table carefully, because it contains a lesson that's easy to miss: the difference between each nine is roughly an order of magnitude in effort.
 
 Getting from 99% to 99.9% is hard. Getting from 99.9% to 99.99% is ten times harder. Getting to 99.999% is heroic. Five nines means you have less than one second of downtime per day. That's 26 seconds per month. A single deployment that takes 30 seconds of downtime blows your entire month's budget.
-{::pagebreak /}
+
 So here's the first question you should ask when someone declares they're targeting "five nines": Does your service actually need that?
 
 If you're running air traffic control systems, maybe. If you're running a dating site, probably not. The difference in engineering cost between 99.9% and 99.99% is enormous. Make sure you're solving the right problem.
@@ -225,7 +225,7 @@ Better approach:
 Your SLO should be ambitious enough to drive improvements but achievable enough to be taken seriously. An SLO you consistently violate becomes meaningless. An SLO you consistently exceed by huge margins is wasting engineering effort that could go toward new features.
 
 The Goldilocks zone: You should hit your SLO about 90-95% of the time. Occasional violations keep you honest and force reliability improvements. Consistent achievement proves the target is meaningful.
-
+{::pagebreak /}
 ### SLO Implementation: The Technical Details
 
 In this section, let's look at a few *ideas* that we will express in pseudo-code. If you are not really interested in actual technical implementations, you can skip over these, but I encourage you to at least skim them. It's not hard-core Python code and you might walk away with some useful ideas for further study.
@@ -351,7 +351,7 @@ class BucketedSLO:
         }
 ```
 
-Bucketing allows you to focus engineering effort on what matters most. Premium users get stricter SLOs. Batch operations get more lenient targets. Your error budgets and alerting rules adjust accordingly per bucket.
+<!-- Bucketing allows you to focus engineering effort on what matters most. Premium users get stricter SLOs. Batch operations get more lenient targets. Your error budgets and alerting rules adjust accordingly per bucket. -->
 {::pagebreak /}
 #### Percentile Thresholds (Managing the Long Tail)
 
@@ -611,8 +611,6 @@ But remember Taleb's distinction: SLOs assume the future will look like the past
 - Capture complex second-order effects
 
 When Extremistan intrudes, when the Black Swan arrives, when your Grey Rhino finally charges, when your Black Jellyfish triggers a cascade, your SLOs don't save you. They might not even alert you.
-
-{::pagebreak /}
 
 ### The Paradox of SLO Success
 

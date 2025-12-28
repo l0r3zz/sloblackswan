@@ -19,7 +19,7 @@ Throughout this section, we'll use a consistent framework for each animal:
 **Organizational Factors**: The cultural and structural elements that create, amplify, or prevent these risks.
 
 But before we dive into the individual animals, we need to establish some taxonomy. Let's start with the swans, because understanding the distinctions between White, Grey, and Black Swans clarifies the entire framework.
-{::pagebreak /}
+
 ### Understanding Our Avian Risk Taxonomy (White Swans, Black Swans, Grey Swans)
 
 The swan family represents a spectrum of predictability and probability. At one end, we have the completely expected. At the other, the completely unprecedented. And in between, the things we should have seen coming but somehow didn't.
