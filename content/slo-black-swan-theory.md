@@ -115,7 +115,7 @@ This is devastatingly relevant for SRE:
 The more stable your systems appear, the more vulnerable you might actually be. Not because stability is bad, but because it can breed overconfidence. You start to believe your own dashboards. You stop questioning your assumptions. You forget that absence of evidence isn't evidence of absence.
 
 The turkey problem teaches us to be suspicious of long periods of success. Not paranoid, but thoughtfully cautious. When everything has been fine for a long time, that's not proof that everything will continue to be fine. Sometimes it just means you're getting closer to Thanksgiving.
-{::pagebreak /}
+
 ### Mediocristan vs. Extremistan
 
 Taleb introduces two domains where randomness operates fundamentally differently:
@@ -160,7 +160,7 @@ SRE examples:
 In Extremistan, your SLOs provide false comfort. They measure the normal but miss the exceptional. They track Mediocristan metrics while Extremistan events determine your fate.
 
 The problem for SRE is that we build our entire practice around Mediocristan thinking. We measure percentiles, calculate error budgets, and set SLOs based on historical distributions. This works brilliantly for day-to-day reliability. But when Extremistan intrudes, when the Black Swan arrives, all those careful metrics suddenly become irrelevant.
-{::pagebreak /}
+
 ### The Challenge for SRE
 
 Here's the core tension: SRE is built on measurement, modeling, and data-driven decision making. Taleb's work suggests that for the events that matter most, measurement and modeling are inadequate or even counterproductive.
