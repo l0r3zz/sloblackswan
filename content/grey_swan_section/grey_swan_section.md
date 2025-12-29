@@ -48,7 +48,7 @@ class GreySwanLSLIRE:
 ```
 
 That little `calculate_statistical_position()` helper is the part most teams skip. We don't like quantifying "how far out on the tail" we are, because once you do, you either invest... or you admit you're gambling.
-
+{::pagebreak /}
 ```python
 # Continuing GreySwanLSLIRE ...
     
@@ -134,7 +134,7 @@ This is where Grey Swans exploit human psychology:
 2. **Recent history dominates** - "Hasn't happened in 5 years" feels like "won't happen"
 3. **Preparation costs are visible and immediate** - $1M now to prevent 2% risk
 4. **Benefits are invisible until disaster** - Prevention looks like waste until you need it
-{::pagebreak /}
+
 ### The Grey Swan Paradox: Ignoring SLOs Makes Them More Likely
 
 Here's the most insidious aspect of Grey Swans: **The probability of encountering one actually increases as you continue to ignore your SLOs and error budgets.**
@@ -1080,7 +1080,7 @@ The scariest marker is when "this is unlikely" turns into "this is illegitimate 
 This evolution from Grey Swan to Grey Rhino represents one of the most dangerous transitions in organizational risk management. When a predictable risk moves from "we've calculated it's unlikely" to "we don't discuss that here," you've made your organization more vulnerable, not less. The risk itself hasn't changed -- it's still the same probability, the same potential impact. But your ability to respond to it has been systematically degraded through institutional inertia and cultural dysfunction.
 
 The warning signs are visible if you know what to look for: language shifts from probability to legitimacy ("unlikely" becomes "unrealistic"), risk discussions become perfunctory, budget requests stop being submitted, experts are marginalized. By the time you recognize these patterns, the evolution is often complete, and the Grey Rhino is charging.
-{::pagebreak /}
+
 ### Preparation and Response Strategies
 
 Unlike Black Swans where preparation means building general antifragility (because you can't predict the specific event), Grey Swans allow for specific preparation because we can model them. We know what they look like, we can estimate probabilities, we can design targeted responses. The challenge isn't technical -- it's justifying the investment for "unlikely" events.

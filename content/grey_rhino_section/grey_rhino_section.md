@@ -670,7 +670,7 @@ The reason grey rhinos work is they exploit consistent organizational weaknesses
 - Here's how we track them
 - Here's how you can help
 - Fresh eyes often spot rhinos veterans have normalized
-
+{::pagebreak /}
 ### The COVID-19 Lesson: Slack Is Not Waste
 
 The most important lesson from the pandemic grey rhino: Organizations optimized for efficiency are fragile.
@@ -1042,7 +1042,7 @@ What saves you from grey rhinos is:
 The rhino is charging. You can see it. Everyone can see it. The question is: Will you move?
 
 ---
-
+{::pagebreak /}
 ### Practical Takeaways
 
 If you only remember three things about grey rhinos:
