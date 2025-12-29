@@ -13,7 +13,7 @@ Unlike grey rhinos, which are external threats we choose to ignore, elephants in
 The metaphor is perfect: an elephant is impossible to miss. It takes up enormous space. It affects everything around it. And yet, through collective social agreement, everyone acts as if it isn't there. We route around it. We accommodate it. We develop elaborate workarounds. But we don't name it.
 
 In SRE and infrastructure organizations, elephants in the room are often more damaging than any technical debt. They destroy psychological safety, kill morale, cause the best engineers to leave, and create an environment where people spend more energy navigating politics than solving technical problems.
-{::pagebreak /}
+
 ### What Makes Something an Elephant in the Room
 
 Not every problem that people don't discuss is an elephant in the room. The characteristics are specific:
@@ -526,7 +526,7 @@ class TalentRetention:
 ```
 
 The organization is left with engineers who either can't leave or have given up. This creates a death spiral: the elephant causes good engineers to leave, which makes fixing the elephant harder, which causes more good engineers to leave.
-
+{::pagebreak /}
 ### SLOs and Elephants: Complete Orthogonality
 
 SLOs are utterly useless against elephants in the room.

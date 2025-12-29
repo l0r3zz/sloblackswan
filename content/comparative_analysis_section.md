@@ -4,7 +4,7 @@
 After examining each animal in detail, let's bring them together for side-by-side comparison. This table is your quick reference when you're trying to identify what you're dealing with:
 
 | Characteristic | Black Swan | Grey Swan | Grey Rhino | Elephant in Room | Black Jellyfish |
-|---|---|---|---|---|
+|---|---|---|---|---|---|
 | **Predictability** | Unpredictable | Predictable with monitoring (LSLIRE framework) | Highly predictable | Known to everyone | Known components, unpredictable cascade |
 | **Probability** | Unknown/Very Low | Medium, calculable (3-5 sigma events) | High | 100% (already exists) | Medium to High |
 | **Impact** | Extreme | High | High | Varies (often high) | High (amplifies quickly) |
@@ -21,6 +21,7 @@ After examining each animal in detail, let's bring them together for side-by-sid
 | **Can It Be "Fixed"?** | No (must adapt to new reality) | Yes (with technical work) | Yes (with priority shift) | Yes (with cultural change) | Yes (with architecture change) |
 | **Stampede Role** | Can trigger stampedes (COVID) | Often triggers stampedes (Crypto Oct 10) | Revealed by stampedes | Prevents response to stampedes | Amplified by stampedes |
 {::pagebreak /}
+
 ### Decision Tree: Identifying Your Risk Type
 
 When you encounter a problem, use this decision tree to classify it. The key is asking the right questions in the right order. Start with the most fundamental question: did anyone see this coming? Then work through visibility, timing, and complexity.

@@ -24,7 +24,7 @@ Sometimes a single risk event—a Grey Swan or Black Swan—doesn't just cause d
 Think of it like a stampede in the wild: one swan (Grey or Black) appears, and suddenly you realize the savannah is full of animals you didn't know were there. Grey Rhinos that were grazing peacefully start charging. Elephants in the Room become impossible to ignore. Jellyfish that were floating dormant suddenly bloom and sting everything.
 
 The system was always full of these risks. The swan just revealed them.
-{::pagebreak /}
+
 #### Example: COVID-19 as a Stampede Trigger
 
 COVID-19 itself was a Grey Swan (predictable category—pandemics are known risks—but dismissed probability), though it appeared as a Black Swan to many who hadn't prepared. Its appearance triggered a stampede that revealed countless other risks.
@@ -510,7 +510,7 @@ The elephant is this: the crypto market's leverage levels are insane and unsusta
 On October 10, this elephant trampled through the market. The political announcement triggered a price drop that cascaded through overleveraged positions. Over $19.13 billion in leveraged positions were liquidated within 24 hours, turning what might have been a manageable market correction into a catastrophic collapse. Real losses exceeded $50 billion as the leverage reset unfolded. The Jellyfish cascade was amplified by the Elephant's weight—7% derivative exposure that had doubled since May 2025 created a structural vulnerability just waiting for a trigger.
 
 Binance alone compensated users $283 million for system failures, specifically for losses directly attributable to their infrastructure breakdown (assets like USDE, BNSOL, and WBETH temporarily de-pegged due to system overload) (Binance compensation report, October 2025). This wasn't just market volatility—this was infrastructure failure meeting leverage culture in a perfect storm.
-{::pagebreak /}
+
 #### The Interaction Effects: Why Hybrid Events Are Worse
 
 Here's the critical insight: the October 10 crash wasn't just multiple risk types occurring simultaneously. It was multiple risk types **amplifying each other**.
