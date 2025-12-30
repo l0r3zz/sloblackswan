@@ -17,7 +17,7 @@ There are almost certainly other animals lurking at the edges of Mediocristan th
 This is the meta-lesson of Taleb's work: epistemic humility. Not just about specific events, but about our frameworks for understanding events. We don't just need to prepare for Black Swans; we need to prepare for risk types we haven't imagined yet.
 
 So this conclusion isn't just about summarizing the bestiary. It's about building the organizational and technical capabilities to handle what lies beyond the bestiary, the risks we don't yet have names for.
-
+{::pagebreak /}
 ### What We've Learned: The Bestiary in Review
 
 Before we move beyond the framework, let's synthesize what we've established.
@@ -168,7 +168,7 @@ What does work:
 - Dependency mapping (know your cascade paths)
 - Chaos engineering (test cascade scenarios)
 - Graceful degradation (fail partially, not totally)
-
+{::pagebreak /}
 ### The Meta-Patterns Across Animals
 
 Looking across the bestiary, several patterns emerge:
@@ -381,7 +381,7 @@ This means you can't just prepare for individual animals. You have to:
 - Build systems that dampen rather than amplify
 - Develop organizational muscle for coordinating complex responses
 - Use Cynefin to break down stampedes into components and apply appropriate strategies
-
+{::pagebreak /}
 ### Beyond the Bestiary: Preparing for Unknown Unknowns
 
 Here's where we move from taxonomy to capability. If there are risk types we haven't encountered yet, and there almost certainly are, how do we prepare?
@@ -970,7 +970,7 @@ Portfolio achievements:
 - Shorter time to understanding in novel incidents
 
 One year of sustained effort produces measurable transformation.
-
+{::pagebreak /}
 ### The Final Word: Humility and Vigilance
 
 We opened this essay with a problem: SLOs are powerful tools for managing known risks, but they fundamentally cannot catch the animals that live beyond their boundaries.
@@ -1951,7 +1951,13 @@ Decrease investment in: ________________
 What specific changes will rebalance your portfolio?
 
 1. _______________________________________
+
+
+
 2. _______________________________________
+
+
+
 3. _______________________________________
 
 ---
@@ -2026,15 +2032,22 @@ Service: _______________
 Depends on:
 
 - _______________
+
+
 - _______________
+
+
 - _______________
 
 **Step 3: Map Transitive Dependencies**
 For each direct dependency, list its dependencies (go 3-5 levels deep):
 
 _______________
+
   → _______________
+
     → _______________
+    
       → _______________
 
 **Step 4: Identify Problem Patterns**
