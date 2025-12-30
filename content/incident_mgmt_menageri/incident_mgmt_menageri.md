@@ -27,7 +27,7 @@ IT adapted ICS because the problems were identical:
 - Need for clear authority without bureaucratic delay
 
 The sophistication varied. ITIL codified incident management for enterprise IT in the 1980s. The DevOps movement brought it to software teams in the 2000s. But the real evolution happened at Google.
-
+{::pagebreak /}
 ### The Google Model: SRE and the Incident Management Revolution
 
 Google's Site Reliability Engineering organization didn't just adapt ICS, they transformed it for the reality of distributed systems operated by software engineers, not emergency responders.
@@ -108,7 +108,7 @@ This distinction matters for our bestiary:
 - A Grey Rhino might never trip a severity threshold until it finally fails catastrophically
 - An Elephant in the Room creates chronic P3s that never escalate but destroy morale
 - A Black Jellyfish cascade can go from P3 to P0 in under five minutes
-
+{::pagebreak /}
 ### The Incident Command System: A Foundation, Not a Straitjacket
 **Where ICS Breaks Down for IT:**
 
@@ -151,7 +151,7 @@ For small incidents, one person might wear multiple hats. For large incidents (e
 
 5. **Establishment of Command**: The IC is declared early and clearly. "I'm taking IC" is an explicit handoff.
 
-
+{::pagebreak /}
 ### Anatomy of an Incident
 ![][anatomy-of-an-incident]
 
@@ -168,7 +168,7 @@ Before moving further, let's get closure on some important traditional  terms ar
 
 
 We're going to go with these definitions for now. You may see these things defined differently in other documents or by other authors. To a certain extent, these definitions have become sort of a religious thing in the incident management community. We're just going to go with these for now. 
-
+{::pagebreak /}
 ### NIST 800-61: The Framework Integration
 
 NIST Special Publication 800-61 Revision 2 ("Computer Security Incident Handling Guide") provides the standard framework for incident response, particularly for security incidents but applicable more broadly.
@@ -259,7 +259,7 @@ Post-incident learning should explicitly classify the animal type:
 - Was this a Black Jellyfish cascade we need to design against?
 
 Different animals demand different action items. Don't treat all incidents the same way.
-
+{::pagebreak /}
 ### Key Performance Indicators: Measuring What Customers Feel
 
 Most incident management KPIs are wrong. They measure internal process efficiency, not customer impact.
@@ -882,7 +882,7 @@ Now that we understand Cynefin, let's see how it applies to each animal in our b
 ---
 
 ## Incident Management by Animal Type
-
+Each animal that may show up has a particular strategy that needs to be implemented in order to appropriately deal with it. A skilled Incident Commander will also realize that there may be more than one animal involved. There may be a stampede or there may be some hybrid animal. Bear in mind that these animal classifications are really just a mnemonic in order for you to bring some structure to a chaotic thought process that you might be embedded in at the time. Read through these incident management scenarios, and use them to formulate your own plan when confronted with individual animals or with a combination of them.
 ### Black Swan Incidents: When the Unprecedented Strikes
 
 #### Cynefin Domain Classification
@@ -1091,7 +1091,7 @@ This wasn't a discrete incident; it was a permanent shift masquerading as a temp
 - **Elephant**: "We don't really trust remote work" (cultural resistance)
 - **Black Jellyfish**: VPN failure cascaded to collaboration tools, to home networks
 - **Grey Swan**: Pandemic was predictable; specific digital impact was complex
-{::pagebreak /}
+
 #### Black Swan Incident Management Principles
 
 **1. Recognize You're in Unprecedented Territory (Cynefin: Classify as Chaotic or Complex)**
@@ -1215,7 +1215,7 @@ The incident isn't over when service is restored. It's over when you've learned 
 - Reducing fragility (single points of failure, brittle assumptions)
 
 ---
-
+{::pagebreak /}
 ### Grey Swan Incidents: The Complex and Monitorable
 
 #### Cynefin Domain Classification
@@ -1453,7 +1453,7 @@ Grey Swan postmortems are more valuable than simple failure postmortems because 
 - Could we have recognized the domain earlier?
 
 ---
-
+{::pagebreak /}
 ### Grey Rhino Incidents: When Ignorance Ends Abruptly
 
 #### Cynefin Domain Classification
@@ -1617,7 +1617,7 @@ Grey Rhino postmortems are different from other types because the technical fail
 - How do we ensure Complicated-domain problems get expert attention?
 
 ---
-
+{::pagebreak /}
 ### Elephant in the Room Incidents: When Silence Breaks
 
 #### Cynefin Domain Classification
@@ -1752,7 +1752,7 @@ Elephant postmortems are different. Technical root cause is often simple. Organi
 - How do we prevent Confusion from paralyzing us?
 
 ---
-
+{::pagebreak /}
 ### Black Jellyfish Incidents: When Cascades Bloom
 
 #### Cynefin Domain Classification
@@ -1910,7 +1910,7 @@ Fix dependencies first, not the biggest problem first.
 - How do we move from Complex (emergent behavior) to Complicated (understood patterns)?
 
 ---
-
+{::pagebreak /}
 ### Hybrid Animals and Stampedes: When Multiple Animals Attack
 
 #### Cynefin Domain Classification for Stampedes
