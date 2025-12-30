@@ -115,7 +115,7 @@ jobs:
       - name: Generate TOC with doctoc
         run: |
           # doctoc adds a TOC to the top of the file
-          doctoc "${{ steps.build_md.outputs.md_path }}" --title "## Table of Contents"
+          doctoc "${{ steps.build_md.outputs.md_path }}" --title "## Table of Contents" --maxlevel 2
 
       - name: Generate PDF from Modified Markdown
         run: |
