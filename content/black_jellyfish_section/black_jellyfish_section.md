@@ -90,7 +90,7 @@ The key insight: in a black jellyfish cascade, the system's own structure become
 
 {::pagebreak /}
 
-## Real-World Example: AWS Outage, October 20, 2025
+### Real-World Example: AWS Outage, October 20, 2025
 
 On October 20, 2025, a DNS race condition in DynamoDB's automated management system cascaded into a systemic failure affecting over 1,000 services and websites worldwide. This incident perfectly demonstrates the black jellyfish pattern: known components (DNS, DynamoDB), unexpected interactions (cascade paths, state inconsistencies), and rapid amplification (minutes to global failure).
 
@@ -124,7 +124,7 @@ On October 20, 2025, a DNS race condition in DynamoDB's automated management sys
 
 *Note: We'll revisit this incident as a multi-animal stampede in the Hybrid Animals section, where we examine how organizational decay (Elephant) enabled technical debt (Grey Rhino) to trigger this cascade (Black Jellyfish). For now, we focus on the cascade mechanics themselves.*
 
-## Why SLOs Miss Black Jellyfish
+### Why SLOs Miss Black Jellyfish
 
 SLOs are fundamentally unsuited for detecting or preventing black jellyfish cascades. They measure the wrong things, at the wrong granularity, at the wrong time.
 
@@ -142,7 +142,7 @@ During the AWS Oct 20 outage, individual service SLOs might still have been gree
 
 This is why organizations with excellent SLO compliance still experience catastrophic cascades. The SLOs aren't measuring cascade risk.
 
-## Common Cascade Patterns
+### Common Cascade Patterns
 
 Before diving into detection, let's examine the patterns that regularly sting infrastructure teams:
 
@@ -156,7 +156,7 @@ Before diving into detection, let's examine the patterns that regularly sting in
 
 Each pattern demonstrates the jellyfish characteristics: known components, unexpected interactions, rapid escalation, positive feedback. Component SLOs stay green until the cascade hits—then they all turn red simultaneously.
 
-## Detection Strategies
+### Detection Strategies
 
 Traditional monitoring looks at component health. Cascade monitoring looks at system dynamics: rate of change, dependency health propagation, and correlated failures.
 
@@ -224,7 +224,7 @@ Correlated failures across services indicate cascades. If multiple services fail
 
 **Alert threshold**: If three or more services fail within 60 seconds, that's likely a cascade, not independent failures.
 
-## Mitigation and Response
+### Mitigation and Response
 
 If SLOs can't catch jellyfish, what can? The answer is designing systems that resist cascades. The techniques below break feedback loops, isolate failures, and monitor for cascade patterns rather than just component health.
 
@@ -378,7 +378,7 @@ Cascade prevention isn't just technical—it's organizational. Retry storms are 
 
 2. **Reject designs with obvious cascade vulnerabilities**: Circular dependencies. Dependency depth >5. No circuit breakers. No fallback mechanisms.
 
-## Conclusion: The Jellyfish Always Finds the Pipes
+### Conclusion: The Jellyfish Always Finds the Pipes
 
 Black jellyfish events teach us that the most dangerous failures aren't the ones we can't predict—they're the ones that arise from what we think we understand.
 

@@ -457,7 +457,7 @@ Now, with foundation established, let's examine how incident management differs 
 
 ---
 
-## The Cynefin Framework for Incident Response
+### The Cynefin Framework for Incident Response
 
 Before we dive into animal-specific incident management, we need one more tool: a way to think about how to think about incidents.
 
@@ -881,7 +881,7 @@ Now that we understand Cynefin, let's see how it applies to each animal in our b
 
 ---
 
-## Incident Management by Animal Type
+### Incident Management by Animal Type
 Each animal that may show up has a particular strategy that needs to be implemented in order to appropriately deal with it. A skilled Incident Commander will also realize that there may be more than one animal involved. There may be a stampede or there may be some hybrid animal. Bear in mind that these animal classifications are really just a mnemonic in order for you to bring some structure to a chaotic thought process that you might be embedded in at the time. Read through these incident management scenarios, and use them to formulate your own plan when confronted with individual animals or with a combination of them.
 ### Black Swan Incidents: When the Unprecedented Strikes
 
@@ -2317,7 +2317,7 @@ The best postmortem is worthless if action items aren't completed.
 
 ---
 
-## Conclusion: Incident Management for the Menagerie
+### Conclusion: Incident Management for the Menagerie
 
 We've covered a lot of ground. From forest fires to failing servers. From ICS to NIST to Google SRE. From the Cynefin Framework to animal-specific strategies.
 
@@ -2344,7 +2344,7 @@ Now go manage some incidents. The animals are waiting.
 ---
 
 
-## References
+### References
 
 [White, 2025] White, Geoff. "The Unwritten Laws of Information Flow: Why Culture is the Hardest System to Scale." LinkedIn, October 23, 2025. https://www.linkedin.com/pulse/unwritten-laws-information-flow-why-culture-hardest-system-white-7jxvc/
 
