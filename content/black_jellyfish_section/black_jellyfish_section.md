@@ -338,7 +338,7 @@ Test your resilience to cascades before they happen in production. Chaos enginee
 
 **Recovery tests**: Verify services recover automatically, no thundering herd on recovery, full recovery within acceptable timeframes.
 
-## Organizational Factors
+### Organizational Factors
 
 Cascade prevention isn't just technical—it's organizational. Retry storms are often a product decision, not an engineering decision. Circuit breakers require organizational buy-in to fail fast. Dependency mapping requires cross-team coordination.
 
@@ -350,7 +350,7 @@ Cascade prevention isn't just technical—it's organizational. Retry storms are 
 
 **Product vs engineering**: Retry behavior is often a product decision ("users expect retries"). Engineering can't fix cascades if product won't accept "fail fast" as a feature.
 
-## Practical Takeaways: Your Jellyfish Defense Checklist
+### Practical Takeaways: Your Jellyfish Defense Checklist
 
 **For System Design**:
 

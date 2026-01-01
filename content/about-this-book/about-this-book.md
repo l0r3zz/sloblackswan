@@ -16,23 +16,25 @@ Most of the research, the tables, the graphs, have been created under Cursor 2.0
 3. **Physical Review & Red Ink Editing**
    - Read and review the PDF
    - Often make physical copies for red ink editing
-   - Track down any hallucinations that the AI might introduce
-   - Identify appropriate page breaks
-
 4. **Scrivener Update & Cursor Validation**
    - Update the Scrivener source based on review
    - Grab sections to put into Cursor
    - Cursor agents perform technical validation of claims
    - Validate soundness of code snippets involving actual computations or calculations
-   - Full disclosure, lots of iterations were accomplished inside of Cursor alone
+   - Track down any hallucinations that might show up
 
-5. **Create and push a PR to github**
-   - Any changes made in a forked source should be rolled into a PR against main if you want to contribute.
+5. **Iterations in Cursor**
+   - I developed some scaffolding with Cursor, tailored to the production of this book
+   - I stopped updating Scrivener so much and just made changes using the scaffolding 
+   - [SLOBLACKSWAN-Cursor](https://github.com/l0r3zz/sloblackswan-cursor) became the primary tool
+
+6. **Create and push a PR to github**
+   - Any changes made in a forked source are rolled into a PR and merged into *main*
+   - Automated a github workflow to automatically produce an md file, pdf and update the website
    - I evaluate any PRs and make a decision on whether to merge as is, "squash",or "cherry pick" commits
-   - Once the PR is merged into main, a github actions is triggered to update the current version
-   - changes are merged back into the Scrivener source of truth.
+   - changes are merged back into the Scrivener source of truth as checkpoints
 
-6. **Iteration**
+7. **Iteration**
    - Repeat the cycle, growing the work organically
 
 The following diagram better illustrates this workflow:
@@ -49,4 +51,4 @@ This has been a great project, and I think I've found a way to rapidly and accur
 {::pagebreak /}
 
 
-[book-authoring-workflow]: book-authoring-workflow.png
+[book-authoring-workflow]: book-authoring-workflow.jpg
