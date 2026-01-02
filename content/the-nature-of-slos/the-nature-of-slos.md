@@ -1,5 +1,6 @@
 ## The Nature of SLOs
-Before we dive into why SLOs can't catch Black Swans, we need to establish exactly what SLOs are, where they came from, and why they work so well for normal operations. If you're already deep into SRE practice, some of this will be review. But bear with me, because understanding the foundations helps us see the limitations.
+Before we dive into why SLOs can't catch Black Swans, we need to establish exactly what SLOs are, where they came from, and why they work so well for normal operations. If you're already deep into SRE practice, some of this will be review. But bear with me, because understanding the foundations helps us see the limitations.  Suffice it to say, that while I have successfully implemented a few SLI/SLOs in my time, I don't consider myself a master of the craft, just a practitioner. This is a short review, If you want to get the theory and practice of someone I consider a Master, check out Alex Hidalgo's excellent book 
+[Implementing Service Level Objectives](https://www.alex-hidalgo.com/the-slo-book)
 ### The Telecom Roots: Where the "Nines" Came From
 Service Level Objectives didn't spring fully formed from Google's SRE organization. They have roots stretching back to the telephone era, when AT&T engineers were trying to figure out what "reliable enough" meant for voice networks.
 
@@ -29,12 +30,13 @@ So here's the first question you should ask when someone declares they're target
 If you're running air traffic control systems, maybe. If you're running a dating site, probably not. The difference in engineering cost between 99.9% and 99.99% is enormous. Make sure you're solving the right problem.
 
 ![][levelofeffortforeach9]
+
 For reference: 40.32 minutes of downtime in a 28-day period puts you at about "three nines" (99.9%) availability. That's actually pretty good for most services. It gives you enough breathing room for planned maintenance, unexpected issues, and the occasional incident that takes more than a few minutes to resolve.
 {::pagebreak /}
 ### The Service Level Family: SLAs, SLIs, and SLOs
 ![][slo-vs-sla-vs-sli-1]
 These three acronyms get thrown around interchangeably, but they mean different things and serve different purposes. Let's clarify:
-{::pagebreak /}
+
 #### Service Level Agreements (SLAs)
 ![][new-sla-graphic-small]
 
@@ -43,7 +45,7 @@ An SLA is a contract. It's your legal promise to customers about what level of s
 SLAs are customer-facing and legally binding. They're often negotiated by sales and legal teams, not by SREs. And they should always be more conservative (easier to meet) than your internal targets, because missing an SLA has real business consequences.
 
 Example SLA: "We guarantee 99.9% uptime per calendar month. If we fail to meet this, you'll receive a 10% service credit for that month."
-{::pagebreak /}
+
 #### Service Level Indicators (SLIs)
 
 SLIs are the actual measurements you use to determine if you're meeting your objectives. They're the raw metrics that tell you how your system is performing from the user's perspective.
@@ -83,7 +85,7 @@ Here's a practical example:
 | **Storage** | **Durability** | This indicator measures **the proportion of records written that can be successfully read**. It reflects the likelihood that the system will retain the data over a long period of time. |
 
 SLIs should be aggregated over a meaningful time horizon. A common choice is 28 days (four weeks), because it smooths out weekly patterns while still being responsive to changes. Some teams use 30 days for simplicity. Some use rolling 7-day windows for more sensitive alerting. The key is consistency: pick a window and stick with it across your organization.
-{::pagebreak /}
+
 #### Service Level Objectives (SLOs)
 
 ![][slo-new-illustration-small]
@@ -120,7 +122,7 @@ The beauty of SLOs is that they give you a shared language across engineering, p
 
 Our SLOs should trigger before we violate our SLA.
 
-{::pagebreak /}
+
 
 ### Error Budgets: The Math of Acceptable Failure
 
@@ -228,7 +230,9 @@ The Goldilocks zone: You should hit your SLO about 90-95% of the time. Occasiona
 {::pagebreak /}
 ### SLO Implementation: The Technical Details
 
-In this section, let's look at a few *ideas* that we will express in pseudo-code. If you are not really interested in actual technical implementations, you can skip over these, but I encourage you to at least skim them. It's not hard-core Python code and you might walk away with some useful ideas for further study.
+In this section, let's look at a few *ideas* that we will express in pseudo-code. I pulled these from my reading and travels, they are not meant to be dropped into some project as is. They are just **ideas**, designed to give you a start at looking at how to implement your own SLOs. SLO Implementation is a non-trivial process, what seems to be simple in concept often needs non intuitive tuning in the lease, and can be found to be not applicable at worst. 
+
+If you are not really interested in actual technical implementations, you can skip over these, but I encourage you to at least skim them. It's not hard-core Python code and you might walk away with some useful ideas for further study.
 
 Here's a typical SLO configuration:
 
