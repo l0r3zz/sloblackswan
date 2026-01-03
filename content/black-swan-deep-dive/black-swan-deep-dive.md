@@ -49,14 +49,21 @@ class EventClassifier:
     def is_black_swan(self, event):
         """The test is simple but requires intellectual honesty."""
         questions = {
-            "historical_precedent": "Had this type of event ever happened before?",
-            "expert_warnings": "Did domain experts warn this was possible?",
-            "model_capability": "Could you have modeled this with available data?",
-            "component_novelty": "Were all the components known and understood?",
-            "interaction_predictability": "Could the specific interaction have been anticipated?"
+            "historical_precedent": ("Had this type of event ever "
+                                   "happened before?"),
+            "expert_warnings": ("Did domain experts warn this was "
+                              "possible?"),
+            "model_capability": ("Could you have modeled this with "
+                               "available data?"),
+            "component_novelty": ("Were all the components known and "
+                                "understood?"),
+            "interaction_predictability": ("Could the specific "
+                                         "interaction have been "
+                                         "anticipated?")
         }
         
-        # If you answer "yes" to any of these, it's probably not a Black Swan
+        # If you answer "yes" to any of these, 
+        # it's probably not a Black Swan
         for question, description in questions.items():
             if self.could_have_known(event, question):
                 return False, f"Not a Black Swan: {description}"
@@ -67,9 +74,11 @@ class EventClassifier:
     def most_common_misclassification(self):
         """What people call Black Swans but aren't."""
         return {
-            "grey_swans": "Rare but modelable events dismissed as unlikely",
+            "grey_swans": ("Rare but modelable events dismissed "
+                          "as unlikely"),
             "grey_rhinos": "Obvious threats we actively chose to ignore",
-            "black_jellyfish": "Known components with surprising interactions",
+            "black_jellyfish": ("Known components with surprising "
+                              "interactions"),
             "elephants": "Known problems we couldn't discuss openly"
         }
 ```
@@ -93,7 +102,9 @@ In Mediocristan, the world behaves according to normal distributions (bell curve
 **SRE Examples in Mediocristan:**
 ```python
 class MediocristanMetrics:
-    """These metrics follow normal distributions and work well with SLOs."""
+    """
+    These metrics follow normal distributions and work well with SLOs.
+    """
     
     def response_time_distribution(self):
         """
@@ -233,11 +244,16 @@ class TurkeySystem:
 
 # Real SRE scenarios that follow this pattern:
 turkey_scenarios = {
-    "legacy_system": "Ran for 10 years without major issues. Then the undocumented dependency failed.",
-    "capacity_planning": "Traffic grew smoothly for 3 years. Then viral event brought 100x normal load.",
-    "security_posture": "No breaches in 5 years. Then zero-day in core dependency.",
-    "vendor_reliability": "Cloud provider had 99.99% uptime. Then region-wide failure.",
-    "deployment_process": "1000 successful deploys. Then edge case destroyed production."
+    "legacy_system": ("Ran for 10 years without major issues. "
+                      "Then the undocumented dependency failed."),
+    "capacity_planning": ("Traffic grew smoothly for 3 years. "
+                          "Then viral event brought 100x normal load."),
+    "security_posture": ("No breaches in 5 years. "
+                         "Then zero-day in core dependency."),
+    "vendor_reliability": ("Cloud provider had 99.99% uptime. "
+                           "Then region-wide failure."),
+    "deployment_process": ("1000 successful deploys. "
+                           "Then edge case destroyed production.")
 }
 ```
 
@@ -278,11 +294,15 @@ class ARPANETCollapse:
     def what_happened(self):
         """The actual cascade mechanism."""
         return {
-            "trigger": "Hardware malfunction in IMP29 causing bit-dropping",
-            "corruption": "Status messages corrupted with incorrect timestamps",
-            "amplification": "Garbage collection algorithm failed on corrupted data",
+            "trigger": ("Hardware malfunction in IMP29 causing "
+                        "bit-dropping"),
+            "corruption": ("Status messages corrupted with incorrect "
+                           "timestamps"),
+            "amplification": ("Garbage collection algorithm failed on "
+                              "corrupted data"),
             "cascade": "Corrupted messages propagated exponentially",
-            "novel_aspect": "Network resilience features became failure vectors"
+            "novel_aspect": ("Network resilience features became "
+                             "failure vectors")
         }
     
     def why_black_swan(self):
@@ -291,18 +311,25 @@ class ARPANETCollapse:
             "precedent": "No prior cascade failures in packet networks",
             "assumption": "Resilience features assumed to only help",
             "models": "No models of positive feedback in routing",
-            "error_detection": "Disabled at the time, allowing unchecked propagation",
-            "transformation": "Fundamentally changed understanding of network failure modes"
+            "error_detection": ("Disabled at the time, allowing "
+                                "unchecked propagation"),
+            "transformation": ("Fundamentally changed understanding of "
+                               "network failure modes")
         }
     
     def what_changed_after(self):
         """The world after this Black Swan."""
         return {
-            "protocol_design": "Influenced transition to TCP/IP with better error handling",
-            "congestion_management": "Highlighted critical importance of flow control",
-            "failure_mode_awareness": "Cascade awareness became part of protocol design",
-            "testing": "Stress testing of network protocols became standard",
-            "error_detection": "Recognition that error detection must be comprehensive"
+            "protocol_design": ("Influenced transition to TCP/IP with "
+                                "better error handling"),
+            "congestion_management": ("Highlighted critical importance "
+                                      "of flow control"),
+            "failure_mode_awareness": ("Cascade awareness became part of "
+                                       "protocol design"),
+            "testing": ("Stress testing of network protocols "
+                        "became standard"),
+            "error_detection": ("Recognition that error detection must "
+                                "be comprehensive")
         }
 ```
 
@@ -389,7 +416,8 @@ def cascade_mechanism():
     
     # Step 2: Message corruption
     status_message = create_status_message()
-    corrupted_message = imp29.transmit(status_message)  # Timestamp corrupted
+    # Timestamp corrupted
+    corrupted_message = imp29.transmit(status_message)
     
     # Step 3: Propagation
     imp50 = InterfaceMessageProcessor(id=50)
@@ -502,10 +530,12 @@ def protocol_design_lessons():
     What network protocol design learned from the collapse.
     """
     lessons = {
-        "error_detection": "Must be comprehensive (transmission AND storage)",
+        "error_detection": ("Must be comprehensive "
+                            "(transmission AND storage)"),
         "garbage_collection": "Must handle corrupted data gracefully",
         "status_messages": "Must be validated and rate-limited",
-        "cascade_awareness": "Protocols must be designed to prevent cascades",
+        "cascade_awareness": ("Protocols must be designed to "
+                              "prevent cascades"),
         "flow_control": "Critical for preventing exponential growth",
         "congestion_management": "Essential for network stability"
     }
@@ -633,11 +663,13 @@ class MorrisWorm:
     def failure_characteristics(self):
         """How the worm spread."""
         return {
-            "vector": "Exploited known vulnerabilities (sendmail, finger, rsh)",
+            "vector": ("Exploited known vulnerabilities "
+                       "(sendmail, finger, rsh)"),
             "novel_aspect": "Self-replicating across network autonomously",
             "speed": "Spread faster than humans could respond",
             "impact": "Brought down major academic and military networks",
-            "replication_flaw": "Programming error caused excessive replication"
+            "replication_flaw": ("Programming error caused "
+                                 "excessive replication")
         }
     
     def why_unpredictable(self):
@@ -653,11 +685,16 @@ class MorrisWorm:
     def transformation(self):
         """What changed in computing after this event."""
         return {
-            "cert_creation": "CERT (Computer Emergency Response Team) created",
-            "incident_response": "Incident response as a discipline emerged",
-            "security_patches": "Security patches and update mechanisms accelerated",
-            "malware_category": "Malware became a recognized category of threat",
-            "network_monitoring": "Network monitoring fundamentally changed"
+            "cert_creation": ("CERT (Computer Emergency Response Team) "
+                              "created"),
+            "incident_response": ("Incident response as a "
+                                  "discipline emerged"),
+            "security_patches": ("Security patches and update mechanisms "
+                                 "accelerated"),
+            "malware_category": ("Malware became a recognized category "
+                                 "of threat"),
+            "network_monitoring": ("Network monitoring fundamentally "
+                                   "changed")
         }
 ```
 
@@ -1008,19 +1045,27 @@ class FinancialCrisisTechImpact:
             "cloud_adoption_acceleration": {
                 "trigger": "Companies desperately seeking cost reduction",
                 "speed": "Multi-year plans compressed to months",
-                "demand_shift": "Sudden massive increase in cloud services",
+                "demand_shift": ("Sudden massive increase in "
+                                 "cloud services"),
                 "nobody_predicted": "Specific timing and magnitude"
             },
             "traffic_pattern_changes": {
-                "consumer_behavior": "Shift to online services as budgets tightened",
-                "office_space_reduction": "Companies cutting real estate costs",
-                "geographic_redistribution": "Load patterns shifted unpredictably",
-                "nobody_modeled": "Simultaneous cost-cutting + demand changes"
+                "consumer_behavior": ("Shift to online services as "
+                                      "budgets tightened"),
+                "office_space_reduction": ("Companies cutting real "
+                                           "estate costs"),
+                "geographic_redistribution": ("Load patterns shifted "
+                                              "unpredictably"),
+                "nobody_modeled": ("Simultaneous cost-cutting + "
+                                   "demand changes")
             },
             "funding_collapse": {
-                "vc_funding_decline": "Approximately 40-50% reduction in available capital",
-                "runway_calculations": "Suddenly critical for all startups",
-                "infrastructure_decisions": "Build vs buy radically changed",
+                "vc_funding_decline": ("Approximately 40-50% reduction "
+                                       "in available capital"),
+                "runway_calculations": ("Suddenly critical for "
+                                        "all startups"),
+                "infrastructure_decisions": ("Build vs buy radically "
+                                             "changed"),
                 "nobody_planned": "Assumed continued funding for growth"
             }
         }
@@ -1244,7 +1289,8 @@ class CovidInfrastructureAnalysis:
         return {
             "simultaneity": "Entire world shifting at once",
             "magnitude": "Video conferencing usage increased 5x in weeks",
-            "duration": "Sustained high load through mid-2020 and beyond",
+            "duration": ("Sustained high load through mid-2020 "
+                         "and beyond"),
             "behavioral_changes": "Permanent shifts in usage patterns",
             "second_order_effects": "Supply chain impacts on hardware"
         }
@@ -1252,11 +1298,15 @@ class CovidInfrastructureAnalysis:
     def the_lesson(self):
         """Why classification matters."""
         return {
-            "for_pandemics": "Should have been better prepared (Grey Swan)",
+            "for_pandemics": ("Should have been better prepared "
+                              "(Grey Swan)"),
             "for_digital_shift": "Specific manifestation hard to predict",
-            "for_sre": "Know the difference between the event and its impact",
-            "takeaway": "Grey Swans can have Black Swan-like infrastructure effects",
-            "resilience": "Unlike 1980/1988, infrastructure handled the load"
+            "for_sre": ("Know the difference between the event "
+                        "and its impact"),
+            "takeaway": ("Grey Swans can have Black Swan-like "
+                         "infrastructure effects"),
+            "resilience": ("Unlike 1980/1988, infrastructure "
+                           "handled the load")
         }
 ```
 
@@ -1415,8 +1465,10 @@ def sustained_load_analysis():
         "result": "No collapse, sustained operation"
     }
     
-    #### Unlike temporary spikes, sustained load requires sustained capacity
-    return sustained_resilience(load_characteristics, infrastructure_response)
+    #### Unlike temporary spikes, sustained load requires
+    #### sustained capacity
+    return sustained_resilience(load_characteristics,
+                                infrastructure_response)
 ```
 
 ##### Why Your SLOs Couldn't Prepare You
@@ -1443,7 +1495,8 @@ class SLOAdaptation:
         self.assumptions["gradual_growth"] = False  # Sudden surge
         self.assumptions["predictable_patterns"] = False  # Unprecedented
         self.assumptions["temporary_spikes"] = False  # Sustained
-        self.assumptions["regional_variations"] = False  # Global simultaneity
+        # Global simultaneity
+        self.assumptions["regional_variations"] = False
         
         #### But infrastructure adapted
         return infrastructure_adaptation(
@@ -1520,13 +1573,15 @@ This is important nuance. The Internet backbone was resilient globally. But resi
 
 ```python
 def regional_resilience():
-    """
-    Resilience varied by region and infrastructure quality.
-    """
-    resilience_levels = {
-        "backbone": "Resilient globally",
-        "developed_regions": "Strong resilience (North America, Western Europe)",
-        "developing_regions": "More challenges (Bangladesh, Bhutan, Pakistan)",
+"""
+Resilience varied by region and infrastructure quality.
+"""
+resilience_levels = {
+"backbone": "Resilient globally",
+"developed_regions": ("Strong resilience (North America, "
+                      "Western Europe)"),
+"developing_regions": ("More challenges (Bangladesh, Bhutan, "
+                           "Pakistan)"),
         "edge_connections": "Some struggles, core held"
     }
     
@@ -1631,10 +1686,12 @@ class SLOBlackSwanMismatch:
         """What SLOs need to work."""
         return {
             "historical_data": "Past performance to set baselines",
-            "predictable_distributions": "Metrics that follow known patterns",
+            "predictable_distributions": ("Metrics that follow known "
+                                        "patterns"),
             "measurable_indicators": "Things you can instrument",
             "known_failure_modes": "Problems you've seen or imagined",
-            "stable_relationships": "Metric X correlates with user happiness"
+            "stable_relationships": ("Metric X correlates with "
+                                     "user happiness")
         }
     
     def black_swan_characteristics(self):
@@ -1650,10 +1707,14 @@ class SLOBlackSwanMismatch:
     def the_gap(self):
         """Where SLOs and Black Swans don't overlap."""
         return {
-            "prediction": "SLOs predict from past; Black Swans have no past",
-            "measurement": "SLOs measure known things; Black Swans are unknown",
-            "alerting": "SLOs alert on thresholds; Black Swans exceed all thresholds",
-            "response": "SLOs assume runbooks; Black Swans need novel solutions"
+            "prediction": ("SLOs predict from past; "
+                           "Black Swans have no past"),
+            "measurement": ("SLOs measure known things; "
+                            "Black Swans are unknown"),
+            "alerting": ("SLOs alert on thresholds; "
+                         "Black Swans exceed all thresholds"),
+            "response": ("SLOs assume runbooks; "
+                         "Black Swans need novel solutions")
         }
 ```
 
@@ -1685,7 +1746,8 @@ class MissingMetricExample:
             "manifestation": "Silent data corruption in ML model",
             "user_impact": "Subtly wrong recommendations",
             "your_metrics": "Still all green",
-            "what_you_needed": "Output validation metrics you didn't build",
+            "what_you_needed": ("Output validation metrics you "
+                                "didn't build"),
             "why_you_didnt_build_them": "Didn't know this could happen"
         }
     
@@ -1711,10 +1773,13 @@ class UnmodeledCascade:
     def component_slos(self):
         """Everything looks fine individually."""
         return {
-            "api_service": {"availability": "99.95%", "latency_p99": "200ms"},
-            "database": {"query_time_p99": "50ms", "connection_pool": "60% utilized"},
+            "api_service": {"availability": "99.95%",
+                            "latency_p99": "200ms"},
+            "database": {"query_time_p99": "50ms",
+                         "connection_pool": "60% utilized"},
             "cache": {"hit_rate": "85%", "latency_p99": "5ms"},
-            "message_queue": {"depth": "normal", "processing_rate": "nominal"},
+            "message_queue": {"depth": "normal",
+                              "processing_rate": "nominal"},
             "all_components": "Within SLO targets"
         }
     
@@ -1722,11 +1787,14 @@ class UnmodeledCascade:
         """The Black Swan is in how they interact."""
         return {
             "trigger": "Rare race condition in deployment automation",
-            "cascade": "Cache invalidation → DB query spike → connection exhaustion → " +
-                      "API timeouts → retry storms → message queue backlog → " +
-                      "circuit breakers trip → total service failure",
-            "your_slos": "Each component was within individual SLOs when it started",
-            "failure_mode": "Interaction pattern never seen in testing or production",
+            "cascade": ("Cache invalidation → DB query spike → "
+                        "connection exhaustion → API timeouts → "
+                        "retry storms → message queue backlog → "
+                        "circuit breakers trip → total service failure"),
+            "your_slos": ("Each component was within individual SLOs "
+                          "when it started"),
+            "failure_mode": ("Interaction pattern never seen in testing "
+                             "or production"),
             "recovery": "No runbook, needed novel diagnosis and fix"
         }
 ```
@@ -1750,13 +1818,16 @@ class ExternalDependencyBlackSwan:
     def the_event(self):
         """Something outside your model."""
         return {
-            "scenario": "Critical CDN provider suffers nation-state cyber attack",
+            "scenario": ("Critical CDN provider suffers nation-state "
+                         "cyber attack"),
             "your_metrics": "Show increased latency from CDN",
-            "actual_problem": "CDN infrastructure being actively destroyed",
+            "actual_problem": ("CDN infrastructure being actively "
+                               "destroyed"),
             "your_slo": "Degraded but still technically meeting targets",
             "user_experience": "Completely broken",
             "response_needed": "Failover to different CDN",
-            "why_black_swan": "Nation-state attack on infrastructure wasn't in threat model"
+            "why_black_swan": ("Nation-state attack on infrastructure "
+                               "wasn't in threat model")
         }
 ```
 {::pagebreak /}
@@ -1861,7 +1932,8 @@ class AnomalyDetectionSystem:
         self.baseline_relationships = {
             "cpu_vs_latency": self.correlation("cpu", "latency"),
             "error_rate_vs_traffic": self.correlation("errors", "traffic"),
-            "cache_hits_vs_db_load": self.correlation("cache_hits", "db_queries"),
+            "cache_hits_vs_db_load": self.correlation("cache_hits",
+                                                      "db_queries"),
             # Track dozens of these
         }
     
@@ -1871,15 +1943,18 @@ class AnomalyDetectionSystem:
         """
         anomalies = []
         
-        for relationship, baseline_correlation in self.baseline_relationships.items():
+        for relationship, baseline_correlation in \
+                self.baseline_relationships.items():
             current = self.correlation(*relationship.split("_vs_"))
             
-            if abs(current - baseline_correlation) > 0.3:  # Significant change
+            # Significant change
+            if abs(current - baseline_correlation) > 0.3:
                 anomalies.append({
                     "relationship": relationship,
                     "baseline": baseline_correlation,
                     "current": current,
-                    "interpretation": "System behavior has changed fundamentally"
+                    "interpretation": ("System behavior has changed "
+                                       "fundamentally")
                 })
         
         return anomalies if anomalies else None
@@ -1889,7 +1964,8 @@ class AnomalyDetectionSystem:
         Things that traditional SLOs miss.
         """
         return {
-            "cascade_precursors": "Relationships changing before values spike",
+            "cascade_precursors": ("Relationships changing before "
+                                   "values spike"),
             "novel_failure_modes": "Patterns you've never seen",
             "external_factors": "Something changed in the environment",
             "not_predicted": "But detected when it starts"
@@ -1983,8 +2059,8 @@ Here is a compact blueprint that keeps the exercise flexible without bogging rea
 ```python
 class TroubleshootingExtravaganza:
     """
-    Orchestrate break-fix scenarios while safeguarding the five-minute break
-    and twenty-minute fix time boxes.
+    Orchestrate break-fix scenarios while safeguarding the five-minute
+    break and twenty-minute fix time boxes.
     """
 
     def __init__(self, doom_master, participants):
@@ -2011,7 +2087,8 @@ class TroubleshootingExtravaganza:
         return scenario["id"]
 
     def _validate_timebox(self, scenario):
-        return scenario["break_deadline"] <= 300 and scenario["fix_deadline"] <= 1200
+        return (scenario["break_deadline"] <= 300 and
+                scenario["fix_deadline"] <= 1200)
 
     def select_random_scenario(self):
         import random
@@ -2097,11 +2174,15 @@ class BlackSwanIncidentResponse:
     def key_capabilities(self):
         """What teams need for Black Swan response."""
         return {
-            "cognitive_diversity": "Different perspectives see different patterns",
+            "cognitive_diversity": ("Different perspectives see "
+                                    "different patterns"),
             "decision_authority": "Empower teams to make novel choices",
-            "psychological_safety": "People must feel safe suggesting weird ideas",
-            "cross_functional_knowledge": "T-shaped engineers who understand adjacent systems",
-            "communication_efficiency": "Information flows fast during crisis"
+            "psychological_safety": ("People must feel safe suggesting "
+                                     "weird ideas"),
+            "cross_functional_knowledge": ("T-shaped engineers who "
+                                           "understand adjacent systems"),
+            "communication_efficiency": ("Information flows fast "
+                                         "during crisis")
         }
 ```
 
@@ -2136,7 +2217,8 @@ class BlackSwanTraining:
         """Prepares you for unknown scenarios."""
         return {
             "novel_scenario_drills": {
-                "practice": "Monthly 'surprise' incidents with no runbook",
+                "practice": ("Monthly 'surprise' incidents with "
+                             "no runbook"),
                 "goal": "Build adaptability muscle",
                 "example": "Simulate failures no one has seen before"
             },
@@ -2148,10 +2230,12 @@ class BlackSwanTraining:
             "tabletop_exercises": {
                 "practice": "War game unprecedented scenarios",
                 "goal": "Practice decision-making under uncertainty",
-                "example": "What if our cloud provider got hit by ransomware?"
+                "example": ("What if our cloud provider got hit by "
+                            "ransomware?")
             },
             "blameless_learning": {
-                "practice": "Focus on system factors, not individual fault",
+                "practice": ("Focus on system factors, not "
+                             "individual fault"),
                 "goal": "Create safety for admitting 'I don't know'",
                 "benefit": "Faster learning during novel situations"
             }
@@ -2160,7 +2244,8 @@ class BlackSwanTraining:
     def the_apollo_13_model(self):
         """
         They didn't have a runbook for *that exact* failure sequence.
-        But they had people trained to adapt within known physics/engineering constraints.
+        But they had people trained to adapt within known
+        physics/engineering constraints.
         """
         return {
             "preparation": "Deep system knowledge, not just procedures",
@@ -2204,11 +2289,15 @@ class BlackSwanDecisionFramework:
     def black_swan_decision_making(self):
         """Required when you have neither data nor time."""
         return {
-            "recognize_mode": "This is a Black Swan, normal rules don't apply",
-            "embrace_uncertainty": "Accept you're making decisions with 20% information",
+            "recognize_mode": ("This is a Black Swan, "
+                               "normal rules don't apply"),
+            "embrace_uncertainty": ("Accept you're making decisions with "
+                                    "20% information"),
             "reversibility_first": "Prioritize decisions you can undo",
-            "containment_over_cure": "Stop the bleeding before diagnosing",
-            "parallel_hypotheses": "Try multiple approaches simultaneously",
+            "containment_over_cure": ("Stop the bleeding before "
+                                      "diagnosing"),
+            "parallel_hypotheses": ("Try multiple approaches "
+                                    "simultaneously"),
             "rapid_iteration": "Quick experiments, fast learning",
             "timeline": "Minutes to hours"
         }
@@ -2228,7 +2317,8 @@ class BlackSwanDecisionFramework:
             },
             "asymmetric_risk": {
                 "principle": "Small cost to prevent huge loss",
-                "action": "Err on side of caution with low-cost protections",
+                "action": ("Err on side of caution with low-cost "
+                           "protections"),
                 "example": "Extra capacity is cheap vs. total outage"
             },
             "decision_capture": {
@@ -2336,7 +2426,8 @@ class AntifragileArchitecture:
         return {
             "chaos_engineering": {
                 "approach": "Regularly inject small failures",
-                "benefit": "Discover fragilities before Black Swan exploits them",
+                "benefit": ("Discover fragilities before Black Swan "
+                            "exploits them"),
                 "example": "Netflix Chaos Monkey"
             },
             "canary_deployments": {
@@ -2365,8 +2456,10 @@ class AntifragileArchitecture:
             "technology_diversity": {
                 "approach": "Don't standardize on single tech stack",
                 "cost": "More tools to maintain",
-                "benefit": "Framework-specific vulnerability doesn't take everything down",
-                "example": "Mix of databases, message queues, caching layers"
+                "benefit": ("Framework-specific vulnerability "
+                            "doesn't take everything down"),
+                "example": ("Mix of databases, message queues, "
+                            "caching layers")
             },
             "manual_overrides": {
                 "approach": "Always have manual control",
@@ -2383,12 +2476,14 @@ class AntifragileArchitecture:
         return {
             "auto_scaling_with_learning": {
                 "traditional": "Scale based on fixed rules",
-                "antifragile": "Learn from past patterns, adapt to new ones",
+                "antifragile": ("Learn from past patterns, adapt to "
+                                "new ones"),
                 "benefit": "Handles novel load patterns better"
             },
             "self_healing": {
                 "traditional": "Alert humans to fix",
-                "antifragile": "System fixes itself, improves healing over time",
+                "antifragile": ("System fixes itself, improves healing "
+                                "over time"),
                 "benefit": "Faster recovery from novel failures"
             },
             "continuous_optimization": {
@@ -2404,18 +2499,23 @@ class AntifragileArchitecture:
         """
         return {
             "ultra_safe_core": {
-                "components": ["User data", "Authentication", "Payment processing"],
-                "approach": "Boring technology, massive redundancy, zero experimentation",
+                "components": ["User data", "Authentication",
+                               "Payment processing"],
+                "approach": ("Boring technology, massive redundancy, "
+                             "zero experimentation"),
                 "goal": "Never fails, even during Black Swan"
             },
             "experimental_edge": {
-                "components": ["New features", "Optimizations", "Emerging tech"],
+                "components": ["New features", "Optimizations",
+                               "Emerging tech"],
                 "approach": "Rapid iteration, high tolerance for failure",
                 "goal": "Discover improvements, bounded blast radius"
             },
             "avoided_middle": {
-                "components": "Systems that are neither critical nor experimental",
-                "approach": "Either make them core-safe or edge-experimental",
+                "components": ("Systems that are neither critical "
+                               "nor experimental"),
+                "approach": ("Either make them core-safe or "
+                             "edge-experimental"),
                 "reason": "Middle ground is worst of both worlds"
             }
         }
@@ -2477,7 +2577,8 @@ class OperationalSlack:
                 "traditional": "Optimize for cost",
                 "antifragile": "Maintain reserves for emergency response",
                 "cost": "Money sitting idle",
-                "benefit": "Can respond to Black Swan without budget approval"
+                "benefit": ("Can respond to Black Swan without budget "
+                            "approval")
             }
         }
     
@@ -2512,8 +2613,10 @@ class NarrativeFallacyPatterns:
         The most common and dangerous pattern.
         """
         return {
-            "narrative": "In hindsight, the warning signs were obvious",
-            "reality": "Warning signs only obvious after you know what to look for",
+            "narrative": ("In hindsight, the warning signs were "
+                          "obvious"),
+            "reality": ("Warning signs only obvious after you know "
+                        "what to look for"),
             "danger": "Creates false confidence in prediction ability",
             "example": "Of course the housing bubble would pop",
             "truth": "If it was obvious, why didn't anyone prevent it?"
@@ -2524,11 +2627,15 @@ class NarrativeFallacyPatterns:
         Deterministic thinking after probabilistic event.
         """
         return {
-            "narrative": "Given the system complexity, failure was inevitable",
-            "reality": "System ran for years without this specific failure",
+            "narrative": ("Given the system complexity, failure was "
+                          "inevitable"),
+            "reality": ("System ran for years without this specific "
+                        "failure"),
             "danger": "Discourages improvement efforts",
-            "example": "Distributed systems always eventually fail this way",
-            "truth": "This specific failure wasn't inevitable, just possible"
+            "example": ("Distributed systems always eventually fail "
+                        "this way"),
+            "truth": ("This specific failure wasn't inevitable, just "
+                      "possible")
         }
     
     def single_root_cause(self):
@@ -2537,7 +2644,8 @@ class NarrativeFallacyPatterns:
         """
         return {
             "narrative": "The root cause was X",
-            "reality": "Complex systems fail through multiple contributing factors",
+            "reality": ("Complex systems fail through multiple "
+                        "contributing factors"),
             "danger": "Fixing X doesn't prevent similar Black Swans",
             "example": "The junior engineer who pushed the bad config",
             "truth": "System design allowed single mistake to cascade"
@@ -2548,11 +2656,13 @@ class NarrativeFallacyPatterns:
         Listing coincidences to make it seem predictable.
         """
         return {
-            "narrative": "It was the perfect storm of A, B, and C happening together",
+            "narrative": ("It was the perfect storm of A, B, and C "
+                          "happening together"),
             "reality": "Perfect storms happen more often than we admit",
             "danger": "Makes similar combinations seem unlikely",
             "example": "This exact combination will never happen again",
-            "truth": "Different combinations will create different Black Swans"
+            "truth": ("Different combinations will create different "
+                      "Black Swans")
         }
 ```
 
@@ -2622,7 +2732,8 @@ class EpistemicHumility:
         We understand less than we think.
         """
         return {
-            "feel_we_understand": "System architecture, dependencies, failure modes",
+            "feel_we_understand": ("System architecture, dependencies, "
+                                   "failure modes"),
             "actually_understand": "System behavior we've observed",
             "gap": "Emergent properties, novel interactions, edge cases",
             "danger": "Confidence exceeds competence"
@@ -2644,7 +2755,8 @@ class EpistemicHumility:
                 "comfort_level": "Medium"
             },
             "unknown_unknowns": {
-                "examples": "Black Swans - questions you don't know to ask",
+                "examples": ("Black Swans - questions you don't know "
+                             "to ask"),
                 "coverage": "Nothing can cover these",
                 "comfort_level": "Should be low, often isn't"
             }
@@ -2655,7 +2767,8 @@ class EpistemicHumility:
         How to stay appropriately uncertain.
         """
         return {
-            "question_assumptions": "Regularly ask 'what could I be wrong about?'",
+            "question_assumptions": ("Regularly ask 'what could I be "
+                                     "wrong about?'"),
             "invite_challenge": "Reward people who point out blind spots",
             "study_surprises": "When surprised, examine why",
             "diverse_perspectives": "Seek views from outside your domain",
@@ -2682,7 +2795,8 @@ class OverconfidenceTax:
                 "cost": "Missed opportunity to prevent cascade"
             },
             "dismissing_concerns": {
-                "thinking": "That edge case is too unlikely to worry about",
+                "thinking": ("That edge case is too unlikely to worry "
+                             "about"),
                 "reality": "Edge cases are where Black Swans live",
                 "cost": "System vulnerable to exact scenario dismissed"
             },
@@ -2707,7 +2821,8 @@ class OverconfidenceTax:
             "scenario_planning": "Prepare for multiple futures",
             "red_teaming": "Pay people to prove you wrong",
             "paranoia_cultivation": "Maintain healthy fear of the unknown",
-            "continuous_learning": "Assume your models are always incomplete"
+            "continuous_learning": ("Assume your models are always "
+                                    "incomplete")
         }
 ```
 
@@ -2738,9 +2853,11 @@ class ImmediateActions:
                 "time": "2 hours architecture review"
             },
             "review_postmortems": {
-                "task": "Re-read past postmortems looking for 'we should have known'",
+                "task": ("Re-read past postmortems looking for 'we "
+                         "should have known'"),
                 "goal": "Identify narrative fallacy in past learning",
-                "follow_up": "What surprised us that we forgot was surprising?",
+                "follow_up": ("What surprised us that we forgot was "
+                              "surprising?"),
                 "time": "1 hour reading"
             },
             "chaos_experiment": {
@@ -2781,7 +2898,8 @@ class MonthlyActions:
                 "commitment": "Team meeting + follow-up work"
             },
             "dependency_review": {
-                "task": "Map external dependencies and their failure modes",
+                "task": ("Map external dependencies and their failure "
+                         "modes"),
                 "goal": "Understand exposure to external Black Swans",
                 "benefit": "Identify diversification opportunities",
                 "commitment": "4-8 hours architecture work"
@@ -2841,29 +2959,38 @@ class BlackSwanSynthesis:
     def core_insights(self):
         return {
             "unpredictability": {
-                "insight": "True Black Swans cannot be predicted from historical data",
+                "insight": ("True Black Swans cannot be predicted "
+                            "from historical data"),
                 "implication": "SLOs are necessary but insufficient",
-                "action": "Build systems that handle the unpredictable"
+                "action": ("Build systems that handle the "
+                           "unpredictable")
             },
             "retrospective_rationalization": {
-                "insight": "After Black Swans, we construct false narratives of predictability",
-                "implication": "Post-mortems can create dangerous overconfidence",
+                "insight": ("After Black Swans, we construct false "
+                            "narratives of predictability"),
+                "implication": ("Post-mortems can create dangerous "
+                                "overconfidence"),
                 "action": "Focus on adaptability, not prevention"
             },
             "extremistan_vs_mediocristan": {
-                "insight": "Extreme events dominate outcomes in complex systems",
-                "implication": "Average case performance matters less than tail behavior",
+                "insight": ("Extreme events dominate outcomes in "
+                            "complex systems"),
+                "implication": ("Average case performance matters less "
+                                "than tail behavior"),
                 "action": "Design for worst case, not typical case"
             },
             "antifragility": {
-                "insight": "Systems can benefit from stress and randomness",
-                "implication": "Resilience isn't enough, we need improvement through disorder",
+                "insight": ("Systems can benefit from stress and "
+                            "randomness"),
+                "implication": ("Resilience isn't enough, we need "
+                                "improvement through disorder"),
                 "action": "Build systems that learn from failures"
             },
             "epistemic_humility": {
                 "insight": "Our understanding is always incomplete",
                 "implication": "Confidence should have limits",
-                "action": "Maintain appropriate uncertainty and paranoia"
+                "action": ("Maintain appropriate uncertainty "
+                           "and paranoia")
             }
         }
     
@@ -2875,7 +3002,8 @@ class BlackSwanSynthesis:
             "we_cannot": "Predict specific Black Swans",
             "we_must": "Prepare for Black Swans in general",
             "resolution": "Build adaptability, not prediction",
-            "analogy": "Can't predict which emergency, but can train paramedics"
+            "analogy": ("Can't predict which emergency, but can "
+                        "train paramedics")
         }
     
     def relationship_to_other_animals(self):
@@ -2885,8 +3013,10 @@ class BlackSwanSynthesis:
         return {
             "teaches_humility_about": "All other risk types",
             "shows_limits_of": "Measurement and prediction",
-            "demands_we_build": "Antifragile systems and organizations",
-            "reminds_us": "The biggest risks are often the ones we can't measure"
+            "demands_we_build": ("Antifragile systems and "
+                                 "organizations"),
+            "reminds_us": ("The biggest risks are often the ones "
+                           "we can't measure")
         }
 ```
 {::pagebreak /}
