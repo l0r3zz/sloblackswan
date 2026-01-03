@@ -184,7 +184,10 @@ def detect_cascade_pattern(metrics_history):
     if len(acceleration) >= 3:
         last_three = acceleration[-3:]
         if all(a > 0 for a in last_three):
-            return {'pattern': 'CASCADE_DETECTED', 'action': 'INTERVENE_NOW'}
+            return {
+                'pattern': 'CASCADE_DETECTED', 
+                'action': 'INTERVENE_NOW'
+            }
     
     return None
 ```
@@ -203,14 +206,21 @@ def evaluate_dependency_chain_health(service, dependency_graph):
     all_deps = dependency_graph.get_transitive_dependencies(service)
     
     if not all_deps:
-        return {'effective_health': service.direct_health, 'cascade_risk': 0.0}
+        return {
+            'effective_health': service.direct_health, 
+            'cascade_risk': 0.0
+        }
     
-    dependency_health = {dep.name: dep.get_health_score() for dep in all_deps}
+    dependency_health = {
+        dep.name: dep.get_health_score() for dep in all_deps
+    }
     weakest_link = min(dependency_health.values())
     
     return {
         'effective_health': min(service.direct_health, weakest_link),
-        'weakest_dependency': min(dependency_health, key=dependency_health.get),
+        'weakest_dependency': min(
+            dependency_health, key=dependency_health.get
+        ),
         'cascade_risk': 1.0 - weakest_link,
         'alert': weakest_link < 0.8
     }
