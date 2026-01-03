@@ -24,12 +24,16 @@ class GreySwanLSLIRE:
     
     def __init__(self):
         self.characteristics = {
-            "large_scale": "Affects multiple systems or regions simultaneously",
-            "large_impact": "Consequences far exceed normal operational parameters",
-            "rare_events": "Low probability but not zero - occurs every few years/decades",
+            "large_scale": ("Affects multiple systems or "
+                            "regions simultaneously"),
+            "large_impact": ("Consequences far exceed normal "
+                             "operational parameters"),
+            "rare_events": ("Low probability but not zero - occurs "
+                            "every few years/decades"),
             "statistical_position": "3-5 standard deviations from mean",
             "predictability": "Modelable using historical data",
-            "typical_response": "Dismissed as 'too unlikely to worry about'"
+            "typical_response": ("Dismissed as 'too unlikely to "
+                                 "worry about'")
         }
     
     def calculate_statistical_position(self, event_value, mean, std_dev):
@@ -54,28 +58,36 @@ That little `calculate_statistical_position()` helper is the part most teams ski
     
     def why_lslire_matters(self):
         """
-        The combination of scale, impact, and rarity creates unique challenges.
+        The combination of scale, impact, and rarity
+        creates unique challenges.
         """
         return {
             "scale_amplification": {
-                "problem": "Small failures compound across multiple systems",
+                "problem": ("Small failures compound across "
+                            "multiple systems"),
                 "mechanism": "Cascade effects and correlation",
-                "example": "Regional cloud outage affecting dozens of services"
+                "example": ("Regional cloud outage affecting "
+                            "dozens of services")
             },
             "impact_nonlinearity": {
-                "problem": "Damage grows exponentially, not proportionally",
-                "mechanism": "Threshold effects and positive feedback loops",
+                "problem": ("Damage grows exponentially, "
+                            "not proportionally"),
+                "mechanism": ("Threshold effects and "
+                              "positive feedback loops"),
                 "example": "Traffic overload triggering retry storms"
             },
             "experience_gaps": {
-                "problem": "Events are rare enough that current teams lack experience",
+                "problem": ("Events are rare enough that current teams "
+                            "lack experience"),
                 "mechanism": "Organizational memory decay",
                 "example": "Major incidents occurring every 5-10 years"
             },
             "preparation_resistance": {
                 "problem": "Large upfront costs for 'unlikely' events",
-                "mechanism": "Rational economic calculation leading to under-preparation",
-                "example": "Disaster recovery infrastructure seen as waste"
+                "mechanism": ("Rational economic calculation leading "
+                              "to under-preparation"),
+                "example": ("Disaster recovery infrastructure "
+                            "seen as waste")
             }
         }
 ```
@@ -108,8 +120,10 @@ def system_probability(component_prob, num_components):
     """Probability that at least one component fails."""
     return 1 - (1 - component_prob) ** num_components
 # Each microservice has 2% annual chance of a rare failure mode
-print(f"50 services:  {system_probability(0.02, 50):.0%} annual probability")
-print(f"100 services: {system_probability(0.02, 100):.0%} annual probability")
+print(f"50 services:  {system_probability(0.02, 50):.0%} "
+      f"annual probability")
+print(f"100 services: {system_probability(0.02, 100):.0%} "
+      f"annual probability")
 
 # Output:
 # 50 services:  64% annual probability
@@ -163,8 +177,8 @@ class GreySwanRiskAmplification:
     
     def current_risk(self):
         """Risk increases exponentially with degradation."""
-        # NOTE: Coefficient tuned so the demo severities below move ~2% -> ~10%
-        #  (about 10.4% with these inputs).
+        # NOTE: Coefficient tuned so the demo severities below
+        # move ~2% -> ~10% (about 10.4% with these inputs).
         multiplier = math.exp(self.degradation * 11.0)
         return min(0.95, self.baseline * multiplier)
 ```
@@ -188,10 +202,12 @@ warnings = [
 
 for month, severity in warnings:
     risk.ignore_warning(severity)
-    print(f"{month}: {risk.current_risk():.1%} risk (was {risk.baseline:.1%})")
+    print(f"{month}: {risk.current_risk():.1%} risk "
+          f"(was {risk.baseline:.1%})")
 
 # After 6 months of ignoring warnings:
-# Risk has climbed from 2% to ~10% (in the 8-12% band) -- you've made the Grey Swan ~5x more likely
+# Risk has climbed from 2% to ~10% (in the 8-12% band)
+# -- you've made the Grey Swan ~5x more likely
 ```
 
 **The Feedback Loop:**
@@ -291,7 +307,8 @@ def will_this_actually_happen(component_risk, num_components, years=10):
         "component_annual": f"{component_risk:.1%}",
         "system_annual": f"{annual_system_risk:.1%}",
         "over_10_years": f"{cumulative_risk:.1%}",
-        "verdict": "Grey Swan - prepare now" if cumulative_risk > 0.25 else "Monitor"
+        "verdict": ("Grey Swan - prepare now" if cumulative_risk > 0.25
+                    else "Monitor")
     }
 
 # Example: 2% component risk across 50 microservices
@@ -350,20 +367,26 @@ class FinancialCrisis2008TechImpact:
         return {
             "large_scale": {
                 "scope": "Global financial system freeze",
-                "tech_impact": "Simultaneous collapse in enterprise IT spending",
+                "tech_impact": ("Simultaneous collapse in enterprise "
+                                "IT spending"),
                 "geographic": "Affected all major markets simultaneously",
-                "temporal": "Compressed 3-year plans into 3-month survival mode"
+                "temporal": ("Compressed 3-year plans into "
+                             "3-month survival mode")
             },
             "large_impact": {
                 "vc_funding": "90% reduction in available capital",
-                "enterprise_budgets": "Massive freezes in infrastructure spending",
-                "startup_survival": "Runway calculations suddenly critical",
-                "cloud_adoption": "Explosive acceleration as companies sought cost reduction"
+                "enterprise_budgets": ("Massive freezes in "
+                                       "infrastructure spending"),
+                "startup_survival": ("Runway calculations suddenly "
+                                     "critical"),
+                "cloud_adoption": ("Explosive acceleration as companies "
+                                   "sought cost reduction")
             },
             "rare_event": {
                 "last_comparable": "Great Depression (1929)",
                 "time_gap": "79 years - outside living memory",
-                "institutional_memory": "No one in tech leadership had experienced similar",
+                "institutional_memory": ("No one in tech leadership had "
+                                         "experienced similar"),
                 "preparation": "Minimal, because 'can't happen again'"
             }
         }
@@ -382,17 +405,20 @@ This is the part infrastructure folks should have forced into the room: it was "
             "housing_bubble_warnings": {
                 "sources": ["Economists", "Shiller", "Financial press"],
                 "timeline": "Warnings for 2+ years before crisis",
-                "dismissed_because": "Housing prices 'never go down nationally'"
+                "dismissed_because": ("Housing prices 'never go down "
+                                      "nationally'")
             },
             "derivative_complexity_risks": {
-                "sources": ["Buffett calling derivatives 'weapons of mass destruction'"],
+                "sources": ["Buffett calling derivatives 'weapons of "
+                            "mass destruction'"],
                 "timeline": "Warnings since early 2000s",
                 "dismissed_because": "Models said risk was distributed"
             },
             "leverage_concerns": {
                 "sources": ["Bank regulators", "Academic economists"],
                 "timeline": "Building since 2005",
-                "dismissed_because": "Sophisticated risk management in place"
+                "dismissed_because": ("Sophisticated risk management "
+                                      "in place")
             }
         }
 ```
@@ -404,31 +430,45 @@ Notice what's missing: anything technical. That's the trap. The primary signals 
     
     def unpredictable_tech_specific_impacts(self):
         """
-        The Grey Swan: general crisis predictable, specific tech effects were not.
+        The Grey Swan: general crisis predictable,
+        specific tech effects were not.
         """
         return {
             "cloud_adoption_acceleration": {
-                "prediction_difficulty": "3-year cloud migration plans compressed to 3 months",
-                "mechanism": "Desperate cost reduction drove technology decisions",
-                "scale": "Demand spike unprecedented in cloud provider history",
-                "nobody_predicted": "Specific timing and magnitude of shift"
+                "prediction_difficulty": ("3-year cloud migration plans "
+                                          "compressed to 3 months"),
+                "mechanism": ("Desperate cost reduction drove "
+                              "technology decisions"),
+                "scale": ("Demand spike unprecedented in cloud "
+                          "provider history"),
+                "nobody_predicted": ("Specific timing and magnitude "
+                                     "of shift")
             },
             "saas_model_validation": {
-                "prediction_difficulty": "Crisis proved recurring revenue model superiority",
-                "mechanism": "SaaS companies weathered storm better than traditional software",
-                "scale": "Fundamental shift in software business models",
+                "prediction_difficulty": ("Crisis proved recurring "
+                                          "revenue model superiority"),
+                "mechanism": ("SaaS companies weathered storm better "
+                              "than traditional software"),
+                "scale": ("Fundamental shift in software "
+                          "business models"),
                 "nobody_predicted": "Speed and completeness of transition"
             },
             "remote_work_infrastructure_foundations": {
-                "prediction_difficulty": "Early remote tools developed for cost-conscious orgs",
-                "mechanism": "Budget constraints drove distributed team adoption",
-                "scale": "Laid groundwork for COVID-era remote work explosion",
+                "prediction_difficulty": ("Early remote tools developed "
+                                          "for cost-conscious orgs"),
+                "mechanism": ("Budget constraints drove distributed "
+                              "team adoption"),
+                "scale": ("Laid groundwork for COVID-era remote "
+                          "work explosion"),
                 "nobody_predicted": "Long-term trajectory implications"
             },
             "mobile_first_acceleration": {
-                "prediction_difficulty": "Consumers shifted to mobile during uncertainty",
-                "mechanism": "Desktop budgets cut, smartphones retained",
-                "scale": "Mobile traffic overtook desktop earlier than projected",
+                "prediction_difficulty": ("Consumers shifted to mobile "
+                                          "during uncertainty"),
+                "mechanism": ("Desktop budgets cut, "
+                              "smartphones retained"),
+                "scale": ("Mobile traffic overtook desktop earlier "
+                          "than projected"),
                 "nobody_predicted": "Crisis as mobile adoption catalyst"
             }
         }
@@ -458,21 +498,28 @@ class CovidInfrastructureGreySwan:
         return {
             "large_scale": {
                 "geographic": "Simultaneous global impact",
-                "organizational": "Every company shifting to remote overnight",
-                "behavioral": "Entire populations changing digital habits at once",
-                "unprecedented": "No historical precedent for synchronized global shift"
+                "organizational": ("Every company shifting to remote "
+                                   "overnight"),
+                "behavioral": ("Entire populations changing digital "
+                               "habits at once"),
+                "unprecedented": ("No historical precedent for "
+                                  "synchronized global shift")
             },
             "large_impact": {
                 "video_conferencing": "Zoom usage increased 30x in weeks",
                 "internet_traffic": "Overall traffic up 25-40% globally",
-                "cloud_capacity": "Emergency hardware procurement amid supply constraints",
-                "vpn_infrastructure": "Corporate VPNs designed for 5% remote, got 95%"
+                "cloud_capacity": ("Emergency hardware procurement amid "
+                                   "supply constraints"),
+                "vpn_infrastructure": ("Corporate VPNs designed for "
+                                       "5% remote, got 95%")
             },
             "rare_event": {
                 "last_global_pandemic": "1918 Spanish Flu",
                 "time_gap": "102 years",
-                "technological_context": "Pre-digital era, no comparable infrastructure stress",
-                "preparation_status": "Pandemic plans existed but massively underfunded"
+                "technological_context": ("Pre-digital era, no comparable "
+                                          "infrastructure stress"),
+                "preparation_status": ("Pandemic plans existed but "
+                                       "massively underfunded")
             }
         }
 ```
@@ -489,37 +536,51 @@ COVID is a great example of "the event was predictable; the load shape wasn't." 
         return {
             "predictable_elements": {
                 "pandemic_possibility": {
-                    "warning_sources": ["WHO", "CDC", "Epidemiologists", "Bill Gates TED talk"],
-                    "specificity": "Respiratory virus, potential for global spread",
+                    "warning_sources": ["WHO", "CDC", "Epidemiologists",
+                                        "Bill Gates TED talk"],
+                    "specificity": ("Respiratory virus, potential for "
+                                    "global spread"),
                     "timeline": "Warnings for decades",
                     "action_taken": "Minimal - plans existed but unfunded"
                 },
                 "remote_work_technical_feasibility": {
-                    "warning_sources": ["Video conferencing existed and tested"],
-                    "specificity": "Zoom, Teams, WebEx all operational pre-pandemic",
+                    "warning_sources": ["Video conferencing existed "
+                                        "and tested"],
+                    "specificity": ("Zoom, Teams, WebEx all operational "
+                                    "pre-pandemic"),
                     "timeline": "Technologies mature for years",
-                    "action_taken": "Niche adoption, not universal preparation"
+                    "action_taken": ("Niche adoption, not universal "
+                                     "preparation")
                 },
                 "vpn_capacity_constraints": {
                     "warning_sources": ["IT capacity planning studies"],
-                    "specificity": "VPN infrastructure designed for 5-10% remote workers",
+                    "specificity": ("VPN infrastructure designed for "
+                                    "5-10% remote workers"),
                     "timeline": "Known limitation pre-pandemic",
-                    "action_taken": "Rare to over-provision for unused capacity"
+                    "action_taken": ("Rare to over-provision for "
+                                     "unused capacity")
                 }
             },
             "grey_swan_elements": {
                 "simultaneity": {
-                    "surprise_factor": "Entire world shifting digital at exactly the same time",
-                    "why_hard_to_predict": "No historical precedent for synchronized transition",
-                    "impact": "Demand spikes exceeded all capacity models simultaneously"
+                    "surprise_factor": ("Entire world shifting digital "
+                                        "at exactly the same time"),
+                    "why_hard_to_predict": ("No historical precedent for "
+                                            "synchronized transition"),
+                    "impact": ("Demand spikes exceeded all capacity "
+                               "models simultaneously")
                 },
                 "duration": {
-                    "surprise_factor": "Sustained high demand for months, then years",
-                    "why_hard_to_predict": "Pandemic response timelines uncertain",
-                    "impact": "Shifted from surge capacity to sustained new baseline"
+                    "surprise_factor": ("Sustained high demand for "
+                                        "months, then years"),
+                    "why_hard_to_predict": ("Pandemic response timelines "
+                                            "uncertain"),
+                    "impact": ("Shifted from surge capacity to "
+                               "sustained new baseline")
                 },
                 "behavioral_persistence": {
-                    "surprise_factor": "Remote work becoming permanent, not temporary",
+                    "surprise_factor": ("Remote work becoming permanent, "
+                                        "not temporary"),
                     "why_hard_to_predict": "Cultural shifts hard to model",
                     "impact": "Infrastructure needs permanently elevated"
                 }
@@ -553,21 +614,29 @@ class SemiconductorShortageGreySwan:
         return {
             "large_scale": {
                 "geographic": "Global shortage affecting all regions",
-                "industry": "Automotive, consumer electronics, data centers, IoT",
+                "industry": ("Automotive, consumer electronics, "
+                             "data centers, IoT"),
                 "supply_chain": "From chip fab to final product assembly",
                 "duration": "18+ months of acute shortage"
             },
             "large_impact": {
-                "data_centers": "6-18 month delays on server procurement",
-                "automotive": "Production shutdowns, millions of vehicles delayed",
-                "consumer_electronics": "Smartphone feature compromises, launch delays",
+                "data_centers": ("6-18 month delays on server "
+                                 "procurement"),
+                "automotive": ("Production shutdowns, millions of "
+                               "vehicles delayed"),
+                "consumer_electronics": ("Smartphone feature compromises, "
+                                         "launch delays"),
                 "pricing": "Emergency procurement at 3-5x normal costs",
-                "capacity_planning": "Multi-year infrastructure roadmaps disrupted"
+                "capacity_planning": ("Multi-year infrastructure "
+                                      "roadmaps disrupted")
             },
             "rare_event": {
-                "last_comparable": "2011 Thailand floods (regional, not global)",
-                "novelty": "First truly global chip shortage in modern era",
-                "complexity": "Simultaneous demand spike and supply disruption",
+                "last_comparable": ("2011 Thailand floods "
+                                    "(regional, not global)"),
+                "novelty": ("First truly global chip shortage in "
+                            "modern era"),
+                "complexity": ("Simultaneous demand spike and "
+                               "supply disruption"),
                 "preparation": "Just-in-time inventory left no buffer"
             }
         }
@@ -585,32 +654,41 @@ If you're looking for the Grey Swan line in the sand, it's here: "rare" doesn't 
         """
         return {
             "geographic_concentration": {
-                "fact": "60% of advanced chip production in Taiwan (TSMC)",
-                "warning_source": "Industry reports, geopolitical analysts",
+                "fact": ("60% of advanced chip production in "
+                         "Taiwan (TSMC)"),
+                "warning_source": ("Industry reports, "
+                                   "geopolitical analysts"),
                 "timeline": "Known for decades",
                 "risk": "Single region disruption affects global supply",
-                "why_ignored": "Efficiency benefits outweighed perceived risk"
+                "why_ignored": ("Efficiency benefits outweighed "
+                                "perceived risk")
             },
             "capacity_constraints": {
-                "fact": "Leading-edge fabs operating at 100% capacity pre-pandemic",
+                "fact": ("Leading-edge fabs operating at 100% capacity "
+                         "pre-pandemic"),
                 "warning_source": "TSMC and Samsung earnings calls",
                 "timeline": "Documented 2019-2020",
                 "risk": "No surge capacity for demand spikes",
-                "why_ignored": "Fab construction takes 2+ years, $20B investment"
+                "why_ignored": ("Fab construction takes 2+ years, "
+                                "$20B investment")
             },
             "just_in_time_vulnerability": {
-                "fact": "Automotive industry eliminated semiconductor inventory buffers",
+                "fact": ("Automotive industry eliminated semiconductor "
+                         "inventory buffers"),
                 "warning_source": "Supply chain management literature",
                 "timeline": "Decades-long trend",
                 "risk": "No resilience to supply disruption",
                 "why_ignored": "Inventory costs money, reduces margins"
             },
             "long_lead_times": {
-                "fact": "Chip orders to delivery: 26-52 weeks for complex chips",
-                "warning_source": "Semiconductor industry standard practice",
+                "fact": ("Chip orders to delivery: 26-52 weeks for "
+                         "complex chips"),
+                "warning_source": ("Semiconductor industry "
+                                   "standard practice"),
                 "timeline": "Always been true",
                 "risk": "Can't respond quickly to demand changes",
-                "why_ignored": "Normal business practice, accepted constraint"
+                "why_ignored": ("Normal business practice, "
+                                "accepted constraint")
             }
         }
 ```
@@ -627,33 +705,46 @@ Most infrastructure teams never put those bullets on the same slide. We treated 
         """
         return {
             "pandemic_demand_spike": {
-                "mechanism": "Work-from-home drove laptop, webcam, router demand",
-                "predictability": "Pandemic itself was Grey Swan, demand spike modelable",
-                "magnitude": "30-40% increase in consumer electronics demand",
+                "mechanism": ("Work-from-home drove laptop, webcam, "
+                              "router demand"),
+                "predictability": ("Pandemic itself was Grey Swan, "
+                                   "demand spike modelable"),
+                "magnitude": ("30-40% increase in consumer electronics "
+                              "demand"),
                 "timing": "Sudden, synchronized global shift in Q2 2020"
             },
             "automotive_forecasting_failure": {
-                "mechanism": "Car makers cancelled chip orders expecting demand drop",
-                "predictability": "Standard just-in-time response to recession fears",
-                "magnitude": "Billions in cancelled orders, reallocated to consumer electronics",
-                "timing": "Q2 2020 cancellations, Q4 2020 desperate reorders"
+                "mechanism": ("Car makers cancelled chip orders "
+                              "expecting demand drop"),
+                "predictability": ("Standard just-in-time response "
+                                   "to recession fears"),
+                "magnitude": ("Billions in cancelled orders, "
+                              "reallocated to consumer electronics"),
+                "timing": ("Q2 2020 cancellations, "
+                           "Q4 2020 desperate reorders")
             },
             "5g_infrastructure_buildout": {
-                "mechanism": "Telecom infrastructure upgrades for 5G networks",
+                "mechanism": ("Telecom infrastructure upgrades for "
+                              "5G networks"),
                 "predictability": "Multi-year planned deployments",
-                "magnitude": "Significant additional chip demand for base stations",
+                "magnitude": ("Significant additional chip demand "
+                              "for base stations"),
                 "timing": "Overlapped with pandemic demand spike"
             },
             "cryptocurrency_mining_resurgence": {
-                "mechanism": "Bitcoin/Ethereum price surge drove GPU demand",
+                "mechanism": ("Bitcoin/Ethereum price surge drove "
+                              "GPU demand"),
                 "predictability": "Crypto cycles somewhat predictable",
                 "magnitude": "Absorbed entire GPU production for months",
-                "timing": "Late 2020-2021 boom coincided with other demand"
+                "timing": ("Late 2020-2021 boom coincided with "
+                           "other demand")
             },
             "geopolitical_stockpiling": {
-                "mechanism": "US-China tensions led to strategic chip stockpiling",
+                "mechanism": ("US-China tensions led to strategic "
+                              "chip stockpiling"),
                 "predictability": "Trade war implications documented",
-                "magnitude": "Companies ordering years of inventory at once",
+                "magnitude": ("Companies ordering years of "
+                              "inventory at once"),
                 "timing": "2020-2021 escalation in restrictions"
             }
         }
@@ -683,50 +774,74 @@ class SLOGreySwanMismatch:
     
     def traditional_slo_assumptions(self):
         """
-        The assumptions that work for normal operations but fail for Grey Swans.
+        The assumptions that work for normal operations but fail
+        for Grey Swans.
         """
         return {
             "normal_distribution_assumption": {
-                "assumption": "System behavior follows bell curve (Gaussian) patterns",
-                "works_for": "Day-to-day operations, normal traffic patterns",
-                "breaks_for": "Grey Swans live at 3-5 sigma, outside normal distribution",
-                "why_it_breaks": "Tails are fatter than normal distribution predicts",
-                "example": "99.9% SLO assumes 8.7 hours downtime/year, doesn't account for week-long outage"
+                "assumption": ("System behavior follows bell curve "
+                               "(Gaussian) patterns"),
+                "works_for": ("Day-to-day operations, normal "
+                              "traffic patterns"),
+                "breaks_for": ("Grey Swans live at 3-5 sigma, "
+                               "outside normal distribution"),
+                "why_it_breaks": ("Tails are fatter than normal "
+                                  "distribution predicts"),
+                "example": ("99.9% SLO assumes 8.7 hours downtime/year, "
+                            "doesn't account for week-long outage")
             },
             "independence_assumption": {
-                "assumption": "Component failures are independent and uncorrelated",
+                "assumption": ("Component failures are independent "
+                               "and uncorrelated"),
                 "works_for": "Random hardware failures, isolated issues",
-                "breaks_for": "Grey Swans cause correlated failures across systems",
-                "why_it_breaks": "Single external shock affects multiple 'independent' components",
-                "example": "Pandemic affected VPN, video conferencing, home internet simultaneously"
+                "breaks_for": ("Grey Swans cause correlated failures "
+                               "across systems"),
+                "why_it_breaks": ("Single external shock affects "
+                                  "multiple 'independent' components"),
+                "example": ("Pandemic affected VPN, video conferencing, "
+                            "home internet simultaneously")
             },
             "historical_data_sufficiency": {
-                "assumption": "Past performance predicts future performance",
+                "assumption": ("Past performance predicts future "
+                               "performance"),
                 "works_for": "Stable systems with consistent workloads",
-                "breaks_for": "Grey Swans are rare enough that historical data is sparse",
-                "why_it_breaks": "Only 2-3 data points for decade-scale events",
-                "example": "Pre-2020 video conferencing data useless for pandemic modeling"
+                "breaks_for": ("Grey Swans are rare enough that "
+                               "historical data is sparse"),
+                "why_it_breaks": ("Only 2-3 data points for "
+                                  "decade-scale events"),
+                "example": ("Pre-2020 video conferencing data useless "
+                            "for pandemic modeling")
             },
             "linear_scaling_assumption": {
-                "assumption": "System degrades proportionally to load increase",
+                "assumption": ("System degrades proportionally to "
+                               "load increase"),
                 "works_for": "Systems below capacity limits",
-                "breaks_for": "Grey Swans often trigger non-linear threshold effects",
-                "why_it_breaks": "Cascade failures and positive feedback loops",
-                "example": "10% load increase causes 50% latency degradation due to saturation"
+                "breaks_for": ("Grey Swans often trigger non-linear "
+                               "threshold effects"),
+                "why_it_breaks": ("Cascade failures and positive "
+                                  "feedback loops"),
+                "example": ("10% load increase causes 50% latency "
+                            "degradation due to saturation")
             },
             "internal_metric_focus": {
                 "assumption": "SLIs measure internal system health",
                 "works_for": "Technical issues within your control",
-                "breaks_for": "Grey Swans often triggered by external factors",
-                "why_it_breaks": "Don't monitor economic indicators, supply chains, geopolitics",
-                "example": "Chip shortage visible in industry reports, not in your metrics"
+                "breaks_for": ("Grey Swans often triggered by "
+                               "external factors"),
+                "why_it_breaks": ("Don't monitor economic indicators, "
+                                  "supply chains, geopolitics"),
+                "example": ("Chip shortage visible in industry reports, "
+                            "not in your metrics")
             },
             "short_time_window_bias": {
                 "assumption": "Monitor over days, weeks, or months",
                 "works_for": "Catching acute problems quickly",
-                "breaks_for": "Grey Swan patterns emerge over quarters or years",
-                "why_it_breaks": "Slow degradation trends invisible in short windows",
-                "example": "Capacity trending toward limits over 18 months, each month looks 'fine'"
+                "breaks_for": ("Grey Swan patterns emerge over "
+                               "quarters or years"),
+                "why_it_breaks": ("Slow degradation trends invisible "
+                                  "in short windows"),
+                "example": ("Capacity trending toward limits over "
+                            "18 months, each month looks 'fine'")
             }
         }
 ```
@@ -742,28 +857,43 @@ The subtle failure mode is that these assumptions usually work, which makes them
         """
         return {
             "assumes_small_frequent_errors": {
-                "error_budget_model": "Spread small failures across time period",
-                "grey_swan_reality": "One massive failure consumes entire annual budget",
-                "math_problem": "99.9% SLO = 8.7 hours/year, but Grey Swan = 72 hours",
-                "result": "Single event blows through budget, leaving year in 'failure mode'"
+                "error_budget_model": ("Spread small failures across "
+                                       "time period"),
+                "grey_swan_reality": ("One massive failure consumes "
+                                      "entire annual budget"),
+                "math_problem": ("99.9% SLO = 8.7 hours/year, but "
+                                 "Grey Swan = 72 hours"),
+                "result": ("Single event blows through budget, "
+                           "leaving year in 'failure mode'")
             },
             "doesnt_account_for_cumulative_probability": {
-                "error_budget_model": "Set based on single period probability",
-                "grey_swan_reality": "Low annual probability becomes certain over careers",
+                "error_budget_model": ("Set based on single period "
+                                       "probability"),
+                "grey_swan_reality": ("Low annual probability becomes "
+                                      "certain over careers"),
                 "math_problem": "2% per year = 40% over 30 years",
-                "result": "Budget doesn't account for 'unlikely' events that are actually inevitable"
+                "result": ("Budget doesn't account for 'unlikely' "
+                           "events that are actually inevitable")
             },
             "missing_external_event_allocation": {
-                "error_budget_model": "Budget for internal failures you can control",
-                "grey_swan_reality": "External events consume budget regardless",
-                "math_problem": "No reserve for pandemic, financial crisis, supply shortage",
-                "result": "Budget exhausted by events outside your control"
+                "error_budget_model": ("Budget for internal failures "
+                                       "you can control"),
+                "grey_swan_reality": ("External events consume budget "
+                                      "regardless"),
+                "math_problem": ("No reserve for pandemic, financial "
+                                 "crisis, supply shortage"),
+                "result": ("Budget exhausted by events outside "
+                           "your control")
             },
             "recovery_time_not_modeled": {
-                "error_budget_model": "Assumes quick recovery from failures",
-                "grey_swan_reality": "Grey Swans can have multi-day recovery times",
-                "math_problem": "Budget math assumes failures resolve in hours, not days",
-                "result": "Extended outages break annual budget in one event"
+                "error_budget_model": ("Assumes quick recovery "
+                                       "from failures"),
+                "grey_swan_reality": ("Grey Swans can have multi-day "
+                                      "recovery times"),
+                "math_problem": ("Budget math assumes failures resolve "
+                                 "in hours, not days"),
+                "result": ("Extended outages break annual budget "
+                           "in one event")
             }
         }
 ```
@@ -780,40 +910,63 @@ If your error budget is an "all-weather" tool, Grey Swans are the hurricane that
         """
         return {
             "multi_timescale_monitoring": {
-                "approach": "Monitor SLIs across multiple time windows simultaneously",
-                "implementation": "1 hour, 1 day, 1 week, 1 month, 1 quarter, 1 year windows",
-                "detection": "Slow degradation visible in long windows, invisible in short",
-                "example": "Capacity utilization trending from 60% to 85% over 6 months"
+                "approach": ("Monitor SLIs across multiple time windows "
+                             "simultaneously"),
+                "implementation": ("1 hour, 1 day, 1 week, 1 month, "
+                                   "1 quarter, 1 year windows"),
+                "detection": ("Slow degradation visible in long windows, "
+                              "invisible in short"),
+                "example": ("Capacity utilization trending from 60% "
+                            "to 85% over 6 months")
             },
             "external_factor_integration": {
-                "approach": "Include external indicators in SLI calculations",
-                "implementation": "Economic indicators, supply chain metrics, geopolitical indices",
-                "detection": "Correlate system behavior with external conditions",
-                "example": "Semiconductor lead time increase predicts capacity constraints"
+                "approach": ("Include external indicators in "
+                             "SLI calculations"),
+                "implementation": ("Economic indicators, supply chain "
+                                   "metrics, geopolitical indices"),
+                "detection": ("Correlate system behavior with "
+                              "external conditions"),
+                "example": ("Semiconductor lead time increase predicts "
+                            "capacity constraints")
             },
             "tail_risk_specific_slos": {
-                "approach": "Separate SLOs for normal vs. extreme conditions",
-                "implementation": "99% SLO for normal, 95% SLO for 'grey swan conditions'",
-                "detection": "Acknowledge different standards for extreme events",
-                "example": "Degraded service acceptable during pandemic-scale events"
+                "approach": ("Separate SLOs for normal "
+                             "vs. extreme conditions"),
+                "implementation": ("99% SLO for normal, 95% SLO for "
+                                   "'grey swan conditions'"),
+                "detection": ("Acknowledge different standards for "
+                              "extreme events"),
+                "example": ("Degraded service acceptable during "
+                            "pandemic-scale events")
             },
             "cumulative_probability_budgets": {
-                "approach": "Reserve error budget for rare but probable events",
-                "implementation": "Allocate budget: 70% normal operations, 30% grey swan reserve",
-                "detection": "Plan for improbable-but-not-impossible events",
-                "example": "Keep reserve capacity for once-per-decade events"
+                "approach": ("Reserve error budget for rare but "
+                             "probable events"),
+                "implementation": ("Allocate budget: 70% normal "
+                                   "operations, 30% grey swan reserve"),
+                "detection": ("Plan for improbable-but-not-impossible "
+                              "events"),
+                "example": ("Keep reserve capacity for once-per-decade "
+                            "events")
             },
             "weak_signal_amplification": {
-                "approach": "Create SLIs specifically for early warning signals",
-                "implementation": "Monitor rates of change, correlation shifts, distribution shape",
-                "detection": "Catch degradation before it becomes critical",
-                "example": "Alert when month-over-month error rate slope increases 20%"
+                "approach": ("Create SLIs specifically for early "
+                             "warning signals"),
+                "implementation": ("Monitor rates of change, correlation "
+                                   "shifts, distribution shape"),
+                "detection": ("Catch degradation before "
+                              "it becomes critical"),
+                "example": ("Alert when month-over-month error rate slope "
+                            "increases 20%")
             },
             "scenario_based_slo_testing": {
-                "approach": "Test SLO monitoring against hypothetical Grey Swan scenarios",
-                "implementation": "Would your SLOs have caught the 2008 crisis? COVID? Chip shortage?",
+                "approach": ("Test SLO monitoring against hypothetical "
+                             "Grey Swan scenarios"),
+                "implementation": ("Would your SLOs have caught the 2008 "
+                                   "crisis? COVID? Chip shortage?"),
                 "detection": "Identify blind spots before they matter",
-                "example": "Simulate 'all remote workers' load on current infrastructure"
+                "example": ("Simulate 'all remote workers' load on "
+                            "current infrastructure")
             }
         }
 ```
@@ -897,7 +1050,8 @@ class GreySwanEnsembleDetector:
     
     def assess_risk(self, days=7):
         """
-        If 3+ signals in 7 days with avg severity >0.5, Grey Swan approaching.
+        If 3+ signals in 7 days with avg severity >0.5,
+        Grey Swan approaching.
         """
         recent = self.signals[-days:]
         if len(recent) < 3:
@@ -960,39 +1114,61 @@ class GreySwanToRhinoEvolution:
         """
         return {
             "stage_1_initial_detection": {
-                "state": "Grey Swan identified through statistical analysis",
+                "state": ("Grey Swan identified through "
+                          "statistical analysis"),
                 "organizational_response": "Risk assessment conducted",
-                "probability_assessment": "Low probability event (2-5% annual)",
+                "probability_assessment": ("Low probability event "
+                                           "(2-5% annual)"),
                 "typical_reaction": "Noted but not prioritized",
-                "example": "Pandemic risk identified in business continuity planning"
+                "example": ("Pandemic risk identified in business "
+                            "continuity planning")
             },
             "stage_2_cost_based_dismissal": {
                 "state": "Preparation costs evaluated against probability",
-                "organizational_response": "Economic analysis shows high prep cost for low probability",
-                "probability_dismissal": "'Too unlikely to justify investment'",
+                "organizational_response": ("Economic analysis shows high "
+                                            "prep cost for low "
+                                            "probability"),
+                "probability_dismissal": ("'Too unlikely to justify "
+                                          "investment'"),
                 "typical_reaction": "Rational decision to accept risk",
-                "example": "Pandemic preparation budget cut as 'unlikely to occur'"
+                "example": ("Pandemic preparation budget cut as "
+                            "'unlikely to occur'")
             },
             "stage_3_cultural_entrenchment": {
-                "state": "Dismissal becomes organizational policy and culture",
-                "organizational_response": "Grey Swan discussion becomes routine dismissal",
-                "institutional_attitude": "'We've decided not to worry about that'",
-                "typical_reaction": "Risk assessment becomes pro forma exercise",
-                "example": "Pandemic planning becomes checkbox compliance activity"
+                "state": ("Dismissal becomes organizational policy "
+                          "and culture"),
+                "organizational_response": ("Grey Swan discussion becomes "
+                                            "routine dismissal"),
+                "institutional_attitude": ("'We've decided not to worry "
+                                           "about that'"),
+                "typical_reaction": ("Risk assessment becomes pro "
+                                     "forma exercise"),
+                "example": ("Pandemic planning becomes checkbox "
+                            "compliance activity")
             },
             "stage_4_active_ignorance": {
-                "state": "Grey Swan discussion becomes taboo or 'unrealistic'",
-                "organizational_response": "People who raise concern are marginalized",
-                "institutional_prohibition": "Career risk to mention the risk",
-                "typical_reaction": "Grey Swan becomes Elephant in the Room",
-                "example": "Engineers afraid to mention inadequate pandemic preparation"
+                "state": ("Grey Swan discussion becomes taboo "
+                          "or 'unrealistic'"),
+                "organizational_response": ("People who raise concern "
+                                            "are marginalized"),
+                "institutional_prohibition": ("Career risk to mention "
+                                              "the risk"),
+                "typical_reaction": ("Grey Swan becomes Elephant "
+                                     "in the Room"),
+                "example": ("Engineers afraid to mention inadequate "
+                            "pandemic preparation")
             },
             "stage_5_grey_rhino": {
-                "state": "Obvious threat actively ignored despite visibility",
-                "organizational_response": "Risk charging straight at organization, horn down",
-                "institutional_blindness": "Can't see it because we've trained ourselves not to",
-                "typical_reaction": "Shock when 'unpredictable' event occurs",
-                "example": "COVID-19 hits, organization claims 'nobody could have predicted'"
+                "state": ("Obvious threat actively ignored "
+                          "despite visibility"),
+                "organizational_response": ("Risk charging straight at "
+                                            "organization, horn down"),
+                "institutional_blindness": ("Can't see it because we've "
+                                            "trained ourselves not to"),
+                "typical_reaction": ("Shock when 'unpredictable' "
+                                     "event occurs"),
+                "example": ("COVID-19 hits, organization claims "
+                            "'nobody could have predicted'")
             }
         }
 ```
@@ -1008,28 +1184,41 @@ If this progression feels familiar, good. That's your scar tissue talking.
         """
         return {
             "linguistic_markers": {
-                "grey_swan_language": "'Unlikely but possible', 'edge case', 'tail risk'",
-                "transition_language": "'Too improbable to worry about', 'not worth discussing'",
-                "grey_rhino_language": "'Unrealistic', 'alarmist', 'not how we do things'",
-                "warning_sign": "Language shift from probability to legitimacy"
+                "grey_swan_language": ("'Unlikely but possible', "
+                                       "'edge case', 'tail risk'"),
+                "transition_language": ("'Too improbable to worry about', "
+                                        "'not worth discussing'"),
+                "grey_rhino_language": ("'Unrealistic', 'alarmist', "
+                                        "'not how we do things'"),
+                "warning_sign": ("Language shift from probability "
+                                 "to legitimacy")
             },
             "organizational_behavior": {
                 "grey_swan_behavior": "Risk discussed and evaluated",
-                "transition_behavior": "Risk evaluation becomes perfunctory",
-                "grey_rhino_behavior": "Risk discussion actively discouraged",
+                "transition_behavior": ("Risk evaluation becomes "
+                                        "perfunctory"),
+                "grey_rhino_behavior": ("Risk discussion actively "
+                                        "discouraged"),
                 "warning_sign": "Shift from analysis to dismissal"
             },
             "resource_allocation": {
-                "grey_swan_allocation": "Small preparedness budget considered",
-                "transition_allocation": "Budget requests consistently rejected",
-                "grey_rhino_allocation": "Budget requests no longer submitted",
-                "warning_sign": "Learned helplessness in preparation attempts"
+                "grey_swan_allocation": ("Small preparedness budget "
+                                         "considered"),
+                "transition_allocation": ("Budget requests consistently "
+                                          "rejected"),
+                "grey_rhino_allocation": ("Budget requests no longer "
+                                          "submitted"),
+                "warning_sign": ("Learned helplessness in preparation "
+                                 "attempts")
             },
             "expertise_treatment": {
                 "grey_swan_treatment": "External experts consulted",
-                "transition_treatment": "Expert warnings treated as outliers",
-                "grey_rhino_treatment": "Experts marginalized or not consulted",
-                "warning_sign": "Shift from engagement to dismissal of expertise"
+                "transition_treatment": ("Expert warnings treated "
+                                         "as outliers"),
+                "grey_rhino_treatment": ("Experts marginalized or "
+                                         "not consulted"),
+                "warning_sign": ("Shift from engagement to dismissal "
+                                 "of expertise")
             }
         }
 ```
@@ -1045,34 +1234,51 @@ The scariest marker is when "this is unlikely" turns into "this is illegitimate 
         """
         return {
             "maintain_legitimacy": {
-                "practice": "Keep Grey Swan preparation as acceptable organizational activity",
-                "mechanism": "Regular senior leadership discussion of tail risks",
-                "implementation": "Quarterly Grey Swan review with executive participation",
-                "protection": "Prevents dismissal from becoming culturally entrenched"
+                "practice": ("Keep Grey Swan preparation as acceptable "
+                             "organizational activity"),
+                "mechanism": ("Regular senior leadership discussion "
+                              "of tail risks"),
+                "implementation": ("Quarterly Grey Swan review with "
+                                   "executive participation"),
+                "protection": ("Prevents dismissal from becoming "
+                               "culturally entrenched")
             },
             "periodic_reassessment": {
-                "practice": "Regular review of Grey Swan probability estimates",
+                "practice": ("Regular review of Grey Swan "
+                             "probability estimates"),
                 "mechanism": "Update assessments as new data emerges",
                 "implementation": "Annual comprehensive risk reassessment",
-                "protection": "Catches when 'unlikely' becomes 'increasingly likely'"
+                "protection": ("Catches when 'unlikely' becomes "
+                               "'increasingly likely'")
             },
             "external_perspective_injection": {
-                "practice": "Regular input from outside experts and other industries",
-                "mechanism": "Fresh eyes that aren't acclimated to organizational dismissal",
-                "implementation": "External risk audits, industry peer reviews",
-                "protection": "Counters groupthink and institutional blindness"
+                "practice": ("Regular input from outside experts and "
+                             "other industries"),
+                "mechanism": ("Fresh eyes that aren't acclimated to "
+                              "organizational dismissal"),
+                "implementation": ("External risk audits, "
+                                   "industry peer reviews"),
+                "protection": ("Counters groupthink and "
+                               "institutional blindness")
             },
             "preparation_as_insurance": {
-                "practice": "Frame Grey Swan preparation as risk management, not prediction",
-                "mechanism": "Use insurance/options framing rather than probability framing",
-                "implementation": "'Insurance costs X, loss exposure is Y' analysis",
-                "protection": "Shifts from 'will it happen' to 'can we afford exposure'"
+                "practice": ("Frame Grey Swan preparation as risk "
+                             "management, not prediction"),
+                "mechanism": ("Use insurance/options framing rather "
+                              "than probability framing"),
+                "implementation": ("'Insurance costs X, loss exposure "
+                                   "is Y' analysis"),
+                "protection": ("Shifts from 'will it happen' to "
+                               "'can we afford exposure'")
             },
             "champion_protection": {
                 "practice": "Protect people who raise Grey Swan concerns",
-                "mechanism": "Reward rather than punish attention to tail risks",
-                "implementation": "Performance recognition for comprehensive risk assessment",
-                "protection": "Prevents cultural shift to active ignorance"
+                "mechanism": ("Reward rather than punish attention "
+                              "to tail risks"),
+                "implementation": ("Performance recognition for "
+                                   "comprehensive risk assessment"),
+                "protection": ("Prevents cultural shift to "
+                               "active ignorance")
             }
         }
 ```
@@ -1218,14 +1424,18 @@ class GreySwanActionPlan:
             "grey_swan_inventory": {
                 "time_required": "2-4 hours",
                 "participants": "SRE team + senior engineers",
-                "activity": "Brainstorm 3-5 sigma events relevant to your infrastructure",
+                "activity": ("Brainstorm 3-5 sigma events relevant "
+                             "to your infrastructure"),
                 "output": "List of 10-15 potential Grey Swan scenarios",
                 "example_questions": [
-                    "What would happen if traffic increased 10x overnight?",
-                    "What if our primary cloud region became unavailable for a week?",
+                    ("What would happen if traffic increased "
+                     "10x overnight?"),
+                    ("What if our primary cloud region became "
+                     "unavailable for a week?"),
                     "What if semiconductor lead times doubled?",
                     "What if our vendor went bankrupt?",
-                    "What if we lost our entire engineering team to a pandemic?"
+                    ("What if we lost our entire engineering team "
+                     "to a pandemic?")
                 ]
             },
             "slo_time_window_audit": {
@@ -1238,16 +1448,22 @@ class GreySwanActionPlan:
             "external_indicator_research": {
                 "time_required": "2 hours",
                 "participants": "SRE + business analyst if available",
-                "activity": "Identify relevant external indicators for your domain",
-                "output": "List of economic, supply chain, geopolitical metrics to track",
-                "examples": "Semiconductor lead times, cloud capacity reports, ISP outage frequency"
+                "activity": ("Identify relevant external indicators "
+                             "for your domain"),
+                "output": ("List of economic, supply chain, "
+                           "geopolitical metrics to track"),
+                "examples": ("Semiconductor lead times, cloud capacity "
+                             "reports, ISP outage frequency")
             },
             "error_budget_grey_swan_review": {
                 "time_required": "1 hour",
                 "participants": "SRE lead + product lead",
-                "activity": "Calculate whether error budget accounts for rare events",
-                "output": "Proposal to reserve portion of budget for Grey Swans",
-                "math": "If 2% annual Grey Swan risk of 72-hour outage, need budget for it"
+                "activity": ("Calculate whether error budget accounts "
+                             "for rare events"),
+                "output": ("Proposal to reserve portion of budget "
+                           "for Grey Swans"),
+                "math": ("If 2% annual Grey Swan risk of 72-hour outage, "
+                         "need budget for it")
             }
         }
 ```
@@ -1265,28 +1481,34 @@ Week one is about getting out of denial. No heroics. Just write the list down.
             "grey_swan_scenario_modeling": {
                 "time_required": "1 day per scenario",
                 "participants": "Cross-functional team",
-                "activity": "For top 3 Grey Swans, model detailed infrastructure impact",
-                "output": "Impact assessment: demand changes, capacity needs, cost implications",
-                "deliverable": "Document answering 'what would we need to handle this?'"
+                "activity": ("For top 3 Grey Swans, model detailed "
+                             "infrastructure impact"),
+                "output": ("Impact assessment: demand changes, "
+                           "capacity needs, cost implications"),
+                "deliverable": ("Document answering 'what would we "
+                                "need to handle this?'")
             },
             "multi_timescale_dashboard": {
                 "time_required": "2-3 days engineering",
                 "participants": "SRE + observability engineer",
-                "activity": "Build dashboard showing SLIs across multiple time windows",
+                "activity": ("Build dashboard showing SLIs across "
+                             "multiple time windows"),
                 "output": "Single view showing 1h, 1d, 1w, 1m, 1q trends",
                 "benefit": "Slow degradation patterns become visible"
             },
             "external_monitoring_implementation": {
                 "time_required": "2 days engineering",
                 "participants": "SRE",
-                "activity": "Set up monitoring for key external indicators",
+                "activity": ("Set up monitoring for key external "
+                             "indicators"),
                 "output": "Alerts on significant external factor changes",
                 "example": "Alert if chip lead times increase >30%"
             },
             "grey_swan_preparation_prioritization": {
                 "time_required": "4 hours",
                 "participants": "SRE leadership + executives",
-                "activity": "Rank Grey Swan preparations by expected value",
+                "activity": ("Rank Grey Swan preparations by "
+                             "expected value"),
                 "output": "Prioritized list with cost/benefit analysis",
                 "deliverable": "Budget request for top 3 preparations"
             }
@@ -1313,7 +1535,8 @@ Month one is where you stop being "aware" and start being "prepared." This is th
             "preparation_implementation": {
                 "time_required": "Varies by preparation",
                 "participants": "Engineering teams",
-                "activity": "Implement top 3 priority Grey Swan preparations",
+                "activity": ("Implement top 3 priority "
+                             "Grey Swan preparations"),
                 "output": "Increased resilience to identified Grey Swans",
                 "examples": [
                     "Build surge capacity mechanism",
@@ -1330,9 +1553,12 @@ Month one is where you stop being "aware" and start being "prepared." This is th
             },
             "grey_swan_response_playbooks": {
                 "time_required": "2 days per scenario",
-                "participants": "SRE + relevant subject matter experts",
-                "activity": "Document response procedures for each Grey Swan",
-                "output": "Runbooks for early warning, imminent event, during event, recovery",
+                "participants": ("SRE + relevant subject matter "
+                                 "experts"),
+                "activity": ("Document response procedures for "
+                             "each Grey Swan"),
+                "output": ("Runbooks for early warning, imminent event, "
+                           "during event, recovery"),
                 "benefit": "Faster, better response when Grey Swan hits"
             }
         }
@@ -1375,20 +1601,27 @@ If you only keep one sentence from this chapter, keep that last one. It's the di
     
     def what_makes_them_dangerous(self):
         return {
-            "comfortable_dismissal": "Math gives us permission to ignore them",
+            "comfortable_dismissal": ("Math gives us permission to "
+                                      "ignore them"),
             "long_intervals": "Rare enough that we forget they're real",
-            "preparation_costs": "High upfront investment for uncertain payoff",
-            "probability_bias": "Humans terrible at intuiting low-probability events",
-            "evolution_risk": "Can become Grey Rhinos through institutional dismissal"
+            "preparation_costs": ("High upfront investment for "
+                                  "uncertain payoff"),
+            "probability_bias": ("Humans terrible at intuiting "
+                                 "low-probability events"),
+            "evolution_risk": ("Can become Grey Rhinos through "
+                               "institutional dismissal")
         }
     
     def what_makes_them_manageable(self):
         return {
-            "predictable": "Can be modeled using historical data and statistics",
+            "predictable": ("Can be modeled using historical data "
+                            "and statistics"),
             "detectable": "Give warning signs through weak signals",
-            "preparable": "Specific preparations possible unlike Black Swans",
+            "preparable": ("Specific preparations possible unlike "
+                           "Black Swans"),
             "testable": "Can scenario plan and exercise responses",
-            "valuable": "Preparations create options beyond just avoiding disaster"
+            "valuable": ("Preparations create options beyond just "
+                         "avoiding disaster")
         }
 ```
 
@@ -1442,17 +1675,18 @@ This is deliberately written like a runbook, because in the real world, that's w
     
     def looking_ahead_to_grey_rhino(self):
         return """
-        We've seen how Grey Swans occupy the dangerous middle ground between
-        the truly unpredictable (Black Swans) and the everyday expected
-        (White Swans). They're the risks we can model but often dismiss.
+        We've seen how Grey Swans occupy the dangerous middle ground
+        between the truly unpredictable (Black Swans) and the everyday
+        expected (White Swans). They're the risks we can model but often
+        dismiss.
         
-        But there's something even more frustrating than dismissing a Grey Swan
-        through probability math: actively ignoring an obvious threat through
-        organizational inertia and cultural dysfunction.
+        But there's something even more frustrating than dismissing a
+        Grey Swan through probability math: actively ignoring an obvious
+        threat through organizational inertia and cultural dysfunction.
         
         That's where we're going next: the Grey Rhino, the massive, obvious
-        hazard charging straight at us, horn down, that we choose not to address
-        despite its visibility and probability.
+        hazard charging straight at us, horn down, that we choose not to
+        address despite its visibility and probability.
         
         If Grey Swans are risks we dismiss because they're "unlikely,"
         Grey Rhinos are risks we ignore because addressing them is

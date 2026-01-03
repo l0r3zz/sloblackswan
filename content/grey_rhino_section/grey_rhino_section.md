@@ -54,11 +54,12 @@ class RiskPrioritization:
         objective_priority = impact * probability
         
         # What we actually do - heavily discount future problems
-        discount_factor = 0.5 ** (time_to_impact / 30)  # Half-life of 30 days
+        discount_factor = 0.5 ** (time_to_impact / 30)
+        # Half-life of 30 days
         subjective_priority = impact * probability * discount_factor
         
-        # A problem 90 days away gets 12.5% the attention of today's problem
-        # even with identical impact and probability
+        # A problem 90 days away gets 12.5% the attention of
+        # today's problem even with identical impact and probability
         return subjective_priority
 ```
 
@@ -575,11 +576,18 @@ class GreyRhinoDashboard:
         """
         return {
             'total_identified_rhinos': len(self.all_grey_rhinos()),
-            'days_to_impact': min(rhino.days_until_impact for rhino in self.all_grey_rhinos()),
+            'days_to_impact': min(
+                rhino.days_until_impact for rhino in self.all_grey_rhinos()
+            ),
             'estimated_outage_cost': self.calculate_risk_cost(),
             'mitigation_cost': self.calculate_fix_cost(),
-            'cost_ratio': self.calculate_risk_cost() / self.calculate_fix_cost(),
-            'message': f"We can spend ${self.mitigation_cost} now or ${self.risk_cost} later"
+            'cost_ratio': (
+                self.calculate_risk_cost() / self.calculate_fix_cost()
+            ),
+            'message': (
+                f"We can spend ${self.mitigation_cost} now or "
+                f"${self.risk_cost} later"
+            )
         }
 ```
 
@@ -760,7 +768,11 @@ class GreyRhinoRegister:
         """
         return sorted(
             self.rhinos,
-            key=lambda r: (r['days_to_impact'] / 365.0) * r['impact'] * r['probability'],
+            key=lambda r: (
+                (r['days_to_impact'] / 365.0) *
+                r['impact'] *
+                r['probability']
+            ),
             reverse=True
         )
 ```
@@ -965,9 +977,15 @@ class MitigationTimelines:
                 by_category[category] = []
             
             by_category[category].append({
-                'id_to_assign': rhino['assigned_date'] - rhino['identified_date'],
-                'assign_to_start': rhino['work_started'] - rhino['assigned_date'],
-                'start_to_done': rhino['resolved_date'] - rhino['work_started'],
+                'id_to_assign': (
+                    rhino['assigned_date'] - rhino['identified_date']
+                ),
+                'assign_to_start': (
+                    rhino['work_started'] - rhino['assigned_date']
+                ),
+                'start_to_done': (
+                    rhino['resolved_date'] - rhino['work_started']
+                ),
                 'total': rhino['resolved_date'] - rhino['identified_date']
             })
         
