@@ -245,6 +245,7 @@ Stampede response follows a specific pattern: identify the trigger, map what it 
 Find the initial event that stressed the system. Usually this is a Swan—Grey or Black. But the trigger doesn't have to be external. AWS Oct 20 showed that organizational decay can be the trigger.
 
 Examples:
+
 - **Crypto Oct 10**: Grey Swan—Trump tariff tweet
 - **AWS Oct 20**: Organizational Elephant (attrition) was the trigger—no external swan
 - **COVID-19**: Grey Swan—pandemic (predictable category, dismissed probability) that revealed supply chain Jellyfish, healthcare capacity Rhinos, and social inequality Elephants
@@ -254,11 +255,13 @@ Examples:
 Identify which other risks became visible. Classify each revealed risk by type (Rhino, Elephant, Jellyfish, etc.). The system was always full of these risks. The trigger just revealed them.
 
 **Crypto Oct 10 example**: The Grey Swan trigger (Trump tweet) revealed:
+
 - Grey Rhino: Binance capacity issues (known for years)
 - Black Jellyfish: Exchange cascade (arbitrage bots, liquidations)
 - Elephant: Leverage culture (7% derivative exposure that doubled since May 2025, creating structural vulnerability, but undiscussable)
 
 **AWS Oct 20 example**: The Elephant trigger (organizational attrition) revealed:
+
 - Grey Rhino: DNS race condition (technical debt that accumulated due to attrition)
 - Black Jellyfish: Dependency cascade (DynamoDB → EC2 → IAM → 1,000+ services)
 - Hidden dependencies: AWS Console depends on services it monitors
@@ -284,12 +287,14 @@ Ask: how are risks amplifying each other? Break feedback loops first. Interactio
 Don't simplify to a single root cause. Document all risk types involved and how they interacted. Learn how the trigger revealed hidden risks. Address each risk type appropriately.
 
 **Crypto Oct 10 lessons**:
+
 - Grey Swan: Monitor for policy announcement vulnerability
 - Grey Rhino: Fix exchange capacity before next volatility
 - Black Jellyfish: Design cascade-resistant exchange architecture
 - Elephant: Address leverage culture (if psychologically safe to discuss)
 
 **AWS Oct 20 lessons**:
+
 - Elephant: Acknowledge that organizational memory is infrastructure
 - Grey Rhino: Fix DNS race condition (technical debt)
 - Black Jellyfish: Break dependency chains, add circuit breakers
@@ -467,31 +472,36 @@ Calculate overall portfolio health by assessing each category (score 1-5 based o
 
 **For Daily Operations**:
 
-1. **Recognize the pattern**
+**Recognize the pattern**
+
    - Use the decision tree when issues arise
    - Don't assume everything is the same type of risk
    - Look for hybrid combinations
 
-2. **Apply the right response**
+**Apply the right response**
+
    - Black Swans: Adapt, don't try to predict (COVID-19 showed adaptation beats prediction)
    - Grey Swans: Monitor and intervene early using LSLIRE framework (Crypto Oct 10 trigger was monitorable)
    - Grey Rhinos: Stop ignoring, prioritize fix (Binance capacity, AWS DNS race condition)
    - Elephants: Create safety to discuss (AWS attrition, crypto leverage culture)
    - Jellyfish: Break cascades, reduce coupling (AWS Oct 20: break retry storms first)
 
-3. **Think in portfolios**
+**Think in portfolios**
+
    - You're not managing one risk, you're managing many
    - Balance investment across risk types
    - Strengthen your weakest area
 
 **For Incident Response**:
 
-1. **Quick classification during incident**
+**Quick classification during incident**
+
    - Cascading? Likely Jellyfish
    - Unprecedented? Likely Swan
    - We knew about this? Likely Rhino or Elephant
 
-2. **Response matches type**
+**Response matches type**
+
    - Different animals need different approaches
    - Don't apply Rhino response to Swan
    - Recognize stampedes early (Crypto Oct 10, AWS Oct 20 both showed stampede patterns)
@@ -499,12 +509,14 @@ Calculate overall portfolio health by assessing each category (score 1-5 based o
 
 **For Long-Term Planning**:
 
-1. **Build comprehensive portfolio**
+**Build comprehensive portfolio**
+
    - Coverage across all risk types
    - No single strategy catches everything
    - Balance prevention and resilience
 
-2. **Regular portfolio assessment**
+**Regular portfolio assessment**
+
    - Where are you weakest?
    - Where are you over-invested?
    - What's changing in your risk landscape?
@@ -514,12 +526,14 @@ Calculate overall portfolio health by assessing each category (score 1-5 based o
 This comparative analysis reveals the fundamental truth: SLOs are a tool for one type of measurement, but they miss entire categories of risk.
 
 **What SLOs measure well**:
+
 - Service availability
 - Error rates
 - Latency
 - Component health
 
 **What the bestiary adds**:
+
 - **Black Swans**: Resilience to unprecedented events (COVID-19 adaptation)
 - **Grey Swans**: Complex pattern monitoring via LSLIRE framework (Crypto Oct 10 trigger)
 - **Grey Rhinos**: Organizational priority setting (Binance capacity, AWS DNS debt)
@@ -541,5 +555,5 @@ Build the complete portfolio.
 
 ---
 
-*Next: The Field Guide will provide quick-reference cards and practical identification tools for using this framework in the wild.*
+*Next: We'll talk about How to handle incidents when the animals decide to pay you a visit.*
 
