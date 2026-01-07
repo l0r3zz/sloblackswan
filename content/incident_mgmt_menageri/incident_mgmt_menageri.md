@@ -2,23 +2,21 @@
 
 ![][Eugene_F_Kranz_at_his_console_at_the_NASA_Mission_Control_Center]
 
-### The Origins: From Forest Fires to Failing Servers
+### The Origins: From Emergency Rooms to War Rooms
 
-Incident management didn't start in Silicon Valley. It started in the wilderness.
+Here's a dirty secret about incident management: we didn't invent it. We borrowed it from people who deal with actual emergencies -- the kind where buildings collapse, chemicals spill, and helicopters need to land in the right place at the right time.
 
-In 1970, a wildfire in California killed 16 firefighters. The investigation revealed a pattern: fires were being fought by ad-hoc groups with unclear command structures, no communication protocols, and competing authorities. Chaos killed people.
+In the 1970s, California's emergency responders had a problem. When multiple agencies showed up to the same disaster -- fire departments, police, hazmat teams, EMS -- chaos ensued. Everyone had their own radio frequency. Everyone had their own chain of command. Everyone thought they were in charge. Coordination wasn't just difficult; it was nearly impossible.
 
-The result was the Incident Command System (ICS), developed by FIRESCOPE (Firefighting Resources of California Organized for Potential Emergencies) in the 1970s. ICS wasn't about fires, it was about human coordination under extreme stress when lives are at stake.
+The solution was the Incident Command System (ICS), developed through FIRESCOPE (Firefighting Resources of California Organized for Potential Emergencies). The insight was elegant: the problem wasn't firefighting or hazmat response or search and rescue. The problem was *human coordination under stress*. Different agencies, different expertise, different vocabularies -- and somehow they all had to work together when everything was on fire (sometimes literally).
 
-The system worked. It spread from wildfire management to hazmat responses, to search and rescue, to emergency medical services, to disaster response. By the time 9/11 happened, ICS was the standard framework for managing any crisis involving multiple agencies and unclear situations.
+ICS gave them common terminology, clear authority structures, and scalable organization. It worked so well that by the 1990s it became the national standard for emergency response. FEMA adopted it. The military studied it. Hospital emergency rooms implemented versions of it.
 
-Then IT discovered it had the same problems.
+And then, sometime around the late 1990s, IT folks started having the same realization.
 
-Early IT incident management was chaos. When the database crashed at 2 AM, whoever answered the phone became the "incident commander" by default. Information scattered across email threads, chat rooms, and phone calls. Multiple people made conflicting decisions. Recovery was slow because nobody knew who was doing what.
+Remember what incident response looked like in the early days of internet infrastructure? Your database crashes at 2 AM. Whoever answers the pager becomes the de facto "incident commander" -- not because they're qualified, but because they picked up the phone. Information scatters across email threads, IRC channels, and voicemails. Three different people make conflicting decisions about whether to failover. Recovery takes four hours instead of forty minutes because nobody knows who's doing what.
 
-Sound familiar? It should. It's the same pattern that killed those firefighters in 1970.
-
-IT adapted ICS because the problems were identical:
+The parallels to pre-ICS emergency response were obvious:
 
 - High-stress environments where minutes matter
 - Unclear situations requiring rapid sense-making
@@ -26,7 +24,9 @@ IT adapted ICS because the problems were identical:
 - Information overload requiring filtering and prioritization
 - Need for clear authority without bureaucratic delay
 
-The sophistication varied. ITIL codified incident management for enterprise IT in the 1980s. The DevOps movement brought it to software teams in the 2000s. But the real evolution happened at Google.
+ITIL tried to codify this for enterprise IT in the 1980s. The DevOps movement brought it to software teams in the 2000s. But the real transformation happened when Ben Treynor Sloss built something new at Google.
+
+In 2003, Treynor founded what would become Site Reliability Engineering -- famously described as "what happens when you ask a software engineer to design an operations team." His team didn't just adopt ICS; they reimagined it for distributed systems and software engineers. They took principles designed for coordinating fire trucks and helicopters and adapted them for coordinating microservices and on-call rotations. The result became the foundation for modern tech incident management, codified in the 2016 Google SRE book that changed the industry.
 {::pagebreak /}
 ### The Google Model: SRE and the Incident Management Revolution
 
@@ -42,7 +42,6 @@ This isn't semantic. It's fundamental. If incidents are failures, you hide them.
 **Blamelessness as Infrastructure**
 
 Google formalized what the best emergency responders already knew: blame destroys information flow.
-
 As I've written elsewhere, the Unwritten Laws of Information Flow apply brutally during incidents [White, 2025]:
 
 - **First Law**: Information flows to where it's safe. If engineers fear blame, they hide problems during the incident ("I thought it might be my deploy, but I didn't want to say...") and lie in retrospectives.
@@ -77,20 +76,6 @@ Controlled chaos, deliberately breaking things in production, serves multiple pu
 
 This is antifragility in action: getting stronger through stress.
 
-**The Incident Commander Role**
-
-Google formalized the Incident Commander (IC) as a dedicated role during incidents. The IC doesn't fix the problem; they coordinate the people who do.
-
-Key responsibilities:
-
-- Maintain situational awareness across all workstreams
-- Make decisive calls when information is incomplete
-- Shield the responders from external pressure
-- Ensure communication flows appropriately
-- Manage the incident timeline and documentation
-- Declare incident closed and transition to learning
-
-The IC role separates "managing the incident" from "fixing the technical problem." This is crucial because the skills are different. Your best database engineer might be terrible at coordinating five teams under stress.
 
 **Severity Levels That Match Impact**
 
@@ -126,11 +111,12 @@ IT incidents are:
 - Role boundaries based on technical domain, not organizational chart
 
 Good incident management adapts ICS principles to IT reality rather than forcing IT reality into ICS structure.
+**The Incident Command Team**
 
 ![][incident-response-team]
 
-ICS provides a structure for coordinating complex responses. For IT incident management we modify them a little to reflect a structure more relevant to SRE teams:
-
+ICS provides a structure for coordinating complex responses. For IT incident management, we modify them a little to reflect a structure more relevant to SRE teams:
+{::pagebreak /}
 | Role | Primary Responsibility | Why It Matters |
 |------|----------------------|----------------|
 | **Incident Commander (IC)** | Overall incident management, strategic decisions | Single point of authority prevents chaos |
@@ -139,7 +125,91 @@ ICS provides a structure for coordinating complex responses. For IT incident man
 | **Technical Lead** | Manages and directs technical resolution effort | Focus on problem resolution, not politics |
 | **Subject Matter Expert (SME)** | In the weeds of the effort| Bringing to bear technical expertise to the situation |
 
-For small incidents, one person might wear multiple hats. For large incidents (especially Black Swans or stampedes), you need the full structure.
+For small incidents, one person might wear multiple hats. For large incidents (especially Black Swans or stampedes), you need the full structure. Let's go into more detail on each role.
+
+**The Incident Commander Role**
+
+When things go sideways, the natural state of an org is chaos. Everyone starts "helping" in parallel. Three people declare three different root causes. Someone pings the CEO. Someone else starts a war in the status page comments. The Incident Commander exists to impose order on that mess.
+
+The IC is not the hero debugger. The IC is the air traffic controller. They run the room, keep information flowing, make decisions when the data is incomplete, and protect the responders from becoming a stakeholder-driven improv troupe. At Google, this role got formalized because scaling systems without scaling coordination is just chaos at a higher QPS.
+
+Key responsibilities:
+
+- Declare the incident, take command early, and make the handoff explicit ("I'm IC")
+- Set priorities: stabilize first, understand second, optimize later
+- Maintain situational awareness across workstreams (what we know, what we don't, what we're trying next)
+- Make calls under uncertainty and keep decision latency low
+- Keep roles clear: TL drives technical strategy; SMEs investigate/execute; Comms handles updates; Scribe captures reality
+- Shield responders from external pressure and random drive-by "ideas"
+- Decide when to close the incident and transition cleanly into learning
+
+Common failure mode: **The IC grabs a keyboard, stops running the room, and the incident reverts to an unmoderated group chat with better uptime graphs.**
+
+**The Communications Lead Role**
+
+During an incident, your engineers are trying to hold a complicated system in their heads while it actively betrays them. Now imagine also asking them to provide real-time updates to executives, customer support, and that one VP who just discovered the Slack channel and thinks "any update?" is a contribution. That's why the Communications Lead exists.
+
+The Comms Lead is the pressure relief valve. They take messy, half-true technical reality and translate it into accurate, calm updates for humans. Done right, this role keeps the IC and Technical Lead focused, keeps stakeholders informed, and keeps the incident from turning into a second incident made of rumors. Tooling helps here (FireHydrant, Blameless, or whatever your org uses) because the best comms are consistent, timestamped, and boring in the most reassuring way possible.
+
+Key responsibilities:
+
+- Establish an update cadence and stick to it (even if the update is "no new ETA yet")
+- Translate technical status into stakeholder language without lying or speculating
+- Coordinate with Support/CS, PR, Legal, and execs on what gets said and when
+- Maintain a single source of truth (status page + internal summary) so Slack doesn't become folklore
+- Protect responders from drive-by questions and context-free escalations
+
+Common failure mode: **Either they go silent (stakeholders panic), or they overshare raw hypotheses (stakeholders panic faster).**
+
+**The Scribe Role**
+
+If you don't write it down during the incident, you will rewrite history afterward. Not intentionally. Your brain will do it for you. Stress makes memory unreliable, and incidents are basically a live demo of that fact.
+
+The Scribe is your external hard drive. They capture the timeline, decisions, hypotheses, and outcomes while everyone else is heads-down. Modern platforms (again: FireHydrant, Blameless, etc.) can auto-capture a bunch of this, but automation isn't the job. The job is building a coherent narrative in real time: what we knew, when we knew it, what we tried, and why.
+
+Key responsibilities:
+
+- Maintain a real-time incident timeline (timestamps matter; vibes do not)
+- Record decisions and the rationale ("we rolled back because p99 doubled after deploy X")
+- Track action items and owners during the incident (who is doing what, right now)
+- Capture key artifacts: links to dashboards, logs, queries, configs, incident docs
+- Summarize periodically for the IC so the room stays aligned
+
+Common failure mode: **They become a stenographer for Slack spam instead of a curator of signal.**
+
+**The Technical Lead Role**
+
+The Incident Commander runs the room. The Technical Lead runs the work. That separation is the whole point. The IC is optimizing for coordination and decision-making under uncertainty; the Technical Lead is optimizing for "how do we stop the bleeding without making it worse?"
+
+The Technical Lead manages the technical strategy: containment, mitigation, recovery, and validation. They direct the SMEs, choose which hypotheses to pursue, and keep the team from turning twelve unrelated fixes into performance art. They also do something subtle but critical: they keep the response shaped like a funnel -- wide exploration early, narrow focus once evidence shows up.
+
+Key responsibilities:
+
+- Lead technical triage: form hypotheses, test them, converge on likely causes
+- Direct SMEs and split workstreams cleanly (avoid duplicate effort and random heroics)
+- Propose mitigation steps to the IC with risk framing ("reversible vs irreversible")
+- Validate recovery (service restored, error rates stable, no hidden second-order failures)
+- Call out when the situation has shifted domains (Clear/Complicated/Complex/Chaotic) and the strategy needs to change
+
+Common failure mode: **They try to be the best debugger in the room instead of the person coordinating the debuggers.**
+
+**The Subject Matter Expert (SME) Role**
+
+SMEs are the ones in the weeds. They know the service, the dependency graph, the failure modes, and which "simple restart" will actually detonate the remaining working parts. They are the reason your incident response isn't just confident guessing.
+
+An SME's job is not to "own the incident." It's to own a slice of the technical problem space and report back with evidence. The best SMEs stay brutally factual under pressure: what they're seeing, what they tried, what changed, and what they recommend next. They don't need to be loud. They need to be right.
+
+Key responsibilities:
+
+- Investigate a specific subsystem/domain (DB, networking, auth, storage, deploy pipeline, etc.)
+- Provide evidence-based updates to the Technical Lead (not just theories)
+- Execute mitigations safely (with rollbacks and guardrails when possible)
+- Identify hidden dependencies and second-order effects ("this cache flush will spike DB load")
+- Contribute to post-incident learning with precise technical context
+
+Common failure mode: **They chase the most interesting problem, not the most incident-relevant one.**
+
+
 
 **The ICS Principles That Matter for IT:**
 
