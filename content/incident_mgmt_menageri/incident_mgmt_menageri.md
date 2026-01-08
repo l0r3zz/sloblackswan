@@ -96,7 +96,7 @@ This distinction matters for our bestiary:
 - A Black Jellyfish cascade can go from P3 to P0 in under five minutes
 {::pagebreak /}
 ### The Incident Command System: A Foundation, Not a Straitjacket
-**Where ICS Breaks Down for IT:**
+#### **Where ICS Breaks Down for IT:**
 
 ICS assumes:
 
@@ -111,7 +111,8 @@ IT incidents are:
 - Role boundaries based on technical domain, not organizational chart
 
 Good incident management adapts ICS principles to IT reality rather than forcing IT reality into ICS structure.
-**The Incident Command Team**
+
+#### **The Incident Command Team**
 
 ![][incident-response-team]
 
