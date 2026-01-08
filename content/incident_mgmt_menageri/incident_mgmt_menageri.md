@@ -1124,21 +1124,21 @@ This wasn't a discrete incident; it was a permanent shift masquerading as a temp
 
 **Key IC Decisions:**
 
-1. **Declaring this is not a normal incident (Week 2)**
+**1. Declaring this is not a normal incident (Week 2)**
 
    - Recognition that incident response framework doesn't fit
    - Shift from "restore service" to "transform architecture"
    - Communication to stakeholders: this is permanent change
    - **Cynefin Note:** Recognizing domain transition from Chaotic to Complex
 
-2. **Abandoning historical capacity models (Week 3)**
+**2. Abandoning historical capacity models (Week 3)**
 
    - Traditional approach: forecast from past data
    - Black Swan approach: assume past is irrelevant
    - Build based on current reality, not historical trends
    - **Cynefin Note:** Complex domain thinking - past patterns don't apply
 
-3. **Prioritizing architectural change over stability (Month 2)**
+**3. Prioritizing architectural change over stability (Month 2)**
 
    - Normally: don't change architecture during crisis
    - Black Swan: current architecture can't handle new reality
@@ -1724,14 +1724,14 @@ Boeing had a cultural problem that everyone inside the company knew about but wo
 
 **The Elephants (Widely Known Internally):**
 
-1. **Schedule pressure over safety rigor**
+**1. Schedule pressure over safety rigor**
 Intense pressure to ship
 
    - Engineers felt rushed
    - Testing compressed
    - Concerns about MCAS design raised but minimized
 
-2. **MCAS single-point-of-failure design**
+**2. MCAS single-point-of-failure design**
 Lack of srong, insistant technical oversight
 
    - Relied on single sensor (AOA sensor)
