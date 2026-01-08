@@ -405,11 +405,6 @@ Use KPIs diagnostically to understand organizational strengths and weaknesses ac
 
 Before we dive into animal-specific incident management, we need to address the foundation that makes everything else possible: culture.
 
-The quote from the State of the Art report is worth repeating:
-
-> "The primacy of culture over tooling cannot be overstated. The advanced automation and AIOps platforms discussed later in this report are only as effective as the data they are fed. In a culture of blame, where incident data is hidden or distorted, these tools are rendered useless. The SRE cultural shift, with its emphasis on blamelessness, psychological safety, and data-driven learning, is the necessary precursor to, not a byproduct of, successful technological implementation. The state of the art is a socio-technical system where the social (culture) enables the technical (tools)."
-
-This isn't inspirational poster material. It's infrastructure engineering.
 
 #### The Unwritten Laws in Practice
 
@@ -600,6 +595,7 @@ Clear domains have a dangerous boundary with Chaotic. If you're following a "rec
 **For Incident Management:**
 Most routine incidents (P3, P4) live in the Clear domain. They're the "known knowns" - we know what they are, we know how to fix them. The danger is when teams treat Complex or Chaotic incidents as Clear, applying runbooks that don't fit.
 {::pagebreak /}
+
 #### Domain 2: Complicated - "The Expert Domain"
 
 **Characteristics:**
@@ -837,7 +833,7 @@ The IC must explicitly classify the situation to avoid these defaults.
 
 **For Incident Management:**
 Many incidents start in Confusion. The framework provides a way out: break it down, classify the parts, apply appropriate strategies. This is especially important for stampedes (multiple animals attacking simultaneously).
-
+{::pagebreak /}
 ### Applying Cynefin to Incident Response: Practical Framework
 
 #### Step 1: Classify the Incident
@@ -922,7 +918,7 @@ This represents increasing understanding:
 - Adjust strategy as the situation evolves
 - Don't get stuck in one domain when you should transition
 - Explicitly discuss transitions with the team
-
+{::pagebreak /}
 ### Common Mistakes and How to Avoid Them
 
 **Mistake 1: Applying the Wrong Strategy**
@@ -953,7 +949,7 @@ Following best practices without recognizing when context has changed.
 Now that we understand Cynefin, let's see how it applies to each animal in our bestiary.
 
 ---
-
+{::pagebreak /}
 ### Incident Management by Animal Type
 Each animal that may show up has a particular strategy that needs to be implemented in order to appropriately deal with it. A skilled Incident Commander will also realize that there may be more than one animal involved. There may be a stampede or there may be some hybrid animal. Bear in mind that these animal classifications are really just a mnemonic in order for you to bring some structure to a chaotic thought process that you might be embedded in at the time. Read through these incident management scenarios, and use them to formulate your own plan when confronted with individual animals or with a combination of them.
 ### Black Swan Incidents: When the Unprecedented Strikes
@@ -1045,7 +1041,7 @@ No one had considered "what if someone accidentally removes critical S3 subsyste
 
 **Key Decisions Under Uncertainty:**
 
-1. **Decision**: Attempt full subsystem restart vs. partial recovery
+1. **Decision - Attempt full subsystem restart vs. partial recovery:**+
 
    - **Context**: Partial recovery might be faster but risk corruption
    - **Information available**: ~30%
@@ -1053,9 +1049,9 @@ No one had considered "what if someone accidentally removes critical S3 subsyste
    - **Outcome**: Full restart chosen, added time but ensured data integrity
    - **Cynefin Note:** This was a Complex-domain decision - no expert analysis could determine the answer, required experimentation
 
-2. **Decision**: Public communication about lack of ETA
+2. **Decision - Public communication about lack of ETA:**
 
-   - **Context**: Customers demanding timeline, but genuinely unknown
+   - **Context:** Customers demanding timeline, but genuinely unknown
    - **Information available**: ~20%
    - **Time to decide**: 30 minutes
    - **Outcome**: Honest communication about uncertainty, preserved trust
@@ -1128,21 +1124,21 @@ This wasn't a discrete incident; it was a permanent shift masquerading as a temp
 
 **Key IC Decisions:**
 
-1. **Declaring this is not a normal incident** (Week 2)
+1. **Declaring this is not a normal incident (Week 2)**
 
    - Recognition that incident response framework doesn't fit
    - Shift from "restore service" to "transform architecture"
    - Communication to stakeholders: this is permanent change
    - **Cynefin Note:** Recognizing domain transition from Chaotic to Complex
 
-2. **Abandoning historical capacity models** (Week 3)
+2. **Abandoning historical capacity models (Week 3)**
 
    - Traditional approach: forecast from past data
    - Black Swan approach: assume past is irrelevant
    - Build based on current reality, not historical trends
    - **Cynefin Note:** Complex domain thinking - past patterns don't apply
 
-3. **Prioritizing architectural change over stability** (Month 2)
+3. **Prioritizing architectural change over stability (Month 2)**
 
    - Normally: don't change architecture during crisis
    - Black Swan: current architecture can't handle new reality
@@ -1164,7 +1160,7 @@ This wasn't a discrete incident; it was a permanent shift masquerading as a temp
 - **Elephant**: "We don't really trust remote work" (cultural resistance)
 - **Black Jellyfish**: VPN failure cascaded to collaboration tools, to home networks
 - **Grey Swan**: Pandemic was predictable; specific digital impact was complex
-
+{::pagebreak /}
 #### Black Swan Incident Management Principles
 
 **1. Recognize You're in Unprecedented Territory (Cynefin: Classify as Chaotic or Complex)**
@@ -1398,13 +1394,13 @@ Knight Capital Group was a major market maker, executing billions in trades dail
 **What monitoring could have caught:**
 
 1. **Pre-deployment:**
-
+It seems like very little vetting or "second eyes" were done for the deployment plan
    - Configuration drift detection (1 of 8 servers different)
    - Pre-production validation (test algorithm still present)
    - Deployment verification (all servers updated)
 
 2. **During incident:**
-
+If there was a "kill switch", staff were hesitant to flip it.
    - Anomaly detection (trading volume 100x normal)
    - Position monitoring (accumulating huge positions)
    - Loss tracking (money hemorrhaging)
@@ -1729,12 +1725,14 @@ Boeing had a cultural problem that everyone inside the company knew about but wo
 **The Elephants (Widely Known Internally):**
 
 1. **Schedule pressure over safety rigor**
+Intense pressure to ship
 
    - Engineers felt rushed
    - Testing compressed
    - Concerns about MCAS design raised but minimized
 
 2. **MCAS single-point-of-failure design**
+Lack of srong, insistant technical oversight
 
    - Relied on single sensor (AOA sensor)
    - No redundancy
