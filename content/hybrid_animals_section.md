@@ -9,7 +9,7 @@ This is pedagogically useful. Understanding each risk type in isolation helps us
 
 But it's also a lie of convenience.
 
-In the wild—in production systems, in real incidents, in actual catastrophic failures—risks rarely appear as pure specimens. Real-world disasters are messy. They're hybrids, chimeras, unholy combinations of multiple risk types interacting in unexpected ways. Sometimes they're stampedes: a Grey Swan or Black Swan event that stresses the system, revealing Grey Rhinos we'd been ignoring, triggering Jellyfish cascades through dependencies we didn't know were fragile, all while Elephants in the Room prevent anyone from speaking up about the obvious problems.
+In the wild (in production systems, in real incidents, in actual catastrophic failures) risks rarely appear as pure specimens. Real-world disasters are messy. They're hybrids, chimeras, unholy combinations of multiple risk types interacting in unexpected ways. Sometimes they're stampedes: a Grey Swan or Black Swan event that stresses the system, revealing Grey Rhinos we'd been ignoring, triggering Jellyfish cascades through dependencies we didn't know were fragile, all while Elephants in the Room prevent anyone from speaking up about the obvious problems.
 
 Two major 2025 outages exemplify this perfectly, each in different ways. The October 10 cryptocurrency market crash showed how a Grey Swan trigger (Trump's tariff announcement) could stress the system, revealing Grey Rhinos (exchange capacity issues), triggering Black Jellyfish cascades (market-wide failures), all while an Elephant in the Room (leverage culture) prevented proper response. Just ten days later, the October 20 AWS outage demonstrated how organizational decay (Elephant) enabled technical debt accumulation (Grey Rhino), which triggered cascading failures (Black Jellyfish) when the system forgot its own fragility.
 
@@ -19,15 +19,15 @@ Both events were stampedes: one animal triggering others, which then amplified e
 
 Real-world failures are rarely single animals. They're generally triggered by a swan—either Black or Grey—and then the other animals come rushing in. Many of these other animals are hybrids of each other, amplifying each other's impact in ways that create super-linear damage.
 
-Sometimes a single risk event—a Grey Swan or Black Swan—doesn't just cause direct damage. It stresses the system in ways that reveal all the other animals that were hiding in the shadows.
+Sometimes a single risk event (a Grey Swan or Black Swan) doesn't just cause direct damage. It stresses the system in ways that reveal all the other animals that were hiding in the shadows.
 
 Think of it like a stampede in the wild: one swan (Grey or Black) appears, and suddenly you realize the savannah is full of animals you didn't know were there. Grey Rhinos that were grazing peacefully start charging. Elephants in the Room become impossible to ignore. Jellyfish that were floating dormant suddenly bloom and sting everything.
 
 The system was always full of these risks. The swan just revealed them.
-{::pagebreak /}
+
 #### Example: COVID-19 as a Stampede Trigger
 
-COVID-19 itself was a Grey Swan (predictable category—pandemics are known risks—but dismissed probability), though it appeared as a Black Swan to many who hadn't prepared. Its appearance triggered a stampede that revealed countless other risks.
+COVID-19 itself was a Grey Swan (predictable category (pandemics are known risks) but dismissed probability), though it appeared as a Black Swan to many who hadn't prepared. Its appearance triggered a stampede that revealed countless other risks.
 
 The initial trigger was straightforward:
 
@@ -39,7 +39,7 @@ trigger = {
 }
 ```
 
-But the stampede revealed multiple risk types. First, the supply chain Jellyfish—a cascading failure that showed how efficiency had eliminated resilience:
+But the stampede revealed multiple risk types. First, the supply chain Jellyfish: a cascading failure that showed how efficiency had eliminated resilience:
 
 ```python
 supply_chain_jellyfish = {
@@ -51,7 +51,7 @@ supply_chain_jellyfish = {
 }
 ```
 
-Then the healthcare capacity Rhino—a predictable risk that had been ignored:
+Then the healthcare capacity Rhino: a predictable risk that had been ignored:
 
 ```python
 healthcare_capacity_rhino = {
@@ -63,7 +63,7 @@ healthcare_capacity_rhino = {
 }
 ```
 
-And the remote work infrastructure Rhino—another capacity issue revealed by stress:
+And the remote work infrastructure Rhino: another capacity issue revealed by stress:
 
 ```python
 remote_work_infrastructure_rhino = {
@@ -83,7 +83,8 @@ The cascade pattern was clear:
 stampede_pattern = {
     'trigger': 'COVID-19 appears',
     'stress': 'Systems pushed beyond normal operating parameters',
-    'revelation': 'Weaknesses that were invisible under normal load become obvious',
+    'revelation': ('Weaknesses that were invisible under normal '
+                   'load become obvious'),
     'amplification': 'Each revealed risk interacts with others',
     'total_impact': 'Far exceeds the direct impact of the trigger'
 }
@@ -107,7 +108,8 @@ class InfrastructureStampede:
     def model_tech_stampede(self):
         # Example: Major customer signs up (Swan-ish event)
         trigger = {
-            'event': 'Enterprise customer with 10x typical usage signs contract',
+            'event': ('Enterprise customer with 10x typical '
+                      'usage signs contract'),
             'expected_impact': 'More load, scale up infrastructure',
             'actual_impact': 'Revealed ecosystem of hidden problems'
         }
@@ -116,43 +118,56 @@ class InfrastructureStampede:
         revealed_problems = {
             'database_capacity_rhino': {
                 'hidden_issue': 'Database at 85% capacity for 6 months',
-                'how_revealed': 'New customer load pushed to 98%, query timeouts',
+                'how_revealed': ('New customer load pushed to 98%, '
+                                 'query timeouts'),
                 'why_hidden': 'Seemed fine at 85%, ignored warnings',
                 'animal': 'Grey Rhino'
             },
             
             'n_plus_1_query_jellyfish': {
                 'hidden_issue': 'Code had N+1 query patterns',
-                'how_revealed': '10x data volume made patterns catastrophic',
-                'cascade': 'Database load → app server memory → cache eviction → more DB load',
+                'how_revealed': ('10x data volume made patterns '
+                                 'catastrophic'),
+                'cascade': ('Database load → app server memory → '
+                            'cache eviction → more DB load'),
                 'animal': 'Black Jellyfish'
             },
             
             'monitoring_blind_spots_rhino': {
-                'hidden_issue': 'Monitoring didn\'t cover new usage patterns',
-                'how_revealed': 'Alerts didn\'t fire until customer complained',
+                'hidden_issue': ('Monitoring didn\'t cover new '
+                                 'usage patterns'),
+                'how_revealed': ('Alerts didn\'t fire until '
+                                 'customer complained'),
                 'why_hidden': 'Monitoring designed for typical usage',
                 'animal': 'Grey Rhino'
             },
             
             'architecture_assumptions_elephant': {
-                'hidden_issue': 'Architecture assumed single-tenant patterns',
-                'how_revealed': 'Multi-tenant customer hit undocumented limits',
-                'why_not_discussed': 'Admitting architecture limitations hurts sales',
+                'hidden_issue': ('Architecture assumed '
+                                 'single-tenant patterns'),
+                'how_revealed': ('Multi-tenant customer hit '
+                                 'undocumented limits'),
+                'why_not_discussed': ('Admitting architecture '
+                                      'limitations hurts sales'),
                 'animal': 'Elephant in the Room'
             },
             
             'on_call_burnout_elephant': {
-                'hidden_issue': 'Team already exhausted from previous incidents',
+                'hidden_issue': ('Team already exhausted from '
+                                 'previous incidents'),
                 'how_revealed': 'Incident response was slower, sloppier',
-                'why_not_discussed': 'Complaining about hours seen as weakness',
+                'why_not_discussed': ('Complaining about hours '
+                                      'seen as weakness'),
                 'animal': 'Elephant in the Room'
             },
             
             'technical_debt_rhino': {
-                'hidden_issue': 'Backlog full of deferred infrastructure work',
-                'how_revealed': 'No capacity to handle new customer properly',
-                'why_ignored': 'Feature work always prioritized over infrastructure',
+                'hidden_issue': ('Backlog full of deferred '
+                                 'infrastructure work'),
+                'how_revealed': ('No capacity to handle new '
+                                 'customer properly'),
+                'why_ignored': ('Feature work always prioritized '
+                                'over infrastructure'),
                 'animal': 'Grey Rhino'
             }
         }
@@ -165,20 +180,24 @@ class InfrastructureStampede:
             't=3_weeks': 'Monitoring gaps mean slow response (Rhino #2)',
             't=4_weeks': 'Architecture limits hit (Elephant visible)',
             't=5_weeks': 'On-call team burning out (Elephant #2)',
-            't=6_weeks': 'Can\'t fix fast enough due to tech debt (Rhino #3)',
-            't=8_weeks': 'Customer threatens to leave, executive escalation'
+            't=6_weeks': ('Can\'t fix fast enough due to tech '
+                          'debt (Rhino #3)'),
+            't=8_weeks': ('Customer threatens to leave, '
+                          'executive escalation')
         }
         
         return {
             'pattern': 'INFRASTRUCTURE STAMPEDE',
             'trigger': 'Seemingly manageable new load',
-            'reality': 'Load revealed ecosystem of technical and organizational debt',
+            'reality': ('Load revealed ecosystem of technical '
+                        'and organizational debt'),
             'animals_involved': 6,
-            'lesson': 'One stress event reveals all the problems you\'ve been ignoring'
+            'lesson': ('One stress event reveals all the problems '
+                       'you\'ve been ignoring')
         }
 ```
 
-This is incredibly common in SRE. A new customer, a traffic spike, a viral feature—something that should be manageable triggers a stampede because it stresses the system beyond its carefully-maintained facade of stability. Now let's examine two real-world stampedes from 2025 that demonstrate this pattern in action: the October 10 cryptocurrency market crash and the October 20 AWS outage.
+This is incredibly common in SRE. A new customer, a traffic spike, a viral feature, something that should be manageable triggers a stampede because it stresses the system beyond its carefully-maintained facade of stability. Now let's examine two real-world stampedes from 2025 that demonstrate this pattern in action: the October 10 cryptocurrency market crash and the October 20 AWS outage.
 
 
 ### Case Study: October 10, 2025 - The Crypto Cascade
@@ -188,6 +207,7 @@ This is incredibly common in SRE. A new customer, a traffic spike, a viral featu
 On October 10, 2025, President Trump announced a substantial increase in tariffs on Chinese exports to the U.S., raising them to 100%, and imposed export controls on critical software in retaliation for China's restrictions on rare earth mineral exports. The announcement sent shockwaves through global financial markets.
 
 **Market Response**:
+
 - Bitcoin dropped from all-time high of $126,000 (October 8) to low of $103,300 (October 10) - an 18% decline
 - Ethereum declined 5.8% to $3,637 (reaching lows of $3,436)
 - S&P 500 dropped over 2%
@@ -198,6 +218,7 @@ On October 10, 2025, President Trump announced a substantial increase in tariffs
 The crypto market crash unfolded over several hours as exchange infrastructure buckled under unprecedented trading volume and cascading system failures. While the political trigger was clear, the infrastructure failures that followed revealed a deeper pattern of hybrid risks.
 
 **The Leverage Cascade**:
+
 - Over $19.13 billion in leveraged positions liquidated within 24 hours
 - Real losses across the ecosystem potentially exceeding $50 billion
 - Market had accumulated speculative derivative exposure of nearly 7% of total capitalization (nearly doubling since May 2025)
@@ -207,11 +228,11 @@ Total impact: Nearly $1 trillion wiped from crypto market capitalization in one 
 
 #### The Multi-Animal Analysis
 
-Let's dissect this event through our bestiary framework, because it wasn't one thing—it was everything at once.
+Let's dissect this event through our bestiary framework, because it wasn't one thing; it was everything at once.
 
 #### The Grey Swan Element: The Tweet
 
-**Trump's tweet** was a Grey Swan—predictable in category but dismissed in probability:
+**Trump's tweet** was a Grey Swan: predictable in category but dismissed in probability:
 
 ```python
 class TrumpTweetAnalysis:
@@ -222,8 +243,10 @@ class TrumpTweetAnalysis:
         # Grey Swan criteria (as defined in the Grey Swan section)
         criteria = {
             'predictable_category': True,
-            # Trump making market-moving announcements via Twitter is well-known
-            # The market had even coined an acronym: TACO ("Trump Always Chickens Out")
+            # Trump making market-moving announcements via Twitter 
+            # is well-known
+            # The market had even coined an acronym: TACO 
+            # ("Trump Always Chickens Out")
             # Traders had automated systems monitoring his account
             
             'dismissed_probability': True,
@@ -253,7 +276,8 @@ class TrumpTweetAnalysis:
             'classification': 'GREY SWAN',
             'reasoning': 'Known actor (Trump), known medium (Twitter), '
                         'known pattern (TACO), but unpredictable timing '
-                        'and magnitude. Predictable type, dismissed probability.',
+                        'and magnitude. Predictable type, '
+                        'dismissed probability.',
             'impact': 'Served as trigger for cascade of other risk types',
             'grey_swan_characteristics': [
                 'Predictable category (Trump policy announcements)',
@@ -264,7 +288,7 @@ class TrumpTweetAnalysis:
         }
 ```
 
-The tweet itself wasn't a Black Swan. Trump's tendency to move markets via Twitter was well-known—so well-known that traders had coined the acronym TACO ("Trump Always Chickens Out") to describe the pattern where dramatic announcements often didn't materialize into actual policy. Some traders even had automated systems watching his account. But the specific timing, specific framing, and market's specific vulnerability at that moment created a Grey Swan: a predictable *type* of event that was dismissed as unlikely at that moment.
+The tweet itself wasn't a Black Swan. Trump's tendency to move markets via Twitter was well-known, so well-known that traders had coined the acronym TACO ("Trump Always Chickens Out") to describe the pattern where dramatic announcements often didn't materialize into actual policy. Some traders even had automated systems watching his account. But the specific timing, specific framing, and market's specific vulnerability at that moment created a Grey Swan: a predictable *type* of event that was dismissed as unlikely at that moment.
 
 More importantly: **the tweet was the trigger that revealed all the other animals**.
 
@@ -296,7 +320,8 @@ class BinanceCapacityRhino:
             
             'observable_patterns': {
                 'correlation': 'Outages correlate with 3x normal volume',
-                'warning_signs': 'Latency spikes precede outages by 5-10 min',
+                'warning_signs': ('Latency spikes precede outages '
+                                  'by 5-10 min'),
                 'frequency': 'Major issues every 6-8 months',
                 'trend': 'Getting worse, not better'
             }
@@ -307,15 +332,18 @@ class BinanceCapacityRhino:
             'high_probability': True,  # History of incidents
             'high_impact': True,  # Largest exchange, systemic importance
             'highly_visible': True,  # Public complaints, documented issues
-            'actively_ignored': True,  # Binance kept growing despite issues
-            'time_creates_false_security': True  # "It's been 6 months, we're fine"
+            'actively_ignored': True,  
+            # Binance kept growing despite issues
+            'time_creates_false_security': True 
+            # "It's been 6 months, we're fine"
         }
         
         return {
             'classification': 'GREY RHINO',
             'charging_speed': 'Visible for years, critical on Oct 10',
             'why_ignored': [
-                'Binance too profitable to fix (downtime for upgrades costly)',
+                'Binance too profitable to fix (downtime for '
+                'upgrades costly)',
                 'Competitors had similar issues (normalized dysfunction)',
                 'Users complained but kept trading (no exodus)',
                 'Every upgrade deferred for "better timing"'
@@ -326,6 +354,7 @@ class BinanceCapacityRhino:
 Everyone in crypto knew Binance had capacity issues. Traders joked about it. Engineers at other exchanges knew about it. Binance's own team knew about it. It was discussed openly on Twitter, Reddit, and in trading communities.
 
 But it was never fixed. The rhino was visible, charging, and ignored because:
+
 - Fixing it required downtime (lost revenue)
 - It hadn't caused a catastrophic failure yet (optimism bias)
 - Competitors had similar issues (diffusion of responsibility)
@@ -403,6 +432,7 @@ class CryptoCascadeJellyfish:
 ```
 
 This is textbook Jellyfish behavior:
+
 - **Known phenomenon**: Exchange capacity limits during volatility
 - **Rapid escalation**: 2 hours from Binance issues to market crisis
 - **Positive feedback**: Each exchange failure increased load on survivors
@@ -423,8 +453,10 @@ class CryptoLeverageElephant:
         uncomfortable_truths = {
             'retail_leverage': {
                 'fact': 'Retail traders routinely use 50x-100x leverage',
-                'public_stance': 'Exchanges offer tools for sophisticated traders',
-                'reality': 'Gambling addiction mechanics for retail destruction',
+                'public_stance': ('Exchanges offer tools for '
+                                  'sophisticated traders'),
+                'reality': ('Gambling addiction mechanics for '
+                            'retail destruction'),
                 'who_knows': 'Everyone in the industry',
                 'who_says_it': 'Almost no one publicly'
             },
@@ -432,14 +464,16 @@ class CryptoLeverageElephant:
             'exchange_incentives': {
                 'fact': 'Exchanges profit massively from liquidations',
                 'public_stance': 'We provide market liquidity services',
-                'reality': 'Business model relies on users getting liquidated',
+                'reality': ('Business model relies on users '
+                            'getting liquidated'),
                 'who_knows': 'Everyone in the industry',
                 'who_says_it': 'Whistleblowers only'
             },
             
             'systemic_fragility': {
                 'fact': 'High leverage makes market extremely fragile',
-                'public_stance': 'Mature market with sophisticated participants',
+                'public_stance': ('Mature market with '
+                                  'sophisticated participants'),
                 'reality': 'House of cards waiting for any shock',
                 'who_knows': 'Every serious analyst',
                 'who_says_it': 'Critics outside the industry'
@@ -452,14 +486,16 @@ class CryptoLeverageElephant:
             # Every trader knows leverage drives crashes
             
             'significantly_impactful': True,
-            # Leverage exposure was 7% of market cap (doubled since May 2025)
+            # Leverage exposure was 7% of market cap 
+            # (doubled since May 2025)
             # $19.13B liquidated in 24 hours
             # Real losses potentially exceeding $50B
             # Leverage amplified the Oct 10 crash exponentially
             
             'publicly_unacknowledged': True,
             # Industry doesn't discuss negative leverage effects
-            # Exchanges don't highlight that 7% derivative exposure is dangerous
+            # Exchanges don't highlight that 7% derivative 
+            # exposure is dangerous
             
             'socially_risky_to_name': True,
             # Saying "crypto is overleveraged" gets you attacked
@@ -481,11 +517,13 @@ class CryptoLeverageElephant:
             'classification': 'ELEPHANT IN THE ROOM',
             'the_elephant': 'Crypto market is fundamentally overleveraged',
             'oct_10_impact': {
-                'leverage_exposure': '7% of market cap (doubled since May 2025)',
+                'leverage_exposure': ('7% of market cap '
+                                      '(doubled since May 2025)'),
                 'liquidations': '$19.13 billion in 24 hours',
                 'real_losses': 'Potentially exceeding $50 billion',
                 'market_cap_drop': 'Nearly $1 trillion in one hour',
-                'amplification': 'Leverage turned political shock into market collapse'
+                'amplification': ('Leverage turned political shock '
+                                  'into market collapse')
             },
             'why_not_discussed': [
                 'Exchanges profit from leverage and liquidations',
@@ -493,9 +531,11 @@ class CryptoLeverageElephant:
                 'Admitting problem would reduce trading volume',
                 'Regulatory attention unwanted',
                 'Culture celebrates risk-taking',
-                'Industry normalized 7% derivative exposure as "mature market"'
+                'Industry normalized 7% derivative exposure '
+                'as "mature market"'
             ],
-            'cost_of_silence': '$1T market cap destroyed, $19B+ liquidations, $50B+ real losses'
+            'cost_of_silence': ('$1T market cap destroyed, $19B+ '
+                                'liquidations, $50B+ real losses')
         }
 ```
 
@@ -507,15 +547,16 @@ The elephant is this: the crypto market's leverage levels are insane and unsusta
 - Saying it makes you a "no-coiner" or "hater"
 - Regulatory scrutiny would follow honest discussion
 
-On October 10, this elephant trampled through the market. The political announcement triggered a price drop that cascaded through overleveraged positions. Over $19.13 billion in leveraged positions were liquidated within 24 hours, turning what might have been a manageable market correction into a catastrophic collapse. Real losses exceeded $50 billion as the leverage reset unfolded. The Jellyfish cascade was amplified by the Elephant's weight—7% derivative exposure that had doubled since May 2025 created a structural vulnerability just waiting for a trigger.
+On October 10, this elephant trampled through the market. The political announcement triggered a price drop that cascaded through overleveraged positions. Over $19.13 billion in leveraged positions were liquidated within 24 hours, turning what might have been a manageable market correction into a catastrophic collapse. Real losses exceeded $50 billion as the leverage reset unfolded. The Jellyfish cascade was amplified by the Elephant's weight: 7% derivative exposure that had doubled since May 2025 created a structural vulnerability just waiting for a trigger.
 
 Binance alone compensated users $283 million for system failures, specifically for losses directly attributable to their infrastructure breakdown (assets like USDE, BNSOL, and WBETH temporarily de-pegged due to system overload) (Binance compensation report, October 2025). This wasn't just market volatility—this was infrastructure failure meeting leverage culture in a perfect storm.
-{::pagebreak /}
+
 #### The Interaction Effects: Why Hybrid Events Are Worse
 
 Here's the critical insight: the October 10 crash wasn't just multiple risk types occurring simultaneously. It was multiple risk types **amplifying each other**.
 
 If each risk type had occurred alone, the impacts would have been manageable:
+
 - **Grey Swan tweet alone:** 5-7% Bitcoin drop, 30 minutes, recovery within 2 hours (normal market reaction to policy uncertainty)
 - **Grey Rhino capacity alone:** 2-3% drop, 1 hour, recovery once exchange restored (temporary liquidity crunch)
 - **Black Jellyfish cascade alone:** 8-10% drop, 2-3 hours, recovery once exchanges coordinated (technical failure causing liquidations)
@@ -527,13 +568,16 @@ But the actual impact showed amplification in ways the linear model missed:
 
 ```python
 actual_impact = {
-    'bitcoin_drop': 'Bitcoin dropped from $126,000 to $103,300 (18% decline)',
-    'market_cap_drop': 'Nearly $1 trillion in one hour (2x the predicted $500B)',
+    'bitcoin_drop': ('Bitcoin dropped from $126,000 to $103,300 '
+                     '(18% decline)'),
+    'market_cap_drop': ('Nearly $1 trillion in one hour '
+                        '(2x the predicted $500B)'),
     'liquidations': '$19.13 billion in 24 hours',
     'real_losses': 'Potentially exceeding $50 billion',
     'duration': '5+ hours of acute crisis',
     'BUT': 'Recovery took DAYS, not hours (the real amplification)',
-    'leverage_reset': 'Systemic leverage exposure reduced from 7% to below 4%'
+    'leverage_reset': ('Systemic leverage exposure reduced '
+                       'from 7% to below 4%')
 }
 ```
 
@@ -541,11 +585,17 @@ The amplification came from interaction effects. Each risk type made the others 
 
 ```python
 interaction_patterns = {
-    'swan_triggers_rhino': 'Tweet created volume that exposed capacity issue',
-    'rhino_enables_jellyfish': 'Capacity failure created cascade conditions',
-    'jellyfish_triggers_elephant': 'Cascade hit leveraged positions simultaneously',
-    'elephant_feeds_back_to_jellyfish': 'Liquidations created more exchange load, worsening cascade',
-    'key_insight': 'Each interaction amplifies the next, creating exponential feedback loops'
+    'swan_triggers_rhino': ('Tweet created volume that '
+                            'exposed capacity issue'),
+    'rhino_enables_jellyfish': ('Capacity failure created '
+                                'cascade conditions'),
+    'jellyfish_triggers_elephant': ('Cascade hit leveraged '
+                                    'positions simultaneously'),
+    'elephant_feeds_back_to_jellyfish': ('Liquidations created more '
+                                         'exchange load, '
+                                         'worsening cascade'),
+    'key_insight': ('Each interaction amplifies the next, '
+                    'creating exponential feedback loops')
 }
 ```
 
@@ -569,9 +619,10 @@ The crypto crash showed us what happens when external shocks meet internal vulne
 
 On October 20, 2025, a major global outage of Amazon Web Services began in the US-EAST-1 region. What started as a DNS race condition in DynamoDB's automated management system cascaded into a systemic failure affecting over 1,000 services and websites worldwide.
 
-**Root Cause**: A critical fault in DynamoDB's DNS management system where two automated components—DNS Planner and DNS Enactor—attempted to update the same DNS entry simultaneously. This coordination glitch deleted valid DNS records, resulting in an empty DNS record for DynamoDB's regional endpoint. This was a "latent defect" in automated DNS management that existed but hadn't been triggered until this moment.
+**Root Cause**: A critical fault in DynamoDB's DNS management system where two automated components (DNS Planner and DNS Enactor) attempted to update the same DNS entry simultaneously. This coordination glitch deleted valid DNS records, resulting in an empty DNS record for DynamoDB's regional endpoint. This was a "latent defect" in automated DNS management that existed but hadn't been triggered until this moment.
 
 **Timeline** (T+0 = 07:00 UTC / 3:00 AM EDT):
+
 - **T+0 minutes**: DNS race condition creates empty DNS record for DynamoDB endpoint
 - **T+0 to T+5 minutes**: DynamoDB API becomes unreachable, error rates spike
 - **T+5 to T+30 minutes**: Cascade spreads through EC2 instance launches (via Droplet Workflow Manager), Network Load Balancers, and dependent services
@@ -586,11 +637,11 @@ Total impact: 15+ hours of degradation affecting 1,000+ services globally. Finan
 
 #### The Multi-Animal Analysis
 
-Unlike the crypto crash, which began with an external trigger (Trump's tweet—a Grey Swan), the AWS outage was entirely self-inflicted—a catastrophic failure emerging from the intersection of technical debt, organizational decay, and cascading dependencies. This was a stampede triggered not by an external swan, but by a system that had lost its ability to remember its own scars.
+Unlike the crypto crash, which began with an external trigger (Trump's tweet, a Grey Swan), the AWS outage was entirely self-inflicted: a catastrophic failure emerging from the intersection of technical debt, organizational decay, and cascading dependencies. This was a stampede triggered not by an external swan, but by a system that had lost its ability to remember its own scars.
 
 #### The Elephant in the Room Element: The Great Attrition
 
-The most dangerous aspect of the AWS outage wasn't technical—it was organizational, and it had been obvious for years:
+The most dangerous aspect of the AWS outage wasn't technical; it was organizational, and it had been obvious for years:
 
 ```python
 class AWSAttritionElephant:
@@ -602,10 +653,12 @@ class AWSAttritionElephant:
         attrition_facts = {
             'official_layoffs': {
                 '2022-2024': '27,000+ employees across Amazon',
-                '2025_ongoing': 'Continued reductions, exact numbers unclear',
+                '2025_ongoing': ('Continued reductions, '
+                                 'exact numbers unclear'),
                 'aws_specific': 'July 2025: Hundreds cut from AWS',
                 'target_levels': '10% workforce reduction by end of 2025',
-                'principal_engineers': '25% of L7 (Principal) roles targeted'
+                'principal_engineers': ('25% of L7 (Principal) '
+                                        'roles targeted')
             },
             
             'regretted_attrition': {
@@ -656,24 +709,31 @@ class AWSAttritionElephant:
         return {
             'classification': 'ELEPHANT IN THE ROOM',
             'why_elephant': 'Everyone knew senior talent was leaving, '
-                          'everyone knew tribal knowledge was evaporating, '
-                          'no one in leadership connected it to reliability risk',
+                          'everyone knew tribal knowledge '
+                          'was evaporating, '
+                          'no one in leadership connected it '
+                          'to reliability risk',
             'evidence': [
-                'Corey Quinn (AWS expert): "This is what talent exodus looks like"',
+                'Corey Quinn (AWS expert): "This is what talent '
+                'exodus looks like"',
                 'Internal attrition reports: 69-81% regretted',
-                'Industry analysts: unprecedented senior engineer departures',
+                'Industry analysts: unprecedented senior '
+                'engineer departures',
                 'Competitor hiring: AWS refugees citing culture collapse'
             ],
             'why_unspoken': [
-                'Leadership narrative: efficiency and AI-driven optimization',
-                'Career risk: questioning layoffs = not being a team player',
+                'Leadership narrative: efficiency and '
+                'AI-driven optimization',
+                'Career risk: questioning layoffs = '
+                'not being a team player',
                 'Normalization: "Everyone is doing layoffs"',
-                'Complexity: hard to draw direct line from attrition to outage'
+                'Complexity: hard to draw direct line from '
+                'attrition to outage'
             ]
         }
 ```
 
-This wasn't speculation. Industry analyst Corey Quinn at DuckBill Group wrote the day of the outage: "When that tribal knowledge departs, you're left having to reinvent an awful lot of in-house expertise... This doesn't impact your service reliability—until one day it very much does, in spectacular fashion. I suspect that day is today."
+This wasn't speculation. Industry analyst Corey Quinn at DuckBill Group wrote the day of the outage: "When that tribal knowledge departs, you're left having to reinvent an awful lot of in-house expertise... This doesn't impact your service reliability, until one day it very much does, in spectacular fashion. I suspect that day is today."
 
 The Elephant wasn't the layoffs themselves. Every company does layoffs. The Elephant was the **unwillingness to acknowledge that organizational memory is infrastructure**, and that destroying it has reliability consequences that no amount of monitoring can compensate for.
 
@@ -690,15 +750,21 @@ class DNSRaceConditionRhino:
         # The technical issue wasn't new
         technical_debt = {
             'dns_management_system': {
-                'architecture': 'Two independent components for availability',
+                'architecture': ('Two independent components '
+                                 'for availability'),
                 'components': {
-                    'DNS_Planner': 'Monitors load balancer health, creates DNS plans',
+                    'DNS_Planner': ('Monitors load balancer health, '
+                                    'creates DNS plans'),
                     'DNS_Enactor': 'Applies changes via Route 53'
                 },
-                'known_weakness': ('Race condition between components when '
-                                   'updating same DNS entry simultaneously'),
-                'documentation': 'Latent defect in automated DNS management',
-                'oct_20_trigger': ('Coordination glitch led to deletion of valid DNS records, '
+                'known_weakness': ('Race condition between '
+                                   'components when '
+                                   'updating same DNS entry '
+                                   'simultaneously'),
+                'documentation': ('Latent defect in automated '
+                                  'DNS management'),
+                'oct_20_trigger': ('Coordination glitch led to '
+                                   'deletion of valid DNS records, '
                                    'empty DNS record resulted')
             },
             
@@ -712,7 +778,8 @@ class DNSRaceConditionRhino:
             'warning_signs': {
                 'increasing_frequency': 'DNS hiccups every few months',
                 'growing_complexity': 'More services depending on DNS',
-                'scaling_stress': 'DNS system not keeping pace with growth',
+                'scaling_stress': ('DNS system not keeping pace '
+                                   'with growth'),
                 'monitoring_gaps': 'Race conditions hard to observe'
             }
         }
@@ -757,13 +824,14 @@ class DNSRaceConditionRhino:
             'charging_speed': 'Years of accumulation, critical on Oct 20',
             'why_ignored': prioritization_failure,
             'rhinoceros_characteristics': rhino_profile,
-            'connection_to_elephant': 'Engineers who would have fixed this had left'
+            'connection_to_elephant': ('Engineers who would have '
+                                       'fixed this had left')
         }
 ```
 
 Here's where the Elephant and the Rhino intersect: the engineers who **remembered** that the DNS system had a race condition between DNS Planner and DNS Enactor had left. The engineers who **understood** why the two-component design was fragile had left. The engineers who **would have prioritized** fixing this had left. And when the race condition triggered on October 20, creating an empty DNS record, the engineers who would have known how to respond quickly and safely were gone too.
 
-What remained was excellent monitoring showing that DNS was working fine—until suddenly it wasn't. When automated recovery routines kicked in, they created conflicting state changes because no one was left who understood which automated processes were safe to run during an incident. The automation, designed to help, made things worse. State inconsistencies accumulated in EC2's Droplet Workflow Manager, requiring careful reconciliation that extended recovery beyond just fixing the DNS record.
+What remained was excellent monitoring showing that DNS was working fine, until suddenly it wasn't. When automated recovery routines kicked in, they created conflicting state changes because no one was left who understood which automated processes were safe to run during an incident. The automation, designed to help, made things worse. State inconsistencies accumulated in EC2's Droplet Workflow Manager, requiring careful reconciliation that extended recovery beyond just fixing the DNS record.
 
 #### The Black Jellyfish Element: The Cascade Architecture
 
@@ -792,10 +860,13 @@ class DynamoDBDependencyCascade:
             
             'indirect_dependencies': {
                 'EC2_launch_system': {
-                    'depends_on': 'DynamoDB for droplet lease management via DWFM',
+                    'depends_on': ('DynamoDB for droplet lease '
+                                   'management via DWFM'),
                     'component': 'EC2 Droplet Workflow Manager (DWFM)',
-                    'failure_mode': 'Cannot complete state checks, cannot launch new instances',
-                    'cascade_impact': 'Auto-scaling stops working, state inconsistencies accumulate'
+                    'failure_mode': ('Cannot complete state checks, '
+                                     'cannot launch new instances'),
+                    'cascade_impact': ('Auto-scaling stops working, '
+                                       'state inconsistencies accumulate')
                 },
                 
                 'Network_Load_Balancer': {
@@ -820,8 +891,10 @@ class DynamoDBDependencyCascade:
             'hidden_dependencies': {
                 'AWS_Console': 'Uses IAM, which uses DynamoDB',
                 'AWS_CLI': 'Uses IAM, which uses DynamoDB',
-                'Status_Dashboard': 'Hosted on infrastructure using DynamoDB',
-                'Customer_notification_system': 'Uses services depending on DynamoDB'
+                'Status_Dashboard': ('Hosted on infrastructure '
+                                     'using DynamoDB'),
+                'Customer_notification_system': ('Uses services '
+                                                 'depending on DynamoDB')
             }
         }
         
@@ -851,13 +924,16 @@ def model_cascade_propagation():
         },
             
         'T+15_minutes': {
-            'event': 'EC2 Droplet Workflow Manager (DWFM) cannot complete state checks',
-            'cascade_1': 'Lease management failures, cannot launch new EC2 instances',
+            'event': ('EC2 Droplet Workflow Manager (DWFM) '
+                      'cannot complete state checks'),
+            'cascade_1': ('Lease management failures, cannot '
+                          'launch new EC2 instances'),
             'cascade_2': 'Auto-scaling paralyzed',
             'cascade_3': 'State inconsistencies begin accumulating',
             'services_affected': ['EC2', 'ECS', 'Lambda', 'Fargate'],
             'error_rate': '40%',
-            'note': 'State inconsistencies will extend recovery beyond DNS restoration'
+            'note': ('State inconsistencies will extend '
+                     'recovery beyond DNS restoration')
         },
             
         'T+30_minutes': {
@@ -874,7 +950,8 @@ def model_cascade_propagation():
             'cascade_6': 'Cross-region replication breaks',
             'services_affected': ['Global: all services needing auth'],
             'error_rate': '80%',
-            'geographic_spread': 'US-EAST-1 failure now affecting global services'
+            'geographic_spread': ('US-EAST-1 failure now '
+                                  'affecting global services')
         },
             
         'T+90_minutes': {
@@ -903,9 +980,11 @@ def identify_feedback_loops():
     },
         
         'cascade_cascade': {
-            'mechanism': 'Failure in A causes B to fail, which causes C to fail',
+            'mechanism': ('Failure in A causes B to fail, '
+                          'which causes C to fail'),
             'amplification_factor': 'Exponential',
-            'result': 'By T+60, failures creating more failures faster than fixes'
+            'result': ('By T+60, failures creating more '
+                       'failures faster than fixes')
     },
         
         'monitoring_blindness': {
@@ -915,13 +994,16 @@ def identify_feedback_loops():
     },
         
         'state_inconsistency_accumulation': {
-            'mechanism': 'EC2 DWFM cannot complete state checks, inconsistent states accumulate',
+            'mechanism': ('EC2 DWFM cannot complete state checks, '
+                          'inconsistent states accumulate'),
             'amplification_factor': 'Compounding over time',
-            'result': 'Even after DNS restored, state reconciliation required, extending recovery'
+            'result': ('Even after DNS restored, state reconciliation '
+                       'required, extending recovery')
     },
         
         'automation_conflict': {
-            'mechanism': 'Automated recovery routines create conflicting state changes',
+            'mechanism': ('Automated recovery routines create '
+                          'conflicting state changes'),
             'amplification_factor': 'Automation fighting itself',
             'result': 'Complicated manual remediation, extended downtime'
     }
@@ -929,12 +1011,17 @@ def identify_feedback_loops():
     
     return {
             'classification': 'BLACK JELLYFISH',
-            'trigger': 'DNS race condition (Grey Rhino) - DNS Planner/Enactor coordination glitch',
-            'amplification': 'Cascading dependencies with positive feedback + state inconsistencies',
+            'trigger': ('DNS race condition (Grey Rhino) - '
+                        'DNS Planner/Enactor coordination glitch'),
+            'amplification': ('Cascading dependencies with positive '
+                              'feedback + state inconsistencies'),
             'propagation_speed': 'Exponential (doubling every 15 minutes)',
-            'containment': 'None - no circuit breakers, all dependencies synchronous',
-            'recovery': 'Required throttling EC2 launches to stop retry storm, state reconciliation',
-            'duration': '15+ hours from first symptoms, full recovery taking over a day',
+            'containment': ('None - no circuit breakers, '
+                            'all dependencies synchronous'),
+            'recovery': ('Required throttling EC2 launches to '
+                         'stop retry storm, state reconciliation'),
+            'duration': ('15+ hours from first symptoms, '
+                         'full recovery taking over a day'),
             'jellyfish_characteristics': [
         'Known components (DynamoDB, DNS)',
         'Unknown interactions (cascade paths, state inconsistencies)',
@@ -946,7 +1033,7 @@ def identify_feedback_loops():
     }
 ```
 
-This is the Black Jellyfish pattern in its purest form: **every component was well-understood, but their interaction created emergent behavior no one predicted**. The DNS race condition was bad enough, but the state inconsistencies that accumulated—especially in EC2's Droplet Workflow Manager—meant that even after DNS was restored, the system couldn't recover quickly. Automated recovery routines, designed to help, instead created conflicting state changes that complicated manual remediation. Full recovery took over a day, not because of the initial DNS fault, but because of the accumulated state inconsistencies and automation conflicts that the cascade created.
+This is the Black Jellyfish pattern in its purest form: **every component was well-understood, but their interaction created emergent behavior no one predicted**. The DNS race condition was bad enough, but the state inconsistencies that accumulated (especially in EC2's Droplet Workflow Manager) meant that even after DNS was restored, the system couldn't recover quickly. Automated recovery routines, designed to help, instead created conflicting state changes that complicated manual remediation. Full recovery took over a day, not because of the initial DNS fault, but because of the accumulated state inconsistencies and automation conflicts that the cascade created.
 
 #### The Interaction Effect: How the Animals Worked Together
 
@@ -971,9 +1058,12 @@ amplification_sequence = {
         'combined_risk': 'HIGH but invisible to SLOs'
     },
     'Trigger_event': {
-        'what': 'DNS Planner/Enactor race condition triggers (rhino stampede)',
-        'why_critical': 'No one left who remembered this latent defect could happen (elephant)',
-        'immediate_cascade': ('Empty DNS record → DynamoDB unreachable → Cascades '
+        'what': ('DNS Planner/Enactor race condition '
+                 'triggers (rhino stampede)'),
+        'why_critical': ('No one left who remembered this latent '
+                         'defect could happen (elephant)'),
+        'immediate_cascade': ('Empty DNS record → DynamoDB '
+                              'unreachable → Cascades '
                               'through 1,000+ services (jellyfish bloom)')
     },
     'Detection_phase': {
@@ -983,7 +1073,8 @@ amplification_sequence = {
     },
     'Response_phase': {
         'duration': '15+ hours (full recovery over a day)',
-        'why_so_long': 'Retry storms, state inconsistencies, automation conflicts (jellyfish)',
+        'why_so_long': ('Retry storms, state inconsistencies, '
+                        'automation conflicts (jellyfish)'),
         'compounded_by': 'Knowledge gaps in response team (elephant)'
     }
 }
@@ -1004,25 +1095,34 @@ class ContrastAnalysis:
         comparison = {
             'Crypto_Crash': {
                 'primary_trigger': 'External (Trump tweet - Grey Swan)',
-                'secondary_trigger': 'Infrastructure capacity (Grey Rhino)',
+                'secondary_trigger': ('Infrastructure '
+                                      'capacity (Grey Rhino)'),
                 'cascade_mechanism': 'Market structure (Black Jellyfish)',
-                'elephant': 'Leverage culture (everyone knows, no one discusses)',
+                'elephant': ('Leverage culture (everyone knows, '
+                             'no one discusses)'),
                 'duration': '5 hours',
-                'impact': 'Nearly $1T market cap destroyed, $19.13B liquidations, $50B+ real losses',
+                'impact': ('Nearly $1T market cap destroyed, '
+                           '$19.13B liquidations, $50B+ real losses'),
                 'recovery': 'Relatively fast once exchanges restored',
-                'key_lesson': 'External shocks reveal infrastructure weakness'
+                'key_lesson': ('External shocks reveal '
+                               'infrastructure weakness')
             },
             
             'AWS_Outage': {
-                'primary_trigger': 'Internal (DNS Planner/Enactor race condition - Grey Rhino)',
+                'primary_trigger': ('Internal (DNS Planner/Enactor '
+                                    'race condition - Grey Rhino)'),
                 'secondary_trigger': 'Knowledge loss (Elephant in Room)',
-                'cascade_mechanism': 'Dependency web + state inconsistencies (Black Jellyfish)',
+                'cascade_mechanism': ('Dependency web + state '
+                                      'inconsistencies (Black Jellyfish)'),
                 'elephant': 'Talent exodus (everyone knew, no one named)',
                 'duration': '15+ hours (full recovery over a day)',
-                'impact': '$75M/hour losses, potential total $581M (CyberCube, 2025)',
+                'impact': ('$75M/hour losses, potential total '
+                           '$581M (CyberCube, 2025)'),
                 'services_affected': '1,000+ services globally',
-                'recovery': 'Slow due to state inconsistencies and automation conflicts',
-                'key_lesson': 'Organizational decay is infrastructure risk, state management critical'
+                'recovery': ('Slow due to state inconsistencies '
+                             'and automation conflicts'),
+                'key_lesson': ('Organizational decay is infrastructure '
+                               'risk, state management critical')
             },
             
             'Similarities': [
@@ -1035,23 +1135,29 @@ class ContrastAnalysis:
             ],
             
             'Differences': [
-                'Crypto: exogenous trigger (political announcement), endogenous amplification (leverage)',
-                'AWS: endogenous trigger (DNS race condition), endogenous amplification (cascades)',
-                'Crypto: deliberate architectural choices (centralization, high leverage)',
-                'AWS: organizational decay enabled technical decay (knowledge loss)',
-                'Crypto: some profited from the crash (whale traders, exchanges from liquidations)',
+                'Crypto: exogenous trigger (political announcement), '
+                'endogenous amplification (leverage)',
+                'AWS: endogenous trigger (DNS race condition), '
+                'endogenous amplification (cascades)',
+                'Crypto: deliberate architectural choices '
+                '(centralization, high leverage)',
+                'AWS: organizational decay enabled technical decay '
+                '(knowledge loss)',
+                'Crypto: some profited from the crash (whale traders, '
+                'exchanges from liquidations)',
                 'AWS: pure loss, no winners',
                 'Crypto: industry learned to diversify exchanges',
                 'AWS: industry questioning cloud concentration',
                 'Crypto: recovery relatively fast once exchanges restored',
-                'AWS: extended recovery due to state inconsistencies and automation conflicts'
+                'AWS: extended recovery due to state inconsistencies '
+                'and automation conflicts'
             ]
         }
         
         return comparison
 ```
 
-The crypto crash shows what happens when **you know your system is fragile** but choose not to fix it for economic reasons—7% leverage exposure was visible to everyone, ignored by everyone. The AWS outage shows what happens when **you forget your system is fragile** because the people who knew are gone—the DNS race condition existed as a latent defect, but the engineers who remembered it had left.
+The crypto crash shows what happens when **you know your system is fragile** but choose not to fix it for economic reasons; 7% leverage exposure was visible to everyone, ignored by everyone. The AWS outage shows what happens when **you forget your system is fragile** because the people who knew are gone; the DNS race condition existed as a latent defect, but the engineers who remembered it had left.
 
 Both are catastrophic. But the AWS pattern is more insidious because the risk is invisible until it manifests. You don't know you've lost organizational memory until you need it during an incident. The approximately $75 million per hour losses and potential $581 million total impact (CyberCube, 2025) show that forgetting your system's fragility is expensive.
 
@@ -1087,7 +1193,8 @@ class SLOBlindnessToHybrids:
         cascade_state = {
             'T+0_to_T+30': {
                 'DynamoDB_SLO': 'Still 99.9% over 30-day window',
-                'why_green': '30 minutes of failure / 43,200 minutes = 0.07%',
+                'why_green': ('30 minutes of failure / '
+                              '43,200 minutes = 0.07%'),
                 'alert_threshold': 'Not crossed yet',
                 'customer_impact': 'SEVERE (but SLOs say OK)'
             },
@@ -1095,7 +1202,8 @@ class SLOBlindnessToHybrids:
             'T+30_to_T+90': {
                 'DynamoDB_SLO': 'Now 99.5% (starting to degrade)',
                 'EC2_SLO': 'Still green (cannot launch, but existing OK)',
-                'Lambda_SLO': 'Still green (cannot deploy new, but existing OK)',
+                'Lambda_SLO': ('Still green (cannot deploy new, '
+                               'but existing OK)'),
                 'alert_threshold': 'Starting to cross',
                 'customer_impact': 'CATASTROPHIC (SLOs barely yellow)'
             },
@@ -1104,17 +1212,21 @@ class SLOBlindnessToHybrids:
                 'All_SLOs': 'Now RED',
                 'but_too_late': 'Cascade complete',
                 'recovery_needed': 'Manual intervention, not automatic',
-                'SLO_usefulness': 'Zero - confirms what customers already know'
+                'SLO_usefulness': ('Zero - confirms what '
+                                   'customers already know')
             }
         }
         
         # The fundamental blindness
         slo_limitations = {
             'measure_steady_state': 'SLOs measure normal operation',
-            'miss_phase_transitions': 'Cannot detect system entering failure mode',
-            'backward_looking': 'SLOs measure what happened, not what is happening',
+            'miss_phase_transitions': ('Cannot detect system '
+                                       'entering failure mode'),
+            'backward_looking': ('SLOs measure what happened, '
+                                 'not what is happening'),
             'component_level': 'SLOs per service, cascades are systemic',
-            'no_organizational_metrics': 'SLOs do not measure knowledge, culture, process',
+            'no_organizational_metrics': ('SLOs do not measure '
+                                          'knowledge, culture, process'),
             'lag_indicators': 'By time SLO fires, cascade is advanced'
         }
         
@@ -1122,7 +1234,8 @@ class SLOBlindnessToHybrids:
             'pre_outage': pre_outage_state,
             'during_cascade': cascade_state,
             'fundamental_limitation': slo_limitations,
-            'conclusion': 'SLOs are necessary but profoundly insufficient for hybrid risks'
+            'conclusion': ('SLOs are necessary but profoundly '
+                           'insufficient for hybrid risks')
         }
 ```
 
@@ -1256,28 +1369,35 @@ class OrganizationalMemoryAsInfrastructure:
                 'what': 'Documentation, runbooks, code comments',
                 'captured_in': 'Repositories, wikis, ticketing systems',
                 'sufficient_for': 'Known good paths, standard procedures',
-                'insufficient_for': 'Edge cases, historical context, "why we did it this way"'
+                'insufficient_for': ('Edge cases, historical context, '
+                                     '"why we did it this way"')
             },
             
             'tacit_knowledge': {
                 'what': 'Experience, intuition, pattern recognition',
                 'captured_in': 'Senior engineers brains',
-                'sufficient_for': 'Incident response, architecture decisions, "that feels wrong"',
-                'insufficient_for': 'Documented transfer, automated reasoning'
+                'sufficient_for': ('Incident response, architecture '
+                                   'decisions, "that feels wrong"'),
+                'insufficient_for': ('Documented transfer, '
+                                     'automated reasoning')
             },
             
             'social_knowledge': {
                 'what': 'Who to ask, how to escalate, team dynamics',
                 'captured_in': 'Relationships, trust networks',
-                'sufficient_for': 'Rapid coordination, effective decision making',
+                'sufficient_for': ('Rapid coordination, '
+                                   'effective decision making'),
                 'insufficient_for': 'Surviving turnover'
             },
             
             'historical_knowledge': {
                 'what': 'Previous incidents, near misses, "we tried that"',
-                'captured_in': 'Postmortems, stories, institutional memory',
-                'sufficient_for': 'Avoiding repeating mistakes, recognizing patterns',
-                'insufficient_for': 'New hires learning everything from scratch'
+                'captured_in': ('Postmortems, stories, '
+                                'institutional memory'),
+                'sufficient_for': ('Avoiding repeating mistakes, '
+                                   'recognizing patterns'),
+                'insufficient_for': ('New hires learning '
+                                     'everything from scratch')
             }
         }
         
@@ -1293,9 +1413,11 @@ class OrganizationalMemoryAsInfrastructure:
         return {
             'thesis': 'Organizational memory is infrastructure',
             'evidence': 'AWS outage: 75 min detection, should be <5 min',
-            'mechanism': 'Systems behave in ways that require context to understand',
+            'mechanism': ('Systems behave in ways that require '
+                          'context to understand'),
             'implication': 'SRE must include organizational resilience',
-            'action': 'Measure and maintain knowledge as deliberately as uptime'
+            'action': ('Measure and maintain knowledge as '
+                       'deliberately as uptime')
         }
 ```
 
@@ -1320,9 +1442,10 @@ But the root cause was treating people as replaceable, knowledge as documentatio
 
 As we've seen in the AWS outage case study (and as would be true for the crypto crash), SLOs cannot detect hybrid risks. The AWS outage analysis demonstrated this with specific examples showing how SLOs remained green even as cascading failures spread. The crypto crash would show similar blindness: exchange SLOs measuring uptime wouldn't capture the leverage exposure, market structure fragility, or interaction effects that amplified the crash. The problem is even broader: if SLOs struggle with individual risk types (as we explored in each animal's section), they're completely blind to hybrid events and stampedes where multiple risk types interact.
 
-The fundamental issue is that SLOs measure component health, while hybrid events are systemic failures. It's like trying to predict weather by measuring the temperature of individual air molecules—you're measuring real things, but you're missing the emergent behavior.
+The fundamental issue is that SLOs measure component health, while hybrid events are systemic failures. It's like trying to predict weather by measuring the temperature of individual air molecules; you're measuring real things, but you're missing the emergent behavior.
 
 What actually helps detect and prevent hybrid risks:
+
 - **Dependency mapping**: Understand how services connect (see the Black Jellyfish section)
 - **Capacity planning**: Monitor for Grey Rhinos before they charge (see the Grey Rhino section)
 - **Chaos engineering**: Test combinations, not just individual failures
@@ -1356,13 +1479,17 @@ class HybridScenarioPlanning:
             'database_failure_during_traffic_spike': {
                 'challenge': 'Failover under load might fail',
                 'replica_might_be': 'Not caught up due to high load',
-                'auto_scale_might': 'Make problem worse by adding load to failing DB',
-                'interaction': 'Two manageable problems become unmanageable'
+                'auto_scale_might': ('Make problem worse by adding '
+                                     'load to failing DB'),
+                'interaction': ('Two manageable problems '
+                                'become unmanageable')
             },
             
             'deployment_bug_during_on_call_shortage': {
-                'challenge': 'Rollback requires expertise, but expert on vacation',
-                'organizational': 'Elephant (understaffing) meets technical issue',
+                'challenge': ('Rollback requires expertise, '
+                              'but expert on vacation'),
+                'organizational': ('Elephant (understaffing) '
+                                   'meets technical issue'),
                 'outcome': 'Longer outage than expected'
             },
             
@@ -1378,8 +1505,10 @@ class HybridScenarioPlanning:
         }
         
         return {
-            'principle': 'Plan for combinations, not just individual risks',
-            'practice': 'Game day exercises with multiple simultaneous failures',
+            'principle': ('Plan for combinations, '
+                          'not just individual risks'),
+            'practice': ('Game day exercises with multiple '
+                         'simultaneous failures'),
             'mindset': 'Murphy\'s Law applies to risk types too'
         }
 ```
@@ -1435,7 +1564,8 @@ class StampedeTesting:
             },
             
             'simultaneous_multiple_failures': {
-                'test': 'Kill database + network partition + deploy simultaneously',
+                'test': ('Kill database + network partition + '
+                         'deploy simultaneously'),
                 'reveals': [
                     'Interaction effects between failures',
                     'Priority of response actions',
@@ -1448,7 +1578,8 @@ class StampedeTesting:
         return {
             'principle': 'Stress testing must go beyond normal capacity',
             'insight': 'Stampedes reveal what normal load testing hides',
-            'practice': 'Regular chaos exercises with multiple simultaneous failures',
+            'practice': ('Regular chaos exercises with multiple '
+                         'simultaneous failures'),
             'goal': 'Find vulnerabilities before production does'
         }
 ```
@@ -1470,25 +1601,31 @@ class HybridPatternDetection:
             'multiple_service_degradation': {
                 'pattern': '3+ services degrading simultaneously',
                 'threshold': 'Within 5-minute window',
-                'signal': 'Possible cascade (Jellyfish) or shared dependency (Rhino)'
+                'signal': ('Possible cascade (Jellyfish) or '
+                           'shared dependency (Rhino)')
             },
             
             'capacity_with_errors': {
-                'pattern': 'High capacity utilization + increasing error rates',
+                'pattern': ('High capacity utilization + '
+                            'increasing error rates'),
                 'threshold': '>80% capacity AND error rate doubling',
                 'signal': 'Rhino charging while Jellyfish blooms'
             },
             
             'organizational_stress': {
-                'pattern': 'High on-call activity + high error rates + low response time',
+                'pattern': ('High on-call activity + high error rates + '
+                            'low response time'),
                 'threshold': 'All three conditions met',
-                'signal': 'Elephant in Room (burnout) enabling other failures'
+                'signal': ('Elephant in Room (burnout) '
+                           'enabling other failures')
             }
         }
         
         return {
-            'detection_principle': 'Look for combinations, not just individual metrics',
-            'alert_threshold': 'Lower than individual metrics (combinations are rare)',
+            'detection_principle': ('Look for combinations, '
+                                    'not just individual metrics'),
+            'alert_threshold': ('Lower than individual metrics '
+                                '(combinations are rare)'),
             'action': 'Investigate hybrid formation early'
         }
 ```
@@ -1497,7 +1634,7 @@ The pattern is clear: monitor for combinations, not just individual failures.
 
 ### The 2008 Financial Crisis: The Ultimate Stampede
 
-To really understand hybrid risks and stampedes at scale, let's examine the 2008 financial crisis—perhaps the most devastating example of multiple risk types interacting:
+To really understand hybrid risks and stampedes at scale, let's examine the 2008 financial crisis, perhaps the most devastating example of multiple risk types interacting:
 
 ```python
 class FinancialCrisisStampede:
@@ -1517,17 +1654,20 @@ class FinancialCrisisStampede:
             
             'subprime_mortgage_elephant': {
                 'type': 'Elephant in the Room',
-                'issue': 'Mortgages given to people who couldn\'t afford them',
+                'issue': ('Mortgages given to people who '
+                          'couldn\'t afford them'),
                 'widely_known': True,
                 'publicly_discussed': False,
-                'why_not_addressed': 'Profitable, regulators captured, ideology'
+                'why_not_addressed': ('Profitable, regulators '
+                                      'captured, ideology')
             },
             
             'leverage_elephant': {
                 'type': 'Elephant in the Room',
                 'issue': 'Investment banks at 30:1 leverage ratios',
                 'widely_known': True,
-                'publicly_discussed': 'Only by critics dismissed as alarmist',
+                'publicly_discussed': ('Only by critics '
+                                       'dismissed as alarmist'),
                 'why_not_addressed': 'Deregulation ideology, profit motive'
             },
             
@@ -1551,7 +1691,8 @@ class FinancialCrisisStampede:
                 'type': 'Black Jellyfish',
                 'issue': 'Unknown web of dependencies through derivatives',
                 'cascade': 'No one knew who owed what to whom',
-                'rapid_spread': 'Trust collapsed across entire financial system'
+                'rapid_spread': ('Trust collapsed across '
+                                 'entire financial system')
             }
         }
         
@@ -1574,7 +1715,8 @@ class FinancialCrisisStampede:
                 'event': 'Bear Stearns forced sale to JPMorgan',
                 'stress': 'Major investment bank fails',
                 'reveals': 'Counterparty risk, interconnectedness',
-                'elephants_visible': ['Excessive leverage', 'Regulatory failure']
+                'elephants_visible': ['Excessive leverage', 
+                                      'Regulatory failure']
             },
             
             '2008_september': {
@@ -1603,11 +1745,16 @@ class FinancialCrisisStampede:
         
         # The interaction effects
         amplification = {
-            'rhino_plus_elephant': 'Known housing bubble + known excessive leverage = amplified crash',
-            'elephant_plus_jellyfish': 'Hidden leverage + cascade = systemic failure',
-            'swan_plus_jellyfish': 'Correlation surprise + counterparty web = trust collapse',
+            'rhino_plus_elephant': ('Known housing bubble + '
+                                    'known excessive leverage = '
+                                    'amplified crash'),
+            'elephant_plus_jellyfish': ('Hidden leverage + cascade = '
+                                        'systemic failure'),
+            'swan_plus_jellyfish': ('Correlation surprise + '
+                                    'counterparty web = trust collapse'),
             'all_together': 'Each risk made every other risk worse',
-            'feedback_loops': 'Cascades fed back on themselves exponentially'
+            'feedback_loops': ('Cascades fed back on '
+                               'themselves exponentially')
         }
         
         return {
@@ -1616,9 +1763,11 @@ class FinancialCrisisStampede:
             'animals_involved': 6,
             'interaction_type': 'Every risk type amplifying every other',
             'damage': ('$10+ trillion wealth loss, global recession, '
-                       'millions unemployed (Federal Reserve, IMF, 2008-2009)'),
+                       'millions unemployed '
+                       '(Federal Reserve, IMF, 2008-2009)'),
             'lesson': 'Hybrid events at scale can break civilization',
-            'what_didnt_help': 'SLO-equivalent metrics (VaR models) all green until cascade',
+            'what_didnt_help': ('SLO-equivalent metrics (VaR models) '
+                                'all green until cascade'),
             'what_would_have_helped': [
                 'Acknowledging the elephants (leverage, fraud)',
                 'Addressing the rhinos (housing bubble)',
@@ -1629,7 +1778,7 @@ class FinancialCrisisStampede:
         }
 ```
 
-The 2008 crisis wasn't one thing going wrong. It was an entire ecosystem of risks—some ignored, some hidden, some misunderstood—all interacting in a catastrophic cascade. The banking industry's equivalent of "SLOs" (VaR models, credit ratings) showed everything was fine right up until the moment it exploded.
+The 2008 crisis wasn't one thing going wrong. It was an entire ecosystem of risks (some ignored, some hidden, some misunderstood) all interacting in a catastrophic cascade. The banking industry's equivalent of "SLOs" (VaR models, credit ratings) showed everything was fine right up until the moment it exploded.
 
 ### Learning to See Hybrid Risks
 
@@ -1646,40 +1795,49 @@ class HybridRiskMindset:
         mental_models = {
             'systems_thinking': {
                 'principle': 'Nothing exists in isolation',
-                'practice': 'Always ask "what else does this interact with?"',
-                'example': ('Database capacity issue: what else depends on DB? '
+                'practice': ('Always ask "what else does '
+                             'this interact with?"'),
+                'example': ('Database capacity issue: '
+                            'what else depends on DB? '
                             'What happens if those services fail?')
             },
             
             'second_order_effects': {
-                'principle': 'First consequence triggers second consequence',
+                'principle': ('First consequence triggers '
+                              'second consequence'),
                 'practice': 'Ask "and then what happens?"',
-                'example': 'Traffic spike → DB slow → retry storm → cascade'
+                'example': ('Traffic spike → DB slow → '
+                            'retry storm → cascade')
             },
             
             'feedback_loop_awareness': {
                 'principle': 'Look for reinforcing cycles',
                 'practice': 'Ask "does this problem make itself worse?"',
-                'example': 'Service degradation → retries → more degradation'
+                'example': ('Service degradation → retries → '
+                            'more degradation')
             },
             
             'hidden_dependency_mapping': {
                 'principle': 'Assume undocumented dependencies exist',
-                'practice': 'Ask "what could depend on this that we don\'t know about?"',
-                'example': 'S3 outage affected services that didn\'t think they used S3'
+                'practice': ('Ask "what could depend on this '
+                             'that we don\'t know about?"'),
+                'example': ('S3 outage affected services '
+                            'that didn\'t think they used S3')
             },
             
             'elephant_revelation_sensitivity': {
                 'principle': 'Stress reveals what normal operation hides',
                 'practice': 'Ask "what problems would high load expose?"',
-                'example': 'Team understaffing invisible until incident demands 24/7 response'
+                'example': ('Team understaffing invisible until '
+                            'incident demands 24/7 response')
             }
         }
         
         # Practical exercises
         exercises = {
             'pre_mortem_combinations': {
-                'exercise': 'Before launches, brainstorm risk combinations',
+                'exercise': ('Before launches, brainstorm '
+                             'risk combinations'),
                 'format': '"What if X AND Y both happen?"',
                 'benefit': 'Surfaces interaction effects before they occur'
             },
@@ -1695,7 +1853,8 @@ class HybridRiskMindset:
             },
             
             'dependency_chain_walking': {
-                'exercise': 'For each service, walk the full dependency chain',
+                'exercise': ('For each service, walk the '
+                             'full dependency chain'),
                 'depth': 'Go 5+ levels deep',
                 'document': 'Cycles, shared dependencies, long chains',
                 'benefit': 'See cascade potential before it cascades'
@@ -1713,73 +1872,85 @@ class HybridRiskMindset:
 
 **For Risk Assessment**:
 
-1. **Never assess risks in isolation**
+**Never assess risks in isolation**
+
    - Always ask: "What else could this interact with?"
    - Map potential combinations explicitly
    - Prioritize risks that could trigger stampedes
 
-2. **Look for your elephants during stress**
+**Look for your elephants during stress**
+
    - Stress reveals organizational dysfunction
    - Traffic spikes, incidents, launches expose elephants
    - Use these moments to address what was hidden
 
-3. **Map your jellyfish pathways**
+**Map your jellyfish pathways**
+
    - Document dependencies, including hidden ones
    - Identify potential cascade chains
    - Test cascade scenarios in game days
 
-4. **Assume interaction amplification**
+**Assume interaction amplification**
+
    - Two risks together ≠ sum of individual impacts
    - Plan for super-linear effects
    - Build dampening, not amplification
 
 **For System Design**:
 
-1. **Design for interaction resistance**
+**Design for interaction resistance**
+
    - Loose coupling limits cascade spread
    - Isolation contains blast radius
    - Async breaks synchronous failure chains
 
-2. **Build circuit breakers everywhere**
+**Build circuit breakers everywhere**
+
    - Between all external dependencies
    - Between internal service boundaries
    - In retry logic, rate limiting, load shedding
 
-3. **Create graceful degradation paths**
+**Create graceful degradation paths**
+
    - Every dependency needs a fallback
    - Degrade functionality before failing completely
    - Test degradation modes regularly
 
 **For Incident Response**:
 
-1. **Recognize stampede patterns**
+**Recognize stampede patterns**
+
    - Multiple teams paged = possible stampede
    - Cascading alerts = jellyfish in motion
    - Unexpected correlations = hidden interactions
 
-2. **Don't treat as independent incidents**
+**Don't treat as independent incidents**
+
    - Look for the trigger that revealed multiple risks
    - Address interaction effects, not just symptoms
    - Prioritize by dependency order
 
-3. **Use post-incident to reveal elephants**
+**Use post-incident to reveal elephants**
+
    - "What organizational issues did this expose?"
    - "What had we been ignoring?"
    - "What stress made this visible?"
 
 **For Organizational Culture**:
 
-1. **Make complexity discussable**
+**Make complexity discussable**
    - Reward people who identify risk interactions
    - Don't force simple narratives on complex events
    - Train incident commanders in systems thinking
 
-2. **Use stampedes as elephant revelation**
+**Use stampedes as elephant revelation**
+
    - Crises make elephants visible
    - Capitalize on visibility to address them
    - Don't waste the crisis
 
-3. **Practice multi-risk scenarios**
+**Practice multi-risk scenarios**
+
    - Game days with combined failures
    - Stress tests that reveal hidden risks
    - Learn your stampede triggers safely
@@ -1800,7 +1971,7 @@ The 2008 financial crisis wasn't one type of failure. It was every type of failu
 Your next major incident probably won't be a pure Black Jellyfish cascade or a simple Grey Rhino trampling. It will be something that starts as one thing, reveals another, triggers a third, interacts with a fourth, and amplifies into something you didn't anticipate because you were thinking in individual risk types rather than interaction effects.
 
 
-The messy reality is this: real-world failures are almost always hybrid events. Pure Black Swans, isolated Grey Rhinos, solitary Jellyfish blooms—these are the exceptions. The rule is stampedes: multiple animals interacting in ways that amplify each other's impact.
+The messy reality is this: real-world failures are almost always hybrid events. Pure Black Swans, isolated Grey Rhinos, solitary Jellyfish blooms; these are the exceptions. The rule is stampedes: multiple animals interacting in ways that amplify each other's impact.
 
 SLOs won't help you with this. They measure components. Hybrid events are emergent phenomena.
 

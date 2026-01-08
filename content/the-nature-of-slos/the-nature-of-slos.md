@@ -1,5 +1,6 @@
 ## The Nature of SLOs
-Before we dive into why SLOs can't catch Black Swans, we need to establish exactly what SLOs are, where they came from, and why they work so well for normal operations. If you're already deep into SRE practice, some of this will be review. But bear with me, because understanding the foundations helps us see the limitations.
+Before we dive into why SLOs can't catch Black Swans, we need to establish exactly what SLOs are, where they came from, and why they work so well for normal operations. If you're already deep into SRE practice, some of this will be review. But bear with me, because understanding the foundations helps us see the limitations.  Suffice it to say, that while I have successfully implemented a few SLI/SLOs in my time, I don't consider myself a master of the craft, just a practitioner. This is a short review, If you want to get the theory and practice of someone I consider a Master, check out Alex Hidalgo's excellent book 
+[Implementing Service Level Objectives](https://www.alex-hidalgo.com/the-slo-book)
 ### The Telecom Roots: Where the "Nines" Came From
 Service Level Objectives didn't spring fully formed from Google's SRE organization. They have roots stretching back to the telephone era, when AT&T engineers were trying to figure out what "reliable enough" meant for voice networks.
 
@@ -23,18 +24,19 @@ Here's the brutal math behind availability percentages. The table shows how much
 Look at that table carefully, because it contains a lesson that's easy to miss: the difference between each nine is roughly an order of magnitude in effort.
 
 Getting from 99% to 99.9% is hard. Getting from 99.9% to 99.99% is ten times harder. Getting to 99.999% is heroic. Five nines means you have less than one second of downtime per day. That's 26 seconds per month. A single deployment that takes 30 seconds of downtime blows your entire month's budget.
-{::pagebreak /}
+
 So here's the first question you should ask when someone declares they're targeting "five nines": Does your service actually need that?
 
 If you're running air traffic control systems, maybe. If you're running a dating site, probably not. The difference in engineering cost between 99.9% and 99.99% is enormous. Make sure you're solving the right problem.
 
 ![][levelofeffortforeach9]
+
 For reference: 40.32 minutes of downtime in a 28-day period puts you at about "three nines" (99.9%) availability. That's actually pretty good for most services. It gives you enough breathing room for planned maintenance, unexpected issues, and the occasional incident that takes more than a few minutes to resolve.
 {::pagebreak /}
 ### The Service Level Family: SLAs, SLIs, and SLOs
 ![][slo-vs-sla-vs-sli-1]
 These three acronyms get thrown around interchangeably, but they mean different things and serve different purposes. Let's clarify:
-{::pagebreak /}
+
 #### Service Level Agreements (SLAs)
 ![][new-sla-graphic-small]
 
@@ -43,7 +45,7 @@ An SLA is a contract. It's your legal promise to customers about what level of s
 SLAs are customer-facing and legally binding. They're often negotiated by sales and legal teams, not by SREs. And they should always be more conservative (easier to meet) than your internal targets, because missing an SLA has real business consequences.
 
 Example SLA: "We guarantee 99.9% uptime per calendar month. If we fail to meet this, you'll receive a 10% service credit for that month."
-{::pagebreak /}
+
 #### Service Level Indicators (SLIs)
 
 SLIs are the actual measurements you use to determine if you're meeting your objectives. They're the raw metrics that tell you how your system is performing from the user's perspective.
@@ -83,7 +85,7 @@ Here's a practical example:
 | **Storage** | **Durability** | This indicator measures **the proportion of records written that can be successfully read**. It reflects the likelihood that the system will retain the data over a long period of time. |
 
 SLIs should be aggregated over a meaningful time horizon. A common choice is 28 days (four weeks), because it smooths out weekly patterns while still being responsive to changes. Some teams use 30 days for simplicity. Some use rolling 7-day windows for more sensitive alerting. The key is consistency: pick a window and stick with it across your organization.
-{::pagebreak /}
+
 #### Service Level Objectives (SLOs)
 
 ![][slo-new-illustration-small]
@@ -93,11 +95,13 @@ SLOs are your internal targets. They're what your engineering team commits to ac
 An SLO answers the question: "What does good service look like for this system?"
 
 Typical SLO structure:
+
 - **Metric**: What you're measuring (latency, availability, error rate)
 - **Target**: The threshold you're aiming for (99.9%, 95th percentile < 200ms)
 - **Window**: The time period over which you measure (28 days, 1 hour, etc.)
 
 Examples:
+
 - "99.9% of requests will return successfully over a 28-day window"
 - "95% of API requests will complete in under 200ms over a 1-hour window"
 - "Error rate will remain below 0.1% over a 24-hour window"
@@ -120,7 +124,7 @@ The beauty of SLOs is that they give you a shared language across engineering, p
 
 Our SLOs should trigger before we violate our SLA.
 
-{::pagebreak /}
+
 
 ### Error Budgets: The Math of Acceptable Failure
 
@@ -129,6 +133,7 @@ Our SLOs should trigger before we violate our SLA.
 Here's where SLOs get really powerful. Once you set an SLO, you automatically create its inverse: the error budget.
 
 If your SLO says 99.9% of requests should succeed, your error budget is the remaining 0.1% that's allowed to fail. This is your budget for unreliability. You can spend it on:
+
 - Risky deployments
 - Aggressive (chaos) experiments
 - Planned maintenance
@@ -149,11 +154,13 @@ Now here's the thing: 40 minutes sounds like a lot, but it really isn't. It's ju
 Error budgets fundamentally change the conversation between product teams and SRE teams.
 
 Without error budgets, the conversation sounds like this:
+
 - **Product**: "We need to ship this feature now!"
 - **SRE**: "But we need to focus on reliability!"
 - **Result**: Political battle about priorities
 
 With error budgets, the conversation becomes:
+
 - **Product**: "Can we ship this risky feature?"
 - **SRE**: "Have we spent our error budget this month?"
 - If yes: "We need to focus on reliability until we rebuild our budget"
@@ -167,6 +174,7 @@ This is revolutionary because it makes reliability and innovation explicit trade
 Smart organizations create policies around error budgets:
 
 **When you have error budget:**
+
 - Ship features
 - Run experiments
 - Take calculated risks
@@ -174,6 +182,7 @@ Smart organizations create policies around error budgets:
 - Try new technologies
 
 **When you're out of error budget:**
+
 - Feature freeze (or at least slow down)
 - Focus on reliability improvements
 - Pay down technical debt
@@ -186,23 +195,27 @@ The policy should be agreed upon in advance and enforced consistently. When you 
 
 Here's how this works in practice:
 
-1. **Start of measurement period** (beginning of month/quarter/28-day window):
+**Start of measurement period** (beginning of month/quarter/28-day window):
+
    - Error budget = 100%
    - All SLOs reset to 0% error
 
-2. **During the period**:
+**During the period**:
+
    - Track SLI performance continuously
    - Every violation consumes a bit of error budget
    - Running total shows current budget remaining
 
-3. **Budget consumption**:
+**Budget consumption**:
+
    - 10% used? No problem, keep shipping
    - 50% used? Worth discussing in team meetings
    - 75% used? Time to be cautious about new changes
    - 90% used? Focus on reliability improvements
    - 100% used? Feature freeze, all hands on reliability
 
-4. **End of period**:
+**End of period**:
+
    - Budget resets for next window
    - But patterns matter: consistently burning through budget indicates systemic issues
 
@@ -225,10 +238,12 @@ Better approach:
 Your SLO should be ambitious enough to drive improvements but achievable enough to be taken seriously. An SLO you consistently violate becomes meaningless. An SLO you consistently exceed by huge margins is wasting engineering effort that could go toward new features.
 
 The Goldilocks zone: You should hit your SLO about 90-95% of the time. Occasional violations keep you honest and force reliability improvements. Consistent achievement proves the target is meaningful.
-
+{::pagebreak /}
 ### SLO Implementation: The Technical Details
 
-In this section, let's look at a few *ideas* that we will express in pseudo-code. If you are not really interested in actual technical implementations, you can skip over these, but I encourage you to at least skim them. It's not hard-core Python code and you might walk away with some useful ideas for further study.
+In this section, let's look at a few *ideas* that we will express in pseudo-code. I pulled these from my reading and travels, they are not meant to be dropped into some project as is. They are just **ideas**, designed to give you a start at looking at how to implement your own SLOs. SLO Implementation is a non-trivial process, what seems to be simple in concept often needs non intuitive tuning in the lease, and can be found to be not applicable at worst. 
+
+If you are not really interested in actual technical implementations, you can skip over these, but I encourage you to at least skim them. It's not hard-core Python code and you might walk away with some useful ideas for further study.
 
 Here's a typical SLO configuration:
 
@@ -310,17 +325,20 @@ Bucketing applies different SLO targets to different classifications of requests
 class BucketedSLO:
     def __init__(self):
         self.buckets = {
-            'premium_tier': {'availability_target': 99.99, 'latency_p99': 100},
-            'standard_tier': {'availability_target': 99.9, 'latency_p99': 200},
+            'premium_tier': {'availability_target': 99.99, 
+                             'latency_p99': 100},
+            'standard_tier': {'availability_target': 99.9, 
+                              'latency_p99': 200},
             'free_tier': {'availability_target': 99.0, 'latency_p99': 500},
-            'interactive': {'availability_target': 99.95, 'latency_p95': 150},
-            'batch_processing': {'availability_target': 99.5, 'latency_p95': 5000}
+            'interactive': {'availability_target': 99.95, 
+                            'latency_p95': 150},
+            'batch_processing': {'availability_target': 99.5, 
+                                 'latency_p95': 5000}
         }
     
     def classify_request(self, request):
         """
         Classify incoming request into appropriate bucket.
-        This determines which SLO targets apply.
         """
         if request.user_tier == 'premium':
             return 'premium_tier'
@@ -338,7 +356,6 @@ class BucketedSLO:
         """
         bucket = self.classify_request(request)
         target = self.buckets[bucket]
-        
         percentile_key = ( 'latency_p99' if 'latency_p99' in target
             else 'latency_p95' )
         latency_ok = response_latency <= target[percentile_key]
@@ -351,7 +368,7 @@ class BucketedSLO:
         }
 ```
 
-Bucketing allows you to focus engineering effort on what matters most. Premium users get stricter SLOs. Batch operations get more lenient targets. Your error budgets and alerting rules adjust accordingly per bucket.
+<!-- Bucketing allows you to focus engineering effort on what matters most. Premium users get stricter SLOs. Batch operations get more lenient targets. Your error budgets and alerting rules adjust accordingly per bucket. -->
 {::pagebreak /}
 #### Percentile Thresholds (Managing the Long Tail)
 
@@ -370,9 +387,12 @@ class PercentileThreshold:
         sorted_measurements = sorted(self.measurements)
         return {
             'p50': sorted_measurements[len(sorted_measurements) // 2],
-            'p95': sorted_measurements[int(len(sorted_measurements) * 0.95)],
-            'p99': sorted_measurements[int(len(sorted_measurements) * 0.99)],
-            'p99_9': sorted_measurements[int(len(sorted_measurements) * 0.999)]
+            'p95': sorted_measurements[int(len(sorted_measurements) * 
+                                           0.95)],
+            'p99': sorted_measurements[int(len(sorted_measurements) * 
+                                           0.99)],
+            'p99_9': sorted_measurements[int(len(sorted_measurements) * 
+                                             0.999)]
         }
     
     def evaluate_slo(self, window_measurements):
@@ -402,7 +422,8 @@ Percentile-based SLOs ensure your worst-case users (the tail of the distribution
 Before diving into multi-window complexity, let's understand single burn rate alerting in its simplest form. This foundation helps explain why multi-window approaches are needed.
 
 ```python
-def calculate_burn_rate_simple(errors_in_window, error_budget_allowed_in_window):
+def calculate_burn_rate_simple(errors_in_window, 
+                               error_budget_allowed_in_window):
     """
     Calculate burn rate for a single time window.
     A burn rate of 1.0 means we're consuming our budget exactly as planned.
@@ -415,7 +436,8 @@ def calculate_burn_rate_simple(errors_in_window, error_budget_allowed_in_window)
 def should_alert_single_window(burn_rate, window_duration):
     """
     Simple single-window alerting: alert if burn rate exceeds threshold.
-    Problem: doesn't distinguish between brief spikes and sustained degradation.
+    Problem: doesn't distinguish between brief spikes and sustained 
+    degradation.
     """
     threshold = 10  # Alert if burning 10x faster than sustainable
     return burn_rate > threshold
@@ -425,7 +447,8 @@ error_budget_28_days = 0.001 * 28 * 24 * 60  # 40.32 minutes allowed errors
 errors_in_last_hour = 15  # minutes of errors
 error_budget_1_hour = 40.32 / (28 * 24)  # About 0.06 minutes
 
-burn_rate = calculate_burn_rate_simple(errors_in_last_hour, error_budget_1_hour)
+burn_rate = calculate_burn_rate_simple(errors_in_last_hour, 
+                                       error_budget_1_hour)
 # burn_rate = 15 / 0.06 = 250
 
 alert = should_alert_single_window(burn_rate, '1h')
@@ -440,7 +463,8 @@ The problem with single-window alerting is that it doesn't account for different
 This is where sophisticated SLO alerting lives. By using multiple time windows with different thresholds, we can detect both fast-burning incidents and slow-burning degradation.
 
 ```python
-def calculate_burn_rate(error_budget_remaining, time_remaining, total_window):
+def calculate_burn_rate(error_budget_remaining, time_remaining, 
+                        total_window):
     """
     Calculate how fast we're consuming our error budget.
     A burn rate of 1.0 means we're on track to exactly consume 
@@ -521,6 +545,7 @@ class MultiWindowAlertingEngine:
 ```
 
 This multi-window approach prevents two common problems:
+
 1. **Alerting too late**: A brief spike might not trigger the 1-hour window, but a gradual degradation will eventually trigger the 72-hour window.
 2. **Alert fatigue**: A single blip across many systems doesn't trigger page-worthy alerts, but a sustained trend does.
 
@@ -597,6 +622,7 @@ Now we come to the core issue: everything we've discussed so far works beautiful
 But remember Taleb's distinction: SLOs assume the future will look like the past. They're built on historical data. They expect normal distributions. They quantify known risks.
 
 **What SLOs Can Do:**
+
 - Measure normal system behavior
 - Track known failure modes
 - Guide capacity planning
@@ -604,6 +630,7 @@ But remember Taleb's distinction: SLOs assume the future will look like the past
 - Provide early warning for degrading systems
 
 **What SLOs Can't Do:**
+
 - Predict unprecedented events
 - Protect against unknown failure modes
 - Account for systemic cascade risks
@@ -611,8 +638,6 @@ But remember Taleb's distinction: SLOs assume the future will look like the past
 - Capture complex second-order effects
 
 When Extremistan intrudes, when the Black Swan arrives, when your Grey Rhino finally charges, when your Black Jellyfish triggers a cascade, your SLOs don't save you. They might not even alert you.
-
-{::pagebreak /}
 
 ### The Paradox of SLO Success
 
@@ -623,6 +648,7 @@ Remember the Turkey Problem? Every day that your SLOs are green, every week with
 Your dashboards say everything's fine. Your error budget is healthy. Your percentiles are beautiful. And then something completely outside your model destroys everything, and you realize that "fine" was just "fine within the narrow band of scenarios we thought to measure."
 
 This doesn't mean SLOs are bad. They're essential for day-to-day operations. But they need to be complemented with:
+
 - Chaos engineering that tests beyond known scenarios
 - Architecture that assumes components will fail in novel ways
 - Organizations that maintain healthy paranoia even during success

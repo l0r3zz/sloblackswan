@@ -13,6 +13,7 @@ Black Swans represent the extreme boundary of unpredictability in complex system
 **Retrospectively obvious** - Only "predictable" through hindsight bias  
 
 They teach us that:
+
 - Our models are always incomplete
 - Historical data has fundamental limits
 - The biggest risks aren't always the ones we measure
@@ -26,6 +27,7 @@ Most importantly, Black Swans remind us that **SLOs are tools for managing the k
 Here's where things get interesting. In the aftermath of major incidents, SRE teams often label them as "Black Swans." It's a convenient shorthand for "we didn't see this coming." But this casual use of the term obscures a crucial distinction.
 
 Most events called Black Swans are actually something else:
+
 - Events we could have predicted but dismissed as unlikely (Grey Swans)
 - Obvious threats we chose to ignore (Grey Rhinos)  
 - Known components with surprising interactions (Black Jellyfish)
@@ -61,6 +63,7 @@ Grey Swans are the risks we *choose* to ignore through statistical reasoning rat
 Here's what makes Grey Swans so insidious: **The probability of encountering one may actually increase as you continue to ignore your SLOs and error budgets.**
 
 Think about it:
+
 - Your SLO says 99.9% availability (40 minutes downtime per month)
 - You're consistently burning 90% of your error budget
 - Your monitoring shows gradual degradation trends
@@ -118,6 +121,7 @@ With Grey Swans, the problem is psychological - we dismiss what we do know.
 Human beings are terrible at reasoning about low-probability, high-impact events. We can distinguish between 50/50 and 75/25. But we can't intuitively grasp the difference between 1% and 0.01%.
 
 A 1% annual probability sounds negligible. But consider:
+
 - Over 10 years: 9.6% cumulative probability
 - Over 30 years: 26% cumulative probability  
 - Over a career: Nearly certain
@@ -125,6 +129,7 @@ A 1% annual probability sounds negligible. But consider:
 Yet we treat 1% as "basically never" and plan accordingly. This is the statistical trap that Grey Swans exploit.
 
 In SRE terms, consider a failure mode that has a 2% chance of occurring each year:
+
 - You run 50 microservices
 - Each has this 2% failure mode
 - Probability that at least one fails in a given year: 64%
@@ -149,7 +154,8 @@ def effective_availability_with_grey_swans(self):
     grey_swan_downtime_hours = 8  # 8 hours when it happens
     
     hours_per_year = 24 * 365
-    expected_grey_swan_downtime = grey_swan_probability_per_year * grey_swan_downtime_hours
+    expected_grey_swan_downtime = (grey_swan_probability_per_year * 
+                                   grey_swan_downtime_hours)
     normal_downtime = hours_per_year * (1 - normal_availability)
     
     total_expected_downtime = normal_downtime + expected_grey_swan_downtime
@@ -169,12 +175,14 @@ Most teams set SLOs based only on normal operations, not accounting for the rare
 As we move from Black Swans to Grey Swans, we're moving from the realm of the genuinely unknowable to the territory of the statistically dismissible. This shift changes everything about how we should prepare:
 
 **For Black Swans:**
+
 - Build antifragile systems
 - Cultivate organizational adaptability  
 - Maintain operational slack
 - Accept that prediction is impossible
 
 **For Grey Swans:**
+
 - Better risk assessment and probability reasoning
 - Scenario planning for low-probability events
 - Weak signal detection and monitoring

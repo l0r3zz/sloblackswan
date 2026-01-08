@@ -1,20 +1,20 @@
 ## The Grey Rhino: The Obvious Threat We Choose to Ignore
 
-![][grey-rhino]
+![][Grey Rhino]
 
 ### The Charging Beast in Plain Sight
 
-Michele Wucker coined the term "Grey Rhino" in 2013 to describe a category of risk that defies our usual understanding of surprises. These aren't black swans at all. A grey rhino is a highly probable, high-impact threat that's perfectly visible, often discussed, well-documented, and actively ignored until it's too late.
+Michele Wucker coined the term "Grey Rhino" in 2013 to describe a category of risk that defies our usual understanding of surprises. These aren't Black Swans at all. A Grey Rhino is a highly probable, high-impact threat that's perfectly visible, often discussed, well-documented, and actively ignored until it's too late.
 
 The metaphor is visceral: imagine a two-ton rhinoceros, standing in the middle of an open field, pawing at the ground, snorting, clearly preparing to charge. You can see it. Everyone around you can see it. Experts are pointing at it, warning you to move. The rhino starts charging. And still, people stand there, frozen or distracted, making excuses about why they can't move right now, until the beast is upon them.
 
-In infrastructure and SRE, grey rhinos are everywhere. That database server running at 95% capacity for six months straight? Grey rhino. The legacy authentication system that everyone knows is a single point of failure? Grey rhino. The disaster recovery plan that hasn't been tested in three years? Grey rhino. The cryptographic certificates expiring in 90 days that are buried in someone's backlog? Grey rhino.
+In infrastructure and SRE, Grey Rhinos are everywhere. That database server running at 95% capacity for six months straight? Grey Rhino. The legacy authentication system that everyone knows is a single point of failure? Grey Rhino. The disaster recovery plan that hasn't been tested in three years? Grey Rhino. The cryptographic certificates expiring in 90 days that are buried in someone's backlog? Grey Rhino.
 
 We're not talking about unknown unknowns here. We're talking about known knowns that we systematically deprioritize, rationalize away, or convince ourselves we'll handle later. The problem isn't lack of visibility or inability to predict. The problem is the gap between knowing and doing.
 
 ### What Makes a Rhino Grey
 
-Not every visible risk is a grey rhino. The characteristics are specific:
+Not every visible risk is a Grey Rhino. The characteristics are specific:
 
 **High Probability**: This will likely happen. Not might. Will. The database will fill up. The certificates will expire. The single point of failure will fail. The question isn't if, but when.
 
@@ -24,7 +24,7 @@ Not every visible risk is a grey rhino. The characteristics are specific:
 
 **Actively Ignored**: This is the critical element. It's not that no one knows. People know. They've discussed it. It's in the backlog. Someone wrote a JIRA ticket. But for a variety of reasons (which we'll explore), no meaningful action happens.
 
-**Time Creates False Security**: Grey rhinos often have a long runway. The database has been at 90% for months, so surely we have time. The DR plan has been untested for years, so what's another quarter? This temporal cushion creates a dangerous illusion that we can always handle it later.
+**Time Creates False Security**: Grey Rhinos often have a long runway. The database has been at 90% for months, so surely we have time. The DR plan has been untested for years, so what's another quarter? This temporal cushion creates a dangerous illusion that we can always handle it later.
 
 Compare this to our other animals:
 
@@ -32,11 +32,11 @@ Compare this to our other animals:
 - **Grey Swan**: Predictable but timing uncertain, complex interactions, requires monitoring
 - **Grey Rhino**: Predictable timing and impact, simple causality, requires action despite knowing
 
-The grey rhino is the simplest problem to solve technically. The challenge is entirely organizational and psychological.
+The Grey Rhino is the simplest problem to solve technically. The challenge is entirely organizational and psychological.
 
 ### Why We Ignore the Charging Rhino
 
-If grey rhinos are so visible and predictable, why don't we just fix them? The reasons are depressingly consistent across organizations:
+If Grey Rhinos are so visible and predictable, why don't we just fix them? The reasons are depressingly consistent across organizations:
 
 #### Present Bias and Hyperbolic Discounting
 
@@ -54,11 +54,12 @@ class RiskPrioritization:
         objective_priority = impact * probability
         
         # What we actually do - heavily discount future problems
-        discount_factor = 0.5 ** (time_to_impact / 30)  # Half-life of 30 days
+        discount_factor = 0.5 ** (time_to_impact / 30)
+        # Half-life of 30 days
         subjective_priority = impact * probability * discount_factor
         
-        # A problem 90 days away gets 12.5% the attention of today's problem
-        # even with identical impact and probability
+        # A problem 90 days away gets 12.5% the attention of
+        # today's problem even with identical impact and probability
         return subjective_priority
 ```
 
@@ -78,7 +79,7 @@ The conversation goes like this:
 
 **Product**: "But nothing's broken yet, right? Let's revisit after the launch."
 
-Three months later, same conversation. The launch moved. There's always a launch. The grey rhino keeps charging, but it's always someone else's sprint.
+Three months later, same conversation. The launch moved. There's always a launch. The Grey Rhino keeps charging, but it's always someone else's sprint.
 
 This isn't malice. It's rational behavior in a system with misaligned incentives. Features are visible. Customers request them. Executives track them. Averting disasters that haven't happened yet doesn't show up in quarterly metrics.
 
@@ -107,7 +108,7 @@ class OptimismCalculator:
         return perceived
 ```
 
-This is why grey rhinos often charge just as you've relaxed about them.
+This is why Grey Rhinos often charge just as you've relaxed about them.
 
 #### Sunk Cost Fallacy and Legacy System Attachment
 
@@ -115,23 +116,23 @@ Organizations invest heavily in existing systems. People build careers around ma
 
 "We've invested five years in this architecture. We can't just throw it away."
 
-Never mind that the architecture is fundamentally unsuited for current scale, or that the sunk costs are precisely that—sunk—and irrelevant to forward-looking decisions. We conflate investment already made with value yet to be delivered.
+Never mind that the architecture is fundamentally unsuited for current scale, or that the sunk costs are precisely that, sunk, and irrelevant to forward-looking decisions. We conflate investment already made with value yet to be delivered.
 
 #### Diffusion of Responsibility
 
-In large organizations, grey rhinos are often everyone's problem, which means they're no one's problem. Who owns fixing the certificate rotation process? Infrastructure? Security? Application teams? All of them? None of them specifically?
+In large organizations, Grey Rhinos are often everyone's problem, which means they're no one's problem. Who owns fixing the certificate rotation process? Infrastructure? Security? Application teams? All of them? None of them specifically?
 
 When responsibility is diffuse, accountability evaporates. The rhino charges while teams argue about whose job it is to move.
 
 #### The Availability Cascade
 
-Sometimes the first team to seriously acknowledge a grey rhino gets punished for it. Raising it makes it your problem. Better to keep your head down and hope someone else deals with it, or that you're not the one on-call when it finally hits.
+Sometimes the first team to seriously acknowledge a Grey Rhino gets punished for it. Raising it makes it your problem. Better to keep your head down and hope someone else deals with it, or that you're not the one on-call when it finally hits.
 
-This creates a perverse incentive: the more serious the grey rhino, the more people avoid acknowledging it, because acknowledgment means ownership.
+This creates a perverse incentive: the more serious the Grey Rhino, the more people avoid acknowledging it, because acknowledgment means ownership.
 
 ### SLOs and the Grey Rhino Problem
 
-Here's where SLOs completely fail against grey rhinos:
+Here's where SLOs completely fail against Grey Rhinos:
 
 **SLOs measure symptoms, not causes**: Your SLO might be met right up until the moment the database fills and everything crashes. The SLO sees green, green, green, RED. It tells you nothing about the approaching threat.
 
@@ -139,7 +140,7 @@ Here's where SLOs completely fail against grey rhinos:
 
 **SLOs don't capture opportunity cost**: That database at 95% capacity isn't violating your SLO. Your authentication system being a single point of failure doesn't show up in your error budget. SLOs measure what breaks, not what could break.
 
-**Error budgets don't help with prevention**: Even sophisticated error budget policies assume you're making a tradeoff between velocity and reliability. Grey rhinos aren't about that tradeoff. They're about doing necessary work that has no feature value, which doesn't fit neatly into error budget frameworks.
+**Error budgets don't help with prevention**: Even sophisticated error budget policies assume you're making a tradeoff between velocity and reliability. Grey Rhinos aren't about that tradeoff. They're about doing necessary work that has no feature value, which doesn't fit neatly into error budget frameworks.
 
 Think about it this way:
 
@@ -165,11 +166,11 @@ class SLOMonitoring:
         # Answer: Not in SLO monitoring
 ```
 
-This is fundamentally different from grey swans, where careful instrumentation and monitoring can detect early warning signals. With grey rhinos, you don't need detection—you already know. What you need is the organizational will to act.
+This is fundamentally different from Grey Swans, where careful instrumentation and monitoring can detect early warning signals. With Grey Rhinos, you don't need detection; you already know. What you need is the organizational will to act.
 {::pagebreak /}
 ### Case Study: The COVID-19 Pandemic as a Global Grey Rhino
 
-Before diving into infrastructure examples, it's worth examining what may be the most consequential grey rhino in modern history: the COVID-19 pandemic. It represents perhaps the purest example of a global grey rhino and demonstrates the patterns we see in technical systems at civilization scale.
+Before diving into infrastructure examples, it's worth examining what may be the most consequential Grey Rhino in modern history: the COVID-19 pandemic. It represents perhaps the purest example of a global Grey Rhino and demonstrates the patterns we see in technical systems at civilization scale.
 
 #### Documented Warnings: The Rhino Was Visible for Decades
 
@@ -215,7 +216,7 @@ Let's apply our framework:
 
 **Decision**: A conscious choice, repeated year after year, to deprioritize preparedness in favor of other budget priorities.
 
-This was not a black swan. This was a grey rhino that charged in slow motion over two decades while the world watched.
+This was not a Black Swan. This was a Grey Rhino that charged in slow motion over two decades while the world watched.
 
 #### Why Preparation Didn't Happen Despite Knowledge
 
@@ -251,11 +252,11 @@ The reasons mirror exactly what we see in technical organizations:
 - Rationalization: Unused capacity is wasteful
 - Political challenge: Efficiency metrics punish slack resources
 
-The result: When COVID-19 arrived, it found healthcare systems without adequate PPE, without ventilator capacity, without testing infrastructure, without contact tracing capabilities—despite decades of warnings that exactly this would be needed.
+The result: When COVID-19 arrived, it found healthcare systems without adequate PPE, without ventilator capacity, without testing infrastructure, without contact tracing capabilities, despite decades of warnings that exactly this would be needed.
 
 #### Lessons for Infrastructure and SRE
 
-The pandemic grey rhino teaches us critical lessons:
+The pandemic Grey Rhino teaches us critical lessons:
 
 **1. Visibility Doesn't Guarantee Action**
 
@@ -298,7 +299,7 @@ In infrastructure terms: That DR plan you haven't tested in two years? You don't
 {::pagebreak /}
 ### Infrastructure Grey Rhinos: The Common Herd
 
-Let's look at the grey rhinos that regularly trample infrastructure and SRE teams:
+Let's look at the Grey Rhinos that regularly trample infrastructure and SRE teams:
 
 #### The Capacity Rhino
 
@@ -370,6 +371,7 @@ class CertificateManagement:
 Certificate expiration is binary. The service works perfectly until the moment it doesn't. No SLO degradation, no error budget burn. Just instant failure.
 
 **What Actually Works**:
+
 - Automated certificate management (Let's Encrypt, cert-manager)
 - Automated certificate inventory and monitoring
 - Alerts at 90 days, 60 days, 30 days, and 14 days
@@ -398,7 +400,7 @@ The rationalization follows a predictable pattern:
 8. (Go to step 1, repeat every 6 months)
 
 **Why SLOs Don't Help**:
-The legacy system might be meeting its SLO. The problem isn't current reliability, it's future risk. SLOs measure the present; grey rhinos charge from the future.
+The legacy system might be meeting its SLO. The problem isn't current reliability, it's future risk. SLOs measure the present; Grey Rhinos charge from the future.
 
 **What Actually Works**:
 - Strangler fig pattern: incrementally replace rather than big-bang rewrite
@@ -479,7 +481,7 @@ After the 2011 Tōhoku earthquake and tsunami, many Japanese companies discovere
 
 ### Detection vs. Action: The Grey Rhino Paradox
 
-Here's the fundamental paradox of grey rhinos: Detection is trivial. Action is hard.
+Here's the fundamental paradox of Grey Rhinos: Detection is trivial. Action is hard.
 
 Compare this to our other animals:
 
@@ -487,7 +489,7 @@ Compare this to our other animals:
 **Grey Swans**: Detection possible with effort, action preventative  
 **Grey Rhinos**: Detection trivial, action... somehow still doesn't happen
 
-The tooling for detecting grey rhinos is straightforward:
+The tooling for detecting Grey Rhinos is straightforward:
 
 ```python
 class GreyRhinoDetection:
@@ -525,11 +527,11 @@ The code is trivial. The challenge is organizational: getting people to act on t
 
 ### What Actually Works: Organizational Antibodies Against Grey Rhinos
 
-If SLOs can't catch grey rhinos, and detection is easy but insufficient, what does work?
+If SLOs can't catch Grey Rhinos, and detection is easy but insufficient, what does work?
 
 #### 1. Shift Grey Rhino Work from Optional to Mandatory
 
-The core problem: grey rhino mitigation competes with feature work and loses because features have visible advocates while infrastructure has none.
+The core problem: Grey Rhino mitigation competes with feature work and loses because features have visible advocates while infrastructure has none.
 
 The solution: Change the rules of the game.
 
@@ -549,24 +551,24 @@ class SprintPlanning:
         }
 ```
 
-**Make grey rhino mitigation a launch requirement**:
+**Make Grey Rhino mitigation a launch requirement**:
 - New service launches require capacity plan with 2-year projection
 - New services require multi-AZ redundancy or documented exception
 - New services require DR plan with test date within 90 days
 - These aren't suggestions; they're requirements
 
-**Tie grey rhino status to performance reviews**:
+**Tie Grey Rhino status to performance reviews**:
 - Not in a punitive way
-- But: "Did you identify and mitigate grey rhinos in your domain?" is an explicit performance criterion
+- But: "Did you identify and mitigate Grey Rhinos in your domain?" is an explicit performance criterion
 - Engineers get credit for unglamorous infrastructure work
 
 #### 2. Make Grey Rhinos Visible to Decision-Makers
 
-The people who deprioritize grey rhino work often don't understand the risk. Make it concrete.
+The people who deprioritize Grey Rhino work often don't understand the risk. Make it concrete.
 
 **Tactics that work**:
 
-**Grey rhino dashboards**:
+**Grey Rhino dashboards**:
 ```python
 class GreyRhinoDashboard:
     def generate_executive_summary(self):
@@ -575,11 +577,18 @@ class GreyRhinoDashboard:
         """
         return {
             'total_identified_rhinos': len(self.all_grey_rhinos()),
-            'days_to_impact': min(rhino.days_until_impact for rhino in self.all_grey_rhinos()),
+            'days_to_impact': min(
+                rhino.days_until_impact for rhino in self.all_grey_rhinos()
+            ),
             'estimated_outage_cost': self.calculate_risk_cost(),
             'mitigation_cost': self.calculate_fix_cost(),
-            'cost_ratio': self.calculate_risk_cost() / self.calculate_fix_cost(),
-            'message': f"We can spend ${self.mitigation_cost} now or ${self.risk_cost} later"
+            'cost_ratio': (
+                self.calculate_risk_cost() / self.calculate_fix_cost()
+            ),
+            'message': (
+                f"We can spend ${self.mitigation_cost} now or "
+                f"${self.risk_cost} later"
+            )
         }
 ```
 
@@ -590,8 +599,8 @@ class GreyRhinoDashboard:
 - Closed items require evidence of completion
 
 **Incident analysis that connects dots**:
-- When a grey rhino causes an incident, make that connection explicit
-- "This outage was caused by X, which was identified as a grey rhino 6 months ago in tickets Y and Z"
+- When a Grey Rhino causes an incident, make that connection explicit
+- "This outage was caused by X, which was identified as a Grey Rhino 6 months ago in tickets Y and Z"
 - Creates organizational learning
 
 #### 3. Automate Grey Rhinos Out of Existence
@@ -628,8 +637,8 @@ Organizations get the behavior they incentivize. If all the incentives reward sh
 
 **Tactics that work**:
 
-**Celebrate grey rhino mitigation**:
-- Make it visible when someone fixes a grey rhino
+**Celebrate Grey Rhino mitigation**:
+- Make it visible when someone fixes a Grey Rhino
 - Engineering blog posts about "the outage we prevented"
 - Recognition equal to shipping features
 
@@ -638,42 +647,42 @@ Organizations get the behavior they incentivize. If all the incentives reward sh
 - Include in promotion packets
 - Track prevented incidents, not just resolved ones
 
-**Penalize (gently) grey rhino creation**:
-- Architecture reviews that reject designs with obvious grey rhinos
-- "Grey rhino score" for new services
-- Higher bar for approval if creating new grey rhinos
+**Penalize (gently) Grey Rhino creation**:
+- Architecture reviews that reject designs with obvious Grey Rhinos
+- "Grey Rhino score" for new services
+- Higher bar for approval if creating new Grey Rhinos
 
 #### 5. Create Organizational Muscle Memory
 
-The reason grey rhinos work is they exploit consistent organizational weaknesses. Build organizational strength in those areas.
+The reason Grey Rhinos work is they exploit consistent organizational weaknesses. Build organizational strength in those areas.
 
 **Tactics that work**:
 
-**Regular grey rhino review meetings**:
-- Monthly "grey rhino roundup"
-- Each team reports their grey rhinos
+**Regular Grey Rhino review meetings**:
+- Monthly "Grey Rhino roundup"
+- Each team reports their Grey Rhinos
 - Progress on mitigation
 - Escalation for blocked items
 
 **Runbook culture**:
-- Every grey rhino gets a runbook
+- Every Grey Rhino gets a runbook
 - Runbook includes not just detection but mitigation
 - Runbooks tested regularly
 
 **Incident retrospectives that identify patterns**:
-- Look for grey rhino patterns in incidents
+- Look for Grey Rhino patterns in incidents
 - "How long was this a known issue before it failed?"
 - Create action items to improve detection-to-action time
 
-**New engineer onboarding includes grey rhinos**:
-- Here are our current grey rhinos
+**New engineer onboarding includes Grey Rhinos**:
+- Here are our current Grey Rhinos
 - Here's how we track them
 - Here's how you can help
 - Fresh eyes often spot rhinos veterans have normalized
-
+{::pagebreak /}
 ### The COVID-19 Lesson: Slack Is Not Waste
 
-The most important lesson from the pandemic grey rhino: Organizations optimized for efficiency are fragile.
+The most important lesson from the pandemic Grey Rhino: Organizations optimized for efficiency are fragile.
 
 Healthcare systems running at 95% capacity had no surge capacity. Supply chains optimized for just-in-time delivery had no resilience. Governments that cut pandemic preparedness budgets to fund current needs had no buffer.
 
@@ -684,7 +693,7 @@ The same is true in infrastructure:
 **Staff sized for normal operations**: Efficient, until you have an incident
 **DR plan untested to save time**: Efficient, until you need it
 
-The organizations that survived COVID-19 best were those that had maintained "wasteful" surge capacity. The infrastructure that survives grey rhinos best is that which maintains "wasteful" slack.
+The organizations that survived COVID-19 best were those that had maintained "wasteful" surge capacity. The infrastructure that survives Grey Rhinos best is that which maintains "wasteful" slack.
 
 This doesn't mean running everything at 50% capacity. It means:
 
@@ -710,23 +719,23 @@ class CapacityTarget:
 - Multi-AZ by default, not by exception
 - N+2 redundancy for critical components (can lose two and survive)
 
-**Time for grey rhino mitigation**:
+**Time for Grey Rhino mitigation**:
 - 20% of engineering time reserved for infrastructure
-- Grey rhino backlog gets sprint capacity, not leftover time
+- Grey Rhino backlog gets sprint capacity, not leftover time
 - Infrastructure work doesn't compete with features; it complements them
 
 **Regular testing of disaster scenarios**:
 - Quarterly DR tests, not "when we have time"
-- Monthly game days for grey rhino scenarios
+- Monthly game days for Grey Rhino scenarios
 - Chaos engineering as standard practice
 
 ### The Grey Rhino Playbook: From Recognition to Action
 
-Here's a practical playbook for dealing with grey rhinos in your infrastructure:
+Here's a practical playbook for dealing with Grey Rhinos in your infrastructure:
 
 #### Step 1: Inventory Your Herd
 
-Create a comprehensive grey rhino register:
+Create a comprehensive Grey Rhino register:
 
 ```python
 class GreyRhinoRegister:
@@ -760,14 +769,18 @@ class GreyRhinoRegister:
         """
         return sorted(
             self.rhinos,
-            key=lambda r: (r['days_to_impact'] / 365.0) * r['impact'] * r['probability'],
+            key=lambda r: (
+                (r['days_to_impact'] / 365.0) *
+                r['impact'] *
+                r['probability']
+            ),
             reverse=True
         )
 ```
 
 #### Step 2: Categorize and Prioritize
 
-Not all grey rhinos are equal. Prioritize based on:
+Not all Grey Rhinos are equal. Prioritize based on:
 
 **Immediacy**: How soon will this impact us?
 **Impact**: How bad will it be when it hits?
@@ -807,7 +820,7 @@ class GreyRhinoPriority:
 
 #### Step 3: Assign Ownership
 
-Grey rhinos die in committees. Each rhino needs:
+Grey Rhinos die in committees. Each rhino needs:
 
 **A single owner**: One person accountable
 **Executive sponsor**: Someone who can unblock resources
@@ -816,7 +829,7 @@ Grey rhinos die in committees. Each rhino needs:
 
 #### Step 4: Create Mitigation Plans
 
-For each high-priority grey rhino:
+For each high-priority Grey Rhino:
 
 **Immediate actions** (this week):
 - What can we do right now to reduce risk?
@@ -858,17 +871,17 @@ class CapacityRhinoMitigation:
 
 #### Step 5: Execute and Track
 
-This is where most grey rhino mitigation fails. The plan exists, but execution doesn't happen.
+This is where most Grey Rhino mitigation fails. The plan exists, but execution doesn't happen.
 
 **Tactics for accountability**:
 
-**Weekly grey rhino standup**:
+**Weekly Grey Rhino standup**:
 - 15 minutes
 - Each owner reports progress
 - Blockers get escalated immediately
 
 **Visible tracking**:
-- Dashboard showing all grey rhinos
+- Dashboard showing all Grey Rhinos
 - Status, owner, days remaining
 - Updated in real time
 
@@ -878,13 +891,13 @@ This is where most grey rhino mitigation fails. The plan exists, but execution d
 - If days_to_impact < 30 → executive involvement
 
 **Celebration of completion**:
-- When a grey rhino is mitigated, announce it
+- When a Grey Rhino is mitigated, announce it
 - Engineering blog post
 - Recognition in team meetings
 
 #### Step 6: Post-Mitigation Review
 
-After resolving a grey rhino, conduct a review:
+After resolving a Grey Rhino, conduct a review:
 
 **Questions to ask**:
 - How long was this a known issue before we fixed it?
@@ -896,14 +909,14 @@ This creates organizational learning and improves the system.
 
 ### Metrics That Matter for Grey Rhinos
 
-Traditional SRE metrics don't help with grey rhinos. You need different measures:
+Traditional SRE metrics don't help with Grey Rhinos. You need different measures:
 
 #### Grey Rhino Inventory Metrics
 
-**Total identified grey rhinos**: Are we finding them?
-**Average age of grey rhinos**: How long do they sit unfixed?
-**Grey rhino resolution rate**: Are we fixing them faster than we create them?
-**Grey rhino recurrence**: Do the same categories keep appearing?
+**Total identified Grey Rhinos**: Are we finding them?
+**Average age of Grey Rhinos**: How long do they sit unfixed?
+**Grey Rhino resolution rate**: Are we fixing them faster than we create them?
+**Grey Rhino recurrence**: Do the same categories keep appearing?
 
 ```python
 class GreyRhinoMetrics:
@@ -965,9 +978,15 @@ class MitigationTimelines:
                 by_category[category] = []
             
             by_category[category].append({
-                'id_to_assign': rhino['assigned_date'] - rhino['identified_date'],
-                'assign_to_start': rhino['work_started'] - rhino['assigned_date'],
-                'start_to_done': rhino['resolved_date'] - rhino['work_started'],
+                'id_to_assign': (
+                    rhino['assigned_date'] - rhino['identified_date']
+                ),
+                'assign_to_start': (
+                    rhino['work_started'] - rhino['assigned_date']
+                ),
+                'start_to_done': (
+                    rhino['resolved_date'] - rhino['work_started']
+                ),
                 'total': rhino['resolved_date'] - rhino['identified_date']
             })
         
@@ -979,27 +998,32 @@ class MitigationTimelines:
 
 #### Prevention Metrics
 
-**Grey rhinos prevented**: Through architecture review, for example
-**Grey rhinos automated away**: Categories eliminated through tooling
-**Grey rhino categories**: Are new types appearing?
+**Grey Rhinos prevented**: Through architecture review, for example
+**Grey Rhinos automated away**: Categories eliminated through tooling
+**Grey Rhino categories**: Are new types appearing?
+
+### The Evolution: From Grey Rhino to Grey Swan
+In the previous Grey Swan section, we talked about how Grey Swans become Grey Rhinos. This can happen when you've detected a Grey Swan that hasn't triggered yet, but you do nothing about it. You know it's there, and once you know it's there, and you de-prioritize it, it goes into the Grey Rhino category, but there's also a reverse path that's more likely. Grey Rhinos that are ignored long enough, inevitably wind up triggering a Grey Swan.
+
+The Grey Rhino that's lingering in technical debt. You know it's a time bomb, but yet you just can't get to it. But then it charges and transforms into a Grey Swan, and then you have to deal with it. As an incident. The worst thing that many of us do is that when we actually resolve the incident, we know what the root cause is, but yet it goes back in the backlog, and we do nothing about it. So it goes back from being a Grey Swan to Grey Rhino once again. The dysfunction in your organization is if this cycle repeats once, twice, three times even. This evolution also makes risks more dangerous, not less. You just managed and resolved a Grey Swan incident. But if you create action items and they immediately go back into backlog, once again you have a Grey Rhino. And that Grey Rhino you continue to  ignor will sprout wings once again and become  a Grey Swan. And the next one could be even more catastrophic.
 
 ### The Cultural Shift Required
 
-Ultimately, dealing with grey rhinos isn't a technical problem. It's a cultural one.
+Ultimately, dealing with Grey Rhinos isn't a technical problem. It's a cultural one.
 
-Organizations that successfully manage grey rhinos share common cultural traits:
+Organizations that successfully manage Grey Rhinos share common cultural traits:
 
 #### Boring Work Is Valued
 
 Infrastructure work, capacity planning, certificate management, DR testing. None of this is sexy. All of it is critical.
 
-Organizations that only reward shipping features create grey rhinos. Organizations that value operational excellence prevent them.
+Organizations that only reward shipping features create Grey Rhinos. Organizations that value operational excellence prevent them.
 
 #### Saying "No" to Features Is Acceptable
 
 If the database is at 95% capacity and climbing, saying "We need to pause feature work to fix this" should be acceptable, even encouraged.
 
-Organizations where "no" is punished create grey rhinos. Organizations where "no" is respected prevent them.
+Organizations where "no" is punished create Grey Rhinos. Organizations where "no" is respected prevent them.
 
 #### Technical Debt Is Treated Like Financial Debt
 
@@ -1009,28 +1033,28 @@ Organizations that treat technical debt as real debt allocate time to pay it dow
 
 #### Failure Is Learning, Not Blame
 
-When a grey rhino tramples the infrastructure, the question should be "What organizational failure allowed this to remain unfixed?" not "Whose fault was this?"
+When a Grey Rhino tramples the infrastructure, the question should be "What organizational failure allowed this to remain unfixed?" not "Whose fault was this?"
 
-Blameless culture prevents the hiding of grey rhinos out of fear.
+Blameless culture prevents the hiding of Grey Rhinos out of fear.
 
 #### Prevention Is Celebrated
 
-The outage that didn't happen because someone fixed a grey rhino should be celebrated like shipping a major feature.
+The outage that didn't happen because someone fixed a Grey Rhino should be celebrated like shipping a major feature.
 
-Organizations that only celebrate launches create incentives to ignore grey rhinos.
+Organizations that only celebrate launches create incentives to ignore Grey Rhinos.
 
 ### Conclusion: You Can See This One Coming
 
-Black swans are unpredictable. Grey swans require vigilance. Grey rhinos require courage.
+Black Swans are unpredictable. Grey Swans require vigilance. Grey Rhinos require courage.
 
 The courage to tell stakeholders "We're pausing feature work to fix infrastructure."
 The courage to escalate a boring operational issue to executive level.
 The courage to insist on fixing what isn't yet broken.
 The courage to say "This will hurt us" even when you can't prove exactly when.
 
-SLOs won't save you from grey rhinos. They measure the past; grey rhinos charge from the future. They measure symptoms; grey rhinos are about root causes. They assume rational prioritization; grey rhinos exploit organizational dysfunction.
+SLOs won't save you from Grey Rhinos. They measure the past; Grey Rhinos charge from the future. They measure symptoms; Grey Rhinos are about root causes. They assume rational prioritization; Grey Rhinos exploit organizational dysfunction.
 
-What saves you from grey rhinos is:
+What saves you from Grey Rhinos is:
 
 **Visibility**: Maintain a living register of known threats
 **Ownership**: Assign someone to each threat
@@ -1042,10 +1066,10 @@ What saves you from grey rhinos is:
 The rhino is charging. You can see it. Everyone can see it. The question is: Will you move?
 
 ---
-
+{::pagebreak /}
 ### Practical Takeaways
 
-If you only remember three things about grey rhinos:
+If you only remember three things about Grey Rhinos:
 
 1. **They are completely predictable**. If you're surprised when one hits you, you weren't paying attention.
 
@@ -1055,8 +1079,8 @@ If you only remember three things about grey rhinos:
 
 The next section will examine Elephants in the Room. Issues that you know are just waiting to become Grey Rhinos, but because of organizational dynamics, nothing is done to address them.
 
-But first, take a moment to audit your own grey rhinos. You know which ones they are.
+But first, take a moment to audit your own Grey Rhinos. You know which ones they are.
 
 They're the ones you've been meaning to fix.
 
-[grey-rhino]: grey-rhino.png
+[Grey Rhino]: Grey Rhino.png

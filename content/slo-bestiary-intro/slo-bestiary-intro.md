@@ -11,15 +11,15 @@ Understanding which animal you're dealing with isn't just academic classificatio
 
 Throughout this section, we'll use a consistent framework for each animal:
 
-**Nature and Characteristics**: What defines this risk type? What makes it distinct from the others?
-**Real-World Examples**: Concrete cases from tech infrastructure history, because abstract theory only gets you so far.
-**Why SLOs Miss Them**: The specific blind spots in SLO-based monitoring that let these risks through.
-**Detection Strategies**: What can you measure or observe that might give you warning?
-**Mitigation and Response**: Once you've identified this risk type, what do you do about it?
-**Organizational Factors**: The cultural and structural elements that create, amplify, or prevent these risks.
+- **Nature and Characteristics**: What defines this risk type? What makes it distinct from the others?
+- **Real-World Examples**: Concrete cases from tech infrastructure history, because abstract theory only gets you so far.
+- **Why SLOs Miss Them**: The specific blind spots in SLO-based monitoring that let these risks through.
+- **Detection Strategies**: What can you measure or observe that might give you warning?
+- **Mitigation and Response**: Once you've identified this risk type, what do you do about it?
+- **Organizational Factors**: The cultural and structural elements that create, amplify, or prevent these risks.
 
 But before we dive into the individual animals, we need to establish some taxonomy. Let's start with the swans, because understanding the distinctions between White, Grey, and Black Swans clarifies the entire framework.
-{::pagebreak /}
+
 ### Understanding Our Avian Risk Taxonomy (White Swans, Black Swans, Grey Swans)
 
 The swan family represents a spectrum of predictability and probability. At one end, we have the completely expected. At the other, the completely unprecedented. And in between, the things we should have seen coming but somehow didn't.
@@ -29,6 +29,7 @@ The swan family represents a spectrum of predictability and probability. At one 
 White Swans aren't really "risks" in the way we're discussing. They're your normal, everyday operational events. The things you plan for, document in runbooks, and handle routinely.
 
 **Characteristics:**
+
 - Expected and planned
 - Well-understood causes and effects
 - Documented procedures exist
@@ -36,6 +37,7 @@ White Swans aren't really "risks" in the way we're discussing. They're your norm
 - Regular occurrence
 
 **Examples:**
+
 - Scheduled deployments
 - Planned maintenance windows
 - Regular backup operations
@@ -44,9 +46,11 @@ White Swans aren't really "risks" in the way we're discussing. They're your norm
 - Standard capacity expansion
 
 **SLO Relationship:**
+
 White Swans are exactly what SLOs are designed to manage. You build them into your error budget calculations. You schedule them during low-traffic periods. You have playbooks for them.
 
 When a White Swan causes issues, it's usually because:
+
 - The procedure was followed incorrectly
 - The documentation was outdated
 - The assumptions were wrong (traffic higher than expected)
@@ -64,6 +68,7 @@ Organizations that only experience White Swans are often the most vulnerable to 
 We've already explored Black Swan theory in depth, but let's establish their place in our taxonomy:
 
 **Defining Characteristics:**
+
 - Complete unpredictability from historical data
 - Extreme impact when they occur
 - Retrospective rationalization (they seem "obvious" after the fact)
@@ -71,11 +76,13 @@ We've already explored Black Swan theory in depth, but let's establish their pla
 - Transform our understanding of what's possible
 
 **Key Distinction from Grey Swans:**
+
 Black Swans are genuinely unprecedented. There's no historical basis for predicting them. Grey Swans, by contrast, have historical precedent and can be modeled, but are dismissed as too unlikely.
 
 The test: Could you have predicted this event by analyzing historical data, even if you'd been very clever and very paranoid? If yes, it's not a Black Swan.
 
 **Examples (true Black Swans are rare):**
+
 - The 1980 ARPANET collapse (first major network cascade)
 - The Morris Worm (first internet worm, new category of threat)
 - Spectre/Meltdown-class CPU vulnerabilities (a practical, globally-relevant failure mode most ops teams weren't modeling)
@@ -86,7 +93,7 @@ Black Swans remind us that our models are always incomplete. They force intellec
 
 But here's the critical insight: most events that get labeled "Black Swans" in SRE incident reviews aren't actually Black Swans. They're Grey Swans that we didn't want to think about, or Grey Rhinos we chose to ignore, or Black Jellyfish we thought we understood.
 
-Apollo 13 is a classic example of that mislabeling. It was a catastrophic, high-uncertainty failure--but still within known physics and engineering failure modes, and it was resolved through deep system knowledge, practiced contingency thinking, and excellent incident command. It's a masterclass in crisis response, not "no-model-possible" unpredictability.
+Apollo 13 is a classic example of that mislabeling. It was a catastrophic, high-uncertainty failure, but still within known physics and engineering failure modes, and it was resolved through deep system knowledge, practiced contingency thinking, and excellent incident command. It's a masterclass in crisis response, not "no-model-possible" unpredictability.
 
 True Black Swans are rare. That's what makes them Black Swans.
 
@@ -95,6 +102,7 @@ True Black Swans are rare. That's what makes them Black Swans.
 Grey Swans occupy the most dangerous middle ground. They're predictable enough that we should prepare for them, but rare enough that we convince ourselves they won't happen to us.
 
 **Defining Characteristics:**
+
 - Statistically predictable (3-5 standard deviations out)
 - Historical precedent exists
 - Can be modeled and analyzed
@@ -111,6 +119,7 @@ Grey Rhinos are high probability threats we actively ignore despite their visibi
 Here's what makes Grey Swans particularly insidious: the probability of encountering one may actually increase as you continue to ignore your SLOs and error budgets. This creates a feedback loop where statistical dismissal leads to system degradation, which increases the likelihood of the "unlikely" event.
 
 **Examples:**
+
 - Major earthquakes in known seismic zones (predictable, modelable, often unprepared for)
 - Pandemic impacts on digital infrastructure (pandemics known, specific infrastructure impacts modelable)
 - Regional cloud provider outages (known possibility, insufficiently prepared for)
@@ -124,6 +133,7 @@ A 1% annual probability sounds low. But over a 10-year period, that's nearly a 1
 
 **SLO Relationship:**
 Grey Swans can theoretically be captured by SLOs if you:
+
 1. Set your SLO windows long enough to see the patterns
 2. Include the right metrics (often external factors, not just internal system health)
 3. Act on early warning signs before the event materializes
@@ -147,6 +157,7 @@ Runbook exists      Model exists       No model possible
 ```
 
 As you move from left to right:
+
 - Predictability decreases
 - Impact typically increases  
 - Preparation difficulty increases
@@ -158,21 +169,25 @@ As you move from left to right:
 Understanding whether you're dealing with a White, Grey, or Black Swan changes everything:
 
 **Response Strategy:**
+
 - White Swans: Follow the playbook
 - Grey Swans: Scenario planning and weak signal monitoring
 - Black Swans: Antifragile design and rapid adaptation
 
 **Learning Focus:**
+
 - White Swans: Process improvement and execution quality
 - Grey Swans: Better risk assessment and probability reasoning
 - Black Swans: System resilience and organizational adaptability
 
 **Investment Priority:**
+
 - White Swans: Automation and efficiency
 - Grey Swans: Redundancy and contingency planning
 - Black Swans: Slack capacity and organizational flexibility
 
 **Cultural Implications:**
+
 - White Swans: Operational excellence and consistency
 - Grey Swans: Intellectual honesty about low-probability risks
 - Black Swans: Humility about the limits of knowledge

@@ -1,6 +1,7 @@
 ## The Black Swan: The Truly Unpredictable
 
-![][black-swan]
+![][Black Swan]
+
 We've established what Black Swans are in theory. Now let's explore what they mean in practice for infrastructure reliability, why your SLOs fundamentally can't catch them, and what you can actually do about events that are, by definition, impossible to predict.
 
 {::pagebreak /}
@@ -48,14 +49,21 @@ class EventClassifier:
     def is_black_swan(self, event):
         """The test is simple but requires intellectual honesty."""
         questions = {
-            "historical_precedent": "Had this type of event ever happened before?",
-            "expert_warnings": "Did domain experts warn this was possible?",
-            "model_capability": "Could you have modeled this with available data?",
-            "component_novelty": "Were all the components known and understood?",
-            "interaction_predictability": "Could the specific interaction have been anticipated?"
+            "historical_precedent": ("Had this type of event ever "
+                                   "happened before?"),
+            "expert_warnings": ("Did domain experts warn this was "
+                              "possible?"),
+            "model_capability": ("Could you have modeled this with "
+                               "available data?"),
+            "component_novelty": ("Were all the components known and "
+                                "understood?"),
+            "interaction_predictability": ("Could the specific "
+                                         "interaction have been "
+                                         "anticipated?")
         }
         
-        # If you answer "yes" to any of these, it's probably not a Black Swan
+        # If you answer "yes" to any of these, 
+        # it's probably not a Black Swan
         for question, description in questions.items():
             if self.could_have_known(event, question):
                 return False, f"Not a Black Swan: {description}"
@@ -66,9 +74,11 @@ class EventClassifier:
     def most_common_misclassification(self):
         """What people call Black Swans but aren't."""
         return {
-            "grey_swans": "Rare but modelable events dismissed as unlikely",
+            "grey_swans": ("Rare but modelable events dismissed "
+                          "as unlikely"),
             "grey_rhinos": "Obvious threats we actively chose to ignore",
-            "black_jellyfish": "Known components with surprising interactions",
+            "black_jellyfish": ("Known components with surprising "
+                              "interactions"),
             "elephants": "Known problems we couldn't discuss openly"
         }
 ```
@@ -92,7 +102,9 @@ In Mediocristan, the world behaves according to normal distributions (bell curve
 **SRE Examples in Mediocristan:**
 ```python
 class MediocristanMetrics:
-    """These metrics follow normal distributions and work well with SLOs."""
+    """
+    These metrics follow normal distributions and work well with SLOs.
+    """
     
     def response_time_distribution(self):
         """
@@ -210,7 +222,7 @@ class TurkeySystem:
             "slo_status": "GREEN - All metrics within bounds"
         }
     
-    def thanksgiving(self):
+    def black_friday(self):
         """The day the model breaks catastrophically."""
         return {
             "status": "CATASTROPHIC FAILURE",
@@ -232,11 +244,16 @@ class TurkeySystem:
 
 # Real SRE scenarios that follow this pattern:
 turkey_scenarios = {
-    "legacy_system": "Ran for 10 years without major issues. Then the undocumented dependency failed.",
-    "capacity_planning": "Traffic grew smoothly for 3 years. Then viral event brought 100x normal load.",
-    "security_posture": "No breaches in 5 years. Then zero-day in core dependency.",
-    "vendor_reliability": "Cloud provider had 99.99% uptime. Then region-wide failure.",
-    "deployment_process": "1000 successful deploys. Then edge case destroyed production."
+    "legacy_system": ("Ran for 10 years without major issues. "
+                      "Then the undocumented dependency failed."),
+    "capacity_planning": ("Traffic grew smoothly for 3 years. "
+                          "Then viral event brought 100x normal load."),
+    "security_posture": ("No breaches in 5 years. "
+                         "Then zero-day in core dependency."),
+    "vendor_reliability": ("Cloud provider had 99.99% uptime. "
+                           "Then region-wide failure."),
+    "deployment_process": ("1000 successful deploys. "
+                           "Then edge case destroyed production.")
 }
 ```
 
@@ -257,15 +274,41 @@ Let's examine genuine Black Swans from infrastructure history. These weren't jus
 **Impact**: Complete network outage
 
 
-On October 27, 1980, the ARPANET -- the precursor to the modern internet -- went dark. For nearly four hours, the entire network was inoperative. Every node. Every connection. The network that had been designed to survive nuclear war couldn't survive a hardware failure in a single Interface Message Processor.
+On October 27, 1980, the ARPANET: the precursor to the modern internet, went dark. For nearly four hours, the entire network was inoperative. Every node. Every connection. The network that had been designed to survive nuclear war couldn't survive a hardware failure in a single Interface Message Processor.
 
 This wasn't just a network outage. It was the first major cascade failure in a packet-switched network. More importantly, it revealed something nobody had anticipated: the mechanisms designed to make networks resilient could actually amplify failures under certain conditions. The garbage collection algorithm meant to keep the network clean became a vector for exponential growth of corrupted messages. The routing mechanisms meant to route around failures actually propagated the failure more widely.
 
 Before this, network engineers assumed resilience features would only help. After this, they understood that resilience could become a weapon against itself.
 
-##### Why It Was a Black Swan
+#### Why It Was a Black Swan
 
-The failure mode was genuinely novel. There had been no prior cascade failures in packet-switched networks. Network protocols were designed with redundancy, routing, and error recovery -- all mechanisms assumed to improve reliability. Nobody had modeled positive feedback loops in routing. Nobody had anticipated that garbage collection could fail catastrophically when presented with corrupted data it wasn't designed to handle.
+The ARPANET collapse wasn't "a router died." It was a category error: the mechanisms built to *prevent* failure became the mechanisms that *amplified* it.
+
+##### 1. Extreme Outlier Status
+
+This lived outside the failure catalog of the era:
+
+- **Resilience became the failure vector**: routing and recovery logic didn't degrade gracefully; it accelerated the spread of corrupted state.
+- **Corruption-as-input**: status messages with incorrect timestamps weren't just "bad packets"; they were toxic data that the system couldn't reason about.
+- **Positive feedback loops**: nobody had a mental model for routing behaviors turning into self-reinforcing cascades in a packet-switched network.
+
+##### 2. Extreme Impact
+
+The impact wasn't a partial outage. It was total:
+
+- **Complete network outage**: for hours, the ARPANET was inoperative. Every node. Every connection.
+- **Operational blast radius**: recovery wasn't a clean failover; it required coordinated, manual intervention across the network.
+- **Paradigm shift**: it forced an early recognition that distributed control planes can melt down in ways that look nothing like “component failure.”
+
+##### 3. Retrospective Predictability
+
+After the fact, the story sounds obvious:
+
+- "Validate status messages."  
+- "Make garbage collection robust to corrupted timestamps."  
+- "Model and break routing feedback loops."  
+
+But those are *post*-incident sentences. Before 1980, the working assumption was that redundancy, routing around failures, and garbage collection were unambiguously protective. The ARPANET collapse taught the uncomfortable truth: resilience features can become weapons; and you won't know which ones until they are pointed at you.
 
 ```python
 class ARPANETCollapse:
@@ -277,11 +320,15 @@ class ARPANETCollapse:
     def what_happened(self):
         """The actual cascade mechanism."""
         return {
-            "trigger": "Hardware malfunction in IMP29 causing bit-dropping",
-            "corruption": "Status messages corrupted with incorrect timestamps",
-            "amplification": "Garbage collection algorithm failed on corrupted data",
+            "trigger": ("Hardware malfunction in IMP29 causing "
+                        "bit-dropping"),
+            "corruption": ("Status messages corrupted with incorrect "
+                           "timestamps"),
+            "amplification": ("Garbage collection algorithm failed on "
+                              "corrupted data"),
             "cascade": "Corrupted messages propagated exponentially",
-            "novel_aspect": "Network resilience features became failure vectors"
+            "novel_aspect": ("Network resilience features became "
+                             "failure vectors")
         }
     
     def why_black_swan(self):
@@ -290,24 +337,31 @@ class ARPANETCollapse:
             "precedent": "No prior cascade failures in packet networks",
             "assumption": "Resilience features assumed to only help",
             "models": "No models of positive feedback in routing",
-            "error_detection": "Disabled at the time, allowing unchecked propagation",
-            "transformation": "Fundamentally changed understanding of network failure modes"
+            "error_detection": ("Disabled at the time, allowing "
+                                "unchecked propagation"),
+            "transformation": ("Fundamentally changed understanding of "
+                               "network failure modes")
         }
     
     def what_changed_after(self):
         """The world after this Black Swan."""
         return {
-            "protocol_design": "Influenced transition to TCP/IP with better error handling",
-            "congestion_management": "Highlighted critical importance of flow control",
-            "failure_mode_awareness": "Cascade awareness became part of protocol design",
-            "testing": "Stress testing of network protocols became standard",
-            "error_detection": "Recognition that error detection must be comprehensive"
+            "protocol_design": ("Influenced transition to TCP/IP with "
+                                "better error handling"),
+            "congestion_management": ("Highlighted critical importance "
+                                      "of flow control"),
+            "failure_mode_awareness": ("Cascade awareness became part of "
+                                       "protocol design"),
+            "testing": ("Stress testing of network protocols "
+                        "became standard"),
+            "error_detection": ("Recognition that error detection must "
+                                "be comprehensive")
         }
 ```
 
-##### The Hardware Failure That Became Software Chaos
+#### The Hardware Failure That Became Software Chaos
 
-The failure started with a hardware malfunction in IMP29. The Interface Message Processor began dropping bits during data transmission. This corrupted status messages -- the messages used for network management and routing updates. IMP50, connected to IMP29, received these corrupted status messages with incorrect timestamps and propagated them throughout the network.
+The failure started with a hardware malfunction in IMP29. The Interface Message Processor began dropping bits during data transmission. This corrupted status messages: the messages used for network management and routing updates. IMP50, connected to IMP29, received these corrupted status messages with incorrect timestamps and propagated them throughout the network.
 
 Here's where it gets interesting: the network's garbage collection algorithm, responsible for removing outdated messages, wasn't designed to handle multiple messages with identical or corrupted timestamps. When corrupted status messages flooded the network, the garbage collection algorithm failed to purge them. Every node retained all incoming corrupted messages, leading to memory saturation.
 
@@ -373,7 +427,7 @@ def error_detection_limitation():
 
 This is a classic example of partial resilience. Error detection existed, but only for one part of the system. The gap in storage-level error detection allowed corrupted messages to persist and propagate.
 
-##### The Cascade Mechanism
+#### The Cascade Mechanism
 
 The cascade wasn't caused by general packet replication. It was caused by corrupted status messages with incorrect timestamps. The exponential growth came from the garbage collection algorithm's failure to handle corrupted data, combined with the network's routing mechanisms propagating those corrupted messages.
 
@@ -388,7 +442,8 @@ def cascade_mechanism():
     
     # Step 2: Message corruption
     status_message = create_status_message()
-    corrupted_message = imp29.transmit(status_message)  # Timestamp corrupted
+    # Timestamp corrupted
+    corrupted_message = imp29.transmit(status_message)
     
     # Step 3: Propagation
     imp50 = InterfaceMessageProcessor(id=50)
@@ -409,9 +464,9 @@ def cascade_mechanism():
     return network_wide_failure()
 ```
 
-The network's resilience mechanisms -- routing around failures, maintaining connectivity, updating routing tables -- all worked as designed. But they worked on corrupted data. The mechanisms designed to make the network resilient actually made the failure worse.
+The network's resilience mechanisms: routing around failures, maintaining connectivity, updating routing tables, all worked as designed. But they worked on corrupted data. The mechanisms designed to make the network resilient actually made the failure worse.
 
-##### The Recovery: Manual and Painful
+#### The Recovery: Manual and Painful
 
 Recovery required manual intervention. Each node had to be individually shut down and restarted. Partial restarts were ineffective because nodes that remained online would resend the corrupted messages to restarted nodes, causing them to crash again. The recovery process took nearly four hours and required contacting administrators at each site individually.
 
@@ -454,9 +509,9 @@ def recovery_process():
 
 This wasn't a failure that could be automatically recovered. The cascade was too complete. The corrupted messages were too widespread. The only solution was a complete network-wide restart, coordinated manually across multiple sites.
 
-##### Why Your SLOs Couldn't Prepare You
+#### Why Your SLOs Couldn't Prepare You
 
-This is the core problem: SLOs assume you can measure what matters. But the 1980 ARPANET collapse revealed a failure mode that wasn't in any model. The metrics you'd have been tracking -- packet loss, latency, node availability -- wouldn't have shown the problem until it was already cascading.
+This is the core problem: SLOs assume you can measure what matters. But the 1980 ARPANET collapse revealed a failure mode that wasn't in any model. The metrics you'd have been tracking: packet loss, latency, node availability, wouldn't have shown the problem until it was already cascading.
 
 ```python
 class SLOFailure:
@@ -489,9 +544,9 @@ The failure mode wasn't in the model. Network engineers had models for hardware 
 
 Most critically: **the metrics that mattered weren't being measured**. Status message corruption. Garbage collection algorithm health. Timestamp validation. These weren't part of standard network monitoring. By the time standard metrics showed problems, the cascade was already exponential.
 
-##### The Legacy: Protocol Design Transformation
+#### The Legacy: Protocol Design Transformation
 
-The 1980 collapse influenced network protocol design in fundamental ways. It highlighted limitations of the Network Control Protocol (NCP) and accelerated the transition to TCP/IP, which offered better error handling and network management capabilities. The incident demonstrated the critical importance of flow control and congestion management -- concepts that became central to modern network protocol design.
+The 1980 collapse influenced network protocol design in fundamental ways. It highlighted limitations of the Network Control Protocol (NCP) and accelerated the transition to TCP/IP, which offered better error handling and network management capabilities. The incident demonstrated the critical importance of flow control and congestion management: concepts that became central to modern network protocol design.
 
 The collapse also established a pattern: resilience mechanisms can amplify failures under certain conditions. This lesson would be learned again in 1990 with the AT&T long-lines collapse, where a software flaw led to a cascading failure. Both events illustrate how minor issues can propagate through complex systems, causing widespread disruptions.
 
@@ -501,10 +556,12 @@ def protocol_design_lessons():
     What network protocol design learned from the collapse.
     """
     lessons = {
-        "error_detection": "Must be comprehensive (transmission AND storage)",
+        "error_detection": ("Must be comprehensive "
+                            "(transmission AND storage)"),
         "garbage_collection": "Must handle corrupted data gracefully",
         "status_messages": "Must be validated and rate-limited",
-        "cascade_awareness": "Protocols must be designed to prevent cascades",
+        "cascade_awareness": ("Protocols must be designed to "
+                              "prevent cascades"),
         "flow_control": "Critical for preventing exponential growth",
         "congestion_management": "Essential for network stability"
     }
@@ -514,9 +571,13 @@ def protocol_design_lessons():
 
 The incident didn't just change how networks were designed. It changed how network engineers thought about failure modes. Before 1980, resilience was assumed to be unambiguously good. After 1980, engineers understood that resilience mechanisms needed to be designed with failure modes in mind.
 
-##### What This Means for You
+#### What This Means for You
 
-The 1980 ARPANET collapse is ancient history. But the pattern it revealed isn't. Resilience mechanisms can amplify failures. Garbage collection can fail on corrupted data. Error detection gaps can allow problems to persist. Your SLOs assume you can measure what matters. But some failure modes aren't in the model.
+The 1980 ARPANET collapse happened decades before anyone coined the term "SLO." But the pattern it revealed is timeless: resilience mechanisms can amplify failures instead of containing them. Garbage collection chokes on corrupted data. Error detection gaps let problems metastasize. The very systems designed to protect you become weapons.
+
+Your SLOs assume you can measure what matters. They assume your instrumentation sees the actual failure mode. They assume the thing that kills you is in the model. The 1980 ARPANET collapse proved otherwise.
+
+This was a Black Swan, genuinely unprecedented, the first of its kind. But watch what happens next: it triggers a cascade that spreads through positive feedback loops. The Black Swan morphs into a Black Jellyfish. We'll explore that transformation later, because it's the pattern that should terrify you.
 
 #### Here's what you can do:
 
@@ -590,33 +651,59 @@ The ARPANET collapse was a positive feedback loop. Corrupted messages caused mor
 
 **5. Accept That Some Failure Modes Aren't in the Model**
 
-This is the hardest lesson. Some failure modes genuinely can't be anticipated. The ARPANET collapse revealed a failure mode that nobody had modeled. Your SLOs can't catch every black swan. But you can build systems that fail gracefully. You can build monitoring that detects anomalies. You can build recovery mechanisms that work even when the failure mode is unexpected.
+This is the hardest lesson. Some failure modes genuinely can't be anticipated. The ARPANET collapse revealed a failure mode that nobody had modeled. Your SLOs can't catch every Black Swan. But you can build systems that fail gracefully. You can build monitoring that detects anomalies. You can build recovery mechanisms that work even when the failure mode is unexpected.
 
-##### The Lesson
+#### The Lesson
 
 The 1980 ARPANET collapse taught network engineers a brutal lesson: resilience mechanisms can amplify failures. The garbage collection algorithm designed to keep the network clean actually made the failure worse. The routing mechanisms designed to maintain connectivity actually spread the corruption faster. The error detection that existed wasn't comprehensive enough.
 
-Before this, network engineers assumed resilience would only help. After this, they understood that resilience mechanisms needed to be designed with failure modes in mind. The failure mode wasn't in any model. The metrics that mattered weren't being measured. And that's exactly why it was a black swan.
+Before this, network engineers assumed resilience would only help. After this, they understood that resilience mechanisms needed to be designed with failure modes in mind. The failure mode wasn't in any model. The metrics that mattered weren't being measured. And that's exactly why it was a Black Swan.
 
 Your job isn't to predict every failure mode. It's to build systems where resilience mechanisms are tested against failure, where error detection is comprehensive, and where monitoring covers both outcomes and the mechanisms that maintain them. Because sometimes, the mechanisms designed to make systems resilient can become weapons against themselves.
-{::pagebreak /}
+
 #### The 1988 Morris Worm: When Availability Metrics Lied
 
 **Date**: November 2, 1988  
 **Impact**: ~10% of internet-connected computers infected  
 **Duration**: Days to fully contain
 
-On November 2, 1988, a 23-year-old graduate student at Cornell University released a program onto the internet. Within 24 hours, it had infected approximately 6,000 of the 60,000 computers connected to the network -- about 10% of the entire internet. MIT, Harvard, Princeton, Stanford, NASA, and the Lawrence Livermore National Laboratory went dark. The U.S. Department of Defense disconnected from the internet to prevent further infection.
+On November 2, 1988, a 23-year-old graduate student at Cornell University released a program onto the internet. Within 24 hours, it had infected approximately 6,000 of the 60,000 computers connected to the network, about 10% of the entire internet. MIT, Harvard, Princeton, Stanford, NASA, and the Lawrence Livermore National Laboratory went dark. The U.S. Department of Defense disconnected from the internet to prevent further infection.
 
-This wasn't just a network outage. It was the first major internet worm. More importantly, it was the first "0-day" internet security event -- an attack that exploited vulnerabilities faster than humans could respond, before patches could be developed, before incident response procedures existed. The category didn't exist before. Self-replicating programs weren't in the threat model. Most system administrators didn't think this was possible.
+This wasn't just a network outage. It was the first major internet worm. More importantly, it was the first "0-day" internet security event: an attack that exploited vulnerabilities faster than humans could respond, before patches could be developed, before incident response procedures existed. The category didn't exist before. Self-replicating programs weren't in the threat model. Most system administrators didn't think this was possible.
 
-But here's what made it a black swan for SRE teams: your availability SLOs measured uptime. And by those metrics, systems were "up." But they weren't usable. They were compromised. The metric you needed didn't exist yet.
+But here's what made it a Black Swan for SRE teams: your availability SLOs measured uptime. And by those metrics, systems were "up." But they weren't usable. They were compromised. The metric you needed didn't exist yet.
 
-##### Why It Was a Black Swan
+#### Why It Was a Black Swan
 
 Before November 2, 1988, cybersecurity focused on individual unauthorized access attempts. The threat model assumed human attackers. Physical security. Access control. Authentication. Network monitoring focused on performance and availability, not security.
 
 The concept of autonomous, self-replicating programs spreading across networks? That wasn't in the threat model. System administrators didn't consider this possibility. Network-wide infection had no precedent. The replication rate exceeded human response time. And most critically: the metric needed to detect compromise didn't exist.
+
+##### 1. Extreme Outlier Status
+
+This wasn't "a clever exploit." It was a new species of incident:
+
+- **Autonomous propagation**: a program that spread across networks on its own, at machine speed, without waiting for humans to click anything.
+- **Threat model mismatch**: defenses assumed human attackers and human timelines. The idea of self-replication at internet scale simply wasn't operationally real yet.
+- **Category creation**: it wasn't just an outage or a breach. It was the first true internet worm incident that forced people to admit: "security is now a network property."
+
+##### 2. Extreme Impact
+
+The blast radius was absurd for the era:
+
+- **Scale**: ~6,000 of ~60,000 internet-connected machines affected in ~24 hours, about 10% of the whole internet.
+- **Institutional disruption**: major universities and labs went dark; the U.S. Department of Defense disconnected to slow the spread.
+- **Operational reality**: systems could be "up" and still unusable or unsafe. Availability metrics stayed smug while the environment burned.
+
+##### 3. Retrospective Predictability
+
+In hindsight, it becomes a hygiene checklist:
+
+- "Patch sendmail/finger/rsh."
+- "Don't run transitive trust like it's a feature."
+- "Have an incident response team and a coordination channel."
+
+But in 1988, those weren't defaults; and CERT didn't exist until the worm made it necessary. The surprise wasn't that vulnerabilities existed. It was that the combination of **autonomous replication + network scale + missing security telemetry** moved faster than humans could even agree on what was happening.
 
 ```python
 class MorrisWorm:
@@ -628,11 +715,13 @@ class MorrisWorm:
     def failure_characteristics(self):
         """How the worm spread."""
         return {
-            "vector": "Exploited known vulnerabilities (sendmail, finger, rsh)",
+            "vector": ("Exploited known vulnerabilities "
+                       "(sendmail, finger, rsh)"),
             "novel_aspect": "Self-replicating across network autonomously",
             "speed": "Spread faster than humans could respond",
             "impact": "Brought down major academic and military networks",
-            "replication_flaw": "Programming error caused excessive replication"
+            "replication_flaw": ("Programming error caused "
+                                 "excessive replication")
         }
     
     def why_unpredictable(self):
@@ -648,19 +737,24 @@ class MorrisWorm:
     def transformation(self):
         """What changed in computing after this event."""
         return {
-            "cert_creation": "CERT (Computer Emergency Response Team) created",
-            "incident_response": "Incident response as a discipline emerged",
-            "security_patches": "Security patches and update mechanisms accelerated",
-            "malware_category": "Malware became a recognized category of threat",
-            "network_monitoring": "Network monitoring fundamentally changed"
+            "cert_creation": ("CERT (Computer Emergency Response Team) "
+                              "created"),
+            "incident_response": ("Incident response as a "
+                                  "discipline emerged"),
+            "security_patches": ("Security patches and update mechanisms "
+                                 "accelerated"),
+            "malware_category": ("Malware became a recognized category "
+                                 "of threat"),
+            "network_monitoring": ("Network monitoring fundamentally "
+                                   "changed")
         }
 ```
-{::pagebreak /}
-##### The First "0-Day" Internet Security Event
+
+#### The First "0-Day" Internet Security Event
 
 The Morris Worm was the first major internet security event where the attack spread faster than humans could respond. Robert Tappan Morris, the graduate student who created it, intended it to spread stealthily to gauge the size of the internet. But a programming error caused it to replicate excessively. The worm was designed to check if a system was already infected, but the check was flawed, causing it to infect systems multiple times.
 
-This created the first true "0-day" scenario in internet security: an attack that spread across the network before patches could be developed, before incident response procedures existed, before anyone understood what was happening. The vulnerabilities it exploited -- sendmail debug mode, finger buffer overflow, rsh transitive trust -- were known. But the attack vector -- autonomous, self-replicating network-wide infection -- was not.
+This created the first true "0-day" scenario in internet security: an attack that spread across the network before patches could be developed, before incident response procedures existed, before anyone understood what was happening. The vulnerabilities it exploited: sendmail debug mode, finger buffer overflow, rsh transitive trust -- were known. But the attack vector: autonomous, self-replicating network-wide infection -- was not.
 
 ```python
 def zero_day_scenario():
@@ -696,7 +790,7 @@ def zero_day_scenario():
 
 The worm spread across the network in hours. Response took days. Initial spread occurred within 24 hours, with full containment requiring several days. Organizations disconnected from the internet to prevent further infection. But by then, the damage was done. The internet had experienced its first network-wide security incident, and there was no playbook for responding.
 
-##### The Vulnerabilities: Known, But Not Patched
+#### The Vulnerabilities: Known, But Not Patched
 
 The worm exploited three main vulnerabilities in Unix-based systems:
 
@@ -738,7 +832,7 @@ def vulnerability_exploitation():
 
 The lesson wasn't that vulnerabilities existed. The lesson was that known vulnerabilities, combined with a novel attack vector, could create a network-wide incident faster than response could be organized. The vulnerabilities were the fuel. The autonomous replication was the spark. And there was no fire department.
 
-##### The Replication Flaw: When Good Intentions Go Wrong
+#### The Replication Flaw: When Good Intentions Go Wrong
 
 Morris intended the worm to spread stealthily. He designed it to check if a system was already infected before attempting to infect it again. But the check was flawed. Some sources indicate Morris instructed the worm to replicate regardless of infection status. Either way, the result was the same: the worm infected systems multiple times, causing system overloads, slowdowns, and crashes.
 
@@ -770,9 +864,9 @@ def replication_flaw():
 
 This is a critical lesson: even well-intentioned code can cause catastrophic failures when deployed at network scale. The replication flaw wasn't malicious. It was a programming error. But at network scale, programming errors become network-wide incidents.
 
-##### Why Your SLOs Couldn't Prepare You
+#### Why Your SLOs Couldn't Prepare You
 
-This is the core problem: your availability SLOs measured uptime. And by those metrics, systems were "up." But they weren't usable. They were compromised. The metric you needed -- integrity, compromise detection, security health -- didn't exist yet.
+This is the core problem: your availability SLOs measured uptime. And by those metrics, systems were "up." But they weren't usable. They were compromised. The metric you needed: integrity, compromise detection, security health -- didn't exist yet.
 
 ```python
 class SLOFailure:
@@ -808,9 +902,9 @@ class SLOFailure:
 
 Network monitoring focused on performance and availability. It didn't include security-focused metrics. It didn't include anomaly detection. It didn't include the ability to detect malicious network activity. Systems could be compromised, spreading malware across the network, and availability metrics would show everything as normal.
 
-This wasn't downtime in any traditional sense. Systems were "up" but compromised. The metric you needed didn't exist yet. And that's exactly why it was a black swan.
+This wasn't downtime in any traditional sense. Systems were "up" but compromised. The metric you needed didn't exist yet. And that's exactly why it was a Black Swan.
 
-##### The Birth of CERT: Coordinated Response
+#### The Birth of CERT: Coordinated Response
 
 In direct response to the Morris Worm incident, the Computer Emergency Response Team (CERT) was established at Carnegie Mellon University. DARPA created CERT to coordinate responses to network security incidents. Before this, there was no coordinated approach to handling network security incidents. There was no central point of contact. There was no incident response playbook.
 
@@ -846,9 +940,9 @@ def cert_creation():
 
 CERT didn't just coordinate response to the Morris Worm. It established a model for how the internet community would respond to future incidents. It created a central point of contact. It developed incident response procedures. It established communication channels. It transformed incident response from ad hoc to systematic.
 
-The creation of CERT was a direct response to a black swan event. The internet community recognized that it needed coordinated response capabilities. It needed a central point of contact. It needed incident response procedures. The Morris Worm revealed these needs, and CERT was created to address them.
+The creation of CERT was a direct response to a Black Swan event. The internet community recognized that it needed coordinated response capabilities. It needed a central point of contact. It needed incident response procedures. The Morris Worm revealed these needs, and CERT was created to address them.
 
-##### The Transformation: Cybersecurity as We Know It
+#### The Transformation: Cybersecurity as We Know It
 
 The Morris Worm didn't just create CERT. It transformed cybersecurity. Before 1988, malware wasn't a widely recognized category of threat in operational security. Terms like "virus" and "worm" existed in academic circles, but they weren't part of operational security thinking. The Morris Worm brought malware to mainstream attention and established it as a recognized threat category.
 
@@ -885,9 +979,9 @@ def cybersecurity_transformation():
     return transform_cybersecurity(transformations)
 ```
 
-The Morris Worm created cybersecurity as we know it. It established malware as a recognized threat category. It transformed network monitoring. It accelerated security patching. It created incident response as a discipline. It revealed that availability metrics alone are insufficient -- integrity matters.
+The Morris Worm created cybersecurity as we know it. It established malware as a recognized threat category. It transformed network monitoring. It accelerated security patching. It created incident response as a discipline. It revealed that availability metrics alone are insufficient; integrity matters.
 
-##### What This Means for You
+#### What This Means for You
 
 The 1988 Morris Worm is ancient history. But the pattern it revealed isn't. Novel attack vectors can emerge from existing vulnerabilities. Availability metrics can miss critical problems. The metric you need might not exist yet. Your SLOs assume you can measure what matters. But some threats aren't in the model.
 
@@ -953,269 +1047,149 @@ The Morris Worm's replication flaw transformed it from a potentially harmless ex
 
 **6. Accept That Some Threats Aren't in the Model**
 
-This is the hardest lesson. Some threats genuinely can't be anticipated. The Morris Worm revealed a threat that wasn't in the model. Your SLOs can't catch every black swan. But you can build systems that detect anomalies. You can build monitoring that identifies unexpected behavior. You can build incident response capabilities that work even when the threat is unexpected.
+This is the hardest lesson. Some threats genuinely can't be anticipated. The Morris Worm revealed a threat that wasn't in the model. Your SLOs can't catch every Black Swan. But you can build systems that detect anomalies. You can build monitoring that identifies unexpected behavior. You can build incident response capabilities that work even when the threat is unexpected.
 
-##### The Lesson
+#### The Lesson
 
 The 1988 Morris Worm taught the internet community a brutal lesson: availability metrics alone are insufficient. Systems can be "up" and compromised. The metric you need might not exist yet. Novel attack vectors can emerge from existing vulnerabilities. And when they do, they can spread faster than response can be organized.
 
 The Morris Worm was the first major internet worm. It was the first "0-day" internet security event. It created cybersecurity as we know it. It created CERT. It transformed network monitoring. It accelerated security patching. It established incident response as a discipline.
 
-But most critically: it revealed that availability SLOs measure uptime, not integrity. Systems were "up" but compromised. The metric needed to detect compromise didn't exist yet. And that's exactly why it was a black swan.
+But most critically: it revealed that availability SLOs measure uptime, not integrity. Systems were "up" but compromised. The metric needed to detect compromise didn't exist yet. And that's exactly why it was a Black Swan.
 
 Your job isn't to predict every threat. It's to build systems that can detect anomalies, respond to incidents, and measure integrity as well as availability. Because sometimes, systems are "up" but compromised. And when they are, availability metrics will lie to you.
-{::pagebreak /}
-#### The 2008 Financial Crisis: When Economics Became Infrastructure
 
-**Date**: September 15, 2008  
-**Impact**: Immediate, unexpected traffic  spike across fintech as traders despirately tried to avert financial ruin.  
-**Duration**: Hours to stabilize systems, years to retool CapEx/OpEx.
+#### The NotPetya Wiper: The Cyberweapon That Masqueraded as Ransomware
 
-On September 15, 2008, Lehman Brothers filed for bankruptcy. The largest bankruptcy in U.S. history triggered a global financial panic. For most people, this was a story about banks, mortgages, and economic collapse. For infrastructure teams, it became something else entirely: a black swan event that broke every assumption about capacity planning, budget cycles, and technology adoption.
+**Date**: June 27, 2017  
+**Impact**: A nation-state wiper escaped its target and froze global operations: shipping, pharma, logistics, and manufacturing.  
+**Duration**: Days to stabilize; months of rebuild and audit
 
-The financial crisis itself had warning signs. Economists had been discussing the housing bubble. Financial risk was widely understood. Market crashes were modeled and anticipated. But here's what nobody modeled: the simultaneous, contradictory pressures that would hit technology infrastructure teams. Demand spikes for cost-saving technologies while budgets collapsed. Funding evaporating while infrastructure decisions became existential. Traffic patterns shifting in ways that capacity planning models couldn't predict.
+On June 27, 2017, the screens of the world's largest shipping company, A.P. Møller-Maersk, went black. It wasn't just Maersk. It was pharmaceutical giant Merck, delivery company TNT Express, and French construction titan Saint-Gobain. The outage didn't look like "the Internet is down." It looked like the 1980s came back with a clipboard and a fax machine.
 
-This wasn't just a financial crisis. It was an infrastructure black swan.
+NotPetya was launched as a military-grade cyberweapon aimed at Ukraine. It didn't stay in Ukraine. It escaped its cage and did what modern interconnected systems always do: it found the shortcuts we didn't know we had, and it took them at machine speed.
 
-##### Why It Was a Black Swan (For Tech)
+This event fits the Black Swan criteria uncomfortably well. Not because it was "big malware." Because it violated the rules of cybercrime we had spent decades modeling.
 
-The financial crisis was a Grey Rhino -- a high-probability, high-impact event that many saw coming. But its specific cascading effects on technology infrastructure? Those were genuinely unpredictable. Infrastructure teams found themselves facing scenarios that no SLO could have anticipated, no capacity planning model could have prepared for.
+#### Why It Was a Black Swan (For Tech)
 
-```python
-class FinancialCrisisTechImpact:
-    """
-    Known event (financial crisis) with unknown tech consequences.
-    The crisis itself was predictable. Its infrastructure impacts were not.
-    """
-    
-    def predictable_aspects(self):
-        """What you could have known (Grey Rhino elements)."""
-        return {
-            "housing_bubble": "Widely discussed by economists",
-            "financial_risk": "Many warnings from multiple sources",
-            "market_crash_possibility": "Modeled and understood",
-            "economic_downturn": "Expected consequence of financial crisis"
-        }
-    
-    def unpredictable_tech_impacts(self):
-        """The Black Swan for infrastructure teams."""
-        return {
-            "cloud_adoption_acceleration": {
-                "trigger": "Companies desperately seeking cost reduction",
-                "speed": "Multi-year plans compressed to months",
-                "demand_shift": "Sudden massive increase in cloud services",
-                "nobody_predicted": "Specific timing and magnitude"
-            },
-            "traffic_pattern_changes": {
-                "consumer_behavior": "Shift to online services as budgets tightened",
-                "office_space_reduction": "Companies cutting real estate costs",
-                "geographic_redistribution": "Load patterns shifted unpredictably",
-                "nobody_modeled": "Simultaneous cost-cutting + demand changes"
-            },
-            "funding_collapse": {
-                "vc_funding_decline": "Approximately 40-50% reduction in available capital",
-                "runway_calculations": "Suddenly critical for all startups",
-                "infrastructure_decisions": "Build vs buy radically changed",
-                "nobody_planned": "Assumed continued funding for growth"
-            }
-        }
-```
+NotPetya wasn't "ransomware, but worse." It was geopolitics using your corporate network as a blast radius.
 
-##### The Cloud Adoption Acceleration
+##### 1. The Outlier: The Weaponization of the Boring
 
-AWS launched in 2006. By 2008, many companies were slowly evaluating cloud options. Then the crisis hit, and "slowly evaluating" became "desperately migrating." Companies that had been planning multi-year cloud transitions suddenly needed immediate cost reductions. Capital expenditures were frozen. Operating expenses had to drop. Cloud computing, once a strategic initiative, became an emergency cost-cutting measure.
+NotPetya's genius was that it hid inside the most boring thing on Earth: mandatory accounting software.
 
-The problem? Infrastructure teams had planned for gradual adoption. Capacity planning models assumed linear growth. Vendor relationships were built on long-term evaluation cycles. Suddenly, everyone needed cloud services -- right now. The demand spike was real, but the timing and magnitude were impossible to predict.
+- **The Vector**: it came via M.E.Doc, standard tax software required for doing business in Ukraine. This wasn't a phishing email. It was a signed update from a vendor your finance team considered "infrastructure."
+- **The Nature**: it looked like ransomware (Petya). It asked for money. But it was a lie. There was no real recovery path. It was designed for destruction, not profit.
+- **The Spread**: it used worm-like lateral movement, exploiting SMB weaknesses and harvesting credentials, to move through networks with minimal user interaction. Our models were built for "a few machines get hit." Not "the domain falls over."
+
+Our mental models prepared us for "criminals encrypting files for ransom" or "hackers stealing credit cards." We did not have a response plan for "your entire Active Directory forest is erased by a tax software update."
+
+##### 2. Extreme Impact: The Reversion to Analog
+
+When people say "cyber is physical," this is what they mean. NotPetya didn't just slow systems down. It made them forget who they were.
+
+Ports and warehouses reverted to manual processes because the computers that made them legible were gone. Booking systems, terminal operations, inventory, scheduling: all the boring glue that turns shipping into a supply chain, went missing. You can't route a container with an outage page.
+
+For Maersk, recovery wasn't "restore from backup." It was rebuild-at-scale: thousands of servers and tens of thousands of endpoints, reimaged and rejoined, while the business was on fire. And then you get the story every SRE should tattoo on the inside of their eyelids: a single domain controller that happened to be offline (because reality is messy) preserved enough identity data to bootstrap the rest. If that feels unfair, good. That's the point.
+
+##### 3. Explaining It Away: The Patch Tuesday Narrative
+
+After the fact, the narrative machine kicked in:
+
+- "They should have patched MS17-010."
+- "They shouldn't have had a flat network."
+- "They shouldn't have trusted a small Ukrainian software vendor."
+
+In hindsight, these sound like obvious hygiene issues. Grey Rhinos, even. But in the real world, large enterprises take weeks or months to patch fleets. Finance software is privileged by design. Trust is the whole point of supply chains. And "a mandatory tax update will use a leaked intelligence exploit to wipe your estate" was not a scenario living in most risk registers.
+
+#### The 'Ransomware' Lie (In Pseudo-code)
+
+Real ransomware is a business. NotPetya was a hitman.
 
 ```python
-def capacity_planning_failure():
+class RansomwareVsWiper:
     """
-    Traditional capacity planning assumes gradual growth.
-    The 2008 crisis broke that assumption.
+    Ransomware wants money. Wipers want ruin.
+    If the victim can't recover, the 'business model' collapses.
     """
-    # What capacity planning expected
-    expected_cloud_adoption = gradual_growth(
-        start_year=2008,
-        growth_rate=0.15,  # 15% annual growth
-        evaluation_period=36  # months
-    )
-    
-    # What actually happened
-    actual_cloud_adoption = emergency_migration(
-        trigger_date="2008-09-15",  # Lehman collapse
-        compression_factor=12,  # 3 years -> 3 months
-        demand_spike=unpredictable()
-    )
-    
-    # The gap nobody saw coming
-    return actual_cloud_adoption - expected_cloud_adoption
+
+    def ransomware(self, victim):
+        # Encrypt and keep a working way to decrypt after payment.
+        key = generate_unique_key()
+        encrypt_files(victim, key)
+
+        # The boring-but-essential part: a recovery path.
+        escrow_key(victim_id=victim.id, key=key)
+
+        show_ransom_note(victim, promise="Pay and you get your data back")
+        return "extortion_with_recovery_path"
+
+    def wiper(self, victim):
+        # Destroy first, then put on a mask.
+        corrupt_system_state(victim)          # disk, MFT, boot chain, etc.
+        destroy_recovery_path(victim)         # no escrow, no support, no fix
+
+        show_ransom_note(victim, promise="Pay and you get your data back")
+        return "destruction_disguised_as_extortion"
 ```
 
-Nobody had modeled this scenario. Not the cloud providers, who suddenly faced unprecedented demand. Not the enterprise infrastructure teams, who had to execute migrations under extreme time pressure. Not the capacity planners, whose models assumed gradual adoption curves.
+#### What This Means for You
 
-##### The Funding Collapse
+NotPetya wasn't a failure of one company's hygiene. It was a demonstration that "cyber risk" is also "supply chain risk" and "geopolitical risk" and "identity risk."
 
-Venture capital funding dropped dramatically. From approximately $30 billion in 2007 to around $18 billion in 2009 -- a roughly 40-50% decline. For startups, this wasn't just a budget cut. It was an existential crisis. Runway calculations that had assumed continued funding suddenly became critical. Infrastructure decisions that had been optimized for growth had to be re-optimized for survival.
+Here's what you can do:
 
-The "build vs buy" calculation changed overnight. Teams that had planned to build custom infrastructure suddenly couldn't afford the engineering time. Teams that had planned to buy expensive solutions suddenly couldn't afford the licensing costs. Every infrastructure decision became a runway calculation.
+**1. Treat identity like critical infrastructure**
 
-```python
-def infrastructure_decision_matrix():
-    """
-    How funding collapse changed infrastructure decisions.
-    """
-    if funding_available():
-        # Pre-crisis: optimize for growth
-        return optimize_for(
-            scalability=True,
-            performance=True,
-            long_term_cost=False
-        )
-    else:
-        # Post-crisis: optimize for survival
-        return optimize_for(
-            immediate_cost=True,
-            runway_extension=True,
-            short_term=True
-        )
-```
+Assume your directory can be a single point of total organizational failure. Design backup and recovery around that reality.
 
-This wasn't just about startups. Established tech companies faced layoffs and budget cuts. Microsoft, Yahoo, and others reduced workforces and infrastructure spending. Teams that had planned for growth suddenly faced budget cuts while potentially needing to support new cost-saving initiatives. The contradiction was brutal: cut infrastructure spending while potentially increasing demand for infrastructure services.
+**2. Assume trusted software can become an attack vector**
 
-##### Traffic Pattern Changes
+"Trusted agent" is a privilege. Inventory it. Monitor it. Restrict it. Test what happens when it goes feral.
 
-The remote work revolution of 2020 gets all the attention, but 2008 saw its own traffic pattern shifts. Companies reduced office space to cut costs. Consumer behavior shifted toward online services as budgets tightened. Geographic load distribution changed in ways that infrastructure teams couldn't have predicted.
+**3. Practice rebuilding, not just restoring**
 
-The key difference from 2020? The scale was more limited. Remote work adoption in 2008 was gradual, not sudden. But the underlying pattern was the same: traffic patterns shifted in unpredictable ways, breaking assumptions about where load would come from and when it would arrive.
+Backups are table stakes. Rebuild-at-scale is a muscle. Exercise it.
 
-```python
-def traffic_pattern_shift():
-    """
-    Traditional capacity planning assumes predictable load patterns.
-    The crisis broke those patterns.
-    """
-    # What capacity planning expected
-    expected_load = {
-        "source": "office_locations",
-        "pattern": "business_hours_peak",
-        "geography": "known_datacenter_regions",
-        "growth": "gradual_and_predictable"
-    }
-    
-    # What actually happened
-    actual_load = {
-        "source": "unpredictable",  # Offices? Homes? Both?
-        "pattern": "cost_driven_shifts",  # Not business hours
-        "geography": "redistributed",  # Unknown regions
-        "growth": "simultaneous_spike_and_cut"  # Contradictory
-    }
-    
-    return capacity_planning_model.fail(expected_load, actual_load)
-```
+**4. Model worm-speed lateral movement**
 
-Infrastructure teams found themselves managing load patterns they hadn't modeled. Capacity planning that assumed gradual growth couldn't handle simultaneous demand spikes and budget cuts. SLOs based on historical patterns couldn't account for fundamentally new traffic behaviors.
+If something can move without humans, it will. Architect segmentation and response for machine-speed propagation.
 
-##### Why Your SLOs Couldn't Prepare You
-
-This is the core problem: SLOs and capacity planning models assume continuity. They're built on historical patterns. They expect gradual changes. The 2008 crisis created scenarios that broke every assumption:
-
-- **Capacity planning** assumed gradual growth. The crisis created simultaneous demand spikes and budget cuts.
-- **Architecture choices** were optimized for different cost/performance tradeoffs. Suddenly, cost became the only consideration.
-- **Vendor relationships** assumed continued funding. Suddenly, every vendor contract became a runway calculation.
-- **Team size** was planned for a different scale trajectory. Layoffs hit while demand patterns shifted unpredictably.
-
-Most critically: **nobody modeled simultaneous demand spike + budget crisis**. Capacity planning models can handle demand spikes. They can handle budget cuts. But both at once? That breaks the models.
-
-```python
-class SLOFailure:
-    """
-    Why traditional SLOs failed during the 2008 crisis.
-    """
-    def __init__(self):
-        self.assumptions = {
-            "gradual_growth": True,
-            "predictable_budgets": True,
-            "stable_traffic_patterns": True,
-            "consistent_funding": True
-        }
-    
-    def crisis_impact(self):
-        """The crisis broke every assumption."""
-        for assumption in self.assumptions:
-            self.assumptions[assumption] = False
-        
-        # SLOs can't handle this
-        return "all_models_broken"
-```
-
-##### What This Means for You
-
-The 2008 financial crisis is history. But the pattern it revealed isn't. Black swan events don't announce themselves. They cascade. A predictable economic crisis created unpredictable infrastructure impacts. Your SLOs and capacity planning models assume continuity. Black swans break continuity.
-
-####  Here's what you can do:
-
-
-***1. Model Contradictory Scenarios***
-
-Don't just model demand spikes. Model demand spikes during budget cuts. Don't just model growth. Model growth during funding collapses. Build scenarios that break your assumptions.
-
-```python
-def stress_test_capacity_planning():
-    """
-    Test your capacity planning against contradictory scenarios.
-    """
-    scenarios = [
-        {"demand": "spike", "budget": "cut"},
-        {"demand": "spike", "budget": "cut", "funding": "collapse"},
-        {"demand": "spike", "budget": "cut", "team_size": "reduced"}
-    ]
-    
-    for scenario in scenarios:
-        if capacity_planning_model.fails(scenario):
-            return "need_resilience_planning"
-```
-
-***2. Build Flexibility into Architecture***
-
-If your architecture can't handle a 180-degree pivot in priorities, it's too rigid. The 2008 crisis forced teams to optimize for immediate cost reduction instead of long-term scalability. Your architecture should support both.
-
-***3. Plan for Funding Uncertainty***
-
-If your infrastructure decisions assume continued funding, you're vulnerable. Build runway calculations into infrastructure planning. Know what you'll cut if funding disappears. Have a plan for "build vs buy" decisions under budget pressure.
-
-***4. Monitor for Cascading Effects***
-
-The financial crisis was predictable. Its infrastructure impacts weren't. When you see a major external event, ask: how could this cascade into infrastructure? What assumptions does it break? What models does it invalidate?
-
-***5. Accept That Some Things Can't Be Modeled***
-
-This is the hardest lesson. Some scenarios genuinely can't be anticipated. Your SLOs can't catch every black swan. But you can build resilience. You can build flexibility. You can build systems that fail gracefully when assumptions break.
-
-##### The Lesson
-
-The 2008 financial crisis taught infrastructure teams a brutal lesson: predictable events can have unpredictable infrastructure consequences. Your SLOs assume continuity. Black swans break continuity. The crisis itself was a Grey Rhino. But its infrastructure impacts were a genuine black swan.
-
-Nobody modeled simultaneous demand spikes and budget cuts. Nobody planned for funding collapses during cloud adoption surges. Nobody anticipated traffic pattern shifts driven by economic panic. And that's exactly why it was a black swan.
-
-Your job isn't to predict the unpredictable. It's to build systems resilient enough to handle it when it arrives.
-{::pagebreak /}
 #### COVID-19's Infrastructure Impact: When the Internet Didn't Collapse
 
 **Date**: March 2020 onwards  
-**Impact**: Global simultaneous shift to digital services
+**Impact**: Global simultaneous shift to digital services.  
 **Duration**: Evolutionary event
 
 In March 2020, entire countries went into lockdown within days of each other. The world shifted to digital services simultaneously. Global internet traffic increased by 25-30% in a matter of weeks. Video conferencing usage exploded. Streaming traffic surged. VPN usage jumped by 49%. Online gaming increased by 115%.
 
 This wasn't just a traffic spike. It was a global, simultaneous shift to digital services at a scale never before experienced. And here's what didn't happen: the Internet didn't collapse. Unlike the 1980 ARPANET collapse, where a single hardware failure cascaded through the network. Unlike the 1988 Morris Worm, where self-replicating malware brought down 10% of the internet. The Internet backbone held. Core infrastructure remained operational. This was a textbook case of resilience.
 
-But here's the nuance: the pandemic itself was a Grey Swan -- predictable, warned about for decades. The WHO had warned about pandemic risk for years. But if you're an SRE at Zoom in February 2020, the specific pattern of demand you were about to experience? That bordered on unpredictable. The simultaneity, the magnitude, the duration -- these were Black Swan-adjacent.
+But here's the nuance: the pandemic itself was a Grey Swan: predictable, warned about for decades. The WHO had warned about pandemic risk for years. But if you're an SRE at Zoom in February 2020, the specific pattern of demand you were about to experience? That bordered on unpredictable. The simultaneity, the magnitude, the duration: these were Black Swan-adjacent.
 
-##### Why It's a Grey Swan, Not a Black Swan
+#### Why It's a Grey Swan, Not a Black Swan
 
-This is a critical distinction. Pandemics were predictable. WHO warnings had been issued for decades. Remote work technology existed and was tested. Video conferencing platforms like Zoom and Teams were already deployed. Cloud infrastructure was capable of scaling.
+This is a critical distinction, and it matters because it tells you what you *should* have prepared for vs what you *couldn't* have priced in accurately.
 
-But the specific infrastructure impacts? Those bordered on Black Swan territory. The entire world shifting at once. Video conferencing usage increasing fivefold in weeks. Sustained high load, not a temporary spike. Permanent shifts in usage patterns. Second-order effects cascading through supply chains. These were genuinely surprising, even if the pandemic itself was not.
+##### Why it's a Grey Swan
+
+We had plenty of warning, and a lot of the enabling machinery already existed:
+
+- **The event was predictable**: pandemics were in the risk registers. WHO warnings had been issued for decades.
+- **The technology was real**: remote work tech existed and was tested; Zoom/Teams/etc. were already deployed; cloud infrastructure was capable of scaling.
+- **We already rehearse spikes**: enterprises plan for demand surges every year (hello, Black Friday). Capacity planning, runbooks, war rooms, and "turn the knobs" scaling are not new concepts.
+
+##### Why it bordered on Black Swan territory
+
+The surprise wasn't "traffic went up." The surprise was the *shape* of the load and the simultaneity:
+
+- **WFH went from edge case to default, instantly**: lots of orgs sized VPN, identity, and collaboration tooling for 5-10% remote. Suddenly it was 95%.
+- **Work and entertainment stacked**: large populations confined to quarters didn't just work online; they lived online. Video calls, streaming, gaming, school, and shopping all surged together.
+- **Sustained, not spiky**: this wasn't a holiday peak you outlast for a weekend. It was weeks, then months, and for many services it rewrote the baseline.
+- **Second-order effects**: supply chain constraints, hardware lead times, and regional access disparities turned "just add capacity" into "good luck getting it."
+
+So yes: Grey Swan event. But with infrastructure effects that were **Black Swan-adjacent** because the world shifted all at once, and the load patterns you were about to live through didn't look like any prior peak you had practiced.
 
 ```python
 class CovidInfrastructureAnalysis:
@@ -1239,7 +1213,8 @@ class CovidInfrastructureAnalysis:
         return {
             "simultaneity": "Entire world shifting at once",
             "magnitude": "Video conferencing usage increased 5x in weeks",
-            "duration": "Sustained high load through mid-2020 and beyond",
+            "duration": ("Sustained high load through mid-2020 "
+                         "and beyond"),
             "behavioral_changes": "Permanent shifts in usage patterns",
             "second_order_effects": "Supply chain impacts on hardware"
         }
@@ -1247,17 +1222,22 @@ class CovidInfrastructureAnalysis:
     def the_lesson(self):
         """Why classification matters."""
         return {
-            "for_pandemics": "Should have been better prepared (Grey Swan)",
+            "for_pandemics": ("Should have been better prepared "
+                              "(Grey Swan)"),
             "for_digital_shift": "Specific manifestation hard to predict",
-            "for_sre": "Know the difference between the event and its impact",
-            "takeaway": "Grey Swans can have Black Swan-like infrastructure effects",
-            "resilience": "Unlike 1980/1988, infrastructure handled the load"
+            "for_sre": ("Know the difference between the event "
+                        "and its impact"),
+            "takeaway": ("Grey Swans can have Black Swan-like "
+                         "infrastructure effects"),
+            "resilience": ("Unlike 1980/1988, infrastructure "
+                           "handled the load")
         }
 ```
-{::pagebreak /}
-##### The Resilience Comparison: What Didn't Happen
+
+### The Resilience Comparison: What Didn't Happen
 
 Here's what makes this event fundamentally different from the 1980 ARPANET collapse and the 1988 Morris Worm: the Internet didn't collapse. It demonstrated remarkable resilience. Let's compare:
+
 
 **1980 ARPANET Collapse: Single Point of Failure**
 
@@ -1299,7 +1279,7 @@ def morris_worm_1988_failure():
 
 **2020 COVID-19: Infrastructure Resilience**
 
-In 2020, global internet traffic increased by 25-30%. Some regions saw 40% surges. DE-CIX Frankfurt, one of the world's largest internet exchanges, hit 9.1 Terabits per second -- a 12% increase from the previous record. And the Internet backbone? It didn't collapse. It scaled. Core infrastructure remained operational. Essential sites stayed up. This was resilience, not failure.
+In 2020, global internet traffic increased by 25-30%. Some regions saw 40% surges. DE-CIX Frankfurt, one of the world's largest internet exchanges, hit 9.1 Terabits per second, a 12% increase from the previous record. And the Internet backbone? It didn't collapse. It scaled. Core infrastructure remained operational. Essential sites stayed up. This was resilience, not failure.
 
 ```python
 def covid_2020_resilience():
@@ -1318,7 +1298,7 @@ def covid_2020_resilience():
 
 The difference? Architecture. By 2020, the Internet had evolved from 1980's centralized ARPANET and 1988's lack of incident response. Distributed architecture with multiple redundant paths. Elastic cloud infrastructure that could scale capacity rapidly. CDNs for content delivery. Decades of experience with traffic management. Robust interconnection points and peering arrangements.
 
-##### The Traffic Surge: Unprecedented but Manageable
+#### The Traffic Surge: Unprecedented but Manageable
 
 Global internet traffic increased by 25-30% in March 2020. But the increase wasn't uniform. Milan saw a 40% surge when Italy went into lockdown. Amsterdam, Frankfurt, and London saw 10-20% increases. In the U.S., internet usage rose 35% in March. Verizon reported a 20% increase in web traffic within a week.
 
@@ -1349,13 +1329,13 @@ def traffic_surge_analysis():
     return resilience_story(traffic_increases, infrastructure_response)
 ```
 
-##### Video Conferencing: The Scaling Challenge
+#### Video Conferencing: The Scaling Challenge
 
-Microsoft Teams meeting minutes increased from 560 million on March 12 to 2.7 billion by March 31, 2020 -- approximately a fivefold increase in less than three weeks. Google Meet reported 2 billion minutes of usage daily. Skype's daily users increased by 40% from February to March. Video conferencing traffic increased by 50% at DE-CIX Frankfurt.
+Microsoft Teams meeting minutes increased from 560 million on March 12 to 2.7 billion by March 31, 2020: approximately a fivefold increase in less than three weeks. Google Meet reported 2 billion minutes of usage daily. Skype's daily users increased by 40% from February to March. Video conferencing traffic increased by 50% at DE-CIX Frankfurt.
 
 The scaling challenge was real. Video conferencing platforms had to handle massive, sudden demand increases. But they scaled. Zoom, Teams, Google Meet -- they all stayed operational. There were performance issues. There were quality reductions. Netflix reduced streaming quality by 25% in Europe following EU requests. YouTube, Disney+, Google, and Amazon also considered or implemented quality reductions.
 
-But here's the key: services stayed operational. They adapted. They reduced quality to manage bandwidth. They scaled capacity. They didn't collapse. This is resilience in action -- maintaining service under unprecedented load, even if that means reducing quality or adding capacity.
+But here's the key: services stayed operational. They adapted. They reduced quality to manage bandwidth. They scaled capacity. They didn't collapse. This is resilience in action: maintaining service under unprecedented load, even if that means reducing quality or adding capacity.
 
 ```python
 def video_conferencing_scaling():
@@ -1384,7 +1364,7 @@ def video_conferencing_scaling():
     return adaptive_resilience(scaling_challenges, adaptive_responses)
 ```
 
-##### Sustained High Load: Not a Temporary Spike
+#### Sustained High Load: Not a Temporary Spike
 
 This wasn't a temporary spike like a major news event or a viral video. Traffic remained elevated through the first half of 2020 and beyond. Global internet disruptions remained 44% higher in June 2020 compared to January. This was sustained high load, not a temporary spike.
 
@@ -1409,13 +1389,15 @@ def sustained_load_analysis():
         "result": "No collapse, sustained operation"
     }
     
-    #### Unlike temporary spikes, sustained load requires sustained capacity
-    return sustained_resilience(load_characteristics, infrastructure_response)
+    #### Unlike temporary spikes, sustained load requires
+    #### sustained capacity
+    return sustained_resilience(load_characteristics,
+                                infrastructure_response)
 ```
-{::pagebreak /}
-##### Why Your SLOs Couldn't Prepare You
 
-This is the core problem: your SLOs assume gradual changes. They're built on historical patterns. They expect normal growth curves. The COVID-19 shift created scenarios that broke those assumptions -- but unlike 1980 and 1988, infrastructure adapted rather than collapsed.
+#### Why Your SLOs Couldn't Prepare You
+
+This is the core problem: your SLOs assume gradual changes. They're built on historical patterns. They expect normal growth curves. The COVID-19 shift created scenarios that broke those assumptions, but unlike 1980 and 1988, infrastructure adapted rather than collapsed.
 
 The simultaneity broke assumptions. The entire world shifting at once had no precedent. The magnitude broke assumptions. Fivefold increases in weeks had no precedent. The duration broke assumptions. Sustained high load, not temporary spikes, had no precedent. But here's the difference: infrastructure was designed to adapt. Cloud scaling. CDN distribution. Elastic capacity. These mechanisms worked.
 
@@ -1437,7 +1419,8 @@ class SLOAdaptation:
         self.assumptions["gradual_growth"] = False  # Sudden surge
         self.assumptions["predictable_patterns"] = False  # Unprecedented
         self.assumptions["temporary_spikes"] = False  # Sustained
-        self.assumptions["regional_variations"] = False  # Global simultaneity
+        # Global simultaneity
+        self.assumptions["regional_variations"] = False
         
         #### But infrastructure adapted
         return infrastructure_adaptation(
@@ -1448,8 +1431,8 @@ class SLOAdaptation:
 ```
 
 The lesson isn't that SLOs failed. It's that well-designed infrastructure can adapt when SLOs break. Unlike 1980's cascade failure or 1988's malware propagation, 2020's infrastructure adapted. It scaled. It distributed load. It augmented capacity. It maintained service, even if quality had to be reduced.
-{::pagebreak /}
-##### The Resilience Mechanisms: How It Worked
+
+#### The Resilience Mechanisms: How It Worked
 
 Why did the Internet survive in 2020 when it collapsed in 1980 and 1988? The mechanisms were different. Let's examine them:
 
@@ -1504,23 +1487,25 @@ def resilience_mechanisms():
     return resilience_evolution(mechanisms)
 ```
 
-##### Regional Variations: The Digital Divide
+#### Regional Variations: The Digital Divide
 
 While the Internet backbone remained resilient globally, the impact varied significantly by region. Developed regions with robust infrastructure (North America, Western Europe) handled the load better than regions with less developed infrastructure.
 
 In Bangladesh, Bhutan, and Pakistan, data traffic increased 19-30%, but average broadband speeds remained below regional averages. 62% of users reported regular internet performance issues. The digital divide was exacerbated. Resilience wasn't uniform. Core infrastructure was resilient, but edge connections struggled.
 
-This is important nuance. The Internet backbone was resilient globally. But resilience isn't binary. It varies by region, by infrastructure quality, by capacity. The core held. But the experience varied. This is resilience in practice -- not perfection, but adaptation.
+This is important nuance. The Internet backbone was resilient globally. But resilience isn't binary. It varies by region, by infrastructure quality, by capacity. The core held. But the experience varied. This is resilience in practice: not perfection, but adaptation.
 
 ```python
 def regional_resilience():
-    """
-    Resilience varied by region and infrastructure quality.
-    """
-    resilience_levels = {
-        "backbone": "Resilient globally",
-        "developed_regions": "Strong resilience (North America, Western Europe)",
-        "developing_regions": "More challenges (Bangladesh, Bhutan, Pakistan)",
+"""
+Resilience varied by region and infrastructure quality.
+"""
+resilience_levels = {
+"backbone": "Resilient globally",
+"developed_regions": ("Strong resilience (North America, "
+                      "Western Europe)"),
+"developing_regions": ("More challenges (Bangladesh, Bhutan, "
+                           "Pakistan)"),
         "edge_connections": "Some struggles, core held"
     }
     
@@ -1528,9 +1513,9 @@ def regional_resilience():
     return nuanced_resilience(resilience_levels)
 ```
 
-##### ISP Outages: Edge Issues, Not Core Collapse
+#### ISP Outages: Edge Issues, Not Core Collapse
 
-While ISP outages increased (63% increase in March 2020 compared to January, with U.S. ISP outages nearly doubling between February and March), the core Internet backbone remained operational. The outages were primarily at the "last mile" -- individual connections -- rather than core infrastructure.
+While ISP outages increased (63% increase in March 2020 compared to January, with U.S. ISP outages nearly doubling between February and March), the core Internet backbone remained operational. The outages were primarily at the "last mile" (individual connections) rather than core infrastructure.
 
 This distinction is important. The Internet backbone was resilient. But some end-user connections struggled. This isn't a contradiction. It's the reality of resilience. Core infrastructure can be resilient while edge connections face challenges. The difference from 1980 and 1988? The core held. Edge issues didn't cascade into network-wide collapse.
 
@@ -1550,7 +1535,7 @@ def outage_analysis():
     return edge_vs_core_resilience(outage_characteristics)
 ```
 
-##### What This Means for You
+#### What This Means for You
 
 The COVID-19 infrastructure response is history. But the pattern it revealed isn't. Well-designed infrastructure can handle unprecedented loads. Grey Swans can have Black Swan-like infrastructure effects. But unlike 1980 and 1988, infrastructure can adapt rather than collapse.
 
@@ -1598,15 +1583,15 @@ Resilience varied by region in 2020. Core infrastructure was resilient, but edge
 
 The 2020 Internet's core backbone was resilient, but edge connections had issues. Monitor both core and edge. Don't assume core resilience means edge resilience. Build monitoring for both. Understand where resilience is strong and where it's weak.
 
-##### The Lesson
+#### The Lesson
 
 The COVID-19 infrastructure response taught a critical lesson: well-designed infrastructure can handle unprecedented loads. Unlike the 1980 ARPANET collapse or the 1988 Morris Worm, the Internet didn't collapse in 2020. It demonstrated remarkable resilience.
 
-The pandemic itself was a Grey Swan -- predictable, warned about for decades. But the specific infrastructure impacts bordered on Black Swan territory. The simultaneity, the magnitude, the duration -- these were genuinely surprising. But infrastructure adapted. It scaled. It distributed load. It augmented capacity. It maintained service.
+The pandemic itself was a Grey Swan: predictable, warned about for decades. But the specific infrastructure impacts bordered on Black Swan territory. The simultaneity, the magnitude, the duration: these were genuinely surprising. But infrastructure adapted. It scaled. It distributed load. It augmented capacity. It maintained service.
 
 The difference from 1980 and 1988? Architecture. Distributed rather than centralized. Elastic rather than fixed. Coordinated rather than ad hoc. The mechanisms that failed in 1980 and 1988 were absent or improved by 2020. And when unprecedented load hit, those mechanisms worked.
 
-Your job isn't just to prepare for black swans. It's to build infrastructure that can adapt when black swans arrive. Because sometimes, Grey Swans have Black Swan-like infrastructure effects. And when they do, your infrastructure needs to adapt rather than collapse. That's the lesson of 2020: resilience isn't about preventing failures. It's about adapting when load is unprecedented.
+Your job isn't just to prepare for Black Swans. It's to build infrastructure that can adapt when Black Swans arrive. Because sometimes, Grey Swans have Black Swan-like infrastructure effects. And when they do, your infrastructure needs to adapt rather than collapse. That's the lesson of 2020: resilience isn't about preventing failures. It's about adapting when load is unprecedented.
 {::pagebreak /}
 
 ### Why SLOs Fundamentally Cannot Catch Black Swans
@@ -1625,10 +1610,12 @@ class SLOBlackSwanMismatch:
         """What SLOs need to work."""
         return {
             "historical_data": "Past performance to set baselines",
-            "predictable_distributions": "Metrics that follow known patterns",
+            "predictable_distributions": ("Metrics that follow known "
+                                        "patterns"),
             "measurable_indicators": "Things you can instrument",
             "known_failure_modes": "Problems you've seen or imagined",
-            "stable_relationships": "Metric X correlates with user happiness"
+            "stable_relationships": ("Metric X correlates with "
+                                     "user happiness")
         }
     
     def black_swan_characteristics(self):
@@ -1644,10 +1631,14 @@ class SLOBlackSwanMismatch:
     def the_gap(self):
         """Where SLOs and Black Swans don't overlap."""
         return {
-            "prediction": "SLOs predict from past; Black Swans have no past",
-            "measurement": "SLOs measure known things; Black Swans are unknown",
-            "alerting": "SLOs alert on thresholds; Black Swans exceed all thresholds",
-            "response": "SLOs assume runbooks; Black Swans need novel solutions"
+            "prediction": ("SLOs predict from past; "
+                           "Black Swans have no past"),
+            "measurement": ("SLOs measure known things; "
+                            "Black Swans are unknown"),
+            "alerting": ("SLOs alert on thresholds; "
+                         "Black Swans exceed all thresholds"),
+            "response": ("SLOs assume runbooks; "
+                         "Black Swans need novel solutions")
         }
 ```
 
@@ -1679,7 +1670,8 @@ class MissingMetricExample:
             "manifestation": "Silent data corruption in ML model",
             "user_impact": "Subtly wrong recommendations",
             "your_metrics": "Still all green",
-            "what_you_needed": "Output validation metrics you didn't build",
+            "what_you_needed": ("Output validation metrics you "
+                                "didn't build"),
             "why_you_didnt_build_them": "Didn't know this could happen"
         }
     
@@ -1705,10 +1697,13 @@ class UnmodeledCascade:
     def component_slos(self):
         """Everything looks fine individually."""
         return {
-            "api_service": {"availability": "99.95%", "latency_p99": "200ms"},
-            "database": {"query_time_p99": "50ms", "connection_pool": "60% utilized"},
+            "api_service": {"availability": "99.95%",
+                            "latency_p99": "200ms"},
+            "database": {"query_time_p99": "50ms",
+                         "connection_pool": "60% utilized"},
             "cache": {"hit_rate": "85%", "latency_p99": "5ms"},
-            "message_queue": {"depth": "normal", "processing_rate": "nominal"},
+            "message_queue": {"depth": "normal",
+                              "processing_rate": "nominal"},
             "all_components": "Within SLO targets"
         }
     
@@ -1716,11 +1711,14 @@ class UnmodeledCascade:
         """The Black Swan is in how they interact."""
         return {
             "trigger": "Rare race condition in deployment automation",
-            "cascade": "Cache invalidation → DB query spike → connection exhaustion → " +
-                      "API timeouts → retry storms → message queue backlog → " +
-                      "circuit breakers trip → total service failure",
-            "your_slos": "Each component was within individual SLOs when it started",
-            "failure_mode": "Interaction pattern never seen in testing or production",
+            "cascade": ("Cache invalidation → DB query spike → "
+                        "connection exhaustion → API timeouts → "
+                        "retry storms → message queue backlog → "
+                        "circuit breakers trip → total service failure"),
+            "your_slos": ("Each component was within individual SLOs "
+                          "when it started"),
+            "failure_mode": ("Interaction pattern never seen in testing "
+                             "or production"),
             "recovery": "No runbook, needed novel diagnosis and fix"
         }
 ```
@@ -1744,13 +1742,16 @@ class ExternalDependencyBlackSwan:
     def the_event(self):
         """Something outside your model."""
         return {
-            "scenario": "Critical CDN provider suffers nation-state cyber attack",
+            "scenario": ("Critical CDN provider suffers nation-state "
+                         "cyber attack"),
             "your_metrics": "Show increased latency from CDN",
-            "actual_problem": "CDN infrastructure being actively destroyed",
+            "actual_problem": ("CDN infrastructure being actively "
+                               "destroyed"),
             "your_slo": "Degraded but still technically meeting targets",
             "user_experience": "Completely broken",
             "response_needed": "Failover to different CDN",
-            "why_black_swan": "Nation-state attack on infrastructure wasn't in threat model"
+            "why_black_swan": ("Nation-state attack on infrastructure "
+                               "wasn't in threat model")
         }
 ```
 {::pagebreak /}
@@ -1761,7 +1762,7 @@ Before we tackle how to handle it, let’s define what we are talking about.
 
 #### What Is Novelty?
 
-Novelty is the attribute that makes Black Swans fundamentally unpredictable. It's not just "something we haven't seen before" -- that's too weak. A Grey Rhino you've been ignoring is technically "new" to your attention, but it's not novel. Novelty describes events, system states, or failure modes that are **categorically unprecedented** relative to your existing knowledge, mental models, and measurement frameworks.
+Novelty is the attribute that makes Black Swans fundamentally unpredictable. It's not just "something we haven't seen before"; that's too weak. A Grey Rhino you've been ignoring is technically "new" to your attention, but it's not novel. Novelty describes events, system states, or failure modes that are **categorically unprecedented** relative to your existing knowledge, mental models, and measurement frameworks.
 
 Think of it this way: your SLOs measure what you know. Novelty is what you don't know. More precisely, novelty is what you **can't** know because it exists outside your conceptual framework entirely.
 
@@ -1769,19 +1770,19 @@ Think of it this way: your SLOs measure what you know. Novelty is what you don't
 
 Novelty manifests in three ways that matter for infrastructure reliability:
 
-**1. Structural Novelty**: The failure mode itself has never been observed. This isn't "our database failed in an unexpected way." It's "a category of failure we didn't know databases could have." The 1980 ARPANET collapse where resilience mechanisms became attack vectors is a perfect example -- no one had conceived that redundancy could amplify failures rather than prevent them.
+**1. Structural Novelty**: The failure mode itself has never been observed. This isn't "our database failed in an unexpected way." It's "a category of failure we didn't know databases could have." The 1980 ARPANET collapse where resilience mechanisms became attack vectors is a perfect example: no one had conceived that redundancy could amplify failures rather than prevent them.
 
-**2. Combination Novelty**: Known components interact in unprecedented ways. Every individual risk factor might be documented, but the specific combination creates something genuinely new. The semiconductor shortage during COVID-19: supply chain risks, geopolitical tensions, pandemic disruptions -- all known individually, but their simultaneous interaction was novel. Black Jellyfish cascades fall here too: familiar components, unprecedented emergent behavior.
+**2. Combination Novelty**: Known components interact in unprecedented ways. Every individual risk factor might be documented, but the specific combination creates something genuinely new. The semiconductor shortage during COVID-19: supply chain risks, geopolitical tensions, pandemic disruptions, all known individually, but their simultaneous interaction was novel. Black Jellyfish cascades fall here too: familiar components, unprecedented emergent behavior.
 
-**3. Epistemological Novelty**: The event breaks your mental models. After it happens, you can't go back to thinking about reliability the way you did before. Your possibility space was incomplete, and now you know it. This is the retrospective predictability trap -- once novelty is revealed, it seems obvious, but that's hindsight bias rewriting history.
+**3. Epistemological Novelty**: The event breaks your mental models. After it happens, you can't go back to thinking about reliability the way you did before. Your possibility space was incomplete, and now you know it. This is the retrospective predictability trap: once novelty is revealed, it seems obvious, but that's hindsight bias rewriting history.
 
 **Novelty vs. Surprise: The Critical Distinction**
 
 Here's where people get confused. Novelty is not the same as surprise.
 
-A Grey Rhino that finally tramples you is surprising (you ignored it) but not novel (you could have known). An Elephant in the Room that causes an outage is surprising (organizational taboo prevented discussion) but not novel (everyone knew). A Black Swan is both surprising AND novel -- it exists outside your conceptual framework entirely.
+A Grey Rhino that finally tramples you is surprising (you ignored it) but not novel (you could have known). An Elephant in the Room that causes an outage is surprising (organizational taboo prevented discussion) but not novel (everyone knew). A Black Swan is both surprising AND novel; it exists outside your conceptual framework entirely.
 
-Surprise is an organizational failure. Novelty is an epistemological impossibility. You can fix surprise with better monitoring, better culture, better communication. You can't fix novelty with better engineering -- it's definitionally outside your models.
+Surprise is an organizational failure. Novelty is an epistemological impossibility. You can fix surprise with better monitoring, better culture, better communication. You can't fix novelty with better engineering; it's definitionally outside your models.
 
 **The Novelty Test**
 
@@ -1793,7 +1794,7 @@ How do you know if something is genuinely novel? Ask five questions:
 4. **Component novelty**: Were all components known and understood individually?
 5. **Interaction predictability**: Could the specific interaction have been anticipated?
 
-If you answer "no" to all five: genuine novelty (Black Swan). If you answer "yes" to any: not genuinely novel -- it's a Grey Swan, Grey Rhino, or organizational failure masquerading as unpredictability.
+If you answer "no" to all five: genuine novelty (Black Swan). If you answer "yes" to any: not genuinely novel; it's a Grey Swan, Grey Rhino, or organizational failure masquerading as unpredictability.
 
 **Why Novelty Accelerates**
 
@@ -1814,7 +1815,7 @@ SLOs fundamentally assume:
 
 This isn't a failure of SLOs. It's the nature of novelty in complex systems. SLOs measure what we know. Novelty is what we don't know. As systems grow more complex, the gap between what SLOs can measure and what can actually happen grows wider over time.
 
-**What This Means for You**
+#### What This Means for You
 
 Since you can't measure or predict novelty directly, you need to build differently:
 
@@ -1822,17 +1823,17 @@ Since you can't measure or predict novelty directly, you need to build different
 
 **Practice adaptation**: Game days for unknown scenarios. Not "what if the database fails" (you have a runbook for that) but "what if we enter a system state we've never seen before?" Can your team make sense of unprecedented situations? Can they make decisions with 20-30% information?
 
-**Foster learning culture**: Rapid sense-making of novel situations. When novelty appears, treat it as data, not failure. Document everything in real-time. Assemble diverse expertise (don't just page the usual team). The goal isn't to prevent novelty -- it's to survive it and learn from it.
+**Foster learning culture**: Rapid sense-making of novel situations. When novelty appears, treat it as data, not failure. Document everything in real-time. Assemble diverse expertise (don't just page the usual team). The goal isn't to prevent novelty; it's to survive it and learn from it.
 
-**Accept epistemological humility**: Acknowledge the limits of knowledge. Some events will always be outside your models. The question isn't whether novelty will happen -- it's whether you'll have built systems and organizations capable of learning from it, adapting to it, and emerging stronger.
+**Accept epistemological humility**: Acknowledge the limits of knowledge. Some events will always be outside your models. The question isn't whether novelty will happen; it's whether you'll have built systems and organizations capable of learning from it, adapting to it, and emerging stronger.
 
 **The Bottom Line**
 
-Novelty is the fundamental attribute that separates measurable reliability from genuine uncertainty. It describes events that are categorically unprecedented relative to our existing knowledge, mental models, and measurement frameworks. Novel events cannot be predicted from historical data because they represent genuine discontinuities -- breaks in pattern that create new possibility spaces.
+Novelty is the fundamental attribute that separates measurable reliability from genuine uncertainty. It describes events that are categorically unprecedented relative to our existing knowledge, mental models, and measurement frameworks. Novel events cannot be predicted from historical data because they represent genuine discontinuities: breaks in pattern that create new possibility spaces.
 
 As infrastructure grows more complex, the rate at which it generates novelty accelerates. We can't eliminate novelty through better engineering, but we can build systems and organizations capable of surviving what they couldn't predict. That's the difference between reliability engineering (managing the known) and resilience engineering (adapting to the novel).
 
-From this point forward in this book, when we refer to "novelty," we mean this definition: the attribute of an event, system state, or phenomenon that cannot be predicted, modeled, or understood through existing frameworks because it represents a genuine discontinuity -- a break from all precedent that creates new possibility spaces and forces fundamental revision of mental models.
+From this point forward in this book, when we refer to "novelty," we mean this definition: the attribute of an event, system state, or phenomenon that cannot be predicted, modeled, or understood through existing frameworks because it represents a genuine discontinuity: a break from all precedent that creates new possibility spaces and forces fundamental revision of mental models.
 
 #### Multi-Dimensional Anomaly Detection
 
@@ -1855,7 +1856,8 @@ class AnomalyDetectionSystem:
         self.baseline_relationships = {
             "cpu_vs_latency": self.correlation("cpu", "latency"),
             "error_rate_vs_traffic": self.correlation("errors", "traffic"),
-            "cache_hits_vs_db_load": self.correlation("cache_hits", "db_queries"),
+            "cache_hits_vs_db_load": self.correlation("cache_hits",
+                                                      "db_queries"),
             # Track dozens of these
         }
     
@@ -1865,15 +1867,18 @@ class AnomalyDetectionSystem:
         """
         anomalies = []
         
-        for relationship, baseline_correlation in self.baseline_relationships.items():
+        for relationship, baseline_correlation in \
+                self.baseline_relationships.items():
             current = self.correlation(*relationship.split("_vs_"))
             
-            if abs(current - baseline_correlation) > 0.3:  # Significant change
+            # Significant change
+            if abs(current - baseline_correlation) > 0.3:
                 anomalies.append({
                     "relationship": relationship,
                     "baseline": baseline_correlation,
                     "current": current,
-                    "interpretation": "System behavior has changed fundamentally"
+                    "interpretation": ("System behavior has changed "
+                                       "fundamentally")
                 })
         
         return anomalies if anomalies else None
@@ -1883,7 +1888,8 @@ class AnomalyDetectionSystem:
         Things that traditional SLOs miss.
         """
         return {
-            "cascade_precursors": "Relationships changing before values spike",
+            "cascade_precursors": ("Relationships changing before "
+                                   "values spike"),
             "novel_failure_modes": "Patterns you've never seen",
             "external_factors": "Something changed in the environment",
             "not_predicted": "But detected when it starts"
@@ -1950,7 +1956,7 @@ The best way to find Black Swans is to create them in controlled environments. N
 
 At an early-stage SDN startup I worked with, we developed a particularly effective exercise I call the Troubleshooting Extravaganza. It's chaos engineering with a twist: the people who break things are the same ones who have to fix them. Eventually.
 
-Here's how it worked. The day before the exercise, we'd have team members from different disciplines--developers, customer service, QA, solution architects--think up novel ways to break the system. The catch: they couldn't just break it. They also had to figure out how to fix it.
+Here's how it worked. The day before the exercise, we'd have team members from different disciplines: developers, customer service, QA, solution architects: think up novel ways to break the system. The catch: they couldn't just break it. They also had to figure out how to fix it.
 
 Each participant wrote detailed instructions on what they did to break the system, then created a runbook for recovering from that specific breakage. The constraints were tight: break it in five minutes or less, fix it in twenty minutes or less from discovery. Realistic time pressure. Realistic chaos.
 
@@ -1970,15 +1976,15 @@ The universe has a cruel sense of humor. There's no such thing as a foolproof so
 
 The junior engineers weren't constrained by what "shouldn't" happen. They were constrained only by what was technically possible. And in production, that's the only constraint that matters.
 
-##### Implementing the Troubleshooting Extravaganza
+#### Implementing the Troubleshooting Extravaganza
 
 Here is a compact blueprint that keeps the exercise flexible without bogging readers in implementation detail:
 
 ```python
 class TroubleshootingExtravaganza:
     """
-    Orchestrate break-fix scenarios while safeguarding the five-minute break
-    and twenty-minute fix time boxes.
+    Orchestrate break-fix scenarios while safeguarding the five-minute
+    break and twenty-minute fix time boxes.
     """
 
     def __init__(self, doom_master, participants):
@@ -2005,7 +2011,8 @@ class TroubleshootingExtravaganza:
         return scenario["id"]
 
     def _validate_timebox(self, scenario):
-        return scenario["break_deadline"] <= 300 and scenario["fix_deadline"] <= 1200
+        return (scenario["break_deadline"] <= 300 and
+                scenario["fix_deadline"] <= 1200)
 
     def select_random_scenario(self):
         import random
@@ -2037,9 +2044,9 @@ Treat the skeleton above as a checklist: scenario creation validates the time bo
 - **The foolproof fallacy.** Designing for the documented path is necessary but insufficient; aim for scenarios that challenge your assumptions about what should happen.
 - **Hubris extends time to recovery.** Teams that start from certainty waste time chasing the wrong hypotheses. Curiosity—“what else could this be?”—keeps the pressure on the right path.
 
-##### What This Teaches Us
+#### What This Teaches Us
 
-The Troubleshooting Extravaganza isn't just a training exercise. It's a structured way to discover Black Swan failure modes before they happen in production. The constraints--five minutes to break, twenty minutes to fix--mirror real incident timelines. The random selection prevents gaming the system. The requirement that creators also provide solutions ensures scenarios are realistic, not just destructive.
+The Troubleshooting Extravaganza isn't just a training exercise. It's a structured way to discover Black Swan failure modes before they happen in production. The constraints: five minutes to break, twenty minutes to fix; mirror real incident timelines. The random selection prevents gaming the system. The requirement that creators also provide solutions ensures scenarios are realistic, not just destructive.
 
 Most importantly, it reveals the blind spots in your architecture. The things that "shouldn't" happen but absolutely will. The assumptions your senior engineers take for granted that your junior engineers will violate. The failure modes that exist in the gap between how you designed the system and how it actually gets used.
 
@@ -2049,14 +2056,14 @@ Because in production, there's no such thing as "users shouldn't do that." There
 
 ### Organizational Preparation: Building Antifragile Teams
 
-If technical systems can't predict Black Swans, can organizations be better prepared? Yes, but not through better planning. Through better adaptation capabilities. We’re not going to talk about this here beyound the code receipes as there is a whole section devoted to Incident Response later in the book.
+If technical systems can't predict Black Swans, can organizations be better prepared? Yes, but not through better planning. Through better adaptation capabilities. We’re not going to talk about this here beyond the code recipes as there is a whole section devoted to Incident Response later in the book.
 
 
 #### The Incident Response Mindset
 
-When a Black Swan hits, your carefully crafted runbooks become historical artifacts. They document what worked before, but Black Swans are, by definition, unprecedented. This isn't a failure of your documentation--it's the nature of the beast. The question isn't whether you'll face something your runbooks don't cover. The question is whether your team can adapt when that moment arrives.
+When a Black Swan hits, your carefully crafted runbooks become historical artifacts. They document what worked before, but Black Swans are, by definition, unprecedented. This isn't a failure of your documentation; it's the nature of the beast. The question isn't whether you'll face something your runbooks don't cover. The question is whether your team can adapt when that moment arrives.
 
-Traditional incident response works beautifully for known failure modes. You identify the problem from your playbook, execute the documented procedure, verify the fix, and update the documentation. It's a well-oiled machine--until it isn't. When the failure mode is genuinely novel, this process breaks down at step one. There is no playbook entry for "something we've never seen before."
+Traditional incident response works beautifully for known failure modes. You identify the problem from your playbook, execute the documented procedure, verify the fix, and update the documentation. It's a well-oiled machine, until it isn't. When the failure mode is genuinely novel, this process breaks down at step one. There is no playbook entry for "something we've never seen before."
 
 Black Swan incidents demand a fundamentally different approach. You're not following a script; you're writing one in real-time. The mental shift is critical: from "what procedure applies?" to "what's actually happening here?" This requires teams that can think, not just execute. It requires psychological safety to say "I don't know" without shame. It requires decision authority to try unconventional solutions when conventional ones have failed.
 
@@ -2091,25 +2098,29 @@ class BlackSwanIncidentResponse:
     def key_capabilities(self):
         """What teams need for Black Swan response."""
         return {
-            "cognitive_diversity": "Different perspectives see different patterns",
+            "cognitive_diversity": ("Different perspectives see "
+                                    "different patterns"),
             "decision_authority": "Empower teams to make novel choices",
-            "psychological_safety": "People must feel safe suggesting weird ideas",
-            "cross_functional_knowledge": "T-shaped engineers who understand adjacent systems",
-            "communication_efficiency": "Information flows fast during crisis"
+            "psychological_safety": ("People must feel safe suggesting "
+                                     "weird ideas"),
+            "cross_functional_knowledge": ("T-shaped engineers who "
+                                           "understand adjacent systems"),
+            "communication_efficiency": ("Information flows fast "
+                                         "during crisis")
         }
 ```
 
-The key difference isn't just in the steps--it's in the capabilities your team needs. Cognitive diversity means you have people who see problems differently, who notice patterns others miss. Decision authority means teams can act without waiting for approval from someone who doesn't understand the novel situation. Psychological safety means engineers can suggest "weird" ideas without fear of ridicule. Cross-functional knowledge means your database expert also understands your message queue, so they can see how failures cascade. Communication efficiency means information flows fast enough to keep up with a rapidly evolving crisis.
+The key difference isn't just in the steps; it's in the capabilities your team needs. Cognitive diversity means you have people who see problems differently, who notice patterns others miss. Decision authority means teams can act without waiting for approval from someone who doesn't understand the novel situation. Psychological safety means engineers can suggest "weird" ideas without fear of ridicule. Cross-functional knowledge means your database expert also understands your message queue, so they can see how failures cascade. Communication efficiency means information flows fast enough to keep up with a rapidly evolving crisis.
 
 This isn't theoretical. Teams that build these capabilities survive Black Swans. Teams that don't, don't. The choice is yours, but you have to make it before the Black Swan arrives.
 
 #### Training for the Unprecedented
 
-You can't train for specific Black Swans. By definition, they're unprecedented. But you can absolutely train for adaptability--the ability to respond effectively when the unexpected arrives. This is the difference between training for a specific fire and training to be a firefighter. One prepares you for a known scenario. The other prepares you for anything.
+You can't train for specific Black Swans. By definition, they're unprecedented. But you can absolutely train for adaptability: the ability to respond effectively when the unexpected arrives. This is the difference between training for a specific fire and training to be a firefighter. One prepares you for a known scenario. The other prepares you for anything.
 
 Conventional training has its place. Incident drills that practice known failure modes build muscle memory for common scenarios. Documentation and runbooks capture institutional knowledge. Postmortems help teams learn from past incidents. This is all valuable, but it's training for the known. When something genuinely novel happens, this training hits its limits.
 
-Adaptability training is different. It's not about memorizing procedures--it's about building the capacity to create procedures on the fly. It's about developing the mental flexibility to recognize novel situations, generate hypotheses rapidly, and test them efficiently. Most importantly, it's about creating a culture where "I don't know" is an acceptable starting point, not a failure.
+Adaptability training is different. It's not about memorizing procedures; it's about building the capacity to create procedures on the fly. It's about developing the mental flexibility to recognize novel situations, generate hypotheses rapidly, and test them efficiently. Most importantly, it's about creating a culture where "I don't know" is an acceptable starting point, not a failure.
 
 ```python
 class BlackSwanTraining:
@@ -2130,7 +2141,8 @@ class BlackSwanTraining:
         """Prepares you for unknown scenarios."""
         return {
             "novel_scenario_drills": {
-                "practice": "Monthly 'surprise' incidents with no runbook",
+                "practice": ("Monthly 'surprise' incidents with "
+                             "no runbook"),
                 "goal": "Build adaptability muscle",
                 "example": "Simulate failures no one has seen before"
             },
@@ -2142,10 +2154,12 @@ class BlackSwanTraining:
             "tabletop_exercises": {
                 "practice": "War game unprecedented scenarios",
                 "goal": "Practice decision-making under uncertainty",
-                "example": "What if our cloud provider got hit by ransomware?"
+                "example": ("What if our cloud provider got hit by "
+                            "ransomware?")
             },
             "blameless_learning": {
-                "practice": "Focus on system factors, not individual fault",
+                "practice": ("Focus on system factors, not "
+                             "individual fault"),
                 "goal": "Create safety for admitting 'I don't know'",
                 "benefit": "Faster learning during novel situations"
             }
@@ -2154,7 +2168,8 @@ class BlackSwanTraining:
     def the_apollo_13_model(self):
         """
         They didn't have a runbook for *that exact* failure sequence.
-        But they had people trained to adapt within known physics/engineering constraints.
+        But they had people trained to adapt within known
+        physics/engineering constraints.
         """
         return {
             "preparation": "Deep system knowledge, not just procedures",
@@ -2165,19 +2180,19 @@ class BlackSwanTraining:
         }
 ```
 
-The Apollo 13 mission is a great example of crisis response under extreme uncertainty. They didn't have a runbook for an oxygen tank explosion in deep space. What they had was a team trained to think, not just follow procedures. They had deep system knowledge that let them understand how to jury-rig a solution. They had practiced responding to novel scenarios, even if they hadn't practiced this specific one. Most importantly, they had a culture where "failure is not an option" meant finding a way, not following a script.
+The Apollo 13 mission is a great example of crisis response under extreme uncertainty. They didn't have a runbook for an oxygen tank explosion in deep space. What they had was a team trained to think, not just follow procedures. They had deep system knowledge that let them understand how to juryrig a solution. They had practiced responding to novel scenarios, even if they hadn't practiced this specific one. Most importantly, they had a culture where "failure is not an option" meant finding a way, not following a script.
 
-That's what adaptability training builds: teams that can think their way through problems they've never seen before. Novel scenario drills force teams to respond without runbooks. Cross-training builds the broad understanding that lets engineers see connections others miss. Tabletop exercises practice decision-making under uncertainty. Blameless learning creates the psychological safety to admit ignorance and learn rapidly.
+That's what adaptability training builds: teams that can think their way through problems they've never seen before. Novel scenario drills force teams to respond without runbooks. Crosstraining builds the broad understanding that lets engineers see connections others miss. Tabletop exercises practice decision-making under uncertainty. Blameless learning creates the psychological safety to admit ignorance and learn rapidly.
 
 The goal isn't to predict the next Black Swan. It's to build teams that can handle whatever Black Swan arrives.
 
 #### Decision-Making Under Extreme Uncertainty
 
-Most decision-making frameworks assume you have data and time. Gather information, analyze options, consult stakeholders, make an informed choice. It's a beautiful process--when you have hours or days. Black Swans don't give you that luxury. You're making critical decisions with maybe 20% of the information you'd normally want, and you're making them in minutes, not days.
+Most decision-making frameworks assume you have data and time. Gather information, analyze options, consult stakeholders, make an informed choice. It's a beautiful process, when you have hours or days. Black Swans don't give you that luxury. You're making critical decisions with maybe 20% of the information you'd normally want, and you're making them in minutes, not days.
 
 This is deeply uncomfortable for engineers trained to be thorough. We want to understand the system before we act. We want to gather data, analyze root causes, design proper solutions. But during a Black Swan, the system is actively failing while you're trying to understand it. Waiting for perfect information means accepting catastrophic failure. You have to act with incomplete understanding.
 
-The key is recognizing that this is a fundamentally different mode of operation. Normal decision-making rules don't apply. You're not optimizing for the best solution--you're optimizing for the least bad outcome given extreme constraints. This requires a different mental model, different principles, and different practices.
+The key is recognizing that this is a fundamentally different mode of operation. Normal decision-making rules don't apply. You're not optimizing for the best solution; you're optimizing for the least bad outcome given extreme constraints. This requires a different mental model, different principles, and different practices.
 
 ```python
 class BlackSwanDecisionFramework:
@@ -2198,11 +2213,15 @@ class BlackSwanDecisionFramework:
     def black_swan_decision_making(self):
         """Required when you have neither data nor time."""
         return {
-            "recognize_mode": "This is a Black Swan, normal rules don't apply",
-            "embrace_uncertainty": "Accept you're making decisions with 20% information",
+            "recognize_mode": ("This is a Black Swan, "
+                               "normal rules don't apply"),
+            "embrace_uncertainty": ("Accept you're making decisions with "
+                                    "20% information"),
             "reversibility_first": "Prioritize decisions you can undo",
-            "containment_over_cure": "Stop the bleeding before diagnosing",
-            "parallel_hypotheses": "Try multiple approaches simultaneously",
+            "containment_over_cure": ("Stop the bleeding before "
+                                      "diagnosing"),
+            "parallel_hypotheses": ("Try multiple approaches "
+                                    "simultaneously"),
             "rapid_iteration": "Quick experiments, fast learning",
             "timeline": "Minutes to hours"
         }
@@ -2222,7 +2241,8 @@ class BlackSwanDecisionFramework:
             },
             "asymmetric_risk": {
                 "principle": "Small cost to prevent huge loss",
-                "action": "Err on side of caution with low-cost protections",
+                "action": ("Err on side of caution with low-cost "
+                           "protections"),
                 "example": "Extra capacity is cheap vs. total outage"
             },
             "decision_capture": {
@@ -2233,21 +2253,21 @@ class BlackSwanDecisionFramework:
         }
 ```
 
-The principles here are counterintuitive but essential. Worst-case thinking means assuming the cascade is happening even if you're not sure--the cost of being wrong about containment is far less than the cost of being wrong about whether you need it. Optionality preservation means keeping multiple paths open, avoiding irreversible choices until you understand the situation better. Asymmetric risk means erring on the side of caution when the cost of protection is small compared to the potential loss. Decision capture means documenting your reasoning, not just your actions--you'll need to understand why you made choices when you're reviewing later.
+The principles here are counterintuitive but essential. Worst-case thinking means assuming the cascade is happening even if you're not sure; the cost of being wrong about containment is far less than the cost of being wrong about whether you need it. Optionality preservation means keeping multiple paths open, avoiding irreversible choices until you understand the situation better. Asymmetric risk means erring on the side of caution when the cost of protection is small compared to the potential loss. Decision capture means documenting your reasoning, not just your actions; you'll need to understand why you made choices when you're reviewing later.
 
-The timeline difference is stark: traditional decision-making takes hours to days. Black Swan decision-making takes minutes to hours. The quality bar is different too. You're not looking for the optimal solution--you're looking for a solution that prevents catastrophe and buys you time to find something better. Perfect is the enemy of good enough when the system is on fire.
+The timeline difference is stark: traditional decision-making takes hours to days. Black Swan decision-making takes minutes to hours. The quality bar is different too. You're not looking for the optimal solution; you're looking for a solution that prevents catastrophe and buys you time to find something better. Perfect is the enemy of good enough when the system is on fire.
 
 ### Building Antifragile Systems: Beyond Resilience
 
-Since we can't predict Black Swans, we need systems that benefit from stress and surprise. This is Taleb's concept of antifragility applied to infrastructure. Most of us aim for resilience--systems that survive stress and return to normal. But antifragile systems go further: they get stronger from stress. They learn, adapt, and improve when things go wrong. For Black Swans, this isn't nice-to-have. It's essential.
+Since we can't predict Black Swans, we need systems that benefit from stress and surprise. This is Taleb's concept of antifragility applied to infrastructure. Most of us aim for resilience: systems that survive stress and return to normal. But antifragile systems go further: they get stronger from stress. They learn, adapt, and improve when things go wrong. For Black Swans, this isn't nice-to-have. It's essential.
 
-The idea is counterintuitive. We're trained to prevent failures, not to benefit from them. But think about your immune system: it gets stronger by encountering pathogens. Your muscles get stronger by being stressed. Antifragile systems work the same way--they improve through exposure to disorder, as long as the disorder doesn't kill them first.
+The idea is counterintuitive. We're trained to prevent failures, not to benefit from them. But think about your immune system: it gets stronger by encountering pathogens. Your muscles get stronger by being stressed. Antifragile systems work the same way; they improve through exposure to disorder, as long as the disorder doesn't kill them first.
 
 #### The Fragility Spectrum
 
 Not all systems respond to stress the same way. Understanding where your system falls on the fragility spectrum is the first step toward making it antifragile. Most systems claim to be robust, but many are actually fragile systems with robust pretensions. The difference matters, especially when a Black Swan arrives.
 
-Fragile systems break under stress. They're optimized for a single scenario, have no redundancy (efficiency über alles), feature tight coupling between components, and contain single points of failure. When stressed, they fail catastrophically. Robust systems are better--they withstand stress and return to their original state. They have redundancy, circuit breakers, monitoring, and runbooks. When stressed, they survive and recover. But antifragile systems are different: they get stronger from stress. They learn from failures automatically, improve performance under load, adapt to novel conditions, and evolve over time.
+Fragile systems break under stress. They're optimized for a single scenario, have no redundancy (efficiency über alles), feature tight coupling between components, and contain single points of failure. When stressed, they fail catastrophically. Robust systems are better; they withstand stress and return to their original state. They have redundancy, circuit breakers, monitoring, and runbooks. When stressed, they survive and recover. But antifragile systems are different: they get stronger from stress. They learn from failures automatically, improve performance under load, adapt to novel conditions, and evolve over time.
 
 ```python
 class FragilitySpectrum:
@@ -2305,7 +2325,7 @@ class FragilitySpectrum:
         }
 ```
 
-The reality check is sobering: most systems are fragile with robust pretensions. They have some redundancy, maybe a circuit breaker or two, but they're not truly robust, let alone antifragile. The minimum goal for SRE should be robust--systems that survive and recover. But the target should be antifragile--systems that learn and improve. When a Black Swan hits, the difference between robust and antifragile can be the difference between survival and thriving.
+The reality check is sobering: most systems are fragile with robust pretensions. They have some redundancy, maybe a circuit breaker or two, but they're not truly robust, let alone antifragile. The minimum goal for SRE should be robust: systems that survive and recover. But the target should be antifragile: systems that learn and improve. When a Black Swan hits, the difference between robust and antifragile can be the difference between survival and thriving.
 
 #### Implementing Antifragility in Practice
 
@@ -2313,7 +2333,7 @@ Theory is nice, but how do you actually build antifragile systems? The patterns 
 
 The first principle is counterintuitive: prevent catastrophic failures by having small ones. This is the antifragile paradox. Systems that never fail in small ways tend to fail catastrophically when they do fail. Systems that fail frequently in small, controlled ways build resilience and learn from each failure. It's like vaccination: controlled exposure builds immunity.
 
-The second principle is optionality: keep multiple paths open. Don't commit to a single technology, provider, or approach. This costs more--more complexity, more maintenance, more expense. But when a Black Swan hits one path, you have others. The cost of optionality is insurance against Black Swans.
+The second principle is optionality: keep multiple paths open. Don't commit to a single technology, provider, or approach. This costs more: more complexity, more maintenance, more expense. But when a Black Swan hits one path, you have others. The cost of optionality is insurance against Black Swans.
 
 The third principle is adaptation: systems that learn and evolve. Traditional systems scale based on fixed rules. Antifragile systems learn from patterns and adapt to new ones. Traditional systems alert humans to fix problems. Antifragile systems fix themselves and improve their healing over time.
 
@@ -2330,7 +2350,8 @@ class AntifragileArchitecture:
         return {
             "chaos_engineering": {
                 "approach": "Regularly inject small failures",
-                "benefit": "Discover fragilities before Black Swan exploits them",
+                "benefit": ("Discover fragilities before Black Swan "
+                            "exploits them"),
                 "example": "Netflix Chaos Monkey"
             },
             "canary_deployments": {
@@ -2359,8 +2380,10 @@ class AntifragileArchitecture:
             "technology_diversity": {
                 "approach": "Don't standardize on single tech stack",
                 "cost": "More tools to maintain",
-                "benefit": "Framework-specific vulnerability doesn't take everything down",
-                "example": "Mix of databases, message queues, caching layers"
+                "benefit": ("Framework-specific vulnerability "
+                            "doesn't take everything down"),
+                "example": ("Mix of databases, message queues, "
+                            "caching layers")
             },
             "manual_overrides": {
                 "approach": "Always have manual control",
@@ -2377,12 +2400,14 @@ class AntifragileArchitecture:
         return {
             "auto_scaling_with_learning": {
                 "traditional": "Scale based on fixed rules",
-                "antifragile": "Learn from past patterns, adapt to new ones",
+                "antifragile": ("Learn from past patterns, adapt to "
+                                "new ones"),
                 "benefit": "Handles novel load patterns better"
             },
             "self_healing": {
                 "traditional": "Alert humans to fix",
-                "antifragile": "System fixes itself, improves healing over time",
+                "antifragile": ("System fixes itself, improves healing "
+                                "over time"),
                 "benefit": "Faster recovery from novel failures"
             },
             "continuous_optimization": {
@@ -2398,32 +2423,37 @@ class AntifragileArchitecture:
         """
         return {
             "ultra_safe_core": {
-                "components": ["User data", "Authentication", "Payment processing"],
-                "approach": "Boring technology, massive redundancy, zero experimentation",
+                "components": ["User data", "Authentication",
+                               "Payment processing"],
+                "approach": ("Boring technology, massive redundancy, "
+                             "zero experimentation"),
                 "goal": "Never fails, even during Black Swan"
             },
             "experimental_edge": {
-                "components": ["New features", "Optimizations", "Emerging tech"],
+                "components": ["New features", "Optimizations",
+                               "Emerging tech"],
                 "approach": "Rapid iteration, high tolerance for failure",
                 "goal": "Discover improvements, bounded blast radius"
             },
             "avoided_middle": {
-                "components": "Systems that are neither critical nor experimental",
-                "approach": "Either make them core-safe or edge-experimental",
+                "components": ("Systems that are neither critical "
+                               "nor experimental"),
+                "approach": ("Either make them core-safe or "
+                             "edge-experimental"),
                 "reason": "Middle ground is worst of both worlds"
             }
         }
 ```
 
-The barbell strategy is particularly powerful for Black Swans. You have an ultra-safe core--user data, authentication, payment processing--built with boring technology, massive redundancy, and zero experimentation. This core never fails, even during Black Swans. Then you have an experimental edge--new features, optimizations, emerging tech--where you iterate rapidly with high tolerance for failure. The key is avoiding the middle: systems that are neither critical enough to be ultra-safe nor experimental enough to benefit from rapid iteration. The middle ground gives you the worst of both worlds: not safe enough and not innovative enough.
+The barbell strategy is particularly powerful for Black Swans. You have an ultra-safe core: user data, authentication, payment processing: built with boring technology, massive redundancy, and zero experimentation. This core never fails, even during Black Swans. Then you have an experimental edge: new features, optimizations, emerging tech: where you iterate rapidly with high tolerance for failure. The key is avoiding the middle: systems that are neither critical enough to be ultra-safe nor experimental enough to benefit from rapid iteration. The middle ground gives you the worst of both worlds: not safe enough and not innovative enough.
 
-Chaos engineering, canary deployments, and circuit breakers create small, frequent failures that prevent catastrophic ones. Multi-cloud, technology diversity, and manual overrides create optionality when Black Swans hit. Adaptive systems learn and evolve, getting better at handling novel situations. Together, these patterns create systems that don't just survive Black Swans--they get stronger from them.
+Chaos engineering, canary deployments, and circuit breakers create small, frequent failures that prevent catastrophic ones. Multi-cloud, technology diversity, and manual overrides create optionality when Black Swans hit. Adaptive systems learn and evolve, getting better at handling novel situations. Together, these patterns create systems that don't just survive Black Swans; they get stronger from them.
 
 #### Operational Slack: The Anti-Efficiency
 
-One of the most counterintuitive aspects of Black Swan preparation is maintaining slack in your systems. This goes against every instinct for optimization. We're trained to eliminate waste, maximize utilization, run lean. But for Black Swans, slack isn't waste--it's insurance. It's the difference between a system that breaks under novel stress and one that adapts.
+One of the most counterintuitive aspects of Black Swan preparation is maintaining slack in your systems. This goes against every instinct for optimization. We're trained to eliminate waste, maximize utilization, run lean. But for Black Swans, slack isn't waste; it's insurance. It's the difference between a system that breaks under novel stress and one that adapts.
 
-The efficiency trap is seductive. Running at 95% capacity saves money. Engineers at 100% utilization maximize throughput. Optimizing for cost reduces expenses. But when a Black Swan arrives--a novel demand spike, an unexpected failure cascade, a completely new type of load--there's nowhere for it to go. The system is already at capacity. It's like scheduling every minute of your day: efficient until something unexpected happens, then everything breaks.
+The efficiency trap is seductive. Running at 95% capacity saves money. Engineers at 100% utilization maximize throughput. Optimizing for cost reduces expenses. But when a Black Swan arrives: a novel demand spike, an unexpected failure cascade, a completely new type of load: there's nowhere for it to go. The system is already at capacity. It's like scheduling every minute of your day: efficient until something unexpected happens, then everything breaks.
 
 Slack comes in different forms, and each serves a purpose. Capacity slack means you can handle unexpected load. Time slack means engineers have time to learn and explore, not just execute. Cognitive slack means people aren't burned out and can think clearly when novel situations arise. Financial slack means you can respond to emergencies without waiting for budget approval. Each type of slack costs something, but each provides resilience against Black Swans.
 
@@ -2471,7 +2501,8 @@ class OperationalSlack:
                 "traditional": "Optimize for cost",
                 "antifragile": "Maintain reserves for emergency response",
                 "cost": "Money sitting idle",
-                "benefit": "Can respond to Black Swan without budget approval"
+                "benefit": ("Can respond to Black Swan without budget "
+                            "approval")
             }
         }
     
@@ -2487,7 +2518,7 @@ class OperationalSlack:
         }
 ```
 
-The paradox is clear: inefficiency creates resilience. Efficient systems break under novel stress because they have no room to adapt. Inefficient systems survive because they have slack to handle surprises. The lesson isn't to be infinitely inefficient--that's not sustainable either. The lesson is to optimize for adaptability, not efficiency. When a Black Swan hits, you'll be glad you had that extra capacity, that time for exploration, those fresh minds, that financial reserve. The cost of slack is visible on your balance sheet. The cost of not having slack is visible when the Black Swan arrives and your system can't adapt.
+The paradox is clear: inefficiency creates resilience. Efficient systems break under novel stress because they have no room to adapt. Inefficient systems survive because they have slack to handle surprises. The lesson isn't to be infinitely inefficient; that's not sustainable either. The lesson is to optimize for adaptability, not efficiency. When a Black Swan hits, you'll be glad you had that extra capacity, that time for exploration, those fresh minds, that financial reserve. The cost of slack is visible on your balance sheet. The cost of not having slack is visible when the Black Swan arrives and your system can't adapt.
 
 ### The Narrative Fallacy: Lessons from Post-Black Swan Analysis
 
@@ -2506,8 +2537,10 @@ class NarrativeFallacyPatterns:
         The most common and dangerous pattern.
         """
         return {
-            "narrative": "In hindsight, the warning signs were obvious",
-            "reality": "Warning signs only obvious after you know what to look for",
+            "narrative": ("In hindsight, the warning signs were "
+                          "obvious"),
+            "reality": ("Warning signs only obvious after you know "
+                        "what to look for"),
             "danger": "Creates false confidence in prediction ability",
             "example": "Of course the housing bubble would pop",
             "truth": "If it was obvious, why didn't anyone prevent it?"
@@ -2518,11 +2551,15 @@ class NarrativeFallacyPatterns:
         Deterministic thinking after probabilistic event.
         """
         return {
-            "narrative": "Given the system complexity, failure was inevitable",
-            "reality": "System ran for years without this specific failure",
+            "narrative": ("Given the system complexity, failure was "
+                          "inevitable"),
+            "reality": ("System ran for years without this specific "
+                        "failure"),
             "danger": "Discourages improvement efforts",
-            "example": "Distributed systems always eventually fail this way",
-            "truth": "This specific failure wasn't inevitable, just possible"
+            "example": ("Distributed systems always eventually fail "
+                        "this way"),
+            "truth": ("This specific failure wasn't inevitable, just "
+                      "possible")
         }
     
     def single_root_cause(self):
@@ -2531,7 +2568,8 @@ class NarrativeFallacyPatterns:
         """
         return {
             "narrative": "The root cause was X",
-            "reality": "Complex systems fail through multiple contributing factors",
+            "reality": ("Complex systems fail through multiple "
+                        "contributing factors"),
             "danger": "Fixing X doesn't prevent similar Black Swans",
             "example": "The junior engineer who pushed the bad config",
             "truth": "System design allowed single mistake to cascade"
@@ -2542,11 +2580,13 @@ class NarrativeFallacyPatterns:
         Listing coincidences to make it seem predictable.
         """
         return {
-            "narrative": "It was the perfect storm of A, B, and C happening together",
+            "narrative": ("It was the perfect storm of A, B, and C "
+                          "happening together"),
             "reality": "Perfect storms happen more often than we admit",
             "danger": "Makes similar combinations seem unlikely",
             "example": "This exact combination will never happen again",
-            "truth": "Different combinations will create different Black Swans"
+            "truth": ("Different combinations will create different "
+                      "Black Swans")
         }
 ```
 
@@ -2616,7 +2656,8 @@ class EpistemicHumility:
         We understand less than we think.
         """
         return {
-            "feel_we_understand": "System architecture, dependencies, failure modes",
+            "feel_we_understand": ("System architecture, dependencies, "
+                                   "failure modes"),
             "actually_understand": "System behavior we've observed",
             "gap": "Emergent properties, novel interactions, edge cases",
             "danger": "Confidence exceeds competence"
@@ -2638,7 +2679,8 @@ class EpistemicHumility:
                 "comfort_level": "Medium"
             },
             "unknown_unknowns": {
-                "examples": "Black Swans - questions you don't know to ask",
+                "examples": ("Black Swans - questions you don't know "
+                             "to ask"),
                 "coverage": "Nothing can cover these",
                 "comfort_level": "Should be low, often isn't"
             }
@@ -2649,7 +2691,8 @@ class EpistemicHumility:
         How to stay appropriately uncertain.
         """
         return {
-            "question_assumptions": "Regularly ask 'what could I be wrong about?'",
+            "question_assumptions": ("Regularly ask 'what could I be "
+                                     "wrong about?'"),
             "invite_challenge": "Reward people who point out blind spots",
             "study_surprises": "When surprised, examine why",
             "diverse_perspectives": "Seek views from outside your domain",
@@ -2676,7 +2719,8 @@ class OverconfidenceTax:
                 "cost": "Missed opportunity to prevent cascade"
             },
             "dismissing_concerns": {
-                "thinking": "That edge case is too unlikely to worry about",
+                "thinking": ("That edge case is too unlikely to worry "
+                             "about"),
                 "reality": "Edge cases are where Black Swans live",
                 "cost": "System vulnerable to exact scenario dismissed"
             },
@@ -2701,7 +2745,8 @@ class OverconfidenceTax:
             "scenario_planning": "Prepare for multiple futures",
             "red_teaming": "Pay people to prove you wrong",
             "paranoia_cultivation": "Maintain healthy fear of the unknown",
-            "continuous_learning": "Assume your models are always incomplete"
+            "continuous_learning": ("Assume your models are always "
+                                    "incomplete")
         }
 ```
 
@@ -2732,9 +2777,11 @@ class ImmediateActions:
                 "time": "2 hours architecture review"
             },
             "review_postmortems": {
-                "task": "Re-read past postmortems looking for 'we should have known'",
+                "task": ("Re-read past postmortems looking for 'we "
+                         "should have known'"),
                 "goal": "Identify narrative fallacy in past learning",
-                "follow_up": "What surprised us that we forgot was surprising?",
+                "follow_up": ("What surprised us that we forgot was "
+                              "surprising?"),
                 "time": "1 hour reading"
             },
             "chaos_experiment": {
@@ -2775,7 +2822,8 @@ class MonthlyActions:
                 "commitment": "Team meeting + follow-up work"
             },
             "dependency_review": {
-                "task": "Map external dependencies and their failure modes",
+                "task": ("Map external dependencies and their failure "
+                         "modes"),
                 "goal": "Understand exposure to external Black Swans",
                 "benefit": "Identify diversification opportunities",
                 "commitment": "4-8 hours architecture work"
@@ -2835,29 +2883,38 @@ class BlackSwanSynthesis:
     def core_insights(self):
         return {
             "unpredictability": {
-                "insight": "True Black Swans cannot be predicted from historical data",
+                "insight": ("True Black Swans cannot be predicted "
+                            "from historical data"),
                 "implication": "SLOs are necessary but insufficient",
-                "action": "Build systems that handle the unpredictable"
+                "action": ("Build systems that handle the "
+                           "unpredictable")
             },
             "retrospective_rationalization": {
-                "insight": "After Black Swans, we construct false narratives of predictability",
-                "implication": "Post-mortems can create dangerous overconfidence",
+                "insight": ("After Black Swans, we construct false "
+                            "narratives of predictability"),
+                "implication": ("Post-mortems can create dangerous "
+                                "overconfidence"),
                 "action": "Focus on adaptability, not prevention"
             },
             "extremistan_vs_mediocristan": {
-                "insight": "Extreme events dominate outcomes in complex systems",
-                "implication": "Average case performance matters less than tail behavior",
+                "insight": ("Extreme events dominate outcomes in "
+                            "complex systems"),
+                "implication": ("Average case performance matters less "
+                                "than tail behavior"),
                 "action": "Design for worst case, not typical case"
             },
             "antifragility": {
-                "insight": "Systems can benefit from stress and randomness",
-                "implication": "Resilience isn't enough, we need improvement through disorder",
+                "insight": ("Systems can benefit from stress and "
+                            "randomness"),
+                "implication": ("Resilience isn't enough, we need "
+                                "improvement through disorder"),
                 "action": "Build systems that learn from failures"
             },
             "epistemic_humility": {
                 "insight": "Our understanding is always incomplete",
                 "implication": "Confidence should have limits",
-                "action": "Maintain appropriate uncertainty and paranoia"
+                "action": ("Maintain appropriate uncertainty "
+                           "and paranoia")
             }
         }
     
@@ -2869,7 +2926,8 @@ class BlackSwanSynthesis:
             "we_cannot": "Predict specific Black Swans",
             "we_must": "Prepare for Black Swans in general",
             "resolution": "Build adaptability, not prediction",
-            "analogy": "Can't predict which emergency, but can train paramedics"
+            "analogy": ("Can't predict which emergency, but can "
+                        "train paramedics")
         }
     
     def relationship_to_other_animals(self):
@@ -2879,8 +2937,10 @@ class BlackSwanSynthesis:
         return {
             "teaches_humility_about": "All other risk types",
             "shows_limits_of": "Measurement and prediction",
-            "demands_we_build": "Antifragile systems and organizations",
-            "reminds_us": "The biggest risks are often the ones we can't measure"
+            "demands_we_build": ("Antifragile systems and "
+                                 "organizations"),
+            "reminds_us": ("The biggest risks are often the ones "
+                           "we can't measure")
         }
 ```
 {::pagebreak /}
@@ -2889,6 +2949,7 @@ class BlackSwanSynthesis:
 Being ready for Black Swans isn't about prediction. It's about building the organizational and technical capabilities to adapt when the genuinely unprecedented arrives.
 
 This means:
+
 - **SLOs for normal operations** - they're essential for day-to-day reliability
 - **Antifragile architecture for extremes** - systems that can handle novelty
 - **Organizational adaptability** - teams that can improvise and learn rapidly
@@ -2904,4 +2965,4 @@ That's what the rest of this essay explores - the other animals in our bestiary,
 But the Black Swan teaches the deepest lesson: **Build systems that can survive your own ignorance.**
 
 
-[black-swan]: black-swan.png
+[Black Swan]: Black Swan.png

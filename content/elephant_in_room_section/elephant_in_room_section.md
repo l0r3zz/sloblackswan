@@ -8,12 +8,12 @@ There's a particular kind of organizational dysfunction that's more dangerous th
 
 This is the elephant in the room.
 
-Unlike grey rhinos, which are external threats we choose to ignore, elephants in the room are internal dysfunctions we collectively pretend don't exist. The grey rhino is a capacity problem you won't fix. The elephant in the room is the manager who's incompetent, the team member who's toxic, the architectural decision that was political rather than technical, the reorganization that everyone knows is failing, or the product strategy that makes no sense.
+Unlike Grey Rhinos, which are external threats we choose to ignore, elephants in the room are internal dysfunctions we collectively pretend don't exist. The Grey Rhino is a capacity problem you won't fix. The elephant in the room is the manager who's incompetent, the team member who's toxic, the architectural decision that was political rather than technical, the reorganization that everyone knows is failing, or the product strategy that makes no sense.
 
 The metaphor is perfect: an elephant is impossible to miss. It takes up enormous space. It affects everything around it. And yet, through collective social agreement, everyone acts as if it isn't there. We route around it. We accommodate it. We develop elaborate workarounds. But we don't name it.
 
 In SRE and infrastructure organizations, elephants in the room are often more damaging than any technical debt. They destroy psychological safety, kill morale, cause the best engineers to leave, and create an environment where people spend more energy navigating politics than solving technical problems.
-{::pagebreak /}
+
 ### What Makes Something an Elephant in the Room
 
 Not every problem that people don't discuss is an elephant in the room. The characteristics are specific:
@@ -78,13 +78,19 @@ class IncompetentLeaderImpact:
         
         # Productivity loss
         affected_engineers = team_size * (1 - excess_turnover)
-        productivity_factor = 0.60  # 40% productivity loss due to dysfunction
-        opportunity_cost = affected_engineers * 200000 * (1 - productivity_factor)
+        productivity_factor = 0.60
+        # 40% productivity loss due to dysfunction
+        opportunity_cost = (
+            affected_engineers * 200000 * (1 - productivity_factor)
+        )
         
         # Technical debt accumulation
         poor_decisions_per_quarter = 2
         cost_per_poor_decision = 50000  # Eventual refactor cost
-        technical_debt_cost = poor_decisions_per_quarter * (tenure_months / 3) * cost_per_poor_decision
+        technical_debt_cost = (
+            poor_decisions_per_quarter * (tenure_months / 3) * 
+            cost_per_poor_decision
+        )
         
         total_cost = turnover_cost + opportunity_cost + technical_debt_cost
         
@@ -93,7 +99,8 @@ class IncompetentLeaderImpact:
             'turnover_cost': turnover_cost,
             'productivity_cost': opportunity_cost,
             'technical_debt': technical_debt_cost,
-            'cost_to_address': 0,  # Having the conversation costs nothing but courage
+            'cost_to_address': 0,
+            # Having the conversation costs nothing but courage
             'roi_of_addressing': float('inf')
         }
 ```
@@ -154,8 +161,11 @@ class ToxicPerformerImpact:
         excess_attrition = 0.20  # 20% higher attrition on this team
         
         # Net calculation
-        gain_from_toxic = toxic_output_multiplier - 1.0  # +1.0 engineer equivalent
-        loss_from_impact = team_productivity_loss + junior_development_delay  
+        # +1.0 engineer equivalent
+        gain_from_toxic = toxic_output_multiplier - 1.0
+        loss_from_impact = (
+            team_productivity_loss + junior_development_delay
+        )  
         # Typically -3 to -5
         
         net_impact = gain_from_toxic - loss_from_impact
@@ -165,7 +175,10 @@ class ToxicPerformerImpact:
             'team_productivity_loss': team_productivity_loss,
             'net_impact': net_impact,
             'conclusion': 'Negative' if net_impact < 0 else 'Positive',
-            'recommendation': 'Address behavior or remove from team' if net_impact < 0 else 'Continue monitoring'
+            'recommendation': (
+                'Address behavior or remove from team' 
+                if net_impact < 0 else 'Continue monitoring'
+            )
         }
 ```
 
@@ -216,11 +229,16 @@ class FailedArchitectureImpact:
         # Each quarter, workarounds accumulate
         debt_per_quarter = 50000
         quarters = years_since_decision * 4
-        accumulated_debt = debt_per_quarter * quarters * (quarters + 1) / 2  # Quadratic growth
+        # Quadratic growth
+        accumulated_debt = (
+            debt_per_quarter * quarters * (quarters + 1) / 2
+        )
         
         # Opportunity cost
         # Features not built because team is fighting architecture
-        features_not_built = years_since_decision * 2  # 2 major features per year
+        features_not_built = (
+            years_since_decision * 2
+        )  # 2 major features per year
         feature_value = 500000  # Each
         opportunity_cost = features_not_built * feature_value
         
@@ -236,14 +254,23 @@ class FailedArchitectureImpact:
         )
         
         # Cost to fix
-        replatform_cost = team_size * 100000  # Rough estimate for major replatform
+        replatform_cost = (
+            team_size * 100000
+        )  # Rough estimate for major replatform
         
         return {
             'total_sunk_cost': total_cost,
-            'annual_ongoing_cost': annual_productivity_cost + debt_per_quarter * 4,
+            'annual_ongoing_cost': (
+                annual_productivity_cost + debt_per_quarter * 4
+            ),
             'cost_to_fix': replatform_cost,
-            'years_to_roi': replatform_cost / (annual_productivity_cost + debt_per_quarter * 4),
-            'recommendation': 'Fix now - every year of delay increases cost'
+            'years_to_roi': (
+                replatform_cost / 
+                (annual_productivity_cost + debt_per_quarter * 4)
+            ),
+            'recommendation': (
+                'Fix now - every year of delay increases cost'
+            )
         }
 ```
 
@@ -292,10 +319,16 @@ class ReorgImpact:
         # Coordination overhead
         # Number of cross-team interactions increases quadratically
         interactions_before = team_count  # Linear relationships
-        interactions_after = team_count * (team_count - 1) / 2  # All-to-all
+        interactions_after = (
+            team_count * (team_count - 1) / 2
+        )  # All-to-all
         
-        coordination_tax = (interactions_after - interactions_before) / interactions_before
-        meetings_per_week = coordination_tax * 10  # Hours per week in alignment meetings
+        coordination_tax = (
+            (interactions_after - interactions_before) / 
+            interactions_before
+        )
+        # Hours per week in alignment meetings
+        meetings_per_week = coordination_tax * 10
         
         # Decision latency
         # Decisions that took days now take weeks
@@ -303,7 +336,8 @@ class ReorgImpact:
         
         # Productivity loss
         engineers_affected = team_count * 8  # Average team size
-        productivity_loss = 0.25  # 25% loss due to confusion and coordination
+        productivity_loss = 0.25
+        # 25% loss due to confusion and coordination
         annual_cost = engineers_affected * 200000 * productivity_loss
         
         # Morale impact
@@ -315,9 +349,14 @@ class ReorgImpact:
             'coordination_hours_per_week': meetings_per_week,
             'decision_latency': f"{decision_delay_factor}x slower",
             'annual_productivity_cost': annual_cost,
-            'attrition_cost': engineers_affected * attrition_increase * 150000,
+            'attrition_cost': (
+                engineers_affected * attrition_increase * 150000
+            ),
             'time_to_acknowledge_failure': weeks_since_reorg,
-            'conclusion': 'Revert or fix' if weeks_since_reorg > 12 else 'Give it more time (maybe)'
+            'conclusion': (
+                'Revert or fix' if weeks_since_reorg > 12 
+                else 'Give it more time (maybe)'
+            )
         }
 ```
 
@@ -356,11 +395,14 @@ class OnCallBurnoutImpact:
     """
     The cost of unsustainable on-call
     """
-    def calculate_burnout_cost(self, team_size, pages_per_week, weeks_on_call_per_year):
+    def calculate_burnout_cost(
+        self, team_size, pages_per_week, weeks_on_call_per_year
+    ):
         # Sleep deprivation impact
         # Each page interrupts sleep, reducing next-day productivity
         avg_pages_per_rotation = pages_per_week
-        productivity_loss_per_page = 0.10  # 10% productivity loss next day per page
+        productivity_loss_per_page = 0.10
+        # 10% productivity loss next day per page
         rotations_per_year = weeks_on_call_per_year
         
         annual_productivity_impact = (
@@ -372,7 +414,8 @@ class OnCallBurnoutImpact:
         
         # Burnout attrition
         # Unsustainable on-call is top reason for leaving
-        burnout_attrition = 0.30  # 30% annual attrition in burned-out teams
+        burnout_attrition = 0.30
+        # 30% annual attrition in burned-out teams
         attrition_cost = team_size * burnout_attrition * 150000
         
         # Health impact
@@ -384,7 +427,8 @@ class OnCallBurnoutImpact:
         # Exhausted engineers make mistakes
         # Mistakes cause more incidents
         # Positive feedback loop
-        incident_rate_multiplier = 1.25  # 25% more incidents due to fatigue
+        incident_rate_multiplier = 1.25
+        # 25% more incidents due to fatigue
         
         total_annual_cost = (
             team_size * 200000 * annual_productivity_impact +
@@ -403,7 +447,9 @@ class OnCallBurnoutImpact:
             'cost_to_fix': cost_to_fix,
             'roi_timeframe': cost_to_fix / total_annual_cost,
             'human_cost': 'Unquantifiable but severe',
-            'recommendation': 'Fix immediately - people are more important than money'
+            'recommendation': (
+                'Fix immediately - people are more important than money'
+            )
         }
 ```
 
@@ -433,10 +479,14 @@ class SpeakUpCalculation:
         # Potential cost from speaking up
         social_cost = 0.30  # Seen as troublemaker
         career_cost = 0.50 if my_organizational_power < 0.30 else 0.10
-        retaliation_risk = 0.60 if past_messenger_outcomes == 'bad' else 0.20
+        retaliation_risk = (
+            0.60 if past_messenger_outcomes == 'bad' else 0.20
+        )
         
         expected_cost = social_cost + career_cost + retaliation_risk
-        expected_gain = my_credit * 0.30  # Probability problem actually gets fixed
+        expected_gain = (
+            my_credit * 0.30
+        )  # Probability problem actually gets fixed
         
         # Rational choice
         if expected_gain > expected_cost:
@@ -504,13 +554,18 @@ class TalentRetention:
     """
     Who stays and who leaves when elephants persist
     """
-    def predict_attrition(self, engineer_competence, engineer_options, months_elephant_unaddressed):
+    def predict_attrition(
+        self, engineer_competence, engineer_options, 
+        months_elephant_unaddressed
+    ):
         # High performers have options and low tolerance for dysfunction
         if engineer_competence > 0.75 and months_elephant_unaddressed > 6:
             departure_probability = 0.80
             
         # Medium performers wait longer but eventually leave
-        elif engineer_competence > 0.50 and months_elephant_unaddressed > 12:
+        elif (
+            engineer_competence > 0.50 and months_elephant_unaddressed > 12
+        ):
             departure_probability = 0.60
             
         # Low performers or those without options stay
@@ -526,7 +581,7 @@ class TalentRetention:
 ```
 
 The organization is left with engineers who either can't leave or have given up. This creates a death spiral: the elephant causes good engineers to leave, which makes fixing the elephant harder, which causes more good engineers to leave.
-
+{::pagebreak /}
 ### SLOs and Elephants: Complete Orthogonality
 
 SLOs are utterly useless against elephants in the room.
@@ -563,7 +618,10 @@ class SLOBlindness:
             'exodus_in_progress': elephant_count > 1
         }
         
-        actual_team_health = "CRITICAL" if any(actual_health_factors.values()) else "HEALTHY"
+        actual_team_health = (
+            "CRITICAL" if any(actual_health_factors.values()) 
+            else "HEALTHY"
+        )
         
         return {
             'what_slos_say': official_conclusion,
@@ -577,7 +635,7 @@ This is why SLO-driven organizations can still have catastrophic cultural failur
 
 ### What Actually Works: Addressing Elephants
 
-Unlike grey rhinos, where the challenge is organizational prioritization, elephants require psychological safety and courage. Here's what actually works:
+Unlike Grey Rhinos, where the challenge is organizational prioritization, elephants require psychological safety and courage. Here's what actually works:
 
 #### 1. Psychological Safety as Foundation
 
@@ -740,7 +798,9 @@ class OrgHealthReview:
             red_flags.append("High attrition - exit interview themes?")
         
         if metrics['engagement_scores']['psychological_safety'] < 0.70:
-            red_flags.append("Low psychological safety - what can't people say?")
+            red_flags.append(
+                "Low psychological safety - what can't people say?"
+            )
         
         if metrics['delivery_velocity'] declining:
             red_flags.append("Slowing delivery - organizational friction?")
@@ -749,7 +809,9 @@ class OrgHealthReview:
         return {
             'metrics': metrics,
             'red_flags': red_flags,
-            'required_discussion': "What elephants might explain these patterns?",
+            'required_discussion': (
+                "What elephants might explain these patterns?"
+            ),
             'action': 'Must address before next review'
         }
 ```
@@ -787,6 +849,6 @@ Elephants thrive in cultures where discomfort is avoided. Change the culture to 
 - Finding problems is as valuable as solving them
 - People who identify elephants get recognition
 - "Best elephant spotted" is a real award
-- Signal that this behavior is valued and safe -- no retaliation, no eye-rolling, no career penalty
+- Signal that this behavior is valued and safe; no retaliation, no eye-rolling, no career penalty
 
 [grey-elephant]: grey-elephant.png
