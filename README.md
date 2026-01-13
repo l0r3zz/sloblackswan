@@ -20,13 +20,14 @@ This is a living document. It was designed to be read, discussed and critiqued b
 
 [SLOs can't catch a Black Swan](https://github.com/l0r3zz/sloblackswan/blob/main/SLOBLACKSWAN-v0.12/SLOBLACKSWAN-v0.12.md)
 
-### Grab the PDF!
+### Download the latest release
 
-[SLOs can't catch a Black Swan (PDF)](https://github.com/l0r3zz/sloblackswan/blob/main/SLOBLACKSWAN-v0.12/SLOBLACKSWAN-v0.12.pdf)
+📥 **[Download PDF, EPUB, or Markdown from the Releases page](https://github.com/l0r3zz/sloblackswan/releases/latest)**
 
-### Grab the EPUB!
-
-[SLOs can't catch a Black Swan (EPUB)](https://github.com/l0r3zz/sloblackswan/blob/main/SLOBLACKSWAN-v0.12/SLOBLACKSWAN-v0.12.epub)
+Available formats:
+- **PDF** - For printing or offline reading
+- **EPUB** - For e-readers (Kindle, Kobo, Apple Books, etc.)
+- **Markdown** - For reading on GitHub or in any markdown viewer
 
 ### Building the Book Locally
 

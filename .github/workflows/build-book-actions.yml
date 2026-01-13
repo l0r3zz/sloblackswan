@@ -142,37 +142,30 @@ jobs:
           source .venv/bin/activate
           python scripts/cleanup_markdown.py "${{ steps.build_md.outputs.md_path }}"
 
-#    - name: Upload Artifacts
-#      uses: actions/upload-artifact@v4
-#      with:
-#        name: slo-black-swan-book
-#        path: SLOBLACKSWAN-*/
-      - name: Commit and push generated docs
-        id: commit_docs
+      - name: Create GitHub Release with assets
         env:
+          GH_TOKEN: ${{ github.token }}
+          VERSION: ${{ steps.version.outputs.version }}
           PR_NUMBER: ${{ github.event.pull_request.number }}
         run: |
-          # Configure git identity for the bot
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
+          OUTPUT_DIR="${{ steps.build_md.outputs.output_dir }}"
+          MD_FILE="${OUTPUT_DIR}/SLOBLACKSWAN-${VERSION}.md"
+          PDF_FILE="${OUTPUT_DIR}/SLOBLACKSWAN-${VERSION}.pdf"
+          EPUB_FILE="${OUTPUT_DIR}/SLOBLACKSWAN-${VERSION}.epub"
+          
+          # Create the release with assets
+          gh release create "$VERSION" \
+            --title "SLOs can't catch a Black Swan ${VERSION}" \
+            --notes "Release ${VERSION} from PR #${PR_NUMBER}
 
-          # Stage everything (including deletions), respecting .gitignore
-          git add -A
+## Downloads
+- **Markdown**: For reading on GitHub or in any markdown viewer
+- **PDF**: For printing or offline reading
+- **EPUB**: For e-readers (Kindle, Kobo, Apple Books, etc.)
 
-          # If nothing changed, exit quietly
-          if git diff --cached --quiet; then
-            echo "No changes to commit"
-            echo "committed=false" >> "$GITHUB_OUTPUT"
-          else
-            git commit -m "Add compiled docs for PR #${PR_NUMBER}"
-            git push
-            echo "committed=true" >> "$GITHUB_OUTPUT"
-          fi
-
-      - name: Tag and push version
-        env:
-          VERSION: ${{ steps.version.outputs.version }}
-        run: |
-          git fetch --tags
-          git tag "$VERSION"
-          git push origin "$VERSION"
+See the [README](https://github.com/${{ github.repository }}/blob/main/README.md) for more information." \
+            "$MD_FILE" \
+            "$PDF_FILE" \
+            "$EPUB_FILE"
+          
+          echo "Release ${VERSION} created with assets"
