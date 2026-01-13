@@ -128,6 +128,15 @@ jobs:
           OUTPUT_DIR="${{ steps.build_md.outputs.output_dir }}"
           python scripts/generate_pdf.py "$MD_PATH" "$PDF_PATH" "$OUTPUT_DIR"
 
+      - name: Generate EPUB from Modified Markdown
+        run: |
+          source .venv/bin/activate
+          export PYTHONPATH=$PYTHONPATH:.
+          MD_PATH="${{ steps.build_md.outputs.md_path }}"
+          EPUB_PATH="${MD_PATH%.md}.epub"
+          OUTPUT_DIR="${{ steps.build_md.outputs.output_dir }}"
+          python scripts/generate_epub.py "$MD_PATH" "$EPUB_PATH" "$OUTPUT_DIR" "SLOs can't catch a Black Swan" "Geoff White"
+
       - name: Cleanup Markdown for GitHub Preview
         run: |
           source .venv/bin/activate
