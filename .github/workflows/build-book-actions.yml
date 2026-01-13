@@ -155,17 +155,19 @@ jobs:
           
           # Create the release with assets
           gh release create "$VERSION" \
-            --title "SLOs can't catch a Black Swan ${VERSION}" \
-            --notes "Release ${VERSION} from PR #${PR_NUMBER}
-
-## Downloads
-- **Markdown**: For reading on GitHub or in any markdown viewer
-- **PDF**: For printing or offline reading
-- **EPUB**: For e-readers (Kindle, Kobo, Apple Books, etc.)
-
-See the [README](https://github.com/${{ github.repository }}/blob/main/README.md) for more information." \
+            --title "${VERSION}" \
+            --notes-file - \
             "$MD_FILE" \
             "$PDF_FILE" \
-            "$EPUB_FILE"
+            "$EPUB_FILE" <<EOF
+          Release ${VERSION} from PR #${PR_NUMBER}
+
+          ## Downloads
+          - **Markdown**: For reading on GitHub or in any markdown viewer
+          - **PDF**: For printing or offline reading
+          - **EPUB**: For e-readers (Kindle, Kobo, Apple Books, etc.)
+
+          See the [README](https://github.com/${{ github.repository }}/blob/main/README.md) for more information.
+          EOF
           
           echo "Release ${VERSION} created with assets"
