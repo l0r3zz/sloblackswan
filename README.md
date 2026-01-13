@@ -20,9 +20,14 @@ This is a living document. It was designed to be read, discussed and critiqued b
 
 [SLOs can't catch a Black Swan](https://github.com/l0r3zz/sloblackswan/blob/main/SLOBLACKSWAN-v0.12/SLOBLACKSWAN-v0.12.md)
 
-### Grab the PDF!
+### Download the latest release
 
-[SLOs can't catch a Black Swan (PDF)](https://github.com/l0r3zz/sloblackswan/blob/main/SLOBLACKSWAN-v0.12/SLOBLACKSWAN-v0.12.pdf)
+📥 **[Download PDF, EPUB, or Markdown from the Releases page](https://github.com/l0r3zz/sloblackswan/releases/latest)**
+
+Available formats:
+- **PDF** - For printing or offline reading
+- **EPUB** - For e-readers (Kindle, Kobo, Apple Books, etc.)
+- **Markdown** - For reading on GitHub or in any markdown viewer
 
 ### Building the Book Locally
 
@@ -50,9 +55,12 @@ This is a living document. It was designed to be read, discussed and critiqued b
    
    # Generate Markdown + PDF
    python scripts/build_book.py -s content -d SLOBLACKSWAN -v v0.1 -m MANIFEST.md -P
+   
+   # Generate Markdown + PDF + EPUB
+   python scripts/build_book.py -s content -d SLOBLACKSWAN -v v0.1 -m MANIFEST.md -P -E
    ```
 
-The output will be in a directory named `SLOBLACKSWAN-<version>` containing the consolidated markdown file and PDF (if `-P` flag is used).
+The output will be in a directory named `SLOBLACKSWAN-<version>` containing the consolidated markdown file, PDF (if `-P` flag is used), and EPUB (if `-E` flag is used).
 
 ### Automated Builds
 
