@@ -1517,7 +1517,7 @@ Here's where people get confused. Novelty is not the same as surprise.
 A Grey Rhino that finally tramples you is surprising (you ignored it) but not novel (you could have known). An Elephant in the Room that causes an outage is surprising (organizational taboo prevented discussion) but not novel (everyone knew). A Black Swan is both surprising AND novel; it exists outside your conceptual framework entirely.
 
 Surprise is an organizational failure. Novelty is an epistemological impossibility. You can fix surprise with better monitoring, better culture, better communication. You can't fix novelty with better engineering; it's definitionally outside your models.
-
+{::pagebreak /}
 **The Novelty Test**
 
 How do you know if something is genuinely novel? Ask five questions:
@@ -2172,7 +2172,7 @@ Train leaders on the framework. When a Black Swan hits, they need to be able to 
 Reward curiosity and admitting ignorance. Create psychological safety to report surprises. Change performance reviews to value learning over always being right. Celebrate people who say "I don't know, let's find out."
 
 This is the hardest investment because it requires changing culture, not just systems. But it has the highest return. Earlier Black Swan detection comes from people who feel safe reporting things that don't make sense, even when they can't explain why.
-
+{::pagebreak /}
 ### The Black Swan's Final Lesson
 
 We've covered a lot of ground. Detection strategies that can't predict but can respond. Organizational preparation that builds adaptability instead of rigid plans. Antifragile systems that get stronger from stress. Philosophical challenges that force us to confront the limits of knowledge. Let me synthesize what I've learned about Black Swans over 30+ years of watching systems fail in ways nobody expected.
