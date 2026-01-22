@@ -4,11 +4,11 @@
 
 ### The Silence Around the Obvious
 
-There's a particular kind of organizational dysfunction that's more dangerous than any technical failure. It's the problem everyone knows exists—the one they discuss in hushed conversations at lunch or private Slack DMs—but that no one will name in the meeting where it could actually be addressed.
+There's a particular kind of organizational dysfunction that's more dangerous than any technical failure. It's the problem everyone knows exists: the one they discuss in hushed conversations at lunch or private Slack DMs, but that no one will name in the meeting where it could actually be addressed.
 
 This is the elephant in the room.
 
-**A Note on This Section**: Unlike other chapters in this book, you won't find Python pseudo-code examples here. That's deliberate. Elephants in the room are purely organizational and human problems—they can't be debugged, monitored, or refactored. They require courage, not code. The calculations and patterns in this section are presented in prose because the solutions are social, not technical. No SLO will catch an elephant. No monitoring dashboard will alert on toxic leadership. These problems require human intervention, difficult conversations, and organizational courage.
+**A Note on This Section**: Unlike other chapters in this book, you won't find Python pseudo-code examples here. That's deliberate. Elephants in the room are purely organizational and human problems: they can't be debugged, monitored, or refactored. They require courage, not code. The calculations and patterns in this section are presented in prose because the solutions are social, not technical. No SLO will catch an elephant. No monitoring dashboard will alert on toxic leadership. These problems require human intervention, difficult conversations, and organizational courage.
 
 Unlike Grey Rhinos, which are external threats we choose to ignore, elephants in the room are internal dysfunctions we collectively pretend don't exist. The Grey Rhino is a capacity problem you won't fix. The elephant in the room is the manager who's incompetent, the team member who's toxic, the architectural decision that was political rather than technical, the reorganization that everyone knows is failing, or the product strategy that makes no sense.
 
@@ -47,7 +47,7 @@ You might be reading this thinking "we don't have elephants." Or maybe you're th
 
 **Signs You Have an Elephant**: If three or more of these are true, you likely have an elephant:
 
-1. **People discuss the problem in private but not in meetings**: The problem comes up in hallway conversations, Slack DMs, or after-work drinks, but never in official channels. This is the classic sign—if everyone knows but no one says it publicly, you've got an elephant.
+1. **People discuss the problem in private but not in meetings**: The problem comes up in hallway conversations, Slack DMs, or after-work drinks, but never in official channels. This is the classic sign; if everyone knows but no one says it publicly, you've got an elephant.
 
 2. **Workarounds have been developed**: The organization has created elaborate processes, communication patterns, or technical solutions that exist solely to route around the problem. These workarounds become institutionalized, making the elephant harder to see because everyone's busy navigating around it.
 
@@ -87,18 +87,18 @@ A manager, director, or executive who is clearly not qualified for their role. T
 
 **The Impact**:
 
-The damage from incompetent leadership compounds in three ways: excess turnover (research shows turnover costs 50-200% of annual salary), productivity loss from dysfunction and low morale, and accumulating technical debt from poor decisions that eventually require expensive refactoring. In affected organizations, annual turnover typically runs 40% versus 15% elsewhere, and remaining engineers operate at roughly 60% productivity while navigating around bad decisions.
+The damage from incompetent leadership compounds in three ways: excess turnover (research shows turnover costs 50-200% of annual salary, with technical roles at the higher end; ), productivity loss from dysfunction and low morale, and accumulating technical debt from poor decisions that eventually require expensive refactoring. In affected organizations, annual turnover typically runs 40% versus 15% elsewhere, and remaining engineers operate at roughly 60% productivity while navigating around bad decisions.
 
-**Calculating the Organizational Cost**: Consider a team facing incompetent leadership. The excess turnover alone—25% more than baseline (40% annual turnover vs 15% elsewhere)—costs roughly $150,000 per unnecessary departure when you factor in recruiting fees and ramp-up time. For a team of 20 engineers, that's $750,000 annually in turnover costs that shouldn't exist.
+**Calculating the Organizational Cost**: Consider a team facing incompetent leadership. The excess turnover alone (25% more than baseline, or 40% annual turnover vs 15% elsewhere) costs roughly $150,000 per unnecessary departure when you factor in recruiting fees and ramp-up time. For a team of 20 engineers, that's $750,000 annually in turnover costs that shouldn't exist.
 
-The remaining engineers, those who haven't left yet, operate at diminished capacity. Working around bad decisions and navigating dysfunction reduces productivity by approximately 40%. At a typical engineer productivity value of $200,000 annually, that 40% loss translates to $80,000 per engineer in opportunity cost—work that could have been done but wasn't.
+The remaining engineers, those who haven't left yet, operate at diminished capacity. Working around bad decisions and navigating dysfunction reduces productivity by approximately 40%. At a typical engineer productivity value of $200,000 annually, that 40% loss translates to $80,000 per engineer in opportunity cost: work that could have been done but wasn't.
 
 Then there's the technical debt: incompetent leaders make poor technical decisions at a predictable rate. Assume two significantly bad decisions per quarter that will eventually require expensive refactoring, at roughly $50,000 each to fix. Over 18 months of tenure, that accumulates to $600,000 in technical debt that compounds with interest.
 
 The total organizational cost: annual turnover losses, ongoing productivity degradation, and accumulating technical debt. The cost to address it? Nothing but courage. The ROI of having the difficult conversation? Infinite.
 
 **Real Pattern**:
-A Fortune 500 company's infrastructure team had a director who consistently made decisions that required expensive reversals. Over 18 months, 12 of 20 engineers left—including three senior engineers who had been there for 5+ years. The director was eventually "promoted" to a role with no direct reports, but the team's velocity never recovered. The institutional knowledge of "this was a problem we all knew about" perpetuated the culture of silence, and new hires were warned informally about the pattern. The people who left never came back, and the organization never acknowledged the years of damage.
+A Fortune 500 company's infrastructure team had a director who consistently made decisions that required expensive reversals. Over 18 months, 12 of 20 engineers left, including three senior engineers who had been there for 5+ years. The director was eventually "promoted" to a role with no direct reports, but the team's velocity never recovered. The institutional knowledge of "this was a problem we all knew about" perpetuated the culture of silence, and new hires were warned informally about the pattern. The people who left never came back, and the organization never acknowledged the years of damage.
 
 #### The Toxic High Performer
 
@@ -131,7 +131,7 @@ The toxic high performer doesn't just affect themselves; they poison the entire 
 
 But now calculate the team damage. On a team of 10 engineers, the other 9 team members each lose approximately 20% productivity due to stress, fear of interaction, and energy spent managing around the toxic person. That's a collective loss of 1.8 engineer equivalents. Already, we're net negative.
 
-The junior engineers—roughly 30% of most teams, or 3 engineers—suffer worse. They stop asking questions, learn 50% slower, and are more likely to leave early. That's a 1.5 engineer equivalent loss in development velocity and institutional knowledge transfer.
+The junior engineers (roughly 30% of most teams, or 3 engineers) suffer worse. They stop asking questions, learn 50% slower, and are more likely to leave early. That's a 1.5 engineer equivalent loss in development velocity and institutional knowledge transfer.
 
 Add the hiring impact: offer acceptance rates drop by 25% because candidates meet the team and decline. Retention suffers with 20% higher attrition as people leave for healthier environments.
 
@@ -187,7 +187,7 @@ Total sunk cost after three years: approximately $11 million. The cost to fix it
 Years to ROI: 1.4 years. The recommendation is clear: fix now, because every year of delay increases the total cost.
 
 **Real Pattern**:
-A cloud services company committed to a microservices architecture that required complex service mesh orchestration. After three years, every engineer knew it was the wrong choice—the overhead was crushing, debugging was a nightmare, and competitors had solved the same problem with a simpler architecture. But the CTO who championed it was still in power, and $8 million had been invested. Engineers developed elaborate workarounds: custom tooling to manage the complexity, shadow systems that bypassed the architecture, and documentation that explained "how to work around the architecture." The architecture persisted for five years until the CTO left. By then, the total cost was estimated at $25 million—more than 3x what an early course correction would have been. The team that finally fixed it took 18 months and lost three senior engineers to burnout.
+A cloud services company committed to a microservices architecture that required complex service mesh orchestration. After three years, every engineer knew it was the wrong choice: the overhead was crushing, debugging was a nightmare, and competitors had solved the same problem with a simpler architecture. But the CTO who championed it was still in power, and $8 million had been invested. Engineers developed elaborate workarounds: custom tooling to manage the complexity, shadow systems that bypassed the architecture, and documentation that explained "how to work around the architecture." The architecture persisted for five years until the CTO left. By then, the total cost was estimated at $25 million, more than 3x what an early course correction would have been. The team that finally fixed it took 18 months and lost three senior engineers to burnout.
 
 #### The Reorganization That Isn't Working
 
@@ -209,7 +209,7 @@ But no one says anything because leadership has committed publicly to the change
 
 Failed reorganizations damage in multiple ways. Cross-team coordination overhead increases quadratically when linear relationships become all-to-all communication patterns. Engineers spend hours in alignment meetings that didn't exist before. Decision latency increases dramatically—choices that took days now take weeks as more stakeholders need to align. Productivity drops as engineers navigate confusion and coordination overhead. Morale collapses as people recognize the reorg isn't working but can't say it openly, creating cynicism and driving attrition.
 
-**The Measurable Damage from Failed Organizational Structure**: Consider a reorganization affecting 10 teams. Before the reorg, interactions were mostly linear: team A talked to team B, which talked to team C. That's 10 primary relationships. After a poorly designed reorg, every team needs to coordinate with every other team—an all-to-all pattern. That's 10 × 9 / 2 = 45 coordination relationships.
+**The Measurable Damage from Failed Organizational Structure**: Consider a reorganization affecting 10 teams. Before the reorg, interactions were mostly linear: team A talked to team B, which talked to team C. That's 10 primary relationships. After a poorly designed reorg, every team needs to coordinate with every other team, creating an all-to-all pattern. That's 10 × 9 / 2 = 45 coordination relationships.
 
 The coordination tax is dramatic: (45 - 10) / 10 = 3.5x increase in coordination overhead. Translated to meetings, that's 35 additional hours per week spent in alignment meetings that didn't exist before. Across 80 engineers (10 teams of 8), that's over 2,800 hours per week lost to coordination overhead.
 
@@ -236,7 +236,7 @@ An on-call system that is burning out engineers, but that leadership won't fix b
 
 **The Impact**:
 
-On-call burnout isn't just uncomfortable—it has measurable costs. Research shows that a single night of sleep deprivation can reduce software developer work quality by 50% (Fucci et al. 2018). The 2025 Catchpoint report documents significant on-call stress and burnout concerns among SREs, with rising toil consuming 30% of work time and post-incident stress affecting team performance. Google's SRE guidelines recommend keeping operational work below 50% and on-call time below 25% for sustainability—thresholds that broken on-call rotations routinely violate.
+On-call burnout isn't just uncomfortable; it has measurable costs. Research shows that a single night of sleep deprivation can reduce software developer work quality by 50% (Fucci et al. 2018). The 2025 Catchpoint report documents significant on-call stress and burnout concerns among SREs, with rising toil consuming 30% of work time and post-incident stress affecting team performance. Google's SRE guidelines recommend keeping operational work below 50% and on-call time below 25% for sustainability, thresholds that broken on-call rotations routinely violate.
 
 The financial impact compounds across several dimensions: immediate productivity loss from sleep deprivation, long-term attrition from burnout, declining incident response quality from exhausted engineers, and the human costs that don't appear on balance sheets but destroy lives.
 
@@ -244,13 +244,13 @@ The financial impact compounds across several dimensions: immediate productivity
 
 The annual productivity impact per engineer: 5 pages per week × 10% loss × 17 weeks × 5 work days = 42.5% of a work week lost to sleep deprivation effects per year. Across 12 engineers at $200,000 productivity value each, that's $1.02 million in annual productivity loss from fatigue alone.
 
-Burnout attrition runs at 30% annually—unsustainable on-call is consistently cited as the top reason for leaving SRE roles. For a 12-person team, that's 3.6 departures per year at $150,000 per replacement (recruiting plus ramp-up), adding $540,000 in annual turnover costs.
+Burnout attrition runs at 30% annually. Unsustainable on-call is consistently cited as the top reason for leaving SRE roles. For a 12-person team, that's 3.6 departures per year at $150,000 per replacement (recruiting plus ramp-up), adding $540,000 in annual turnover costs.
 
-Incident response quality degrades as exhausted engineers make mistakes during incidents, which creates more incidents. The incident rate multiplier is approximately 1.25x—a vicious cycle where burnout causes incidents that cause more burnout.
+Incident response quality degrades as exhausted engineers make mistakes during incidents, which creates more incidents. The incident rate multiplier is approximately 1.25x, creating a vicious cycle where burnout causes incidents that cause more burnout.
 
 Total annual cost of the status quo: approximately $1.56 million. The cost to fix it? Either hire 2 more engineers to spread the on-call burden ($500,000) or invest in reliability improvements to reduce pages ($500,000). The ROI timeframe is 4-6 months.
 
-The recommendation is unambiguous: fix immediately, because people are more important than money. The calculation shows what many teams discover too late: the cost of fixing broken on-call is always less than the cost of not fixing it. But the human cost—sleep disorders, anxiety, damaged relationships, health problems—never appears in the spreadsheet. That's the real price of organizational inaction.
+The recommendation is unambiguous: fix immediately, because people are more important than money. The calculation shows what many teams discover too late: the cost of fixing broken on-call is always less than the cost of not fixing it. But the human cost (sleep disorders, anxiety, damaged relationships, health problems) never appears in the spreadsheet. That's the real price of organizational inaction.
 
 **How Everyone Knows**:
 
@@ -262,7 +262,7 @@ On-call engineers are exhausted and bitter. People try to trade out of on-call s
 
 **Real Pattern**:
 
-A SaaS company's infrastructure team had an on-call rotation that required engineers to be on-call every 3 weeks, with an average of 8 pages per week. Engineers were getting 3-4 hours of sleep per night during on-call weeks. Over 18 months, 5 of 12 engineers left, citing burnout. The team's reputation made hiring difficult—candidates would ask about on-call during interviews and decline offers. The broken on-call situation persisted until the team had lost enough people that leadership was forced to act. By then, institutional knowledge was gone, morale was destroyed, and the fix was to hire 3 more engineers—which could have been done 18 months earlier at lower total cost. The human cost was even higher: two engineers developed anxiety disorders, and one engineer's marriage ended, in part due to the stress.
+A SaaS company's infrastructure team had an on-call rotation that required engineers to be on-call every 3 weeks, with an average of 8 pages per week. Engineers were getting 3-4 hours of sleep per night during on-call weeks. Over 18 months, 5 of 12 engineers left, citing burnout. The team's reputation made hiring difficult; candidates would ask about on-call during interviews and decline offers. The broken on-call situation persisted until the team had lost enough people that leadership was forced to act. By then, institutional knowledge was gone, morale was destroyed, and the fix was to hire 3 more engineers, which could have been done 18 months earlier at lower total cost. The human cost was even higher: two engineers developed anxiety disorders, and one engineer's marriage ended, in part due to the stress.
 
 ### Why Elephants Persist: The Silence Mechanism
 
@@ -298,9 +298,9 @@ When there's an elephant in the room that affects reliability (incompetent leade
 
 **The Performance of Reliability Without the Substance**: The team defines SLOs and presents them in quarterly reviews—but everyone knows they're not achievable given the current architecture. The team runs incident retrospectives and documents action items—but those action items go into a backlog that everyone knows won't be prioritized. The team tracks error budgets with elaborate dashboards—but everyone knows those budgets will be ignored when features need to ship. The team builds monitoring and alerting—but the alerts fire on symptoms, never on the elephant everyone knows is causing the problems.
 
-At every level, the team performs the rituals of SRE: the meetings happen, the documents get written, the dashboards get built. To external observers, it looks like professional reliability engineering. But internally, everyone knows it's theater. The underlying problems—the incompetent director making bad calls, the toxic architect blocking good decisions, the on-call rotation burning people out—remain unaddressed.
+At every level, the team performs the rituals of SRE: the meetings happen, the documents get written, the dashboards get built. To external observers, it looks like professional reliability engineering. But internally, everyone knows it's theater. The underlying problems (the incompetent director making bad calls, the toxic architect blocking good decisions, the on-call rotation burning people out) remain unaddressed.
 
-This is particularly insidious because it creates the appearance of professionalism while the actual reliability erodes. Leadership sees the SRE rituals and concludes "we're doing reliability right." But the engineers know they're just going through motions, and actual reliability continues to degrade. The theater masks the reality until a major outage forces acknowledgment—and by then, the damage is severe.
+This is particularly insidious because it creates the appearance of professionalism while the actual reliability erodes. Leadership sees the SRE rituals and concludes "we're doing reliability right." But the engineers know they're just going through motions, and actual reliability continues to degrade. The theater masks the reality until a major outage forces acknowledgment, and by then, the damage is severe.
 
 #### Silent Technical Debt
 
@@ -317,11 +317,11 @@ This debt doesn't appear in any backlog. It doesn't get sprint capacity. It just
 
 Here's the most dangerous pattern: competent engineers leave when they realize the elephant won't be addressed.
 
-**Who Stays and Who Leaves When Elephants Persist**: High performers—those in roughly the top 25% of competence—have options and low tolerance for dysfunction. If an elephant remains unaddressed for more than 6 months, about 80% of high performers will leave. They recognize the pattern, realize leadership won't act, and find better opportunities elsewhere.
+**Who Stays and Who Leaves When Elephants Persist**: High performers (those in roughly the top 25% of competence) have options and low tolerance for dysfunction. If an elephant remains unaddressed for more than 6 months, about 80% of high performers will leave. They recognize the pattern, realize leadership won't act, and find better opportunities elsewhere.
 
-Medium performers—the solid middle 50% of the team—have more patience or fewer options. They'll wait longer, hoping the situation improves. But if the elephant persists beyond 12 months, approximately 60% of medium performers will also leave. The dysfunction becomes unbearable even for those with moderate risk tolerance.
+Medium performers (the solid middle 50% of the team) have more patience or fewer options. They'll wait longer, hoping the situation improves. But if the elephant persists beyond 12 months, approximately 60% of medium performers will also leave. The dysfunction becomes unbearable even for those with moderate risk tolerance.
 
-Low performers or those without external options—roughly the bottom 25%—tend to stay. Their departure probability is only about 20% because they either don't recognize the dysfunction, can't find alternatives, or have nowhere better to go.
+Low performers or those without external options (roughly the bottom 25%) tend to stay. Their departure probability is only about 20% because they either don't recognize the dysfunction, can't find alternatives, or have nowhere better to go.
 
 The pattern is devastatingly consistent: best engineers leave first. Over time, the team's average competence degrades. The high performers are gone within a year. The medium performers trickle out over 18-24 months. What remains is a team composed primarily of people who either can't leave or have given up trying to fix things.
 
@@ -366,13 +366,13 @@ Unlike Grey Rhinos, where the challenge is organizational prioritization, elepha
 
 If you have multiple elephants (and let's be honest, most organizations do), you need a prioritization framework. Here's the order:
 
-1. **Those causing immediate talent exodus**: If good engineers are leaving right now because of an elephant, address it first. Talent loss compounds—every engineer who leaves makes the problem harder to fix.
+1. **Those causing immediate talent exodus**: If good engineers are leaving right now because of an elephant, address it first. Talent loss compounds; every engineer who leaves makes the problem harder to fix.
 
 2. **Those blocking critical technical work**: If an elephant is preventing you from shipping critical features or fixing critical bugs, it's blocking business value. Address it second.
 
 3. **Those creating the most workarounds**: If an elephant has spawned elaborate workarounds that are consuming significant engineering time, address it third. These workarounds are technical debt that compounds.
 
-4. **Others**: Everything else. Start with one—don't try to fix everything at once. Success with one elephant creates momentum and psychological safety to address others.
+4. **Others**: Everything else. Start with one; don't try to fix everything at once. Success with one elephant creates momentum and psychological safety to address others.
 
 #### 1. Psychological Safety as Foundation
 
@@ -384,13 +384,13 @@ As Amy Edmondson describes in *The Fearless Organization* (2018), psychological 
 **How to build it**:
 
 **Leader modeling**: 
-This sounds obvious, but you'd be surprised how many leaders think admitting mistakes shows weakness. It actually shows strength—and creates the safety others need to speak up. Leaders admit their own mistakes openly. Leaders ask for feedback and act on it. Leaders thank people for raising problems. Leaders never punish messengers.
+This sounds obvious, but you'd be surprised how many leaders think admitting mistakes shows weakness. It actually shows strength and creates the safety others need to speak up. Leaders admit their own mistakes openly. Leaders ask for feedback and act on it. Leaders thank people for raising problems. Leaders never punish messengers.
 
 **Explicit norm-setting**: 
 These aren't just posters; they're enforced norms. "We value directness over politeness." "Bad news early is better than bad news late." "Disagreement makes us stronger." When someone violates these norms (especially a leader), call it out. Consistently.
 
 **Blameless incident culture**: 
-Focus on systems, not individuals. "How did the system allow this to happen?" Action items about process, not people. This creates trust that extends beyond incidents—if we don't blame people for technical failures, maybe we won't blame them for naming elephants.
+Focus on systems, not individuals. "How did the system allow this to happen?" Action items about process, not people. This creates trust that extends beyond incidents: if we don't blame people for technical failures, maybe we won't blame them for naming elephants.
 
 **Regular "elephants" discussions**: 
 
@@ -439,7 +439,7 @@ The key is treating this as a systematic process, not a one-time survey. Run it 
 After major incidents or milestones. "What organizational factors contributed?" Permission to discuss systemic issues. Action items can address elephants.
 
 **Getting Started**: 
-Start with anonymous surveys. Use a tool like Google Forms or SurveyMonkey. Ask the four questions from the code example. Share aggregated results publicly—"30% of the team mentioned X" makes it discussable because it's data, not accusation. Then add skip-level conversations monthly.
+Start with anonymous surveys. Use a tool like Google Forms or SurveyMonkey. Ask the four questions from the code example. Share aggregated results publicly: "30% of the team mentioned X" makes it discussable because it's data, not accusation. Then add skip-level conversations monthly.
 
 **Common Pitfalls**:
 
@@ -457,7 +457,7 @@ Start with anonymous surveys. Use a tool like Google Forms or SurveyMonkey. Ask 
 
 #### 3. Protect the Messengers
 
-**Why this works**: If someone names an elephant and gets punished (even subtly), you've just reinforced the silence. If someone names an elephant and gets protected, you've created a positive example. People need to see that naming elephants is safe—and rewarded.
+**Why this works**: If someone names an elephant and gets punished (even subtly), you've just reinforced the silence. If someone names an elephant and gets protected, you've created a positive example. People need to see that naming elephants is safe and rewarded.
 
 **How to protect messengers**:
 
@@ -525,7 +525,7 @@ If these metrics are bad and there are no consequences, you're signaling that el
 
 **Regular organizational health reviews**:
 
-Quarterly health reviews create a forcing function for elephant discussions. The review examines key metrics—attrition rates, engagement scores, delivery velocity, incident trends, and recruiting success—then identifies red flags that suggest elephants. High attrition points to exit interview themes worth investigating. Low psychological safety suggests issues people can't raise. Slowing delivery indicates organizational friction. The review forces the question: what elephants might explain these patterns?
+Quarterly health reviews create a forcing function for elephant discussions. The review examines key metrics (attrition rates, engagement scores, delivery velocity, incident trends, and recruiting success), then identifies red flags that suggest elephants. High attrition points to exit interview themes worth investigating. Low psychological safety suggests issues people can't raise. Slowing delivery indicates organizational friction. The review forces the question: what elephants might explain these patterns?
 
 **Quarterly Forcing Function for Elephant Discussions**: The organizational health review process works by making elephant discussions mandatory rather than optional. Each quarter, gather specific metrics:
 
@@ -541,7 +541,7 @@ Then systematically identify red flags:
 - If psychological safety scores below 70%: flag for "Low psychological safety - what can't people say?"
 - If delivery velocity is declining: flag for "Slowing delivery - organizational friction?"
 
-The output is a required discussion: "What elephants might explain these patterns?" Leadership must address identified issues before the next quarterly review. This creates accountability—elephants can't be ignored when the review process forces their discussion every 90 days.
+The output is a required discussion: "What elephants might explain these patterns?" Leadership must address identified issues before the next quarterly review. This creates accountability. Elephants can't be ignored when the review process forces their discussion every 90 days.
 
 **Forced ranking of organizational impediments**: Every quarter, each team lists top 3 organizational impediments. Not technical issues, organizational ones. Roll up to leadership. Leadership must address top patterns. This makes priorities clear.
 
@@ -610,5 +610,7 @@ The results: attrition dropped from 40% to 12% annually. Psychological safety sc
 The key factors that made it work: psychological safety (elephant discussions created safety), explicit permission (the discussion format gave permission), protection of messengers (public thanks and recognition), leadership evaluation (the director's response was evaluated), structural forcing function (weekly discussions forced the conversation), and normalized discomfort (difficult conversations became normal).
 
 This is what's possible when elephants are addressed. It's not easy, but it's possible.
+
+
 
 [grey-elephant]: grey-elephant.png
