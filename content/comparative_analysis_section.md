@@ -52,7 +52,8 @@ This decision process works by elimination: each question rules out categories u
 
 If you've reached Question 4 and it's not a Rhino, Elephant, or Jellyfish, revisit Question 1's Swan distinction criteria to ensure you've properly classified any Swan event.
 
-**Real-world example**: The October 10, 2025 crypto crash appeared as a Black Swan to many traders, but analysis reveals it was a Grey Swan trigger (Trump's tariff tweet - predictable category, dismissed probability) that revealed multiple other animals: a Grey Rhino (Binance capacity issues), a Black Jellyfish cascade (exchange failures), and an Elephant (leverage culture). This stampede pattern is the norm, not the exception.
+#### Real-world example 
+The October 10, 2025 crypto crash appeared as a Black Swan to many traders, but analysis reveals it was a Grey Swan trigger (Trump's tariff tweet - predictable category, dismissed probability) that revealed multiple other animals: a Grey Rhino (Binance capacity issues), a Black Jellyfish cascade (exchange failures), and an Elephant (leverage culture). This stampede pattern is the norm, not the exception.
 
 #### Quick Identification Flowchart
 
@@ -87,7 +88,7 @@ For quick reference during incidents, here's a condensed flowchart version of th
 **↓**
 
 **Result**: You now have a hypothesis. Test it against the detailed characteristics. If you're unsure, revisit Question 1's Swan distinction criteria - many Grey Swans appear as "known" risks that weren't properly monitored.
-
+{{::pagebreak /}}
 ### Response Playbooks by Risk Type
 
 Once you've identified the risk type, here's what to do. Each animal requires a different response strategy. You can't treat a Black Swan like a Grey Rhino; that's like trying to outrun a charging rhino when you should be building a boat for the flood.
@@ -119,7 +120,7 @@ Update your mental models: this is now possible, plan accordingly. Share learnin
 Most importantly: don't just add this to monitoring. The next Black Swan will be different.
 
 The critical mistake teams make with Black Swans is trying to prevent the next one by monitoring for this specific pattern. That's missing the point entirely. The next Black Swan will be different. What you can do is build systems that survive whatever comes next.
-
+{::pagebreak /}
 #### Grey Swan Response Playbook
 
 Grey Swans are complex but monitorable. The key is early detection through instrumentation using the **LSLIRE framework** (Large Scale, Large Impact, Rare Events). You're not trying to predict exactly when they'll happen - that's still impossible. You're watching for the subtle signals that precede them.
@@ -147,7 +148,7 @@ Reduce complexity where possible. Improve instrumentation for better visibility 
 **Key insight**: Many events that appear as Black Swans are actually Grey Swans we failed to monitor. The Crypto Oct 10 crash is a perfect example: the trigger (Trump's tweet) was a Grey Swan that appeared as a Black Swan to those without proper monitoring. With LSLIRE framework instrumentation, teams can detect these patterns before they trigger stampedes.
 
 The LSLIRE framework gives you a structured way to watch for the subtle changes that precede Grey Swan events. The trick is alerting on pattern shifts, not absolute values. A metric that's been stable at 50% for months suddenly trending to 52% might be more significant than a metric that's always been volatile.
-
+{::pagebreak /}
 #### Grey Rhino Response Playbook
 
 Grey Rhinos are the easiest to fix; you just have to stop ignoring them. The problem isn't technical, it's organizational. Someone needs to prioritize the fix. The hard part isn't fixing it; it's getting organizational will to prioritize it over shiny new features.
@@ -169,7 +170,7 @@ Actually fix it. Track progress with weekly updates to stakeholders. Publicly re
 Create a rhino register for systematic tracking of known issues. Make infrastructure work mandatory, not optional. Change incentives to reward prevention, not just firefighting. Provide executive visibility through rhino dashboards for leadership.
 
 The 20% capacity rule is critical. If you don't reserve capacity for infrastructure work, it will always get deprioritized. Make it mandatory, not optional. Track it. Make it visible to leadership.
-
+{::pagebreak /}
 #### Elephant in the Room Response Playbook
 
 Elephants are about psychological safety. You can't fix what you can't discuss. The response requires creating safe spaces for uncomfortable truths. This is fundamentally about culture, not technology. Leadership must model vulnerability and protect truth-tellers.
@@ -191,7 +192,7 @@ Take concrete action. Show visible progress within weeks. Communicate what you'r
 Build a culture where truth-telling is valued. Hold regular elephant hunts: quarterly "what aren't we discussing?" sessions. Evaluate leaders on elephant management. Celebrate truth-tellers and reward people who speak up.
 
 Remember: phase 2 is the critical moment. Someone must be the first to speak the uncomfortable truth, and that person is taking a risk. Leadership's job is to protect them and thank them publicly. If the messenger gets shot, you'll never hear about elephants again.
-
+{::pagebreak /}
 #### Black Jellyfish Response Playbook
 
 Black Jellyfish are cascading failures. The response is surgical: break the positive feedback loops that are amplifying the cascade. You need to act fast, because every minute the cascade spreads further. This isn't a drill - it's a race against exponential growth.
@@ -216,8 +217,7 @@ Map dependencies completely and accurately. AWS Oct 20 showed hidden dependencie
 
 The most common mistake during Jellyfish incidents is trying to restart everything at once. That just creates a thundering herd that makes things worse. Restore dependencies first, then dependents, in topological order (see Phase 3 above).
 
-**AWS Oct 20 lesson**: Even after DNS was restored, retry storms and state inconsistencies extended recovery to 15+ hours. The cascade had created accumulated state that required careful reconciliation, not just fixing the initial DNS fault. This is why cascade-resistant architecture matters; prevention is far better than recovery.
-
+{::pagebreak /}
 ### Hybrid and Stampede Response
 
 Real incidents are rarely pure specimens. They're usually hybrids: multiple risk types interacting and amplifying each other. But there's a specific pattern that's even more dangerous: **stampedes**. Think of it as a risk ecosystem coming alive all at once.
@@ -241,7 +241,7 @@ Both were stampedes: one animal triggering others, which then amplified each oth
 Stampedes have specific indicators that distinguish them from simple hybrid incidents. Look for: an animal (often a Swan, but can be any animal) that triggered a stress event, multiple teams involved, cascading alerts, unexpected correlations, general confusion, risks that were hidden before the trigger, and risks amplifying each other (not just occurring together).
 
 If you see four or more of these indicators, you're dealing with a **stampede event**. If you see three, it's likely a **hybrid event** without the clear trigger/reveal pattern.
-
+{::pagebreak /}
 #### Stampede Response Playbook
 
 Stampede response follows a specific pattern: identify the trigger, map what it revealed, address revealed risks in dependency order, break amplification loops, and don't simplify to a single root cause.
@@ -457,6 +457,7 @@ The framework helps you ask the right questions and avoid reductionist thinking 
 
 The retrospective questions help you surface all the animals involved, not just the most obvious one. This prevents you from fixing only the technical issue while ignoring the Elephant that prevented you from seeing it coming.
 
+{::pagebreak /}
 ### The Meta-Framework: Thinking in Risk Portfolios
 
 The ultimate insight is that you're not managing individual risks. You're managing a portfolio of risks across different types, with different characteristics, requiring different strategies. Like a financial portfolio, you need diversification.
