@@ -26,7 +26,10 @@ The swan family represents a spectrum of predictability and probability. At one 
 
 #### White Swans: The Expected and Managed
 
-White Swans aren't really "risks" in the way we're discussing. They're your normal, everyday operational events. The things you plan for, document in runbooks, and handle routinely.
+White Swans aren't really "risks" in the way we're discussing. They're your normal, everyday operational events. The things you plan for, document in runbooks, and handle routinely. I'm giving them a mention here for completeness. But won't be going into further detail, the body of SRE writings give very good treatment on the care and feeding of White Swans.
+
+**Defining Characteristics:**
+
 
 **Characteristics:**
 
@@ -121,10 +124,8 @@ Here's what makes Grey Swans particularly insidious: the probability of encounte
 **Examples:**
 
 - Major earthquakes in known seismic zones (predictable, modelable, often unprepared for)
-- Pandemic impacts on digital infrastructure (pandemics known, specific infrastructure impacts modelable)
 - Regional cloud provider outages (known possibility, insufficiently prepared for)
 - "100-year flood" events (the name itself reveals the statistical trap)
-- Semiconductor supply chain collapse (documented risks, dismissed as unlikely)
 
 **The Statistical Trap:**
 Grey Swans exploit a flaw in how humans think about low-probability, high-impact events. We're good at reasoning about 50/50 chances. We're terrible at distinguishing between 1-in-100 and 1-in-10,000.
@@ -163,7 +164,7 @@ As you move from left to right:
 - Preparation difficulty increases
 - Surprise factor increases
 - Learning opportunity increases
-
+{::pagebreak /}
 #### Why the Distinctions Matter
 
 Understanding whether you're dealing with a White, Grey, or Black Swan changes everything:
@@ -199,7 +200,7 @@ In practice, classification isn't always clear-cut. An event might look like a B
 This is why post-incident analysis should always ask: "Could we have predicted this?" Not "should we have predicted this," which invites hindsight bias, but "could we have, if we'd been looking in the right places with the right tools?"
 
 If the answer is yes, even theoretically, it wasn't a Black Swan. It was something else, and that "something else" has different lessons to teach.
-
+{::pagebreak /}
 ### Moving Into the Bestiary
 
 With our swan taxonomy established, we're ready to meet the rest of the animals. Each one exploits different weaknesses in how we think about and measure reliability.
@@ -208,5 +209,9 @@ We'll start with the star of the show, the event that gives this book its title:
 
 Because if you can't catch a Black Swan with an SLO, you need to understand exactly what that means and what you can do instead.
 
+![][black-swan-totem]
+
+
 
 [animal-matrix-nano]: animal_matrix_nano.jpg
+[black-swan-totem]: Black-Swan-Totem.png

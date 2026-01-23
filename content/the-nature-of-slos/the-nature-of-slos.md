@@ -7,6 +7,8 @@ Service Level Objectives didn't spring fully formed from Google's SRE organizati
 In the 1970s, AT&T established "five nines" (99.999% availability) as the gold standard for telecommunications reliability. This wasn't arbitrary. It was based on what human psychology could tolerate for phone service and what was technically achievable with the switching equipment of the era.
 
 That standard stuck. It became the aspirational target for any critical communications infrastructure. And when the internet age arrived, we inherited that framework. The "nines" became our common language for discussing reliability, even as the systems we built became vastly more complex than circuit-switched phone networks.
+![1ESS - Class 5 (1970)][1AESS]
+
 {::pagebreak /}
 ### The Nines: What They Actually Mean
 Here's the brutal math behind availability percentages. The table shows how much downtime you're allowed at different availability levels:
@@ -62,12 +64,12 @@ SLI = (Good Events / Total Events) × 100%
 
 This gives you a percentage between 0 and 100%. The consistency makes building common tooling easier and makes it simple to compare different services.
 
-Good SLIs have a predictable relationship with user happiness. When your SLI goes down, users should be having a worse experience. When it goes up, they should be happier. If your SLI is moving but user satisfaction isn't changing, you're measuring the wrong thing. I can't emphasize this point enough. **SLOs should **always** be crafted in a way that their value tracks *user happiness*. Not management happiness, not storage team's happiness, not dev team's happiness (unless the dev teams are the users being served), *user happiness*.** Too often we are tempted to craft SLOs from a sys admin mindset, but that is what monitoring and dashboards are for.
-
+Good SLIs have a predictable relationship with user happiness. When your SLI goes down, users should be having a worse experience. When it goes up, they should be happier. If your SLI is moving but user satisfaction isn't changing, you're measuring the wrong thing. I can't emphasize this point enough. **SLOs should **always** be crafted in a way that their value tracks *user happiness*. Not management happiness, not storage team's happiness, not dev team's happiness (unless the dev teams are the users being served), *user happiness*.** 
 Here's a practical example:
-- Bad SLI: "Network packet loss on backup segment"
+
+- **Bad SLI**: "Network packet loss on backup segment"
   - Users don't care about your backup network unless it's actively serving their traffic
-- Good SLI: "Percentage of API requests that complete in under 500ms"
+- **Good SLI**: "Percentage of API requests that complete in under 500ms"
   - This directly affects user experience for every request
 
 {::pagebreak /}
@@ -124,8 +126,7 @@ The beauty of SLOs is that they give you a shared language across engineering, p
 
 Our SLOs should trigger before we violate our SLA.
 
-
-
+{::pagebreak /}
 ### Error Budgets: The Math of Acceptable Failure
 
 ![][Errorbudgetburndowngraph]
@@ -267,7 +268,7 @@ slos:
     alert_threshold: 10%
 ```
 This is a snippet of YAML code that defines two SLOs: availability and latency. For the payment-processor service. There are Two SLOs described here:
-1. Availability at 99.5%
+1. Availability at 99.95%
 2. Latency at 95%, commonly referred to as p95
 
 For Availability, we target 3.5 nines. This gives us a comfortable target of 43 seconds of downtime per day. Probably just fine for a dating site.
@@ -702,6 +703,9 @@ Because if SLOs are our map of the territory, these animals are the reminder tha
 This isn't a failure of SLOs. It's a limitation of the paradigm. You can't measure what you haven't seen. You can't set objectives for scenarios you haven't imagined. You can't budget for errors you don't know exist.
 
 #### Further Reading
+Beyer, Betsy, et al., editors. Site Reliability Engineering: How Google Runs Production Systems. O'Reilly Media, 2016.
+
+Rosenthal, Casey, et al. Chaos Engineering: Building Confidence in System Behavior through Experiments. O’Reilly Media, n.d.
 
 Hidalgo, Alex. Implementing Service Level Objectives. O'Reilly Media, 5 Aug. 2020.
 
@@ -715,3 +719,4 @@ Hidalgo, Alex. Implementing Service Level Objectives. O'Reilly Media, 5 Aug. 202
 [slo-new-illustration-small]: slo-new-illustration-small.png
 
 [Errorbudgetburndowngraph]: Errorbudgetburndowngraph.png
+[1AESS]: 1AESS_MCC.jpeg

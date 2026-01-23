@@ -1,6 +1,6 @@
 ## Introduction: The Incident That Wasn't In Any Runbook
 
-It's 2:47 AM on a Tuesday. PagerDuty on your phone is squawking at you ... "something's broken, something's broken, it's your fault, it's your fault..." . The primary on-call engineer is already on the bridge, and you can hear the tension in their voice during the first few seconds of the call. "We're seeing cascading failures across three regions. SLOs are green. Literally everything looks fine in the dashboards, but customers can't connect."
+It's 2:47 AM on a Tuesday. PagerDuty on your phone is squawking at you ... *"something's broken, something's broken, it's your fault, it's your fault..."* . The primary on-call engineer is already on the bridge, and you can hear the tension in their voice during the first few seconds of the call. "We're seeing cascading failures across three regions. SLOs are green. Literally everything looks fine in the dashboards, but customers can't connect."
 
 You suppress your initial reaction, feeling the knot in your stomach. You know what this means: you're dealing with something your monitoring wasn't designed to catch. Something that exists in the gaps between your carefully crafted Service Level Objectives. Something that's about to teach your entire team a lesson about the difference between measuring reliability and understanding it.
 
@@ -22,7 +22,7 @@ Here's the thing: the landscape of risk is more subtle and more dangerous than a
 
 ### The Bestiary: Five Animals, Five Types of Risk
 
-This book explores five distinct categories of risk in modern systems reliability, each represented by an animal that captures its essential nature:
+This book explores five distinct categories of risk in modern systems reliability, each represented by an animal, a totem animal if you wish, that captures its essential nature:
 
 **The Black Swan: The Truly Unpredictable**  
 Nassim Nicholas Taleb's famous metaphor, developed across his books *The Black Swan* and *Antifragile*, represents events that lie completely outside our historical experience and statistical models. These are the genuine unknown unknowns: catastrophic, transformative, and only "obvious" in hindsight. Taleb's work challenges how we think about prediction, preparation, and the very nature of knowledge in complex systems. Black Swans are rare, but when they strike, they redefine everything we thought we knew. We'll be drawing heavily from Taleb's frameworks throughout this book because his insights map remarkably well to the challenges of modern infrastructure reliability.
@@ -80,7 +80,7 @@ The code examples throughout are pseudo-code designed for clarity and insight, n
 
 ### The Journey Ahead
 
-We'll start with Taleb definitions of Black Swan and Antifragility, the desired state past Resiliency. The we will establish a common understanding of SLAs, SLOs, SLIs, and Error Budgets, the foundation of reliability engineering. Then we'll explore each animal in our bestiary in detail, understanding their nature, their warning signs, and their lessons. And finally we will look at some real world situations and realize that in the real world, you often don’t just encounter just one animal, but a stampede, or, in some cases, a hybrid creature. We will then offer frameworks and solutions in the realm of Incident Management, so that you can tame the beast or at least quell the stampede
+We'll start with Taleb's definitions of Black Swan and Antifragility, the desired state past Resiliency. The we will establish a common understanding of SLAs, SLOs, SLIs, and Error Budgets, the foundation of site reliability engineering. Then we'll explore each animal in our bestiary in detail, understanding their nature, their warning signs, and their lessons. And finally we will look at some real world situations and realize that in the real world, you often don’t just encounter just one animal, but a stampede, or, in some cases, a hybrid creature. We will then offer frameworks and solutions in the realm of Incident Management, so that you can tame the beast or at least quell the stampede
 
 By the end, you'll have a framework for thinking about system reliability that goes beyond metrics and dashboards. You'll understand why the biggest risks aren't always the ones you can measure, and why organizational health matters just as much as system architecture.
 
@@ -93,3 +93,5 @@ Let's begin.
 ---
 
 *"The Black Swan is what you see when you weren't looking for it. The Grey Rhino is what you didn't act on when you should have. The Elephant is what you knew but couldn't say. The Black Jellyfish is what you thought you understood but didn't. And your SLOs? They're what you measured in between."*
+
+*Geoff White*

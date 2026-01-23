@@ -1,6 +1,6 @@
 ## About this Book
 
-This revelation required a workflow as unique as the project itself. Fundamentally, I started developing all of my writing using Scrivener. Scrivener existed well before AI. It's great for organizing your thoughts, organizing your data, organizing your research, organizing your images, and then rendering documents in many different formats. For this work, it is the primary source of truth and the primary rendering engine for any of my working PDFs.
+This revelation required a workflow as unique as the project itself. Fundamentally, I started developing all of my writing using Scrivener. Scrivener existed well before AI. It's great for organizing your thoughts, organizing your data, organizing your research, organizing your images, and then rendering documents in many different formats. For this work, it started as the primary source of truth and the primary rendering engine for any of my working PDFs. But as I started to use AI tools, specifically Cursor, I shifted to authoring in markdown, which seems to be becomming the defacto format for all minimally structured text.
 
 Most of the research, the tables, the graphs, have been created under Cursor 2.0. I developed a platform specifically to author this book. Actually, I didn't just develop it, I developed it pair-programming style, with Cursor AI itself. The workflow is as follows:
 
@@ -33,7 +33,8 @@ Most of the research, the tables, the graphs, have been created under Cursor 2.0
 
    - I developed some scaffolding with Cursor, tailored to the production of this book
    - I stopped updating Scrivener so much and just made changes using the scaffolding 
-   - [SLOBLACKSWAN-Cursor](https://github.com/l0r3zz/sloblackswan-cursor) became the primary tool
+   - [SLOBLACKSWAN-Cursor](https://github.com/l0r3zz/sloblackswan-cursor) became the primary authoring tool
+   - A generic form that is ready for you to try yourself, can be found at [Cursor-Writing-Assistant](https://github.com/l0r3zz/Cursor-Writing-Assistant)
 
 **Create and push a PR to github**
 
@@ -43,13 +44,14 @@ Most of the research, the tables, the graphs, have been created under Cursor 2.0
    - changes are merged back into the Scrivener source of truth as checkpoints
 
 **Iteration**
+   - Interact, Discuss, Improve
    - Repeat the cycle, growing the work organically
 
 The following diagram better illustrates this workflow:
 
 ￼![][book-authoring-workflow]
 
-The AI functioned as a research assistant and copywriter. It startles me sometimes how well it knows (or emulates) my intent.
+The AI functioned as a research assistant and copywriter. It startles me sometimes how well it knows (or emulates) my intent. Still, one cannot just "let it rip", I've found a couple of hallucinations and the perpetuations of some "myths", fortunately myself, along with a couple of my reviewers caught some of them. I'm sure there are still some lurking deep inside the pages.
 
 Now that the document is released, I've  placed it into a [GitHub repo](https://github.com/l0r3zz/sloblackswan) for public distribution and commenting. As changes are made, GitHub Actions trigger to always have a current copy of the markdown master. One can download the markdown and either drop this into some AI agent for continued processing or evaluation, or render it to a PDF for a more human-readable version.
 

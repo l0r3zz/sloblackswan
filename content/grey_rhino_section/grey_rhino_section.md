@@ -33,7 +33,7 @@ Compare this to our other animals:
 - **Grey Rhino**: Predictable timing and impact, simple causality, requires action despite knowing
 
 The Grey Rhino is the simplest problem to solve technically. The challenge is entirely organizational and psychological.
-
+{::pagebreak /}
 ### Why We Ignore the Charging Rhino
 
 If Grey Rhinos are so visible and predictable, why don't we just fix them? The reasons are depressingly consistent across organizations:
@@ -92,6 +92,8 @@ Psychologically, humans are wired to believe bad things won't happen to them. Ev
 This combines with normalcy bias: the longer something hasn't happened, the more we believe it won't. That database has been at 95% for months? Clearly we're fine. That DR plan hasn't been needed in years? Obviously our infrastructure is more reliable than we thought.
 
 ```python
+import math
+
 class OptimismCalculator:
     def perceived_risk(self, actual_risk, time_without_incident):
         """
@@ -151,6 +153,7 @@ class SLOMonitoring:
         Can standard SLO monitoring detect an approaching grey rhino?
         """
         current_availability = metrics.calculate_uptime()
+        # Note: SLO targets vary by service criticality; 99.9% is used here as an example
         slo_target = 0.999
         
         if current_availability >= slo_target:
@@ -167,7 +170,7 @@ class SLOMonitoring:
 ```
 
 This is fundamentally different from Grey Swans, where careful instrumentation and monitoring can detect early warning signals. With Grey Rhinos, you don't need detection; you already know. What you need is the organizational will to act.
-{::pagebreak /}
+
 ### Case Study: The COVID-19 Pandemic as a Global Grey Rhino
 
 Before diving into infrastructure examples, it's worth examining what may be the most consequential Grey Rhino in modern history: the COVID-19 pandemic. It represents perhaps the purest example of a global Grey Rhino and demonstrates the patterns we see in technical systems at civilization scale.
@@ -177,24 +180,28 @@ Before diving into infrastructure examples, it's worth examining what may be the
 The inevitability of a major pandemic was not a secret:
 
 **WHO Warnings** (2000s onward):
+
 - Clear messaging: Pandemic preparedness essential, not optional
 - Specific concerns: Respiratory virus, rapid spread, healthcare system overwhelm
 - Recommended actions: Stockpile PPE and ventilators, develop response plans
 - Urgency increased throughout the 2010s
 
 **Previous Scares** that should have been wake-up calls:
+
 - **SARS 2003**: Demonstrated vulnerability to coronavirus spread
 - **H1N1 2009**: Pandemic response rehearsal on smaller scale
 - **MERS 2012**: Another coronavirus with high mortality rate
 - **Ebola 2014**: Healthcare system stress testing
 
 **Expert Consensus**:
+
 - Epidemiologists: Question was not if, but when
 - Public health officials: Prepared nations would fare better
 - Simulation exercises: Multiple pandemic response drills conducted
 - Published research: Extensive literature on pandemic preparedness
 
 **High-Profile Warnings**:
+
 - Bill Gates TED talk 2015: Warned pandemic was biggest threat to humanity
 - National security reports: Listed pandemic as critical national risk
 - Budget requests: Preparedness funds repeatedly requested
@@ -214,7 +221,7 @@ Let's apply our framework:
 
 **Cost to Prepare**: A fraction of the eventual economic impact. Stockpiling PPE and ventilators was affordable.
 
-**Decision**: A conscious choice, repeated year after year, to deprioritize preparedness in favor of other budget priorities.
+**Decision**: A conscious choice, repeated year after year, to de-prioritize preparedness in favor of other budget priorities.
 
 This was not a Black Swan. This was a Grey Rhino that charged in slow motion over two decades while the world watched.
 
@@ -223,30 +230,35 @@ This was not a Black Swan. This was a Grey Rhino that charged in slow motion ove
 The reasons mirror exactly what we see in technical organizations:
 
 **Competing Budget Priorities**:
+
 - Problem: Pandemic preparedness competes with visible current needs
 - Manifestation: PPE stockpiles depleted after H1N1, not replenished
 - Rationalization: Money better spent on current healthcare needs
 - Political challenge: Hard to justify spending on what hasn't happened yet
 
 **Present Bias at Scale**:
+
 - Problem: Future pandemic feels less urgent than today's issues
 - Manifestation: Preparedness budgets cut year after year
 - Rationalization: We've gotten lucky before, we'll probably get lucky again
 - Political challenge: Preparedness spending is invisible; cutting it is invisible
 
 **Optimism Bias**:
+
 - Problem: "It won't be as bad as they say"
 - Manifestation: Countries assumed their healthcare systems were robust enough
 - Rationalization: Modern medicine and infrastructure will handle it
 - Political challenge: Pessimism about future events is politically unpopular
 
 **Diffusion of Responsibility**:
+
 - Problem: Is this WHO's job? National governments? State/local? All of them?
 - Manifestation: Each layer assumed another layer was handling it
 - Rationalization: Someone else is surely taking care of this
 - Political challenge: Coordinating across jurisdictions is hard
 
 **Sunk Cost in Existing Systems**:
+
 - Problem: Healthcare systems designed for normal operations, not surge capacity
 - Manifestation: Resistance to maintaining "excess" capacity
 - Rationalization: Unused capacity is wasteful
@@ -261,6 +273,7 @@ The pandemic Grey Rhino teaches us critical lessons:
 **1. Visibility Doesn't Guarantee Action**
 
 The pandemic was among the most-discussed, most-warned-about risks in modern history. Visibility alone is insufficient. You need:
+
 - Clear ownership
 - Budget authority
 - Political will
@@ -296,6 +309,8 @@ In infrastructure terms: That "excess" database capacity you keep being told to 
 Countries that had practiced pandemic response (Taiwan, South Korea, Singapore) performed dramatically better than those that hadn't. The muscle memory of "what do we do when this happens" made the difference.
 
 In infrastructure terms: That DR plan you haven't tested in two years? You don't actually have a DR plan. You have a document.
+
+These same patterns play out daily in infrastructure teams, just at a different scale.
 {::pagebreak /}
 ### Infrastructure Grey Rhinos: The Common Herd
 
@@ -332,7 +347,8 @@ class CapacityReasoning:
 Your SLO is probably fine right up until the moment the resource is exhausted. Capacity planning requires forward-looking trend analysis, not backward-looking SLO measurement.
 
 **What Actually Works**:
-- Automated capacity alerts with projection-based triggers
+
+- Automated capacity alerts with projection-based triggers. Common industry heuristics use thresholds like 80% for early warning, 85% for action required, and 95% for critical alerts.
 - Mandatory capacity review in architecture docs
 - Capacity planning as a standing agenda item
 - Auto-scaling where possible, with human review of trends
@@ -372,15 +388,15 @@ Certificate expiration is binary. The service works perfectly until the moment i
 
 **What Actually Works**:
 
-- Automated certificate management (Let's Encrypt, cert-manager)
+- Automated certificate management (Let's Encrypt provides free certificates with 90-day validity; cert-manager is a Kubernetes operator for automated certificate lifecycle management)
 - Automated certificate inventory and monitoring
 - Alerts at 90 days, 60 days, 30 days, and 14 days
 - Treating certificate renewal as mandatory, not optional work
 - Better yet: Remove humans from the loop entirely
 
 **Real Example**:
-In 2020, Spotify had an outage because an expired certificate broke their backend authentication. In 2021, Microsoft Teams went down due to an expired certificate. In 2022, Roku's streaming services failed due to certificate expiration. These are sophisticated companies with mature SRE practices. The problem isn't capability; it's prioritization.
-
+In 2020, Spotify had an outage because an expired certificate broke their backend authentication. Also in 2020, Microsoft Teams went down due to an expired certificate. Certificate expiration incidents at major companies continue to occur regularly despite mature SRE practices. The problem isn't capability; it's prioritization.
+{::pagebreak /}
 #### The Legacy System Rhino
 
 **The Visible Threat**:
@@ -403,14 +419,15 @@ The rationalization follows a predictable pattern:
 The legacy system might be meeting its SLO. The problem isn't current reliability, it's future risk. SLOs measure the present; Grey Rhinos charge from the future.
 
 **What Actually Works**:
+
 - Strangler fig pattern: incrementally replace rather than big-bang rewrite
-- Explicit technical debt budgets (20% of sprint capacity)
+- Explicit technical debt budgets (20% of sprint capacity is a common industry heuristic, similar to Google SRE recommendations)
 - Executive sponsorship for technical infrastructure work
 - Making the cost of the status quo visible (time spent on maintenance, opportunity cost)
 
 **Real Example**:
-A financial services company ran critical infrastructure on a custom-built system from 2008. Everyone agreed it needed replacement. Every year, the replacement project was approved in principle. Every year, it was deferred because customer-facing work took priority. In year 12, the system finally had a catastrophic failure during peak trading hours. The emergency replacement project took 18 months and cost 10x what a planned migration would have cost.
-
+This pattern is common across financial services companies. One example: A company ran critical infrastructure on a custom-built system from 2008. Everyone agreed it needed replacement. Every year, the replacement project was approved in principle. Every year, it was deferred because customer-facing work took priority. In year 12, the system finally had a catastrophic failure during peak trading hours. The emergency replacement project took 18 months and cost 10x what a planned migration would have cost.
+{::pagebreak /}
 #### The Single Point of Failure Rhino
 
 **The Visible Threat**:
@@ -430,7 +447,8 @@ class SPOFReasoning:
         if mtbf > 365 * 5:  # 5 years
             return "This component is super reliable, we're probably fine"
         
-        if fix_effort > 2_weeks:
+        # Note: fix_effort would be in days or weeks - using 14 days as example
+        if fix_effort > 14:  # 2 weeks
             return "We don't have time for this right now"
         
         # The only time we fix it:
@@ -442,14 +460,15 @@ class SPOFReasoning:
 The SPOF might never have failed. Your SLO looks great. Right up until the SPOF fails and your SLO looks like a murder scene.
 
 **What Actually Works**:
+
 - Architecture reviews that flag SPOFs
 - Explicit requirement that critical paths have no SPOFs
 - Chaos engineering that deliberately fails components
 - Post-incident action items that get prioritized like features
 
 **Real Example**:
-Major cloud provider (name withheld) had a single database table in a single region that stored global configuration data. Everyone knew it was a SPOF. It was literally called out in internal documentation as "the SPOF we need to fix." For three years. When it finally failed, it took down services globally for hours.
-
+This pattern is common across major cloud providers. One example: A provider had a single database table in a single region that stored global configuration data. Everyone knew it was a SPOF. It was literally called out in internal documentation as "the SPOF we need to fix." For three years. When it finally failed, it took down services globally for hours.
+{::pagebreak /}
 #### The Untested Disaster Recovery Rhino
 
 **The Visible Threat**:
@@ -471,14 +490,15 @@ You will never have time.
 An untested DR plan doesn't violate your SLO until you need it and it doesn't work. By then, you're in the middle of a disaster.
 
 **What Actually Works**:
+
 - Scheduled DR tests as mandatory calendar events
 - Chaos engineering that forces failover testing
 - Game day exercises that simulate disasters
 - Making DR testing a blocker for architectural changes
 
 **Real Example**:
-After the 2011 Tōhoku earthquake and tsunami, many Japanese companies discovered their disaster recovery plans assumed disasters wouldn't affect multiple data centers simultaneously. Plans written for localized failures were useless for regional catastrophes. The plans existed, were approved, and had never been tested under realistic scenarios.
-
+After the 2011 Tōhoku earthquake and tsunami, many Japanese companies discovered their disaster recovery plans had critical gaps when tested under realistic regional disaster scenarios. This highlighted a broader pattern: DR plans that exist only on paper, especially those designed for localized failures, often fail when tested against multi-datacenter or regional catastrophes. The plans existed, were approved, and had never been validated under realistic conditions.
+{::pagebreak /}
 ### Detection vs. Action: The Grey Rhino Paradox
 
 Here's the fundamental paradox of Grey Rhinos: Detection is trivial. Action is hard.
@@ -492,16 +512,22 @@ Compare this to our other animals:
 The tooling for detecting Grey Rhinos is straightforward:
 
 ```python
+from datetime import datetime
+
 class GreyRhinoDetection:
     """
     Detecting grey rhinos is embarrassingly simple
     """
     def find_capacity_rhinos(self):
+        """
+        Note: 0.80 (80%) threshold is a common industry heuristic for 
+        capacity warnings. Adjust based on service criticality.
+        """
         return [
             resource for resource in self.all_resources()
             if resource.usage > 0.80 and 
                resource.growth_rate > 0 and
-               resource.time_to_full < 90_days
+               resource.time_to_full < 90  # days
         ]
     
     def find_certificate_rhinos(self):
@@ -517,9 +543,11 @@ class GreyRhinoDetection:
         ]
     
     def find_untested_systems_rhinos(self):
+        # Note: Would use datetime comparison in real code
+        # Example: (datetime.now() - system.last_dr_test).days > 180
         return [
             system for system in self.all_systems()
-            if system.last_dr_test > 180_days_ago
+            if (datetime.now() - system.last_dr_test).days > 180
         ]
 ```
 
@@ -541,6 +569,7 @@ The solution: Change the rules of the game.
 ```python
 class SprintPlanning:
     def allocate_capacity(self, total_capacity):
+        # 20% is a common industry heuristic (similar to Google SRE recommendations)
         infrastructure_budget = total_capacity * 0.20  # 20% non-negotiable
         feature_budget = total_capacity * 0.80
         
@@ -552,16 +581,18 @@ class SprintPlanning:
 ```
 
 **Make Grey Rhino mitigation a launch requirement**:
+
 - New service launches require capacity plan with 2-year projection
 - New services require multi-AZ redundancy or documented exception
 - New services require DR plan with test date within 90 days
 - These aren't suggestions; they're requirements
 
 **Tie Grey Rhino status to performance reviews**:
+
 - Not in a punitive way
 - But: "Did you identify and mitigate Grey Rhinos in your domain?" is an explicit performance criterion
 - Engineers get credit for unglamorous infrastructure work
-
+{::pagebreak /}
 #### 2. Make Grey Rhinos Visible to Decision-Makers
 
 The people who deprioritize Grey Rhino work often don't understand the risk. Make it concrete.
@@ -593,16 +624,18 @@ class GreyRhinoDashboard:
 ```
 
 **Risk registers that are actually maintained**:
+
 - Not a dusty spreadsheet nobody reads
 - Living document reviewed in staff meetings
 - Items get assigned owners with real accountability
 - Closed items require evidence of completion
 
 **Incident analysis that connects dots**:
+
 - When a Grey Rhino causes an incident, make that connection explicit
 - "This outage was caused by X, which was identified as a Grey Rhino 6 months ago in tickets Y and Z"
 - Creates organizational learning
-
+{::pagebreak /}
 #### 3. Automate Grey Rhinos Out of Existence
 
 If the problem is getting humans to prioritize correctly, remove humans from the loop.
@@ -610,27 +643,31 @@ If the problem is getting humans to prioritize correctly, remove humans from the
 **Tactics that work**:
 
 **Automated capacity management**:
+
 - Auto-scaling that adjusts to load
 - Automated disk expansion when usage hits 75%
 - Capacity alerts that create tickets automatically
 - Eventually: Capacity planning as code
 
 **Automated certificate management**:
-- Let's Encrypt + cert-manager
+
+- Let's Encrypt (free certificates with 90-day validity) + cert-manager (Kubernetes operator for certificate lifecycle management)
 - Automated renewal 30 days before expiry
 - Alerts only if automation fails
 - Human involvement only for exceptions
 
 **Automated backup testing**:
+
 - Regular automated restore tests
 - Failures alert on-call
 - Success metrics tracked
 
 **Chaos engineering for SPOFs**:
+
 - Deliberately fail components regularly
 - Force teams to build redundancy or accept pages
 - Make brittleness painful enough to fix
-
+{::pagebreak /}
 #### 4. Change Incentives to Reward Prevention
 
 Organizations get the behavior they incentivize. If all the incentives reward shipping features and none reward preventing disasters, you'll get features and disasters.
@@ -638,20 +675,23 @@ Organizations get the behavior they incentivize. If all the incentives reward sh
 **Tactics that work**:
 
 **Celebrate Grey Rhino mitigation**:
+
 - Make it visible when someone fixes a Grey Rhino
 - Engineering blog posts about "the outage we prevented"
 - Recognition equal to shipping features
 
 **Make disaster prevention count**:
+
 - Include in performance reviews
 - Include in promotion packets
 - Track prevented incidents, not just resolved ones
 
 **Penalize (gently) Grey Rhino creation**:
+
 - Architecture reviews that reject designs with obvious Grey Rhinos
 - "Grey Rhino score" for new services
 - Higher bar for approval if creating new Grey Rhinos
-
+{::pagebreak /}
 #### 5. Create Organizational Muscle Memory
 
 The reason Grey Rhinos work is they exploit consistent organizational weaknesses. Build organizational strength in those areas.
@@ -659,22 +699,26 @@ The reason Grey Rhinos work is they exploit consistent organizational weaknesses
 **Tactics that work**:
 
 **Regular Grey Rhino review meetings**:
+
 - Monthly "Grey Rhino roundup"
 - Each team reports their Grey Rhinos
 - Progress on mitigation
 - Escalation for blocked items
 
 **Runbook culture**:
+
 - Every Grey Rhino gets a runbook
 - Runbook includes not just detection but mitigation
 - Runbooks tested regularly
 
 **Incident retrospectives that identify patterns**:
+
 - Look for Grey Rhino patterns in incidents
 - "How long was this a known issue before it failed?"
 - Create action items to improve detection-to-action time
 
 **New engineer onboarding includes Grey Rhinos**:
+
 - Here are our current Grey Rhinos
 - Here's how we track them
 - Here's how you can help
@@ -688,10 +732,10 @@ Healthcare systems running at 95% capacity had no surge capacity. Supply chains 
 
 The same is true in infrastructure:
 
-**Database at 95% capacity**: Efficient, until you need to handle unexpected load
-**Minimal redundancy**: Efficient, until a component fails
-**Staff sized for normal operations**: Efficient, until you have an incident
-**DR plan untested to save time**: Efficient, until you need it
+- **Database at 95% capacity**: Efficient, until you need to handle unexpected load
+- **Minimal redundancy**: Efficient, until a component fails
+- **Staff sized for normal operations**: Efficient, until you have an incident
+- **DR plan untested to save time**: Efficient, until you need it
 
 The organizations that survived COVID-19 best were those that had maintained "wasteful" surge capacity. The infrastructure that survives Grey Rhinos best is that which maintains "wasteful" slack.
 
@@ -702,6 +746,10 @@ This doesn't mean running everything at 50% capacity. It means:
 class CapacityTarget:
     """
     Rethinking capacity targets post-grey-rhino awareness
+    
+    Note: These thresholds (70%, 80%, 85%, 95%) are common industry 
+    heuristics, similar to guidance in AWS Well-Architected Framework 
+    and Google SRE practices. Actual targets should be service-specific.
     """
     # Old thinking: maximize utilization
     old_target = 0.95  # "We're wasting 5% capacity!"
@@ -715,16 +763,19 @@ class CapacityTarget:
 ```
 
 **Redundancy as policy**:
+
 - No critical path SPOFs, period
 - Multi-AZ by default, not by exception
 - N+2 redundancy for critical components (can lose two and survive)
-
+{::pagebreak /}
 **Time for Grey Rhino mitigation**:
+
 - 20% of engineering time reserved for infrastructure
 - Grey Rhino backlog gets sprint capacity, not leftover time
 - Infrastructure work doesn't compete with features; it complements them
 
 **Regular testing of disaster scenarios**:
+
 - Quarterly DR tests, not "when we have time"
 - Monthly game days for Grey Rhino scenarios
 - Chaos engineering as standard practice
@@ -738,6 +789,8 @@ Here's a practical playbook for dealing with Grey Rhinos in your infrastructure:
 Create a comprehensive Grey Rhino register:
 
 ```python
+from datetime import datetime
+
 class GreyRhinoRegister:
     """
     Systematic grey rhino tracking
@@ -832,14 +885,17 @@ Grey Rhinos die in committees. Each rhino needs:
 For each high-priority Grey Rhino:
 
 **Immediate actions** (this week):
+
 - What can we do right now to reduce risk?
 - Usually monitoring, alerting, or risk communication
 
 **Short-term mitigation** (this month):
+
 - Tactical fixes that reduce probability or impact
 - Buy time for proper solution
 
 **Long-term resolution** (this quarter):
+
 - Permanent fix that eliminates the rhino
 - May be significant engineering work
 
@@ -876,21 +932,25 @@ This is where most Grey Rhino mitigation fails. The plan exists, but execution d
 **Tactics for accountability**:
 
 **Weekly Grey Rhino standup**:
+
 - 15 minutes
 - Each owner reports progress
 - Blockers get escalated immediately
 
 **Visible tracking**:
+
 - Dashboard showing all Grey Rhinos
 - Status, owner, days remaining
 - Updated in real time
 
 **Escalation triggers**:
+
 - If no progress in 2 weeks → escalate to manager
 - If no progress in 4 weeks → escalate to director
 - If days_to_impact < 30 → executive involvement
 
 **Celebration of completion**:
+
 - When a Grey Rhino is mitigated, announce it
 - Engineering blog post
 - Recognition in team meetings
@@ -900,25 +960,28 @@ This is where most Grey Rhino mitigation fails. The plan exists, but execution d
 After resolving a Grey Rhino, conduct a review:
 
 **Questions to ask**:
+
 - How long was this a known issue before we fixed it?
 - What prevented us from acting sooner?
 - What organizational changes would prevent similar delays?
 - What can we automate so this category of rhino can't happen again?
 
 This creates organizational learning and improves the system.
-
+{::pagebreak /}
 ### Metrics That Matter for Grey Rhinos
 
 Traditional SRE metrics don't help with Grey Rhinos. You need different measures:
 
 #### Grey Rhino Inventory Metrics
 
-**Total identified Grey Rhinos**: Are we finding them?
-**Average age of Grey Rhinos**: How long do they sit unfixed?
-**Grey Rhino resolution rate**: Are we fixing them faster than we create them?
-**Grey Rhino recurrence**: Do the same categories keep appearing?
+- **Total identified Grey Rhinos**: Are we finding them?
+- **Average age of Grey Rhinos**: How long do they sit unfixed?
+- **Grey Rhino resolution rate**: Are we fixing them faster than we create them?
+- **Grey Rhino recurrence**: Do the same categories keep appearing?
 
 ```python
+from statistics import mean
+
 class GreyRhinoMetrics:
     def calculate_health_score(self, register):
         """
@@ -965,6 +1028,8 @@ class GreyRhinoMetrics:
 Track these by category to identify patterns:
 
 ```python
+from statistics import mean
+
 class MitigationTimelines:
     def analyze_cycle_times(self, resolved_rhinos):
         """
@@ -998,14 +1063,19 @@ class MitigationTimelines:
 
 #### Prevention Metrics
 
-**Grey Rhinos prevented**: Through architecture review, for example
-**Grey Rhinos automated away**: Categories eliminated through tooling
-**Grey Rhino categories**: Are new types appearing?
+- **Grey Rhinos prevented**: Through architecture review, for example
+- **Grey Rhinos automated away**: Categories eliminated through tooling
+- **Grey Rhino categories**: Are new types appearing?
 
 ### The Evolution: From Grey Rhino to Grey Swan
-In the previous Grey Swan section, we talked about how Grey Swans become Grey Rhinos. This can happen when you've detected a Grey Swan that hasn't triggered yet, but you do nothing about it. You know it's there, and once you know it's there, and you de-prioritize it, it goes into the Grey Rhino category, but there's also a reverse path that's more likely. Grey Rhinos that are ignored long enough, inevitably wind up triggering a Grey Swan.
 
-The Grey Rhino that's lingering in technical debt. You know it's a time bomb, but yet you just can't get to it. But then it charges and transforms into a Grey Swan, and then you have to deal with it. As an incident. The worst thing that many of us do is that when we actually resolve the incident, we know what the root cause is, but yet it goes back in the backlog, and we do nothing about it. So it goes back from being a Grey Swan to Grey Rhino once again. The dysfunction in your organization is if this cycle repeats once, twice, three times even. This evolution also makes risks more dangerous, not less. You just managed and resolved a Grey Swan incident. But if you create action items and they immediately go back into backlog, once again you have a Grey Rhino. And that Grey Rhino you continue to  ignor will sprout wings once again and become  a Grey Swan. And the next one could be even more catastrophic.
+In the previous Grey Swan section, we talked about how Grey Swans can become Grey Rhinos. This happens when you've detected a Grey Swan that hasn't triggered yet, but you do nothing about it. Once you know it's there and you deprioritize it, it goes into the Grey Rhino category.
+
+But there's also a reverse path that's more common: Grey Rhinos that are ignored long enough inevitably trigger Grey Swans. The Grey Rhino lingering in technical debt? You know it's a time bomb, but you just can't get to it. Then it charges and transforms into a Grey Swan, and you have to deal with it as an incident.
+
+The worst dysfunction happens when you resolve the incident, identify the root cause, create action items, and **then immediately put them back in the backlog!** So it goes from being a Grey Swan back to a Grey Rhino once again.
+
+This cycle makes risks more dangerous, not less. You just managed and resolved a Grey Swan incident. But if those action items go back into the backlog, you once again have a Grey Rhino. And that Grey Rhino you continue to ignore will transform into a Grey Swan again. The next one could be even more catastrophic. If this cycle repeats once, twice, or three times, your organization has a systemic problem.
 
 ### The Cultural Shift Required
 
@@ -1056,12 +1126,12 @@ SLOs won't save you from Grey Rhinos. They measure the past; Grey Rhinos charge 
 
 What saves you from Grey Rhinos is:
 
-**Visibility**: Maintain a living register of known threats
-**Ownership**: Assign someone to each threat
-**Authority**: Give them power to act
-**Accountability**: Track progress publicly
-**Celebration**: Reward prevention, not just response
-**Culture**: Value boring operational work
+- **Visibility**: Maintain a living register of known threats
+- **Ownership**: Assign someone to each threat
+- **Authority**: Give them power to act
+- **Accountability**: Track progress publicly
+- **Celebration**: Reward prevention, not just response
+- **Culture**: Value boring operational work
 
 The rhino is charging. You can see it. Everyone can see it. The question is: Will you move?
 
@@ -1083,4 +1153,4 @@ But first, take a moment to audit your own Grey Rhinos. You know which ones they
 
 They're the ones you've been meaning to fix.
 
-[Grey Rhino]: Grey Rhino.png
+[Grey Rhino]: grey-rhino.png
