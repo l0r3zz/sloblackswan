@@ -79,6 +79,7 @@ This distinction matters for our bestiary:
 - A Grey Rhino might never trip a severity threshold until it finally fails catastrophically
 - An Elephant in the Room creates chronic P3s that never escalate but destroy morale
 - A Black Jellyfish cascade can go from P3 to P0 in under five minutes
+![][incident-severity]
 {::pagebreak /}
 ### The Incident Command System: A Foundation, Not a Straitjacket
 #### **Physical ICS incidents vs. IT incidents:**
@@ -155,7 +156,7 @@ The common failure modes are opposites: either the Comms Lead goes silent (stake
 
 If you don't write it down during the incident, you will rewrite history afterward. Not intentionally. Your brain will do it for you. Stress makes memory unreliable, and incidents are basically a live demo of that fact.
 
-The Scribe is your external hard drive. They capture the timeline, decisions, hypotheses, and outcomes while everyone else is heads-down. Modern platforms - FireHydrant, Blameless, and others - can auto-capture a bunch of this, but automation isn't the job. The job is building a coherent narrative in real time: what we knew, when we knew it, what we tried, and why.
+The Scribe is your external hard drive. They capture the timeline, decisions, hypotheses, and outcomes while everyone else is heads-down. Modern platforms like FireHydrant and others, can auto-capture a bunch of this, but automation isn't the job. The job is building a coherent narrative in real time: what we knew, when we knew it, what we tried, and why.
 
 Start with the timeline. Maintain it in real time with timestamps. Not vibes ("around lunchtime"), not approximations ("mid-morning"), actual timestamps. "2024-01-15 14:23:17 UTC: Error rate spiked to 12%, customer reports increased." Precision matters because post-incident, you'll correlate this timeline with deploy logs, monitoring data, and customer impact. Fuzzy timestamps make that correlation impossible.
 
@@ -219,6 +220,7 @@ The common failure mode: SMEs chase the most interesting problem, not the most i
 
 5. **Establishment of Command**: The IC is declared early and clearly. "I'm taking IC" is an explicit handoff.
 
+![][ICS-4-IT]
 {::pagebreak /}
 
 ### Anatomy of an Incident
@@ -248,7 +250,7 @@ MTTA measures time from alert to human acknowledgment. It's supposed to measure 
 
 MTTR measures time from detection to resolution, which directly correlates with customer pain duration. This one matters more than the others because it tracks something customers actually experience. But "resolution" is often gamed. Did you fix the root cause or apply a band-aid? Did you learn anything or just restore service? MTTR rewards speed over learning, which means organizations optimize for closing the ticket rather than understanding the problem. Fix it fast, learn nothing, repeat the same incident next month. Great MTTR, terrible organizational learning.
 
-Incident Frequency counts incidents per time period for trend analysis. Useful for spotting patterns, but completely context-free. One Black Swan matters more than ten minor incidents. Frequency without severity context is noise. You can have low incident frequency and still be fragile - you're just lucky you haven't been tested yet. Or you can have high incident frequency because you're practicing chaos engineering and deliberately breaking things to learn. The number alone tells you nothing.
+MTBF is the average amount of time you can expect to go before another incident occurs , but the metric is completely context-free. One Black Swan matters more than ten minor incidents. Frequency without severity context is noise. You can have low incident frequency and still be fragile - you're just lucky you haven't been tested yet. Or you can have high incident frequency because you're practicing chaos engineering and deliberately breaking things to learn. The number alone tells you nothing.
 {::pagebreak /}
 #### The KPIs That Actually Matter
 
@@ -288,7 +290,7 @@ Different animals make different KPIs relevant:
 The animals reveal what your organization is actually good at. If you handle Black Swans well but have high repeat incident rates, you're good at crisis adaptation but bad at learning and follow-through. If you have low repeat incidents but terrible decision latency, you're good at process but bad at speed.
 
 Use KPIs diagnostically to understand organizational strengths and weaknesses across the bestiary.
-
+{::pagebreak /}
 #### Practical Measurement Methods for Qualitative KPIs
 
 The traditional KPIs (MTTD, MTTR) are easy to measure - they're numbers. The KPIs that actually matter (decision latency, information flow velocity, postmortem quality) require qualitative assessment. Here's how to measure them.
@@ -320,7 +322,7 @@ The traditional KPIs (MTTD, MTTR) are easy to measure - they're numbers. The KPI
 
 **Example:**
  "Decision to failover: Identified at T+12, decided at T+28, executed at T+30. Information available: 25%. Decision latency: 16 minutes."
-
+{::pagebreak /}
 **Information Flow Velocity**
 
 **What it measures:** Time for critical context to reach decision-makers.
@@ -349,7 +351,7 @@ The traditional KPIs (MTTD, MTTR) are easy to measure - they're numbers. The KPI
 
 **Example:** 
 "Critical info: DNS anomaly. Path: Junior engineer (T+0) → Trusted teammate (T+3) → Senior engineer (T+7) → IC (T+12). Org chart would have been: Junior engineer → Manager → Director → VP → IC (estimated T+45). Trust network was 3.75x faster."
-
+{::pagebreak /}
 **Postmortem Quality Score**
 
 **What it measures:** Depth of learning, actionability of items, honesty of analysis.
@@ -397,7 +399,7 @@ The traditional KPIs (MTTD, MTTR) are easy to measure - they're numbers. The KPI
 - 10-13 points: Adequate postmortem
 - 6-9 points: Poor postmortem (needs improvement)
 - 1-5 points: Theater (not real learning)
-
+{::pagebreak /}
 **Psychological Safety Index**
 
 **What it measures:** Willingness of team to surface uncomfortable truths.
@@ -434,7 +436,7 @@ The traditional KPIs (MTTD, MTTR) are easy to measure - they're numbers. The KPI
 - "I felt safe asking questions without looking stupid" (1-5)
 
 **Aggregate Index:** Average of all responses. Track over time to measure improvement.
-
+{::pagebreak /}
 **Cross-Team Coordination Efficiency**
 
 **What it measures:** Quality of coordination when incident spans multiple teams.
@@ -491,14 +493,7 @@ As described in my earlier work on information flow [White, 2025], these laws ma
 
 **First Law: Information Flows to Where It's Safe**
 
-During incidents, you need information from people who:
-
-- Might have made a mistake that contributed to the incident
-- Are junior and afraid to speak up
-- Work in different organizations with different incentives
-- Have context that contradicts what leadership believes
-
-If these people fear punishment, they stay silent. You operate with incomplete information. You make worse decisions. The incident lasts longer and causes more damage.
+During incidents, you need information from people who might have made a mistake that contributed to the incident, from junior engineers who are afraid to speak up, from people working in different organizations with different incentives, and from anyone with context that contradicts what leadership believes. If these people fear punishment, they stay silent. You operate with incomplete information. You make worse decisions. The incident lasts longer and causes more damage.
 
 Blamelessness isn't about protecting feelings. It's about getting the information you need to fix the problem.
 
@@ -527,18 +522,9 @@ Good incident management creates direct channels between domain experts and deci
 {::pagebreak /}
 **Third Law: Information Degrades Crossing Boundaries**
 
-Every hop in the communication chain loses fidelity:
+Every hop in the communication chain loses fidelity. Technical precision becomes "there's a database problem." Urgency calibration fails - what's P0 for them becomes P3 for us. Nuance dies - "just restart it" gets passed along when restart will actually make it worse.
 
-- Technical precision becomes "there's a database problem"
-- Urgency calibration fails ("P0 for them, P3 for us")
-- Nuance dies ("just restart it" when restart will make it worse)
-
-Good incident management minimizes hops:
-
-- Bring domain experts into the war room directly
-- Use shared documents everyone can edit
-- Prefer synchronous communication (call > Slack > email)
-- Record decisions and context in real-time
+Good incident management minimizes hops by bringing domain experts into the war room directly, using shared documents everyone can edit, preferring synchronous communication (call over Slack over email), and recording decisions and context in real-time.
 
 #### Building the Culture That Makes Incident Management Work
 
@@ -847,6 +833,8 @@ Explicitly classify the Cynefin domain, then adjust role expectations accordingl
 - Don't overthink it
 - Verify the solution worked
 
+In this domain, speed comes from recognition and execution. The problem matches a known pattern, the solution is documented, and your job is to apply it without second-guessing. Resist the temptation to innovate when the recipe works.
+
 **Complicated Domain Response:**
 
 - Assemble experts
@@ -854,6 +842,8 @@ Explicitly classify the Cynefin domain, then adjust role expectations accordingl
 - Analyze systematically
 - Choose a solution based on analysis
 - Avoid analysis paralysis
+
+Here, expertise and investigation reveal the answer. The problem is solvable through systematic analysis, but you need the right people with the right tools examining the right data. The key is balancing thoroughness with urgency - analyze enough to make good decisions, but not so much that the incident drags on while you pursue perfect understanding.
 
 **Complex Domain Response:**
 
@@ -863,6 +853,8 @@ Explicitly classify the Cynefin domain, then adjust role expectations accordingl
 - Adapt based on learning
 - Be patient - solutions emerge over time
 
+This domain requires accepting that you can't think your way to the answer - you have to discover it through action. Each probe teaches you something about the system's behavior, patterns emerge from experimentation, and understanding builds iteratively. Your instinct will be to analyze more, but the system won't yield to analysis because the relationships are emergent rather than discoverable.
+
 **Chaotic Domain Response:**
 
 - Act immediately to stabilize
@@ -871,12 +863,16 @@ Explicitly classify the Cynefin domain, then adjust role expectations accordingl
 - Once stable, assess the situation
 - Transition to Complex or Complicated as understanding improves
 
+In crisis, hesitation is expensive. You act to contain the damage first, understand what happened second. The goal isn't solving the problem perfectly - it's preventing it from getting worse while you buy yourself time to figure out what's actually going on. Analysis comes after stabilization, never during.
+
 **Confusion Domain Response:**
 
 - Break the incident into components
 - Classify each component
 - Apply appropriate strategy to each
 - Revisit classification as situation evolves
+
+When you're uncertain which domain applies, decomposition creates clarity. By breaking the incident into smaller pieces, you can classify each piece independently and apply the right strategy to each. This prevents the paralysis that comes from trying to apply a single approach to a situation that doesn't fit any single domain.
 
 #### Step 3: Recognize Domain Transitions
 
@@ -890,11 +886,15 @@ This represents increasing understanding:
 - **Complicated:** Analyze to understand
 - **Clear:** Apply known solution
 
+As you gain understanding during an incident, you should move clockwise through these domains. What starts as crisis requiring immediate action becomes emergent behavior requiring experimentation, which reveals patterns requiring analysis, which eventually becomes a known solution you can document. This progression is natural and expected - forcing the wrong domain wastes time.
+
 **Dangerous Transitions:**
 
 - **Clear → Chaotic:** The "cliff edge" - following a recipe when context has fundamentally changed
 - **Complicated → Chaotic:** Analysis paralysis during a crisis
 - **Ordered → Complex:** Trying to analyze or follow procedures when the situation is emergent
+
+These transitions happen when your approach doesn't match the reality. Following a runbook when context has fundamentally changed can make things worse fast. Analyzing when you should be acting lets the crisis spread. Trying to understand through investigation when the system is genuinely emergent burns time without generating insight.
 
 **During an Incident:**
 
@@ -902,6 +902,9 @@ This represents increasing understanding:
 - Adjust strategy as the situation evolves
 - Don't get stuck in one domain when you should transition
 - Explicitly discuss transitions with the team
+
+Domain awareness is a real-time activity, not a one-time classification. As your understanding changes, your strategy should change. The IC's job includes calling out transitions explicitly so the team stays aligned on which type of thinking is appropriate right now, not five minutes ago.
+
 {::pagebreak /}
 ### Quick Classification Guide: Real-Time Decision Tree
 
@@ -1054,8 +1057,6 @@ Related to that: treating Complex as Complicated. You're bringing in more expert
 The final mistake is complacency in Clear domains. You're following best practices without recognizing when context has changed. Your standard database restart procedure works 99% of the time. But this time the underlying storage system failed, and following that same procedure makes things worse - the database comes up, can't reach storage, cascades errors to every connected service, and now you've amplified the problem. You thought you were in Clear, applying best practices. You were actually in Chaotic, and your best practices became accelerant. Periodically challenge best practices. Monitor for context shifts. Recognize when "this time is different." The cliff edge between Clear and Chaotic is sharp, and the fall is expensive.
 
 Now that we understand Cynefin, let's see how it applies to each animal in our bestiary. The framework provides the decision-making strategy; the animals provide the context. Together, they tell you not just how to think about an incident, but what type of risk you're actually facing.
-
----
 {::pagebreak /}
 ### Incident Management by Animal Type
 Each animal that may show up has a particular strategy that needs to be implemented in order to appropriately deal with it. A skilled Incident Commander will also realize that there may be more than one animal involved. There may be a stampede or there may be some hybrid animal. Bear in mind that these animal classifications are really just a mnemonic in order for you to bring some structure to a chaotic thought process that you might be embedded in at the time. Read through these incident management scenarios, and use them to formulate your own plan when confronted with individual animals or with a combination of them.
@@ -1152,7 +1153,7 @@ No one had considered "what if someone accidentally removes critical S3 subsyste
 
 **Key Decisions Under Uncertainty:**
 
-1. **Decision - Attempt full subsystem restart vs. partial recovery:**+
+**1. Decision - Attempt full subsystem restart vs. partial recovery:**+
 
    - **Context**: Partial recovery might be faster but risk corruption
    - **Information available**: ~30%
@@ -1160,7 +1161,7 @@ No one had considered "what if someone accidentally removes critical S3 subsyste
    - **Outcome**: Full restart chosen, added time but ensured data integrity
    - **Cynefin Note:** This was a Complex-domain decision - no expert analysis could determine the answer, required experimentation
 
-2. **Decision - Public communication about lack of ETA:**
+**2. Decision - Public communication about lack of ETA:**
 
    - **Context:** Customers demanding timeline, but genuinely unknown
    - **Information available**: ~20%
@@ -1470,13 +1471,13 @@ Knight Capital Group was a major market maker, executing billions in trades dail
 
 **What monitoring could have caught:**
 
-1. **Pre-deployment:** It seems like very little vetting or "second eyes" were done for the deployment plan
+**1. Pre-deployment:** It seems like very little vetting or "second eyes" were done for the deployment plan
 
    - Configuration drift detection (1 of 8 servers different)
    - Pre-production validation (test algorithm still present)
    - Deployment verification (all servers updated)
 
-2. **During incident:** If there was a "kill switch", staff were hesitant to flip it.
+**2. During incident:** If there was a "kill switch", staff were hesitant to flip it.
 
    - Anomaly detection (trading volume 100x normal)
    - Position monitoring (accumulating huge positions)
@@ -2169,21 +2170,21 @@ When multiple animals attack simultaneously, standard incident response breaks d
 
 **Physical/Virtual Organization:**
 
-1. **Main War Room (IC + Scribes + Communications)**
+**1. Main War Room (IC + Scribes + Communications)**
 
    - Central coordination hub
    - Single source of truth (incident timeline, status board)
    - IC synthesizes information from all workstreams
    - Communications Lead manages all external messaging
 
-2. **Workstream Rooms (One per Animal/Domain)**
+**2. Workstream Rooms (One per Animal/Domain)**
 
    - Separate physical/virtual spaces for each component
    - Each workstream has its own Technical Lead
    - Each workstream operates independently using appropriate strategy
    - Workstream leads report to Main War Room IC at regular intervals
 
-3. **Cross-Stream Coordination Channel**
+**3. Cross-Stream Coordination Channel**
 
    - Shared document/chat for information that affects multiple workstreams
    - IC monitors for interactions between components
@@ -2227,21 +2228,21 @@ The IC doesn't solve technical problems. The IC synthesizes information from mul
 
 Start wide (all components, all possibilities), then narrow as understanding emerges:
 
-1. **Wide Phase (First 30 minutes):**
+**1. Wide Phase (First 30 minutes):**
 
    - Identify all animals present
    - Classify each component's domain
    - Assign workstreams
    - Don't try to understand interactions yet
 
-2. **Convergence Phase (Next 1-2 hours):**
+**2. Convergence Phase (Next 1-2 hours):**
 
    - Workstreams report findings
    - IC identifies component interactions
    - Adjust priorities based on interactions
    - Make strategic decisions about resource allocation
 
-3. **Focus Phase (Once patterns emerge):**
+**3. Focus Phase (Once patterns emerge):**
 
    - IC directs coordination of critical interactions
    - Prioritize workstreams that unblock others
@@ -2494,3 +2495,5 @@ Now go manage some incidents. Make them learning opportunities, not catastrophes
 [anatomy-of-an-incident]: anatomy-of-an-incident.png
 [incident-response-team]: incident-response-team.png
 [cynefin-framework]: Cynefin_framework_2022.jpg
+[incident-severity]: incident-severity.jpg
+[ICS-4-IT]: ICS-4-IT.jpg
