@@ -200,7 +200,7 @@ For cascade risks like Black Jellyfish, maintain dependency maps and keep them c
 For all risk types, develop incident management maturity. Cultivate a blameless postmortem culture. Track action items to completion. Build information flow infrastructure.
 
 Regularly assess your portfolio balance. Where are you over-invested with diminishing returns? Where are you under-invested and vulnerable? What's changing in your risk landscape? Are you preparing for the last war or the next one?
-
+{::pagebreak /}
 #### The Monday Morning Framework: Practical Actions
 
 Abstract principles are useless without concrete actions. Here's what to do starting Monday morning.
@@ -265,7 +265,7 @@ Prevention is expensive. Catastrophic failure is more expensive.
 
 You can implement circuit breakers in a sprint. You cannot build psychological safety in a sprint.
 
-Cultural transformation requires leadership that models vulnerability, which is hard for people promoted for projecting confidence. It requires admitting organizational failures, which is hard for people invested in the status quo. It requires protecting messengers who surface problems, which is hard when the messenger is junior and the problem implicates someone senior. It requires changing incentives, which is hard because current incentives benefit current power structures. It requires learning new frameworks like ICS and Cynefin and applying them consistently.
+Cultural transformation requires leadership that models vulnerability, which is hard for people promoted for projecting confidence. It requires admitting organizational failures, which is hard for people invested in the status quo. It requires protecting messengers who surface problems, which is hard when the messenger is junior and the problem implicates someone senior. It requires changing incentives, which is hard because current incentives benefit current power structures.
 
 This isn't a technical problem you can solve with better tools. It's a human problem that requires sustained effort, executive commitment, and organizational courage.
 
@@ -304,7 +304,7 @@ This isn't a project with a completion date. It's a practice, a discipline, a co
 Like security. Like reliability. Like operational excellence.
 
 You don't finish. You get better.
-
+{::pagebreak /}
 ### The Call to Action: What You Do Next
 
 You've read about risks that SLOs can't catch, animals in our reliability bestiary, hybrid events and stampedes, incident management frameworks, and organizational capability.
@@ -415,9 +415,11 @@ The framework developed in this book builds on the work of many thinkers and pra
 
 **Project Aristotle** (Google) for empirically demonstrating that psychological safety is the foundation of team effectiveness.
 
+**Dan Grossman** Telecom and Internet Pioneer - For reviewing and adding insight to events around the "early days" that we both lived through. Though he was in the trenches way more than I was.
+
 And the countless SREs, platform engineers, and incident commanders who've lived through these animals and shared their hard-won lessons.
 
-And lastly, to **Gene Kranz**, arguably the patron saint of Incident Commanders everywhere. He led one of the best real-world demonstrations of incident command under extreme uncertainty and made sure it didn't claim any lives. And he helped immortalize the phrase "Failure is not an option" (even if he really didn't say it as dramatically as it was said in the movie Apollo 13).
+And lastly, to **Gene Kranz**, arguably the patron saint of Incident Commanders everywhere. He led one of the best real-world demonstrations of incident command under extreme uncertainty and made sure it didn't claim any lives. And he helped immortalize the phrase "Failure is not an option." (even if he really didn't say it as dramatically as it was said in the movie Apollo 13).
 
 
 ---
@@ -582,30 +584,6 @@ Start Monday. Keep going. Get better.
 The animals are waiting.
 
 ---
-{::pagebreak /}
-## Acknowledgments
-
-The framework developed in this essay builds on the work of many thinkers and practitioners:
-
-**Nassim Nicholas Taleb** for the Black Swan concept, the distinction between Mediocristan and Extremistan, and the principle of antifragility that underlies everything here.
-
-**Michele Wucker** for the Grey Rhino metaphor and the insight that we often ignore risks not because we can't see them, but because we choose not to act.
-
-**Ziauddin Sardar and John A. Sweeney** for the Black Jellyfish concept from their "Three Tomorrows of Postnormal Times" framework.
-
-**Dave Snowden** for the Cynefin Framework, which provides the decision-making strategies that guide incident response across the bestiary.
-
-**Google's Site Reliability Engineering organization** for creating and sharing the SRE discipline, incident management practices, and blameless postmortem culture.
-
-**The FIRESCOPE team** for developing the Incident Command System that underlies modern incident management.
-
-**NIST** for the Computer Security Incident Handling Guide (NIST 800-61) that provides the lifecycle framework for systematic incident response.
-
-**Project Aristotle** (Google) for empirically demonstrating that psychological safety is the foundation of team effectiveness.
-
-And the countless SREs, platform engineers, and incident commanders who've lived through these animals and shared their hard-won lessons.
-
-And lastly, to **Gene Kranz**, arguably the patron saint of Incident Commanders everywhere. He led one of the best real-world demonstrations of incident command under extreme uncertainty and made sure it didn't claim any lives. And he helped immortalize the phrase "Failure is not an option" (even if he really didn't say it as dramatically as it was said in the movie Apollo 13)
 
 
 *End of "You Can't Catch a Black Swan with an SLO"*
