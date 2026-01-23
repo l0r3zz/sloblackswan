@@ -57,7 +57,7 @@ You might be reading this thinking "we don't have elephants." Or maybe you're th
 
 5. **Raising it feels risky**: There's a clear understanding that speaking up would have consequences. Maybe past attempts were shut down. Maybe the person who would need to address it is the elephant itself. Maybe the political cost is just too high.
 
-If you checked three or more boxes, congratulations—you've identified an elephant. Now the question is: what are you going to do about it?
+If you checked three or more boxes, congratulations, you've identified an elephant. Now the question is: what are you going to do about it?
 
 ### Common Infrastructure Elephants
 
@@ -127,7 +127,7 @@ An engineer who is technically brilliant but creates a hostile work environment.
 
 The toxic high performer doesn't just affect themselves; they poison the entire team dynamic. Research from Harvard Business School (Minor & Housman 2015) demonstrates that a single toxic team member can reduce group performance by 30-40%, and that avoiding one toxic hire can save twice the value of hiring a top performer. The damage spreads across multiple dimensions: other team members lose productivity due to stress and avoidance, junior engineers stop asking questions and develop more slowly, good candidates decline offers after meeting the team, and high performers leave for healthier environments.
 
-**The Hidden Cost of Tolerating Toxic Behavior**: Let's do the math. Assume the toxic performer is genuinely twice as productive as a typical engineer—a 2.0x multiplier. That means they contribute an extra 1.0 engineer equivalent of output beyond baseline. Impressive on paper.
+**The Hidden Cost of Tolerating Toxic Behavior**: Let's do the math. Assume the toxic performer is genuinely twice as productive as a typical engineer, a 2.0x multiplier. That means they contribute an extra 1.0 engineer equivalent of output beyond baseline. Impressive on paper.
 
 But now calculate the team damage. On a team of 10 engineers, the other 9 team members each lose approximately 20% productivity due to stress, fear of interaction, and energy spent managing around the toxic person. That's a collective loss of 1.8 engineer equivalents. Already, we're net negative.
 
@@ -207,7 +207,7 @@ But no one says anything because leadership has committed publicly to the change
 
 **The Impact**:
 
-Failed reorganizations damage in multiple ways. Cross-team coordination overhead increases quadratically when linear relationships become all-to-all communication patterns. Engineers spend hours in alignment meetings that didn't exist before. Decision latency increases dramatically—choices that took days now take weeks as more stakeholders need to align. Productivity drops as engineers navigate confusion and coordination overhead. Morale collapses as people recognize the reorg isn't working but can't say it openly, creating cynicism and driving attrition.
+Failed reorganizations damage in multiple ways. Cross-team coordination overhead increases quadratically when linear relationships become all-to-all communication patterns. Engineers spend hours in alignment meetings that didn't exist before. Decision latency increases dramatically; choices that took days now take weeks as more stakeholders need to align. Productivity drops as engineers navigate confusion and coordination overhead. Morale collapses as people recognize the reorg isn't working but can't say it openly, creating cynicism and driving attrition.
 
 **The Measurable Damage from Failed Organizational Structure**: Consider a reorganization affecting 10 teams. Before the reorg, interactions were mostly linear: team A talked to team B, which talked to team C. That's 10 primary relationships. After a poorly designed reorg, every team needs to coordinate with every other team, creating an all-to-all pattern. That's 10 × 9 / 2 = 45 coordination relationships.
 
@@ -272,7 +272,7 @@ The answer is game theory. Each individual faces a calculation:
 
 **The Individual's Decision to Name the Elephant**: Every engineer who recognizes an elephant mentally performs a cost-benefit analysis, usually unconsciously. Let's walk through the rational calculation.
 
-Start with the potential gain from speaking up. If the problem gets fixed—and that's a big if—the team improves by perhaps 50% of the problem's severity. But you, as the individual who spoke up, get only about 10% of the credit for that improvement. The organization improves, but your personal gain is a small fraction. And critically, there's only about a 30% probability the problem actually gets fixed even if you raise it. So your expected personal gain is: problem_severity × 0.50 (improvement) × 0.10 (your credit) × 0.30 (probability of fix) = roughly 1.5% of problem severity.
+Start with the potential gain from speaking up. If the problem gets fixed (and that's a big if) the team improves by perhaps 50% of the problem's severity. But you, as the individual who spoke up, get only about 10% of the credit for that improvement. The organization improves, but your personal gain is a small fraction. And critically, there's only about a 30% probability the problem actually gets fixed even if you raise it. So your expected personal gain is: problem_severity × 0.50 (improvement) × 0.10 (your credit) × 0.30 (probability of fix) = roughly 1.5% of problem severity.
 
 Now calculate the costs. First, there's a social cost: you'll likely be seen as a troublemaker or "not a team player," which carries about a 30% career penalty in terms of social capital. Second, there's a direct career cost: if you have low organizational power (below about 30%), speaking up carries approximately a 50% risk of career damage. If you have high organizational power, that drops to 10%, but most individual contributors don't have high power. Third, there's retaliation risk: if past messengers were punished (and you've likely observed this), the retaliation risk is about 60%. If past messengers were protected, it's only 20%.
 
@@ -296,7 +296,7 @@ In SRE and infrastructure organizations, elephants in the room create unique dan
 
 When there's an elephant in the room that affects reliability (incompetent leadership, broken on-call, failed architecture), teams engage in "reliability theater": going through the motions of SRE practices while knowing they can't actually achieve reliability.
 
-**The Performance of Reliability Without the Substance**: The team defines SLOs and presents them in quarterly reviews—but everyone knows they're not achievable given the current architecture. The team runs incident retrospectives and documents action items—but those action items go into a backlog that everyone knows won't be prioritized. The team tracks error budgets with elaborate dashboards—but everyone knows those budgets will be ignored when features need to ship. The team builds monitoring and alerting—but the alerts fire on symptoms, never on the elephant everyone knows is causing the problems.
+**The Performance of Reliability Without the Substance**: The team defines SLOs and presents them in quarterly reviews; but everyone knows they're not achievable given the current architecture. The team runs incident retrospectives and documents action items; but those action items go into a backlog that everyone knows won't be prioritized. The team tracks error budgets with elaborate dashboards; but everyone knows those budgets will be ignored when features need to ship. The team builds monitoring and alerting; but the alerts fire on symptoms, never on the elephant everyone knows is causing the problems.
 
 At every level, the team performs the rituals of SRE: the meetings happen, the documents get written, the dashboards get built. To external observers, it looks like professional reliability engineering. But internally, everyone knows it's theater. The underlying problems (the incompetent director making bad calls, the toxic architect blocking good decisions, the on-call rotation burning people out) remain unaddressed.
 
@@ -397,7 +397,7 @@ Focus on systems, not individuals. "How did the system allow this to happen?" Ac
 Standing agenda item: "What are we not talking about?" Protected time for uncomfortable conversations. Facilitated by someone neutral. No retaliation, period.
 
 **Getting Started**: 
-Start with one practice—leader modeling. Have your next team meeting begin with you admitting a recent mistake and what you learned. Model the behavior you want to see. Then add explicit norm-setting. Then add regular elephant discussions. Build it incrementally.
+Start with one practice: leader modeling. Have your next team meeting begin with you admitting a recent mistake and what you learned. Model the behavior you want to see. Then add explicit norm-setting. Then add regular elephant discussions. Build it incrementally.
 
 **Common Pitfalls**: 
 
@@ -575,7 +575,7 @@ The output is a required discussion: "What elephants might explain these pattern
 
 **Reward problem-finding**: Finding problems is as valuable as solving them. People who identify elephants get recognition. "Best elephant spotted" is a real award. Signal that this behavior is valued and safe; no retaliation, no eye-rolling, no career penalty.
 
-**Getting Started**: Start with leader modeling. Have your next all-hands include a leader discussing a recent failure and what they learned. Make it normal. Then invest in training—bring in a consultant or use internal resources to train people in crucial conversations. Then add recognition for problem-finding.
+**Getting Started**: Start with leader modeling. Have your next all-hands include a leader discussing a recent failure and what they learned. Make it normal. Then invest in training: bring in a consultant or use internal resources to train people in crucial conversations. Then add recognition for problem-finding.
 
 **Common Pitfalls**:
 

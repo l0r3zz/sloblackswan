@@ -1733,7 +1733,7 @@ Treat the skeleton above as a checklist: scenario creation validates the time bo
 #### Key insights captured in the structure
 - **Junior intuition beats architectural hubris.** People who don't know the “right” way to use the system still know what is possible, and that is where the most interesting failure modes hide.
 - **The foolproof fallacy.** Designing for the documented path is necessary but insufficient; aim for scenarios that challenge your assumptions about what should happen.
-- **Hubris extends time to recovery.** Teams that start from certainty waste time chasing the wrong hypotheses. Curiosity—“what else could this be?”—keeps the pressure on the right path.
+- **Hubris extends time to recovery.** Teams that start from certainty waste time chasing the wrong hypotheses. Curiosity ("what else could this be?") keeps the pressure on the right path.
 
 #### What This Teaches Us
 

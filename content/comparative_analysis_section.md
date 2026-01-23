@@ -401,13 +401,13 @@ See the "Incident Management for the Menagerie" section for detailed guidance on
 
 **Priority 1: Is it cascading? (Jellyfish)**
 
-If the failure is spreading rapidly and amplifying, especially if error rates are doubling—you're likely dealing with a Black Jellyfish. Immediate action: stop amplification, break feedback loops. Priority: contain the cascade before root cause analysis. Specific actions: disable retry logic if causing storms, open circuit breakers manually, shed load aggressively, and don't restart everything at once. AWS Oct 20 showed this clearly: teams that broke retry storms early recovered faster than those trying to fix DNS first.
+If the failure is spreading rapidly and amplifying, especially if error rates are doubling, you're likely dealing with a Black Jellyfish. Immediate action: stop amplification, break feedback loops. Priority: contain the cascade before root cause analysis. Specific actions: disable retry logic if causing storms, open circuit breakers manually, shed load aggressively, and don't restart everything at once. AWS Oct 20 showed this clearly: teams that broke retry storms early recovered faster than those trying to fix DNS first.
 
 **Priority 2: Is it unprecedented? (Swan)**
 
 If the incident is unprecedented or has no existing playbook, check if it's actually a Grey Swan in disguise. If you see complex interactions and early warnings are possible, monitor for LSLIRE patterns and stabilize the system. Early intervention is possible if monitoring catches it. Check LSLIRE framework metrics, look for pattern shifts (not absolute thresholds), and intervene early if patterns are detected.
 
-If it's truly unprecedented with no early warnings, treat it as a Black Swan. Stabilize first, understand second. Don't force it into existing playbooks. Acknowledge this is unprecedented, focus on survival (not root cause), build new mental models based on reality, and don't try to prevent "next time"—the next swan will be different.
+If it's truly unprecedented with no early warnings, treat it as a Black Swan. Stabilize first, understand second. Don't force it into existing playbooks. Acknowledge this is unprecedented, focus on survival (not root cause), build new mental models based on reality, and don't try to prevent "next time"; the next swan will be different.
 
 **Priority 3: Did we know about this? (Rhino or Elephant)**
 
