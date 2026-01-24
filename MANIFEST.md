@@ -11,8 +11,8 @@
 - black-swan-to-grey-swan-transition
 - grey_swan_section
 - grey_rhino_section
-- elephant_in_room_section
 - black_jellyfish_section
+- elephant_in_room_section
 - hybrid_animals_section
 - comparative_analysis_section
 - incident_mgmt_menageri

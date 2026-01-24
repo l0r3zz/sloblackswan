@@ -1147,7 +1147,7 @@ If you only remember three things about Grey Rhinos:
 
 3. **Culture matters more than tooling**. All the monitoring in the world won't help if your organization systematically deprioritizes prevention.
 
-The next section will examine Elephants in the Room. Issues that you know are just waiting to become Grey Rhinos, but because of organizational dynamics, nothing is done to address them.
+The next section will examine Black Jellyfish. Risks where we understand the individual components but catastrophically underestimate how they interact.
 
 But first, take a moment to audit your own Grey Rhinos. You know which ones they are.
 

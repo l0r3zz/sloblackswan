@@ -656,7 +656,7 @@ Before this, network engineers assumed resilience would only help. After this, t
 
 Your job isn't to predict every failure mode. It's to build systems where resilience mechanisms are tested against failure, where error detection is comprehensive, and where monitoring covers both outcomes and the mechanisms that maintain them. Because sometimes, the mechanisms designed to make systems resilient can become weapons against themselves.
 
-The 1980 ARPANET collapse revealed a new category of failure: resilience mechanisms amplifying problems instead of containing them. But eight years later, a different kind of Black Swan would emerge -- one that exposed a different blind spot in our monitoring. The Morris Worm didn't break resilience mechanisms. It broke our assumption that availability metrics tell the whole story. Systems can be "up" and compromised. And when they are, your SLOs will lie to you.
+The 1980 ARPANET collapse revealed a new category of failure: resilience mechanisms amplifying problems instead of containing them. But eight years later, a different kind of Black Swan would emerge: one that exposed a different blind spot in our monitoring. The Morris Worm didn't break resilience mechanisms. It broke our assumption that availability metrics tell the whole story. Systems can be "up" and compromised. And when they are, your SLOs will lie to you.
 {::pagebreak /}
 #### The 1988 Morris Worm: When Availability Metrics Lied
 
@@ -752,7 +752,7 @@ class MorrisWorm:
 
 The Morris Worm was the first major internet security event where the attack spread faster than humans could respond. Robert Tappan Morris, the graduate student who created it, intended it to spread stealthily to gauge the size of the internet. But a programming error caused it to replicate excessively. The worm was designed to check if a system was already infected, but the check was flawed, causing it to infect systems multiple times.
 
-This created the first true "0-day" scenario in internet security: an attack that spread across the network before patches could be developed, before incident response procedures existed, before anyone understood what was happening. The vulnerabilities it exploited: sendmail debug mode, finger buffer overflow, rsh transitive trust -- were known. But the attack vector: autonomous, self-replicating network-wide infection -- was not.
+This created the first true "0-day" scenario in internet security: an attack that spread across the network before patches could be developed, before incident response procedures existed, before anyone understood what was happening. The vulnerabilities it exploited: sendmail debug mode, finger buffer overflow, rsh transitive trust, were known. But the attack vector: autonomous, self-replicating network-wide infection, was not.
 
 ```python
 def zero_day_scenario():
@@ -864,7 +864,7 @@ This is a critical lesson: even well-intentioned code can cause catastrophic fai
 
 #### Why Your SLOs Couldn't Prepare You
 
-This is the core problem: your availability SLOs measured uptime. And by those metrics, systems were "up." But they weren't usable. They were compromised. The metric you needed: integrity, compromise detection, security health -- didn't exist yet.
+This is the core problem: your availability SLOs measured uptime. And by those metrics, systems were "up." But they weren't usable. They were compromised. The metric you needed: integrity, compromise detection, security health, didn't exist yet.
 
 ```python
 class SLOFailure:
@@ -1057,7 +1057,7 @@ Now, one could argue: the community knew about the RSH, Finger and Sendmail vuln
 
 Your job isn't to predict every threat. It's to build systems that can detect anomalies, respond to incidents, and measure integrity as well as availability. Because sometimes, systems are "up" but compromised. And when they are, availability metrics will lie to you.
 
-The Morris Worm showed us that availability metrics could miss critical problems. But it was still a research project gone wrong, exploiting known vulnerabilities. Nearly three decades later, NotPetya would demonstrate something more terrifying: a nation-state cyberweapon that escaped its intended target and cascaded through global supply chains. This wasn't a student experiment. This was a weapon designed to destroy, and it revealed how interconnected our infrastructure had become -- and how vulnerable that interconnectedness made us.
+The Morris Worm showed us that availability metrics could miss critical problems. But it was still a research project gone wrong, exploiting known vulnerabilities. Nearly three decades later, NotPetya would demonstrate something more terrifying: a nation-state cyberweapon that escaped its intended target and cascaded through global supply chains. This wasn't a student experiment. This was a weapon designed to destroy, and it revealed how interconnected our infrastructure had become, and how vulnerable that interconnectedness made us.
 {::pagebreak /}
 #### The NotPetya Wiper: The Cyberweapon That Masqueraded as Ransomware
 
@@ -1166,7 +1166,7 @@ In March 2020, entire countries went into lockdown within days of each other. Th
 
 This wasn't just a traffic spike. It was a global, simultaneous shift to digital services at a scale never before experienced. And here's what didn't happen: the Internet didn't collapse. Unlike the 1980 ARPANET collapse, where a single hardware failure cascaded through the network. Unlike the 1988 Morris Worm, where self-replicating malware brought down 10% of the internet. The Internet backbone held. Core infrastructure remained operational. This was a textbook case of resilience.
 
-**Important distinction**: The pandemic itself was a Grey Swan -- predictable, warned about for decades. The WHO had warned about pandemic risk for years. But if you're an SRE at Zoom in February 2020, the specific pattern of demand you were about to experience? That bordered on unpredictable. The simultaneity, the magnitude, the duration: these were Black Swan-adjacent. This section examines a Grey Swan event with Black Swan-adjacent infrastructure effects, demonstrating how well-designed infrastructure can adapt when SLOs break.
+**Important distinction**: The pandemic itself was a Grey Swan, predictable, warned about for decades. The WHO had warned about pandemic risk for years. But if you're an SRE at Zoom in February 2020, the specific pattern of demand you were about to experience? That bordered on unpredictable. The simultaneity, the magnitude, the duration: these were Black Swan-adjacent. This section examines a Grey Swan event with Black Swan-adjacent infrastructure effects, demonstrating how well-designed infrastructure can adapt when SLOs break.
 
 #### Why It's a Grey Swan, Not a Black Swan
 
@@ -1225,7 +1225,7 @@ In 1980, a single hardware failure in IMP29 cascaded through the entire ARPANET,
 
 The difference? Architecture. By 2020, the Internet had evolved from 1980's centralized ARPANET and 1988's lack of incident response. Distributed architecture with multiple redundant paths. Elastic cloud infrastructure that could scale capacity rapidly. CDNs for content delivery. Decades of experience with traffic management.
 
-Video conferencing platforms faced the most visible scaling challenge. Microsoft Teams went from 560 million meeting minutes on March 12 to 2.7 billion by March 31 -- a fivefold increase in less than three weeks. Zoom, Teams, Google Meet -- they all stayed operational. There were performance issues. There were quality reductions. Netflix reduced streaming quality by 25% in Europe. But services stayed operational. They adapted. They reduced quality to manage bandwidth. They scaled capacity. They didn't collapse.
+Video conferencing platforms faced the most visible scaling challenge. Microsoft Teams went from 560 million meeting minutes on March 12 to 2.7 billion by March 31, a fivefold increase in less than three weeks. Zoom, Teams, Google Meet, they all stayed operational. There were performance issues. There were quality reductions. Netflix reduced streaming quality by 25% in Europe. But services stayed operational. They adapted. They reduced quality to manage bandwidth. They scaled capacity. They didn't collapse.
 
 This wasn't a temporary spike. Traffic remained elevated through the first half of 2020 and beyond, with global internet disruptions 44% higher in June compared to January. The duration matters. Temporary spikes can be weathered. Sustained high load requires sustained capacity. The Internet maintained that capacity. Traffic patterns shifted permanently. Remote work became normalized. Video conferencing became standard.
 
@@ -1293,9 +1293,9 @@ def resilience_comparison():
     }
 ```
 
-Distributed architecture eliminated single points of failure. Elastic cloud infrastructure scaled capacity rapidly. CDNs distributed load geographically. ISPs augmented capacity at interconnection points at more than twice the normal rate. Industry coordination helped manage load -- streaming services reduced quality, ISPs waived data caps, regulatory bodies expanded spectrum. The mechanisms that failed in 1980 and 1988 were absent or improved by 2020. And when unprecedented load hit, those mechanisms worked.
+Distributed architecture eliminated single points of failure. Elastic cloud infrastructure scaled capacity rapidly. CDNs distributed load geographically. ISPs augmented capacity at interconnection points at more than twice the normal rate. Industry coordination helped manage load, streaming services reduced quality, ISPs waived data caps, regulatory bodies expanded spectrum. The mechanisms that failed in 1980 and 1988 were absent or improved by 2020. And when unprecedented load hit, those mechanisms worked.
 
-Resilience varied by region -- developed regions with robust infrastructure handled the load better than regions with less developed infrastructure. Edge connections struggled while the core backbone remained operational. But edge issues didn't cascade into network-wide collapse, unlike 1980 and 1988.
+Resilience varied by region, developed regions with robust infrastructure handled the load better than regions with less developed infrastructure. Edge connections struggled while the core backbone remained operational. But edge issues didn't cascade into network-wide collapse, unlike 1980 and 1988.
 
 #### What This Means for You
 
@@ -1319,7 +1319,7 @@ Your job isn't just to prepare for Black Swans. It's to build infrastructure tha
 {::pagebreak /}
 #### Comparing the Historical Examples: What They Reveal
 
-These four events -- spanning four decades -- reveal different aspects of why SLOs fail for Black Swans. Each exposed a different blind spot in our monitoring and assumptions:
+These four events, spanning four decades, reveal different aspects of why SLOs fail for Black Swans. Each exposed a different blind spot in our monitoring and assumptions:
 
 | Event | Blind Spot | SLO Failure | Key Lesson | Classification |
 |-------|------------|-------------|------------|----------------|
@@ -1328,7 +1328,7 @@ These four events -- spanning four decades -- reveal different aspects of why SL
 | **2017 NotPetya** | Supply chain cascades at machine speed | No metrics for lateral movement | Model worm-speed propagation | True Black Swan |
 | **2020 COVID-19** | Unprecedented load patterns | Assumed gradual, predictable growth | Build adaptive infrastructure | Grey Swan, Black Swan-adjacent effects |
 
-The pattern is clear: each Black Swan revealed a failure mode that wasn't in the model. The metrics that mattered weren't being measured. The assumptions that broke were the ones we didn't know we were making. And in three of four cases, infrastructure collapsed. COVID-19 stands apart: it's the counterexample that shows well-designed infrastructure can adapt when SLOs break -- but only if you've built for adaptation, not just prevention.
+The pattern is clear: each Black Swan revealed a failure mode that wasn't in the model. The metrics that mattered weren't being measured. The assumptions that broke were the ones we didn't know we were making. And in three of four cases, infrastructure collapsed. COVID-19 stands apart: it's the counterexample that shows well-designed infrastructure can adapt when SLOs break, but only if you've built for adaptation, not just prevention.
 
 {::pagebreak /}
 
@@ -1733,7 +1733,7 @@ Treat the skeleton above as a checklist: scenario creation validates the time bo
 #### Key insights captured in the structure
 - **Junior intuition beats architectural hubris.** People who don't know the “right” way to use the system still know what is possible, and that is where the most interesting failure modes hide.
 - **The foolproof fallacy.** Designing for the documented path is necessary but insufficient; aim for scenarios that challenge your assumptions about what should happen.
-- **Hubris extends time to recovery.** Teams that start from certainty waste time chasing the wrong hypotheses. Curiosity—“what else could this be?”—keeps the pressure on the right path.
+- **Hubris extends time to recovery.** Teams that start from certainty waste time chasing the wrong hypotheses. Curiosity ("what else could this be?") keeps the pressure on the right path.
 
 #### What This Teaches Us
 

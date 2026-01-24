@@ -18,11 +18,11 @@ This is a living document. It was designed to be read, discussed, and critiqued 
 
 ### Jump in and start reading!
 
-[SLOs can't catch a Black Swan](https://github.com/l0r3zz/sloblackswan/blob/main/SLOBLACKSWAN-v0.13/SLOBLACKSWAN-v0.13.md)
+[SLOs can't catch a Black Swan](https://github.com/l0r3zz/sloblackswan/blob/main/SLOBLACKSWAN-v0.14/SLOBLACKSWAN-v0.14.md)
 
 ### Grab the PDF!
 
-[SLOs can't catch a Black Swan (PDF)](https://github.com/l0r3zz/sloblackswan/blob/main/SLOBLACKSWAN-v0.13/SLOBLACKSWAN-v0.13.pdf)
+[SLOs can't catch a Black Swan (PDF)](https://github.com/l0r3zz/sloblackswan/blob/main/SLOBLACKSWAN-v0.14/SLOBLACKSWAN-v0.14.pdf)
 
 ### Building the Book Locally
 
