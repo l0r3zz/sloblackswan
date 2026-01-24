@@ -3,7 +3,7 @@
 
 ### The Messy Reality of Real-World Failures
 
-We've spent considerable time examining each animal in our risk bestiary individually: the unpredictable Black Swan, the complex Grey Swan, the ignored Grey Rhino, the unspoken Elephant in the Room, and the cascading Black Jellyfish. We've treated them as distinct species, each with unique characteristics and behaviors.
+We've spent considerable time examining each animal in our risk bestiary individually: the unpredictable Black Swan, the complex Grey Swan, the ignored Grey Rhino, the cascading Black Jellyfish, and the unspoken Elephant in the Room. We've treated them as distinct species, each with unique characteristics and behaviors.
 
 This is pedagogically useful. Understanding each risk type in isolation helps us recognize patterns, design defenses, and respond appropriately.
 
