@@ -35,7 +35,7 @@ Then there were the healthcare systems. Hospitals had been eliminating surge cap
 
 The same pattern hit IT infrastructure. VPN systems sized for maybe 5% of employees working remotely suddenly faced 100% remote work mandates. VPN servers crashed. Collaboration tools buckled under load nobody had planned for. Another Grey Rhino: capacity planning that assumed office-centric work would remain the norm forever.
 
-And the Elephants in the Room became impossible to ignore. Society's dependence on underpaid essential workers. Social inequality that made the pandemic affect different groups  differently. Some isolated in comfortable homes with reliable internet, others crammed into crowded housing while working frontline jobs. The digital divide that made remote school impossible for millions of students. Everyone knew about these inequalities before COVID. We just didn't talk about them because doing so meant confronting uncomfortable truths about how our systems actually work.
+And the Elephants in the Room became impossible to ignore. Society's dependence on underpaid essential workers. Social inequality that made the pandemic affect different groups vastly differently. Some isolated in comfortable homes with reliable internet, others crammed into crowded housing while working frontline jobs. The digital divide that made remote school impossible for millions of students. Everyone knew about these inequalities before COVID. We just didn't talk about them because doing so meant confronting uncomfortable truths about how our systems actually work.
 
 Here's the stampede pattern in its essence:
 
