@@ -19,7 +19,7 @@ This is a living document. It was designed to be read, discussed and critiqued b
 
 ### Jump in and start reading!
 
-[SLOs can't catch a Black Swan](https://github.com/l0r3zz/sloblackswan/blob/main/SLOBLACKSWAN-v0.15/SLOBLACKSWAN-v0.15.md)
+[SLOs can't catch a Black Swan](https://github.com/l0r3zz/sloblackswan/blob/main/SLOBLACKSWAN-v0.14/SLOBLACKSWAN-v0.14.md)
 
 ### Download the latest release
 
