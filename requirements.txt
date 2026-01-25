@@ -1,2 +1,4 @@
-markdown
-weasyprint
+markdown>=3.4,<4.0
+weasyprint>=62.0,<67.0
+ebooklib>=0.18,<1.0
+lxml>=4.9.0

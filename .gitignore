@@ -206,3 +206,4 @@ marimo/_static/
 marimo/_lsp/
 __marimo__/
 scripts/bb.sh
+scripts/bb-epub.sh

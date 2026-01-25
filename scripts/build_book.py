@@ -15,6 +15,13 @@ try:
 except ImportError:
     WEASYPRINT_AVAILABLE = False
 
+# Try to import ebooklib for EPUB generation
+try:
+    from ebooklib import epub
+    EBOOKLIB_AVAILABLE = True
+except ImportError:
+    EBOOKLIB_AVAILABLE = False
+
 def parse_manifest(manifest_path):
     names = []
     with open(manifest_path, 'r') as f:
@@ -62,6 +69,9 @@ def main():
     parser.add_argument("-v", "--version", required=True, help="Version string")
     parser.add_argument("-m", "--manifest", required=True, help="Path to manifest file")
     parser.add_argument("-P", "--pdf", action="store_true", help="Generate PDF output using WeasyPrint")
+    parser.add_argument("-E", "--epub", action="store_true", help="Generate EPUB output using ebooklib")
+    parser.add_argument("--title", default="SLOs can't catch a Black Swan", help="Book title for EPUB metadata")
+    parser.add_argument("--author", default="Geoff White", help="Author name for EPUB metadata")
     
     args = parser.parse_args()
     
@@ -299,6 +309,38 @@ def main():
             
         except Exception as e:
             print(f"An unexpected error occurred during PDF generation: {e}")
+
+    # EPUB Generation Logic with ebooklib
+    if args.epub:
+        if not EBOOKLIB_AVAILABLE:
+            print("Error: ebooklib library is not installed.")
+            print("Please run: pip install ebooklib lxml")
+            return
+
+        print("Generating EPUB with ebooklib...")
+        output_epub_filename = f"{args.root_dir}-{args.version}.epub"
+        output_epub_path = os.path.join(output_dir_path, output_epub_filename)
+        
+        # Use the standalone generate_epub script
+        script_dir = os.path.dirname(os.path.abspath(__file__))
+        generate_epub_script = os.path.join(script_dir, "generate_epub.py")
+        
+        if os.path.exists(generate_epub_script):
+            try:
+                result = subprocess.run(
+                    [sys.executable, generate_epub_script, output_md_path, output_epub_path, 
+                     output_dir_path, args.title, args.author],
+                    capture_output=True,
+                    text=True
+                )
+                if result.returncode == 0:
+                    print(result.stdout.strip())
+                else:
+                    print(f"EPUB generation failed: {result.stderr}")
+            except Exception as e:
+                print(f"An unexpected error occurred during EPUB generation: {e}")
+        else:
+            print(f"Error: generate_epub.py not found at {generate_epub_script}")
 
 if __name__ == "__main__":
     main()
