@@ -147,7 +147,47 @@ jobs:
         env:
           VERSION: ${{ steps.version.outputs.version }}
           OUTPUT_DIR: ${{ steps.build_md.outputs.output_dir }}
+        env:
+          VERSION: ${{ steps.version.outputs.version }}
+          OUTPUT_DIR: ${{ steps.build_md.outputs.output_dir }}
         run: |
+          python - <<'PY'
+          import os
+          import shutil
+          import zipfile
+
+          version = os.environ["VERSION"]
+          output_dir = os.environ["OUTPUT_DIR"]
+          latest_dir = "SLOBLACKSWAN-latest"
+          md_file = os.path.join(output_dir, f"SLOBLACKSWAN-{version}.md")
+          md_zip = f"SLOBLACKSWAN-md-{version}.zip"
+
+          if os.path.exists(latest_dir):
+              shutil.rmtree(latest_dir)
+          os.makedirs(latest_dir, exist_ok=True)
+          for name in os.listdir(output_dir):
+              src = os.path.join(output_dir, name)
+              dst = os.path.join(latest_dir, name)
+              if os.path.isdir(src):
+                  shutil.copytree(src, dst)
+              else:
+                  shutil.copy2(src, dst)
+
+          image_exts = {".png", ".jpg", ".jpeg", ".gif", ".webp", ".svg"}
+          image_files = [
+              os.path.join(output_dir, name)
+              for name in os.listdir(output_dir)
+              if os.path.splitext(name)[1].lower() in image_exts
+          ]
+
+          with zipfile.ZipFile(md_zip, "w", compression=zipfile.ZIP_DEFLATED) as zf:
+              zf.write(md_file, os.path.basename(md_file))
+              for image_path in image_files:
+                  zf.write(image_path, os.path.basename(image_path))
+
+          with open(os.environ["GITHUB_OUTPUT"], "a", encoding="utf-8") as handle:
+              handle.write(f"md_zip={md_zip}\n")
+          PY
           python - <<'PY'
           import os
           import shutil
@@ -202,6 +242,9 @@ jobs:
           with open(readme_path, "r", encoding="utf-8") as handle:
               content = handle.read()
 
+          latest_url = (
+              f"https://github.com/{repo}/blob/main/"
+              f"SLOBLACKSWAN-latest/SLOBLACKSWAN-{version}.md"
           latest_url = (
               f"https://github.com/{repo}/blob/main/"
               f"SLOBLACKSWAN-latest/SLOBLACKSWAN-{version}.md"
