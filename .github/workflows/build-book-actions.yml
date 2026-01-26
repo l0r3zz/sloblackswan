@@ -206,14 +206,52 @@ jobs:
               f"https://github.com/{repo}/blob/main/"
               f"SLOBLACKSWAN-latest/SLOBLACKSWAN-{version}.md"
           )
-          pattern = r"https://github\\.com/[^)]+/SLOBLACKSWAN-(latest|v[\\d.]+)/SLOBLACKSWAN-v[\\d.]+\\.md"
-          updated, count = re.subn(pattern, latest_url, content)
+          link_pattern = r"\[([^\]]+)\]\(([^)]+SLOBLACKSWAN-[^)]*\.md)\)"
+          updated, count = re.subn(
+              link_pattern,
+              lambda m: f"[{m.group(1)}]({latest_url})",
+              content,
+              count=1,
+          )
+
+          if count == 0:
+              lines = content.splitlines()
+              for idx, line in enumerate(lines):
+                  if "Jump in and start reading!" in line:
+                      for j in range(idx + 1, len(lines)):
+                          if "](" in lines[j] and ".md" in lines[j]:
+                              lines[j] = re.sub(
+                                  r"\(([^)]+)\)",
+                                  f"({latest_url})",
+                                  lines[j],
+                                  count=1,
+                              )
+                              updated = "\n".join(lines)
+                              count = 1
+                              break
+                      break
+
           if count == 0:
               raise SystemExit("README link not found to update")
 
           with open(readme_path, "w", encoding="utf-8") as handle:
               handle.write(updated)
           PY
+
+      - name: Commit and push latest artifacts
+        env:
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          git add -A
+          if git diff --cached --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "Update latest artifacts for PR #${PR_NUMBER}"
+            git push
+          fi
 
       - name: Create GitHub Release with assets
         env:
