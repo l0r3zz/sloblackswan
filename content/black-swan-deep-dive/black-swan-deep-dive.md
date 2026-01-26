@@ -2233,7 +2233,7 @@ The Black Swan isn't just another risk to manage. It's a fundamental challenge t
 
 Your SLOs won't catch the next Black Swan. That's not a failure of your SLOs. It's a limitation of the paradigm. The question is: when the Black Swan arrives, will your systems and your teams be able to adapt fast enough to survive?
 
-That's what the rest of this essay explores - the other animals in our bestiary, each teaching different lessons about risk, measurement, and the limits of control in complex systems.
+That's what the rest of this book explores - the other animals in our bestiary, each teaching different lessons about risk, measurement, and the limits of control in complex systems.
 
 But the Black Swan teaches the deepest lesson: **Build systems that can survive your own ignorance.**
 
