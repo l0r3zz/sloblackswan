@@ -144,29 +144,47 @@ jobs:
 
       - name: Refresh SLOBLACKSWAN-latest and bundle markdown
         id: prepare_latest
+        env:
+          VERSION: ${{ steps.version.outputs.version }}
+          OUTPUT_DIR: ${{ steps.build_md.outputs.output_dir }}
         run: |
-          VERSION="${{ steps.version.outputs.version }}"
-          OUTPUT_DIR="${{ steps.build_md.outputs.output_dir }}"
-          LATEST_DIR="SLOBLACKSWAN-latest"
-          MD_FILE="${OUTPUT_DIR}/SLOBLACKSWAN-${VERSION}.md"
-          MD_ZIP="SLOBLACKSWAN-md-${VERSION}.zip"
+          python - <<'PY'
+          import os
+          import shutil
+          import zipfile
 
-          rm -rf "$LATEST_DIR"
-          mkdir -p "$LATEST_DIR"
-          cp -a "$OUTPUT_DIR/." "$LATEST_DIR/"
+          version = os.environ["VERSION"]
+          output_dir = os.environ["OUTPUT_DIR"]
+          latest_dir = "SLOBLACKSWAN-latest"
+          md_file = os.path.join(output_dir, f"SLOBLACKSWAN-{version}.md")
+          md_zip = f"SLOBLACKSWAN-md-{version}.zip"
 
-          shopt -s nullglob
-          IMAGE_FILES=(
-            "$OUTPUT_DIR"/*.png
-            "$OUTPUT_DIR"/*.jpg
-            "$OUTPUT_DIR"/*.jpeg
-            "$OUTPUT_DIR"/*.gif
-            "$OUTPUT_DIR"/*.webp
-            "$OUTPUT_DIR"/*.svg
-          )
+          if os.path.exists(latest_dir):
+              shutil.rmtree(latest_dir)
+          os.makedirs(latest_dir, exist_ok=True)
+          for name in os.listdir(output_dir):
+              src = os.path.join(output_dir, name)
+              dst = os.path.join(latest_dir, name)
+              if os.path.isdir(src):
+                  shutil.copytree(src, dst)
+              else:
+                  shutil.copy2(src, dst)
 
-          zip -j "$MD_ZIP" "$MD_FILE" "${IMAGE_FILES[@]}"
-          echo "md_zip=$MD_ZIP" >> "$GITHUB_OUTPUT"
+          image_exts = {".png", ".jpg", ".jpeg", ".gif", ".webp", ".svg"}
+          image_files = [
+              os.path.join(output_dir, name)
+              for name in os.listdir(output_dir)
+              if os.path.splitext(name)[1].lower() in image_exts
+          ]
+
+          with zipfile.ZipFile(md_zip, "w", compression=zipfile.ZIP_DEFLATED) as zf:
+              zf.write(md_file, os.path.basename(md_file))
+              for image_path in image_files:
+                  zf.write(image_path, os.path.basename(image_path))
+
+          with open(os.environ["GITHUB_OUTPUT"], "a", encoding="utf-8") as handle:
+              handle.write(f"md_zip={md_zip}\n")
+          PY
 
       - name: Update README link to latest markdown
         env:
@@ -184,14 +202,12 @@ jobs:
           with open(readme_path, "r", encoding="utf-8") as handle:
               content = handle.read()
 
-          pattern = r"\\[SLOs can't catch a Black Swan\\]\\([^)]+\\)"
-          replacement = (
-              "[SLOs can't catch a Black Swan]"
-              f"(https://github.com/{repo}/blob/main/"
-              f"SLOBLACKSWAN-latest/SLOBLACKSWAN-{version}.md)"
+          latest_url = (
+              f"https://github.com/{repo}/blob/main/"
+              f"SLOBLACKSWAN-latest/SLOBLACKSWAN-{version}.md"
           )
-
-          updated, count = re.subn(pattern, replacement, content)
+          pattern = r"https://github\\.com/[^)]+/SLOBLACKSWAN-(latest|v[\\d.]+)/SLOBLACKSWAN-v[\\d.]+\\.md"
+          updated, count = re.subn(pattern, latest_url, content)
           if count == 0:
               raise SystemExit("README link not found to update")
 
