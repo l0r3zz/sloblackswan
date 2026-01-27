@@ -23,7 +23,6 @@ Today we are going to talk about service metrics, different types of swans, a co
   - [The Bestiary of System Reliability](#the-bestiary-of-system-reliability)
   - [The Black Swan: The Truly Unpredictable](#the-black-swan-the-truly-unpredictable)
   - [From Black Swans to Grey Swans: The Spectrum of Unpredictability](#from-black-swans-to-grey-swans-the-spectrum-of-unpredictability)
-- [](#)
   - [The Grey Swan: Large Scale, Large Impact, Rare Events (LSLIRE)](#the-grey-swan-large-scale-large-impact-rare-events-lslire)
   - [The Grey Rhino: The Obvious Threat We Choose to Ignore](#the-grey-rhino-the-obvious-threat-we-choose-to-ignore)
   - [The Black Jellyfish: Cascading Failures Through Hidden Dependencies](#the-black-jellyfish-cascading-failures-through-hidden-dependencies)
