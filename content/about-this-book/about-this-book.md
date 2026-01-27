@@ -2,7 +2,7 @@
 
 This revelation required a workflow as unique as the project itself. Fundamentally, I started developing all of my writing using Scrivener. Scrivener existed well before AI. It's great for organizing your thoughts, organizing your data, organizing your research, organizing your images, and then rendering documents in many different formats. For this work, it started as the primary source of truth and the primary rendering engine for any of my working PDFs. But as I started to use AI tools, specifically Cursor, I shifted to authoring in markdown, which seems to be becomming the defacto format for all minimally structured text.
 
-Most of the research, the tables, the graphs, have been created under Cursor 2.0. I developed a platform specifically to author this book. Actually, I didn't just develop it, I developed it pair-programming style, with Cursor AI itself. The workflow is as follows:
+Most of the research, the tables, the graphs, have been created under Cursor 2.4. I developed a platform specifically to author this book. Actually, I didn't just develop it, I developed it pair-programming style, with Cursor AI itself. The workflow is as follows:
 
 **Scrivener - Initial Writing & Organization**
 
