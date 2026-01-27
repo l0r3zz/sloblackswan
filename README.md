@@ -21,6 +21,7 @@ This is a living document. It was designed to be read, discussed and critiqued b
 
 [SLOs can't catch a Black Swan](https://github.com/l0r3zz/sloblackswan/blob/main/SLOBLACKSWAN-latest/SLOBLACKSWAN-v1.1.md)
 Updated automatically on each release.
+This link always points to the latest markdown build.
 
 ### Download the latest release
 
