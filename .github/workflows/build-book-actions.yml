@@ -79,7 +79,12 @@ jobs:
           TAG_NAME=$(printf '%s' "$TAG_NAME" | tr -d '\r\n')
           MAJOR=$(printf '%s' "$TAG_NAME" | sed -E 's/^v?([0-9]+).*/\1/')
           # Find the highest existing minor number for this major version.
-          LAST_MINOR=$(git tag --list "v${MAJOR}.*" | sed -E "s/^v${MAJOR}\.//" | sort -n | tail -1)
+          # Ignore marker tags like v1.0-major by filtering to numeric minors only.
+          LAST_MINOR=$(git tag --list "v${MAJOR}.*" \
+            | grep -E "^v${MAJOR}\\.[0-9]+$" \
+            | sed -E "s/^v${MAJOR}\.//" \
+            | sort -n \
+            | tail -1)
           if [ -z "$LAST_MINOR" ]; then
             if [ "$MAJOR" = "1" ]; then
               NEXT_MINOR=0
