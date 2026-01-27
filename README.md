@@ -73,7 +73,7 @@ There is a notebookLM notebook that has a version of the book loaded in that you
 Find it here: 
 https://tinyurl.com/sloblackswan
 
-I'm updating it manually for now so I may not have the most recent changes in the content.
+
 
 ---
 
