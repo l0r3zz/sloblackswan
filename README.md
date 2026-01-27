@@ -25,6 +25,7 @@ Updated automatically on each release.
 ### Download the latest release
 
 📥 **[Download PDF, EPUB, or Markdown from the Releases page](https://github.com/l0r3zz/sloblackswan/releases/latest)**
+Releases are generated automatically from merged PRs.
 
 Available formats:
 - **PDF** - For printing or offline reading
