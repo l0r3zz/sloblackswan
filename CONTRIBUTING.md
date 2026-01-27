@@ -11,3 +11,4 @@ Yes, my opinions are reflected in the early stages of this book, but I am not so
     - add content to it (including the .md file)
 - Update MANIFEST.md if you're adding new sections
 - Submit a Pull Request with a clear description of your changes
+- Small typo fixes are welcome
