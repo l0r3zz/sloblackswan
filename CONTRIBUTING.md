@@ -6,5 +6,8 @@ Yes, my opinions are reflected in the early stages of this book, but I am not so
 - Fork the repository
 - Create a branch for your changes
 - Make your edits to the content in the content/ directory
+    - note if you are editing a section that didn't have images before,
+    - you need to create a folder of the name you add to the manifest file and
+    - add content to it (including the .md file)
 - Update MANIFEST.md if you're adding new sections
 - Submit a Pull Request with a clear description of your changes
