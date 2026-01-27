@@ -70,9 +70,9 @@ jobs:
         run: |
           
           # Extract the numeric major version from the tag (strip leading v and anything after the dot).
-          TAG_NAME=$(gh release view sloblackswan_release --json tagName --jq '.tagName')
-          MAJOR="${TAG_NAME#v}"
-          MAJOR="${MAJOR%%.*}"
+          TAG_NAME=$(gh release view sloblackswan_release --json tagName --jq -r '.tagName')
+          TAG_NAME=$(printf '%s' "$TAG_NAME" | tr -d '\r\n')
+          MAJOR=$(printf '%s' "$TAG_NAME" | sed -E 's/^v?([0-9]+).*/\1/')
           # Find the highest existing minor number for this major version.
           LAST_MINOR=$(git tag --list "v${MAJOR}.*" | sed -E "s/^v${MAJOR}\.//" | sort -n | tail -1)
           if [ -z "$LAST_MINOR" ]; then
