@@ -198,4 +198,6 @@ Nassim Taleb, and David Chandler. The Black Swan. W.F. Howes, 2007.
 
 Nassim Nicholas Taleb. Antifragile : How to Live in a World We Don’t Understand. Random House, 27 Nov. 2012.
 
+Guntram Fritz Albin Werther, When Black Swans Aren't: On Better Recognition...;Risk Management and Insurance Review volume 16, issue 1, pages 1-23, March, 2013
+
 [black-swan-in-flight]: black-swan-in-flight.png
